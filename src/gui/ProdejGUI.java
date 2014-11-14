@@ -31,7 +31,6 @@ public class ProdejGUI extends javax.swing.JFrame {
     private final Set<VlastnickaKarta> karty;
     private final String[] sKarty;
     private boolean prodal = false;
-    boolean a;
 
     public ProdejGUI(Hra hra, Hrac hrac) {
         this.hra = hra;
