@@ -1,0 +1,36 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package karty.finance;
+
+import dostihy.Hra;
+import dostihy.Hrac;
+import pomocne.VyberciDani;
+
+/**
+ *
+ * @author wentsa
+ */
+public class FinanceDarek extends Finance { // od kazdeho vyber 200
+
+    public FinanceDarek(String popis, int castka) {
+        super(popis, castka);
+    }
+
+    @Override
+    public void proved(Hrac h, Hra hra) {
+        VyberciDani vyberci=new VyberciDani();
+        for (Hrac hrac : hra.getHraci()) {
+            if(!hrac.equals(h)) {
+                vyberci.navstiv(hrac);
+            }
+        }
+        h.pricti(vyberci.getVybrano());
+    }
+
+   
+    
+    
+}

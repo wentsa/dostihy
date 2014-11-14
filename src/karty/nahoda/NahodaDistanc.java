@@ -1,0 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package karty.nahoda;
+
+import dostihy.Hra;
+import dostihy.Hrac;
+
+/**
+ *
+ * @author wentsa
+ */
+public class NahodaDistanc extends Nahoda {
+
+    public NahodaDistanc(String popis) {
+        super(popis);
+    }
+
+    @Override
+    public void proved(Hrac h, Hra hra) {
+        h.setDistanc(false);
+    }
+    
+}
