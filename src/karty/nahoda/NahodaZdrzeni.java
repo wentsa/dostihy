@@ -23,7 +23,7 @@ public class NahodaZdrzeni extends Nahoda {
     
 
     @Override
-    public void proved(Hrac h, Hra hra) {
+    public void proved(Hrac h) {
         h.setZdrzeni(h.getZdrzeni()+kolik);
     }
     

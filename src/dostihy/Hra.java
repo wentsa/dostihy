@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import karty.*;
 import karty.finance.*;
 import karty.nahoda.*;
@@ -31,7 +32,7 @@ public final class Hra {
     private KolekceKaret financeStare;
     private int aktualniHrac; // 0...pocet-1
     private int pocetHracu;
-    private final StatusBox statusBox;
+    private final JTextPane statusBox;
 
     public Hra() {
         this.policka = new ArrayList<>(40);
@@ -41,7 +42,7 @@ public final class Hra {
         this.nahodaStare = new KolekceKaretImplementace(14);
         this.kostka = new Kostka();
         this.aktualniHrac = 0;
-        this.statusBox = new StatusBox();
+        this.statusBox = new JTextPane();
         inicializovatPolicka();
         inicializovatNahodu();
         inicializovatFinance();
@@ -149,13 +150,15 @@ public final class Hra {
         aktualniHrac = (aktualniHrac + 1) % pocetHracu;
 
         while (hrac.getRozpocet() < 0) {
-            hrac.prodej(this);
+            hrac.prodej();
         }
 
         if (hrac.getZdrzeni() > 0) {
             hrac.snizZdrzeni();
             return false;
         }
+        statusBox.setText("Hraje "+hrac.getJmeno());
+        statusBox.setForeground(hrac.getFigurka().getBarva());
         int kolik = kostka.hazej(statusBox);
         if (hrac.isDistanc()) {
             if (kolik > 6) {
@@ -205,7 +208,7 @@ public final class Hra {
                 Finance f = (Finance) financeNove.vratNahodny();
                 status(f.getPopis());
                 f.zobraz();
-                f.proved(hrac, this);
+                f.proved(hrac);
                 financeStare.vloz(f);
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,7 +223,7 @@ public final class Hra {
                 Nahoda n = (Nahoda) nahodaNove.vratNahodny();
                 status(n.getPopis());
                 n.zobraz();
-                n.proved(hrac, this);
+                n.proved(hrac);
                 if (policka.get(hrac.getFigurka().getPozice()).getNazev().equals("Finance")) {
                     if (financeNove.pocet() == 0) {
                         KolekceKaret tmp = financeNove;
@@ -230,7 +233,7 @@ public final class Hra {
                     Finance f = (Finance) financeNove.vratNahodny();
                     status(f.getPopis());
                     f.zobraz();
-                    f.proved(hrac, this);
+                    f.proved(hrac);
                     financeStare.vloz(f);
                 }
                 nahodaStare.vloz(n);
@@ -368,14 +371,13 @@ public final class Hra {
     }
 
     private void status(String message) {
-        statusBox.setText("<html><p>" + message + "</p></html>");
-        statusBox.repaint();
+        statusBox.setText(message);
     }
 
     /**
      * @return the statusBox
      */
-    public StatusBox getStatusBox() {
+    public JTextPane getStatusBox() {
         return statusBox;
     }
 

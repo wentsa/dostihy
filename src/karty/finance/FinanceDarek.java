@@ -5,7 +5,7 @@
  */
 package karty.finance;
 
-import dostihy.Hra;
+import dostihy.Control;
 import dostihy.Hrac;
 import pomocne.VyberciDani;
 
@@ -20,9 +20,9 @@ public class FinanceDarek extends Finance { // od kazdeho vyber 200
     }
 
     @Override
-    public void proved(Hrac h, Hra hra) {
+    public void proved(Hrac h) {
         VyberciDani vyberci=new VyberciDani();
-        for (Hrac hrac : hra.getHraci()) {
+        for (Hrac hrac : Control.hra.getHraci()) {
             if(!hrac.equals(h)) {
                 vyberci.navstiv(hrac);
             }

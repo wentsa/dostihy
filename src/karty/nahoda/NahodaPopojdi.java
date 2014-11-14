@@ -5,9 +5,8 @@
  */
 package karty.nahoda;
 
-import dostihy.Hra;
+import dostihy.Control;
 import dostihy.Hrac;
-import karty.Trener;
 
 /**
  *
@@ -38,12 +37,12 @@ public class NahodaPopojdi extends Nahoda {
     }
 
     @Override
-    public void proved(Hrac h, Hra hra) {
+    public void proved(Hrac h) {
         int pozicePred = h.getFigurka().getPozice();
         if (presnyPocet) {
             h.popojdi(dopredu ? kolik : -kolik);
         } else {
-            hra.popojdiNa(h, kam, dopredu);
+            Control.hra.popojdiNa(h, kam, dopredu);
         }
         int pozicePo = h.getFigurka().getPozice();
         if (dopredu && dostatBonus && pozicePred > pozicePo) {

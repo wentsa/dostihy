@@ -21,7 +21,7 @@ public class FinanceRenovace extends Finance { // Renovujes vsechny staje, za ka
     }
 
     @Override
-    public void proved(Hrac h,Hra hra) {
+    public void proved(Hrac h) {
         int res=0;
         if(super.getCastka()==500) {
             for (VlastnickaKarta k : h.getKarty()) {

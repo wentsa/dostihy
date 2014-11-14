@@ -5,7 +5,6 @@
  */
 package karty.nahoda;
 
-import dostihy.Hra;
 import dostihy.Hrac;
 
 /**
@@ -19,7 +18,7 @@ public class NahodaDistanc extends Nahoda {
     }
 
     @Override
-    public void proved(Hrac h, Hra hra) {
+    public void proved(Hrac h) {
         h.setDistanc(false);
     }
     

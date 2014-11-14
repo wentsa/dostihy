@@ -5,15 +5,16 @@
  */
 package gui;
 
+import dostihy.Control;
 import dostihy.Hra;
 import dostihy.Hrac;
 import dostihy.Policko;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -27,8 +28,8 @@ public class HerniPlocha extends javax.swing.JFrame {
      * Creates new form HerniPlocha
      * @param hra
      */
-    public HerniPlocha(Hra hra) {
-        this.hra=hra;
+    public HerniPlocha() {
+        this.hra=Control.hra;
         
         initComponents();
         
@@ -36,8 +37,6 @@ public class HerniPlocha extends javax.swing.JFrame {
         nactiPole();
         nactiKostku();
         
-        plocha.add(hra.getStatusBox());
-        hra.getStatusBox().setLocation(50, 650);
         setLocationRelativeTo(null);
         
         
@@ -53,6 +52,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     private void initComponents() {
 
         nacitacSouboru = new javax.swing.JFileChooser();
+        jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         plocha = new javax.swing.JPanel() {
             @Override
@@ -75,6 +75,12 @@ public class HerniPlocha extends javax.swing.JFrame {
                 g.drawImage(new ImageIcon("res/prava.jpg").getImage(), 0, 0, null);
             }
         };
+        jSplitPane2 = new javax.swing.JSplitPane();
+        statusBox = Control.hra.getStatusBox();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         soubor = new javax.swing.JMenu();
         nacist = new javax.swing.JMenuItem();
@@ -88,8 +94,13 @@ public class HerniPlocha extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel1.setBackground(new java.awt.Color(0, 255, 17));
+        jSplitPane1.setBorder(null);
+        jSplitPane1.setDividerSize(0);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jPanel1.setBackground(new java.awt.Color(1, 1, 1));
         jPanel1.setBorder(null);
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 700));
         jPanel1.setMinimumSize(new java.awt.Dimension(1280, 700));
@@ -119,6 +130,72 @@ public class HerniPlocha extends javax.swing.JFrame {
         prava.setLayout(new javax.swing.OverlayLayout(prava));
         jPanel1.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 480, 700));
 
+        jSplitPane1.setLeftComponent(jPanel1);
+
+        jSplitPane2.setBorder(null);
+        jSplitPane2.setDividerLocation(800);
+        jSplitPane2.setDividerSize(0);
+        jSplitPane2.setMaximumSize(new java.awt.Dimension(1280, 2147483647));
+        jSplitPane2.setMinimumSize(new java.awt.Dimension(1280, 40));
+        jSplitPane2.setPreferredSize(new java.awt.Dimension(1280, 40));
+
+        statusBox.setEditable(false);
+        statusBox.setBackground(new java.awt.Color(93, 93, 93));
+        statusBox.setBorder(null);
+        statusBox.setFont(new Font("Ubuntu Mono Regular", Font.BOLD, 16));
+        statusBox.setForeground(new java.awt.Color(254, 254, 254));
+        statusBox.setCaretColor(new java.awt.Color(254, 254, 254));
+        statusBox.setDisabledTextColor(new java.awt.Color(254, 254, 254));
+        jSplitPane2.setLeftComponent(statusBox);
+
+        jPanel2.setBackground(new java.awt.Color(93, 93, 93));
+        jPanel2.setBorder(null);
+        jPanel2.setMaximumSize(new java.awt.Dimension(480, 32767));
+        jPanel2.setPreferredSize(new java.awt.Dimension(480, 41));
+
+        jButton1.setBackground(new java.awt.Color(93, 93, 93));
+        jButton1.setForeground(new java.awt.Color(254, 254, 254));
+        jButton1.setText("Prodat");
+        jButton1.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(93, 93, 93));
+        jButton2.setForeground(new java.awt.Color(254, 254, 254));
+        jButton2.setText("Vzdat se");
+
+        jButton3.setBackground(new java.awt.Color(93, 93, 93));
+        jButton3.setForeground(new java.awt.Color(254, 254, 254));
+        jButton3.setText("Dalsi hrac");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jSplitPane2.setRightComponent(jPanel2);
+
+        jSplitPane1.setRightComponent(jSplitPane2);
+
+        getContentPane().add(jSplitPane1);
+
         menuBar.setBackground(new java.awt.Color(19, 19, 19));
         menuBar.setBorder(null);
         menuBar.setForeground(new java.awt.Color(232, 232, 232));
@@ -140,23 +217,16 @@ public class HerniPlocha extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
         nacitacSouboru.showOpenDialog(soubor);
     }//GEN-LAST:event_nacistActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,13 +264,20 @@ public class HerniPlocha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nacist;
     private javax.swing.JFileChooser nacitacSouboru;
     private javax.swing.JPanel plocha;
     private javax.swing.JPanel prava;
     private javax.swing.JMenu soubor;
+    private javax.swing.JTextPane statusBox;
     private javax.swing.JPanel stred;
     private javax.swing.JMenu upravit;
     // End of variables declaration//GEN-END:variables

@@ -22,7 +22,7 @@ public class FinanceKlasika extends Finance {
     }
     
     @Override
-    public void proved(Hrac h, Hra hra) {
+    public void proved(Hrac h) {
         if(platit) {
             h.pricti(-super.getCastka());
         }

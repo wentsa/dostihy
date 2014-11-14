@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -41,7 +42,7 @@ public class Kostka extends JButton {
                 });
     }
     
-    public int hazej(StatusBox box) {
+    public int hazej(JTextPane box) {
         kolik=0;
         System.out.println("hazej");
         setEnabled(true);

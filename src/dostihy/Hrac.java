@@ -181,8 +181,8 @@ public class Hrac {
         return pocetPrepravaStaje;
     }
 
-    public void prodej(Hra hra) throws InterruptedException {
-        final ProdejGUI prodej=new ProdejGUI(hra, this);
+    public void prodej() throws InterruptedException {
+        final ProdejGUI prodej=new ProdejGUI(this);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 prodej.setVisible(true);

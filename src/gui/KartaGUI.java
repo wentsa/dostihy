@@ -86,7 +86,7 @@ public class KartaGUI extends JFrame implements ActionListener {
             nadpis.setText(tmp.getJmeno().toUpperCase());
             popis=new JLabel("<html><p>" + tmp.getPopis() + "</p></html>");
         }
-        Font font=new Font("Ubuntu Mono Regular", 1, 16);
+        Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, 16);
         nadpis.setForeground(Color.BLACK);
         popis.setForeground(Color.BLACK);
         popis.setFont(font);

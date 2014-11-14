@@ -25,7 +25,7 @@ public abstract class Finance extends Karta {
 
     
     
-    public abstract void proved(Hrac h, Hra hra);
+    public abstract void proved(Hrac h);
 
     @Override
     public String toString() {

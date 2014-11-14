@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dostihy.Control;
 import dostihy.Hra;
 import dostihy.Hrac;
 import dostihy.Policko;
@@ -32,8 +33,8 @@ public class ProdejGUI extends javax.swing.JFrame {
     private final String[] sKarty;
     private boolean prodal = false;
 
-    public ProdejGUI(Hra hra, Hrac hrac) {
-        this.hra = hra;
+    public ProdejGUI(Hrac hrac) {
+        this.hra = Control.hra;
         this.hrac = hrac;
         karty = this.hrac.getKarty();
         sKarty = new String[karty.size()];

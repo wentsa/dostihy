@@ -21,7 +21,8 @@ import javax.swing.SwingUtilities;
  * @author wentsa
  */
 public class Control {
-    static HerniPlocha plocha;
+    public static HerniPlocha plocha;
+    public static Hra hra;
     public class DataHraci{
         public List<String> jmena;
         public List<String> barvy;
@@ -53,9 +54,9 @@ public class Control {
             i++;
         }
         // ----------  3 - PLOCHA -----------------
-        Hra hra=new Hra();
+        hra=new Hra();
         hra.zalozHrace(hraci);
-        plocha=new HerniPlocha(hra);
+        plocha=new HerniPlocha();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
