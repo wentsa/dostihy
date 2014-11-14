@@ -12,6 +12,7 @@ import dostihy.Policko;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
@@ -51,7 +52,7 @@ public class ProdejGUI extends javax.swing.JFrame {
                 boolean adjust = listSelectionEvent.getValueIsAdjusting();
                 if (!adjust) {
                     JList list = (JList) listSelectionEvent.getSource();
-                    Object selectionValues[] = list.getSelectedValues();
+                    List selectionValues = list.getSelectedValuesList();
                     int sirka = ProdejGUI.this.vypis.getWidth();
                     String text = new String("<html><table width=" + sirka + ">");
                     int suma = 0;
@@ -174,7 +175,7 @@ public class ProdejGUI extends javax.swing.JFrame {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
 
-        Object selectionValues[] = jList1.getSelectedValues();
+        List selectionValues = jList1.getSelectedValuesList();
         Set<VlastnickaKarta> vymazat = new HashSet<>();
         for (Object o : selectionValues) {
             VlastnickaKarta k = null;

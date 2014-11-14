@@ -11,6 +11,7 @@ import dostihy.Hrac;
 import dostihy.Policko;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,18 +25,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class HerniPlocha extends javax.swing.JFrame {
 
     Hra hra;
+    Image pl;
+    Image st;
+    Image pr;
     /**
      * Creates new form HerniPlocha
      * @param hra
      */
     public HerniPlocha() {
         this.hra=Control.hra;
+        pl=new ImageIcon(HerniPlocha.class.getResource("/plocha.jpg")).getImage();
+        st=new ImageIcon(HerniPlocha.class.getResource("/stred.jpg")).getImage();
+        pr=new ImageIcon(HerniPlocha.class.getResource("/prava.jpg")).getImage();
         
         initComponents();
         
         nactiHrace();
         nactiPole();
         nactiKostku();
+        
         
         setLocationRelativeTo(null);
         
@@ -58,21 +66,21 @@ public class HerniPlocha extends javax.swing.JFrame {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(new ImageIcon("res/plocha.jpg").getImage(), 0, 0, null);
+                g.drawImage(pl, 0, 0, null);
             }
         };
         stred = new javax.swing.JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(new ImageIcon("res/stred.jpg").getImage(), 0, 0, null);
+                g.drawImage(st, 0, 0, null);
             }
         };
         prava = new javax.swing.JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(new ImageIcon("res/prava.jpg").getImage(), 0, 0, null);
+                g.drawImage(pr, 0, 0, null);
             }
         };
         jSplitPane2 = new javax.swing.JSplitPane();

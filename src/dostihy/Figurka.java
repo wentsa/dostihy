@@ -20,7 +20,7 @@ public class Figurka extends JLabel {
     protected Color barva; //bila cerna cervena fialova modra oranzova tyrkysova zelena zluta
     protected int pozice;
     private final int cislo;
-    Image obrazek;
+    ImageIcon obrazek;
 
     public Figurka(Color barva, int cislo) {
         this.barva = barva;
@@ -30,7 +30,7 @@ public class Figurka extends JLabel {
         
     }
     private void nactiObrazek() {
-        String file=new String("res/fig/");
+        String file=new String("/fig/");
         if(barva==Color.BLACK) {        file=file.concat("black");}
         else if(barva==Color.BLUE) {    file=file.concat("blue");}
         else if(barva==Color.CYAN) {    file=file.concat("cyan");}
@@ -44,9 +44,8 @@ public class Figurka extends JLabel {
             throw new IllegalArgumentException("Spatna barva");
         }
         file=file.concat(".png");
-        ImageIcon img=new ImageIcon(file);
-        obrazek=img.getImage();
-        setIcon(img);
+        obrazek=new ImageIcon(Figurka.class.getResource(file));
+        setIcon(obrazek);
     }
     public void zmenB(Color barva) {
         this.barva=barva;

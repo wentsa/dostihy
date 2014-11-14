@@ -36,8 +36,8 @@ public class Hrac {
     public Hrac(String jmeno, Color barva,int cislo) {
         this.jmeno = jmeno;
         this.rozpocet = 5000;
-        this.karty = new HashSet();
-        this.kompletniStaje = new HashSet();
+        this.karty = new HashSet<>();
+        this.kompletniStaje = new HashSet<>();
         this.figurka=new Figurka(barva,cislo);
         this.zdrzeni=0;
         this.distanc=false;

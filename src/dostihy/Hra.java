@@ -288,7 +288,7 @@ public final class Hra {
         return false;
     }
 
-    void zalozHrace(List hraci) {
+    void zalozHrace(List<Hrac> hraci) {
         this.hraci = hraci;
         this.pocetHracu = hraci.size();
     }

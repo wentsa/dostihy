@@ -27,7 +27,7 @@ public class KartaGUI extends JFrame implements ActionListener {
         setUndecorated(true); //odstrani horni panel
         
         setLayout(new BorderLayout());
-        ImageIcon obrazek=new ImageIcon("res/step9.jpg");
+        ImageIcon obrazek=new ImageIcon(KartaGUI.class.getResource("/step9.jpg"));
         final JButton but=new JButton(obrazek);
         setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
 
