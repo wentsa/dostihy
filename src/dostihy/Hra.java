@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import karty.*;
 import karty.finance.*;
 import karty.nahoda.*;
@@ -160,6 +162,7 @@ public final class Hra {
         statusBox.setText("Hraje "+hrac.getJmeno());
         statusBox.setForeground(hrac.getFigurka().getBarva());
         int kolik = kostka.hazej(statusBox);
+        kolik=3;
         if (hrac.isDistanc()) {
             if (kolik > 6) {
                 hrac.setDistanc(false);
@@ -262,7 +265,16 @@ public final class Hra {
                     Karta k = p.getKarta();
                     if (k instanceof Kun) {
                         Kun kun = (Kun) k;
-                        int navsteva = kun.getProhlidkaStaje();
+                        int dostihu=kun.getPocetDostihu();
+                        int navsteva=0;
+                        switch(dostihu) {
+                            case 0: {navsteva = kun.getProhlidkaStaje();} break;
+                            case 1: {navsteva=kun.getDostih1();} break;
+                            case 2: {navsteva=kun.getDostih2();} break;
+                            case 3: {navsteva=kun.getDostih3();} break;
+                            case 4: {navsteva=kun.getDostih4();} break;
+                            case 5: {navsteva=kun.getHlDostih();} break;
+                        }
                         hrac.pricti(-navsteva);
                         p.getMajitel().pricti(navsteva);
                         status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + navsteva + " za prohlidku staje");
@@ -276,6 +288,19 @@ public final class Hra {
                         hrac.pricti(-castka);
                         p.getMajitel().pricti(castka);
                         status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + castka + " za " + p.getNazev().toLowerCase());
+                    }
+                }
+                else if(p.getKarta() instanceof Kun) {
+                    Kun kun=(Kun) p.getKarta();
+                    if(maCelouStaj(hrac, kun.getStaj())) {
+                        if(kun.getPocetDostihu()<5) {
+                            Object[] volby = {"Ano", "Ne"};
+                            int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu()<4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?" ), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                            if(odpoved==JOptionPane.YES_OPTION) {
+                                hrac.pricti(-(kun.getPocetDostihu()<4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
+                                kun.pridejDostih();
+                            }
+                        }
                     }
                 }
             }
@@ -372,6 +397,7 @@ public final class Hra {
 
     private void status(String message) {
         statusBox.setText(message);
+        statusBox.repaint();
     }
 
     /**
@@ -385,12 +411,10 @@ public final class Hra {
         int aktPozice = hrac.getFigurka().getPozice();
         for (int i = aktPozice;;) {
             if (policka.get(i).getNazev().equals(pole)) {
-                System.out.println(i);
                 if (dopredu) {
                     hrac.popojdi(i < aktPozice ? 40 - aktPozice + i : i - aktPozice);
                     break;
                 } else {
-                    System.out.println(aktPozice + " " + i);
                     hrac.popojdi(i < aktPozice ? i - aktPozice : -aktPozice + i - 40);
                     break;
                 }
@@ -400,6 +424,21 @@ public final class Hra {
                 break;
             }
         }
+    }
+    
+    private boolean maCelouStaj(Hrac h, Staj s) {
+        for (Policko p : policka) {
+            if(p.isVlastnicka()) {
+                if(p.getKarta() instanceof Kun) {
+                    if(((Kun)p.getKarta()).getStaj()==s) {
+                        if(!h.getKarty().contains(p.getKarta())) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 }

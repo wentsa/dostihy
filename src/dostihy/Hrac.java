@@ -26,7 +26,6 @@ public class Hrac {
     private final String jmeno;
     private int rozpocet;
     private Set<VlastnickaKarta> karty;
-    private Set<Staj> kompletniStaje;
     protected final Figurka figurka;
     private final int cislo; //1-7
     private final Jmenovka jmenovka;
@@ -35,9 +34,8 @@ public class Hrac {
 
     public Hrac(String jmeno, Color barva,int cislo) {
         this.jmeno = jmeno;
-        this.rozpocet = 5000;
+        this.rozpocet = 30000;
         this.karty = new HashSet<>();
-        this.kompletniStaje = new HashSet<>();
         this.figurka=new Figurka(barva,cislo);
         this.zdrzeni=0;
         this.distanc=false;
@@ -49,7 +47,6 @@ public class Hrac {
     
 
     public void popojdi(int kolik) {
-        System.out.println("kolik: "+kolik);
         if(kolik<0) {
             kolik*=-1;
             for(int i=0;i<kolik;i++) {
@@ -96,20 +93,6 @@ public class Hrac {
      */
     public void setKarty(Set<VlastnickaKarta> karty) {
         this.karty = karty;
-    }
-
-    /**
-     * @return the kompletniStaje
-     */
-    public Set<Staj> getKompletniStaje() {
-        return kompletniStaje;
-    }
-
-    /**
-     * @param kompletniStaje the kompletniStaje to set
-     */
-    public void setKompletniStaje(Set<Staj> kompletniStaje) {
-        this.kompletniStaje = kompletniStaje;
     }
 
     /**

@@ -44,7 +44,6 @@ public class Kostka extends JButton {
     
     public int hazej(JTextPane box) {
         kolik=0;
-        System.out.println("hazej");
         setEnabled(true);
         while(!hozeno) {try {
             Thread.sleep(1);
@@ -55,7 +54,7 @@ public class Kostka extends JButton {
         hozeno=false;
         box.setText("Hodil jsi " + kolik);
         if(kolik==6) {
-            box.setText("Hodil jsi 6, hazek znovu");
+            box.setText("Hodil jsi 6, hazej znovu");
             while(!hozeno) {try {
                 Thread.sleep(1);
                 } catch (InterruptedException ex) {

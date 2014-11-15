@@ -297,7 +297,6 @@ public class HerniPlocha extends javax.swing.JFrame {
             plocha.add(h.getFigurka());
             prava.add(h.getJmenovka());
             prava.add(h.getJmenovka().getPuntik());
-            System.out.println(h.getJmeno() + " " + h.getFigurka().getPozice());
         }
         //prava.add(new JLabel("ahoj"));
         

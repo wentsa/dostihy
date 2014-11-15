@@ -66,7 +66,6 @@ public class Control {
         
         boolean status=false;
         while(!status) {
-            System.out.println("dalsi tah");
            status=hra.tahni();
         }
         // ----------------------------------------

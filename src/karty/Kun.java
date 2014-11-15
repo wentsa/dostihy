@@ -129,8 +129,8 @@ public class Kun extends VlastnickaKarta {
     /**
      * @param pocetDostihu the pocetDostihu to set
      */
-    public void setPocetDostihu(int pocetDostihu) {
-        this.pocetDostihu = pocetDostihu;
+    public void pridejDostih() {
+        this.pocetDostihu++;
     }
 
     @Override
