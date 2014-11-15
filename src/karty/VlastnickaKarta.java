@@ -5,8 +5,6 @@
  */
 package karty;
 
-import dostihy.Hrac;
-
 /**
  *
  * @author wentsa

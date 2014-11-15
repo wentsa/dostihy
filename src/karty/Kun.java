@@ -6,6 +6,11 @@
 package karty;
 
 import dostihy.Staj;
+import gui.Dostih;
+import gui.Dostihy;
+import gui.HlavniDostih;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,6 +30,7 @@ public class Kun extends VlastnickaKarta {
     private final int pripravaDostihu;
     private final int pripravaHlavnihoDostihu;
     private int pocetDostihu;
+    private final List<Dostihy> dostihy;
 
     public Kun(int pozice, String jmeno, int porizovaciCena, Staj staj, int prohlidkaStaje, int dostih1, int dostih2, int dostih3, int dostih4, int hlDostih, int pripravaDostihu, int pripravaHlavnihoDostihu) {
         super(pozice, porizovaciCena);
@@ -39,6 +45,12 @@ public class Kun extends VlastnickaKarta {
         this.pripravaDostihu = pripravaDostihu;
         this.pripravaHlavnihoDostihu = pripravaHlavnihoDostihu;
         this.pocetDostihu=0;
+        this.dostihy=new ArrayList<>(5);
+        dostihy.add(new Dostih(pozice-1, 0));
+        dostihy.add(new Dostih(pozice-1, 1));
+        dostihy.add(new Dostih(pozice-1, 2));
+        dostihy.add(new Dostih(pozice-1, 3));
+        dostihy.add(new HlavniDostih(pozice-1));
     }
     
     
@@ -131,6 +143,12 @@ public class Kun extends VlastnickaKarta {
      */
     public void pridejDostih() {
         this.pocetDostihu++;
+        dostihy.get(pocetDostihu-1).setVisible(true);
+        if(pocetDostihu==5) {
+            for(int i=0;i<4;i++) {
+                dostihy.get(i).setVisible(false);
+            }
+        }
     }
 
     @Override
@@ -157,6 +175,13 @@ public class Kun extends VlastnickaKarta {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the dostihy
+     */
+    public List<Dostihy> getDostihy() {
+        return dostihy;
     }
     
     

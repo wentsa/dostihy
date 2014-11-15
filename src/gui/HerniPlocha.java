@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import karty.Kun;
 
 /**
  *
@@ -325,6 +326,12 @@ public class HerniPlocha extends javax.swing.JFrame {
                 });
                 plocha.add(p.getObsazFigurka());
                 plocha.add(p);
+                if(p.getKarta() instanceof Kun) {
+                    Kun kun=(Kun)p.getKarta();
+                    for(Dostihy d : kun.getDostihy()) {
+                        plocha.add(d);
+                    }
+                }
             }
         }
         //pack();

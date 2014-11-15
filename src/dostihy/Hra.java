@@ -162,7 +162,6 @@ public final class Hra {
         statusBox.setText("Hraje "+hrac.getJmeno());
         statusBox.setForeground(hrac.getFigurka().getBarva());
         int kolik = kostka.hazej(statusBox);
-        kolik=3;
         if (hrac.isDistanc()) {
             if (kolik > 6) {
                 hrac.setDistanc(false);
@@ -248,7 +247,7 @@ public final class Hra {
                 if (hrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
                     JDialog.setDefaultLookAndFeelDecorated(true);
                     Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit " + p.getNazev() + "?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit " + p.getNazev() + "za " +  p.getKarta().getPorizovaciCena() +"?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
                     if (odpoved == JOptionPane.YES_OPTION) {
                         hrac.pricti(-p.getKarta().getPorizovaciCena());
                         hrac.pridejKartu(p.getKarta());
