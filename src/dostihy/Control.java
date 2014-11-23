@@ -58,14 +58,13 @@ public class Control {
             i++;
         }
         // ----------  3 - PLOCHA -----------------
-        //hra=new Hra();
+        hra=new Hra();
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("/home/wentsa/ewew.das")));
-        hra=(Hra) ois.readObject();
+        //hra=(Hra) ois.readObject();
         ois.close();
         //hra.setKostka(new Kostka());
         //hra.getKostka().setEnabled(true);
-        //hra.zalozHrace(hraci);
-        hra.getKostka().pridejListener();
+        hra.zalozHrace(hraci);
         plocha=new HerniPlocha();
         SwingUtilities.invokeLater(new Runnable() {
             @Override

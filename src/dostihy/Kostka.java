@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
  *
  * @author wentsa
  */
-public class Kostka extends JButton implements Serializable {
+public final class Kostka extends JButton implements Serializable {
     private int kolik;
     private boolean hozeno;
     Random random;
@@ -33,7 +33,6 @@ public class Kostka extends JButton implements Serializable {
         //setOpaque(false);
         //setBorderPainted(false);
         setEnabled(false);
-        pridejListener();
     }
     
     public void pridejListener() {

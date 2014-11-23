@@ -8,6 +8,7 @@ package gui;
 import dostihy.Control;
 import dostihy.Hra;
 import dostihy.Hrac;
+import dostihy.Kostka;
 import dostihy.Policko;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -466,9 +467,9 @@ public class HerniPlocha extends javax.swing.JFrame {
     }
     
     private void nactiKostku() {
-        System.out.println("ttt");
-        prava.add(Control.hra.getKostka());
-        System.out.println(hra.getKostka().toString());
+        Kostka k=Control.hra.getKostka();
+        k.pridejListener();
+        prava.add(k);
     }
     
     

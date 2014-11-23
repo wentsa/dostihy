@@ -12,12 +12,12 @@ import java.io.Serializable;
  * @author wentsa
  * @param <T>
  */
-public interface KolekceKaret extends Serializable {
+public interface KolekceKaret<T> extends Serializable {
     int pocet();
-    void vloz(Object o);
-    boolean vyjmi(Object o);
-    boolean obsahuje(Object o);
+    void vloz(T o);
+    boolean vyjmi(T o);
+    boolean obsahuje(T o);
     void sesypat(KolekceKaret druha);
     Object[] naPole();
-    Object vratNahodny() throws IllegalAccessException;
+    T vratNahodny() throws IllegalAccessException;
 }
