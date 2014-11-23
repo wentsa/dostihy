@@ -5,11 +5,13 @@
  */
 package karty;
 
+import java.io.Serializable;
+
 /**
  *
  * @author wentsa
  */
-public abstract class VlastnickaKarta extends Karta {
+public abstract class VlastnickaKarta extends Karta implements Serializable {
 
     private final int porizovaciCena;
     private final int pozice;

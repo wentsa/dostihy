@@ -8,20 +8,21 @@ package dostihy;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.JLabel;
 
 /**
  *
  * @author wentsa
  */
-public class Jmenovka extends JLabel {
+public class Jmenovka extends JLabel implements Serializable {
     private final String jmeno;
     private int castka;
     private final int pozice;
     private final int souradniceY;
     private final Puntik puntik;
 
-    public Jmenovka(String jmeno, int castka, int pozice, Color barva) {
+    public Jmenovka(String jmeno, int castka, int pozice, Barva barva) {
         super("<html><table width=345><tr><td>" + jmeno.toUpperCase() + "</td><td align=right>" + castka + "</td></tr></table></html>");
         this.castka = castka;
         this.pozice = pozice;

@@ -10,9 +10,20 @@
         </Property>
         <Property name="dialogTitle" type="java.lang.String" value=""/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new FileNameExtensionFilter(&quot;Ulozene hry (.dss)&quot;, &quot;DSS&quot;)" type="code"/>
+          <Connection code="new FileNameExtensionFilter(&quot;Ulozene hry (.das)&quot;, &quot;DAS&quot;)" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nacitacSouboruActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFileChooser" name="ukladacSouboru">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ukladacSouboruActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFileChooser() {&#xa;    @Override&#xa;    public void approveSelection(){&#xa;        File f = getSelectedFile();&#xa;        File f2=new File(getSelectedFile()+&quot;.das&quot;);&#xa;        if((f.exists() || f.exists()) &amp;&amp; getDialogType() == SAVE_DIALOG){&#xa;            Object[] volby={&quot;Ano&quot;,&quot;Ne&quot;};&#xa;            int result = JOptionPane.showOptionDialog(this,&quot;Tento soubor jiz existuje. Prejete si jej prepsat?&quot;,&quot;Soubor existuje&quot;,JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);&#xa;            switch(result){&#xa;                case JOptionPane.YES_OPTION:&#xa;                super.approveSelection();&#xa;                return;&#xa;                case JOptionPane.NO_OPTION:&#xa;                return;&#xa;                case JOptionPane.CLOSED_OPTION:&#xa;                return;&#xa;                case JOptionPane.CANCEL_OPTION:&#xa;                cancelSelection();&#xa;                return;&#xa;            }&#xa;        }&#xa;        super.approveSelection();&#xa;    }&#xa;}"/>
+      </AuxValues>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <Properties>
@@ -38,6 +49,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nacistActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ulozit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ulozitActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

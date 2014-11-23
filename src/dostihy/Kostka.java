@@ -8,6 +8,7 @@ package dostihy;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import javax.swing.JTextPane;
  *
  * @author wentsa
  */
-public class Kostka extends JButton {
+public class Kostka extends JButton implements Serializable {
     private int kolik;
     private boolean hozeno;
     Random random;
@@ -28,14 +29,19 @@ public class Kostka extends JButton {
         this.hozeno=false;
         random=new Random();
         
-        setContentAreaFilled(false);
-        setOpaque(false);
-        setBorderPainted(false);
+        //setContentAreaFilled(false);
+        //setOpaque(false);
+        //setBorderPainted(false);
         setEnabled(false);
+        pridejListener();
+    }
+    
+    public void pridejListener() {
         addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        System.out.println("hazi");
                         kolik+=(random.nextInt(6)+1);
                         hozeno=true;
                     }

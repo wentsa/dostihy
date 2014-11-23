@@ -6,13 +6,14 @@
 package karty;
 
 import gui.KartaGUI;
+import java.io.Serializable;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author wentsa
  */
-public abstract class Karta {
+public abstract class Karta implements Serializable {
     
             
     public void zobraz() throws InterruptedException {

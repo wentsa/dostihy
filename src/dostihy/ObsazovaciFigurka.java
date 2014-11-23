@@ -7,22 +7,23 @@ package dostihy;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class ObsazovaciFigurka extends Figurka {
+public class ObsazovaciFigurka extends Figurka implements Serializable {
 
     private boolean obsazeno;
-    public ObsazovaciFigurka(Color barva, int pozice, int cislo) {
+    public ObsazovaciFigurka(Barva barva, int pozice, int cislo) {
         super(barva, cislo);
         super.pozice=pozice;
         this.obsazeno=false;
         setVisible(false);
     }
     
-    public void zmenBarvu(Color barva) {
+    public void zmenBarvu(Barva barva) {
         zmenB(barva);
         repaint();
     }

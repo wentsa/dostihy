@@ -6,12 +6,13 @@
 package pomocne;
 
 import dostihy.Hrac;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class VyberciDani extends Navstevnik {
+public class VyberciDani extends Navstevnik implements Serializable {
     
     private int vybrano;
     

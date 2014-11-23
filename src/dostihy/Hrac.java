@@ -7,6 +7,7 @@ package dostihy;
 
 import gui.ProdejGUI;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.HashSet;
 import karty.VlastnickaKarta;
 import java.util.Set;
@@ -19,7 +20,7 @@ import karty.Trener;
  *
  * @author wentsa
  */
-public class Hrac {
+public class Hrac implements Serializable {
     
     private int zdrzeni; // 0 muze hrat, jinak pocet kol kolik stoji
     private boolean distanc;
@@ -32,7 +33,7 @@ public class Hrac {
     private int pocetTreneru;
     private int pocetPrepravaStaje;
 
-    public Hrac(String jmeno, Color barva,int cislo) {
+    public Hrac(String jmeno, Barva barva,int cislo) {
         this.jmeno = jmeno;
         this.rozpocet = 30000;
         this.karty = new HashSet<>();

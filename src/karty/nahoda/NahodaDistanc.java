@@ -6,12 +6,13 @@
 package karty.nahoda;
 
 import dostihy.Hrac;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class NahodaDistanc extends Nahoda {
+public class NahodaDistanc extends Nahoda implements Serializable {
 
     public NahodaDistanc(String popis) {
         super(popis);

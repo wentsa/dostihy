@@ -7,6 +7,7 @@ package dostihy;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.JButton;
 import karty.VlastnickaKarta;
 
@@ -14,7 +15,7 @@ import karty.VlastnickaKarta;
  *
  * @author wentsa
  */
-public class Policko extends JButton {
+public class Policko extends JButton implements Serializable {
 
     private final int cislo;
     private final String nazev;
@@ -31,7 +32,7 @@ public class Policko extends JButton {
         this.nazev=nazev;
         this.vlastnicka=true;
         this.cislo=cislo-1;
-        this.obsazFigurka=new ObsazovaciFigurka(Color.red, cislo-1, 0);
+        this.obsazFigurka=new ObsazovaciFigurka(Barva.RED, cislo-1, 0);
     }
 
     public Policko(int cislo, String nazev) {
@@ -41,7 +42,7 @@ public class Policko extends JButton {
         this.nazev=nazev;
         this.vlastnicka=false;
         this.cislo=cislo-1;
-        this.obsazFigurka=new ObsazovaciFigurka(Color.red, cislo-1, 0);
+        this.obsazFigurka=new ObsazovaciFigurka(Barva.RED, cislo-1, 0);
     }
 
     @Override

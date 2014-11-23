@@ -7,15 +7,16 @@ package dostihy;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class Puntik extends Figurka {
+public class Puntik extends Figurka implements Serializable {
 
     int souradniceY;
-    public Puntik(Color barva, int cislo, int y) {
+    public Puntik(Barva barva, int cislo, int y) {
         super(barva, cislo);
         this.souradniceY=y+8;
     }

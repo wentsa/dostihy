@@ -8,6 +8,10 @@ package dostihy;
 import gui.HerniPlocha;
 import gui.VolbaHracu;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +39,7 @@ public class Control {
     }
     DataHraci data;
     
-    public void run() throws InterruptedException {
+    public void run() throws InterruptedException, IOException, ClassNotFoundException {
         // ----------  1 - MENU -------------------
         // ----------  2 - HRACI ------------------
         data=new DataHraci();
@@ -54,8 +58,14 @@ public class Control {
             i++;
         }
         // ----------  3 - PLOCHA -----------------
-        hra=new Hra();
-        hra.zalozHrace(hraci);
+        //hra=new Hra();
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("/home/wentsa/ewew.das")));
+        hra=(Hra) ois.readObject();
+        ois.close();
+        //hra.setKostka(new Kostka());
+        //hra.getKostka().setEnabled(true);
+        //hra.zalozHrace(hraci);
+        hra.getKostka().pridejListener();
         plocha=new HerniPlocha();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -71,26 +81,26 @@ public class Control {
         // ----------------------------------------
     }
     
-    Color parseColor(String barva) {
+    Barva parseColor(String barva) {
         switch (barva) {
             case "Cerna":
-                return Color.BLACK;
+                return Barva.BLACK;
             case "Modra":
-                return Color.BLUE;
+                return Barva.BLUE;
             case "Tyrkysova":
-                return Color.CYAN;
+                return Barva.CYAN;
             case "Zelena":
-                return Color.GREEN;
+                return Barva.GREEN;
             case "Fialova":
-                return Color.MAGENTA;
+                return Barva.MAGENTA;
             case "Oranzova":
-                return Color.ORANGE;
+                return Barva.ORANGE;
             case "Cervena":
-                return Color.RED;
+                return Barva.RED;
             case "Bila":
-                return Color.WHITE;
+                return Barva.WHITE;
             case "Zluta":
-                return Color.YELLOW;
+                return Barva.YELLOW;
         }
         return null;
     }

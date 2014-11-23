@@ -9,6 +9,7 @@ import dostihy.Staj;
 import gui.Dostih;
 import gui.Dostihy;
 import gui.HlavniDostih;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +18,7 @@ import java.util.Objects;
  *
  * @author wentsa
  */
-public class Kun extends VlastnickaKarta {
+public class Kun extends VlastnickaKarta implements Serializable {
 
     private final String jmeno;
     private final Staj staj;

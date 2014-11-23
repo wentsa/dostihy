@@ -5,13 +5,14 @@
  */
 package karty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author wentsa
  */
-public class PrepravaStaje extends VlastnickaKarta {
+public class PrepravaStaje extends VlastnickaKarta implements Serializable {
     
     private final String jmeno;
     private final String popis;

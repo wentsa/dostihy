@@ -6,13 +6,14 @@
 package gui;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author wentsa
  */
-public class Dostih extends Dostihy {
+public class Dostih extends Dostihy implements Serializable {
 
     private final int poradi;
     public Dostih(int pozice, int poradi) {

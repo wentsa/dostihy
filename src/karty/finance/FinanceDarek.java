@@ -7,13 +7,14 @@ package karty.finance;
 
 import dostihy.Control;
 import dostihy.Hrac;
+import java.io.Serializable;
 import pomocne.VyberciDani;
 
 /**
  *
  * @author wentsa
  */
-public class FinanceDarek extends Finance { // od kazdeho vyber 200
+public class FinanceDarek extends Finance implements Serializable { // od kazdeho vyber 200
 
     public FinanceDarek(String popis, int castka) {
         super(popis, castka);

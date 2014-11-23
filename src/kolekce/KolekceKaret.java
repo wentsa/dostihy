@@ -5,12 +5,14 @@
  */
 package kolekce;
 
+import java.io.Serializable;
+
 /**
  *
  * @author wentsa
  * @param <T>
  */
-public interface KolekceKaret {
+public interface KolekceKaret extends Serializable {
     int pocet();
     void vloz(Object o);
     boolean vyjmi(Object o);

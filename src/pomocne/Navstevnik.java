@@ -6,11 +6,12 @@
 package pomocne;
 
 import dostihy.Hrac;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public abstract class Navstevnik {
+public abstract class Navstevnik implements Serializable {
     public abstract void navstiv (Hrac h);
 }

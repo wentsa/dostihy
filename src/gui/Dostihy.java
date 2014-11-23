@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -13,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author wentsa
  */
-public abstract class Dostihy extends JLabel {
+public abstract class Dostihy extends JLabel implements Serializable {
     protected final int pozice;
     ImageIcon dostih;
 

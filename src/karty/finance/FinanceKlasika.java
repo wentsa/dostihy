@@ -7,12 +7,13 @@ package karty.finance;
 
 import dostihy.Hra;
 import dostihy.Hrac;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class FinanceKlasika extends Finance {
+public class FinanceKlasika extends Finance implements Serializable {
     
     boolean platit;
 

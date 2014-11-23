@@ -7,6 +7,7 @@ package karty.finance;
 
 import dostihy.Hra;
 import dostihy.Hrac;
+import java.io.Serializable;
 import karty.Kun;
 import karty.VlastnickaKarta;
 
@@ -14,7 +15,7 @@ import karty.VlastnickaKarta;
  *
  * @author wentsa
  */
-public class FinanceRenovace extends Finance { // Renovujes vsechny staje, za kazdy...
+public class FinanceRenovace extends Finance implements Serializable { // Renovujes vsechny staje, za kazdy...
 
     public FinanceRenovace(String popis, int castka) {
         super(popis, castka);

@@ -5,12 +5,12 @@
  */
 package dostihy;
 
-import java.io.Serializable;
+import java.awt.Color;
 
 /**
  *
  * @author wentsa
  */
-public enum Staj {
-    ORANZOVA,HNEDA,SV_MODRA,SV_ZELENA,CERVENA,ZLUTA,ZELENA,MODRA
+public enum Barva {
+    BLACK,BLUE,CYAN,GREEN,MAGENTA,ORANGE,RED,WHITE,YELLOW
 }

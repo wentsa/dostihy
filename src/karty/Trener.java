@@ -5,11 +5,13 @@
  */
 package karty;
 
+import java.io.Serializable;
+
 /**
  *
  * @author wentsa
  */
-public class Trener extends VlastnickaKarta {
+public class Trener extends VlastnickaKarta implements Serializable {
     
     final private int cislo;
 

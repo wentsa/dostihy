@@ -8,6 +8,7 @@ package dostihy;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,14 +16,14 @@ import javax.swing.JLabel;
  *
  * @author wentsa
  */
-public class Figurka extends JLabel {
+public class Figurka extends JLabel implements Serializable {
         
-    protected Color barva; //bila cerna cervena fialova modra oranzova tyrkysova zelena zluta
+    protected Barva barva; //bila cerna cervena fialova modra oranzova tyrkysova zelena zluta
     protected int pozice;
     private final int cislo;
     ImageIcon obrazek;
 
-    public Figurka(Color barva, int cislo) {
+    public Figurka(Barva barva, int cislo) {
         this.barva = barva;
         this.pozice=0;
         this.cislo=cislo;
@@ -30,16 +31,17 @@ public class Figurka extends JLabel {
         
     }
     private void nactiObrazek() {
+        System.out.println(barva.toString());
         String file=new String("/fig/");
-        if(barva==Color.BLACK) {        file=file.concat("black");}
-        else if(barva==Color.BLUE) {    file=file.concat("blue");}
-        else if(barva==Color.CYAN) {    file=file.concat("cyan");}
-        else if(barva==Color.GREEN) {   file=file.concat("green");}
-        else if(barva==Color.MAGENTA) { file=file.concat("magenta");}
-        else if(barva==Color.ORANGE) {  file=file.concat("orange");}
-        else if(barva==Color.RED) {     file=file.concat("red");}
-        else if(barva==Color.WHITE) {   file=file.concat("white");}
-        else if(barva==Color.YELLOW) {  file=file.concat("yellow");}
+        if(barva==Barva.BLACK) {        file=file.concat("black");}
+        else if(barva==Barva.BLUE) {    file=file.concat("blue");}
+        else if(barva==Barva.CYAN) {    file=file.concat("cyan");}
+        else if(barva==Barva.GREEN) {   file=file.concat("green");}
+        else if(barva==Barva.MAGENTA) { file=file.concat("magenta");}
+        else if(barva==Barva.ORANGE) {  file=file.concat("orange");}
+        else if(barva==Barva.RED) {     file=file.concat("red");}
+        else if(barva==Barva.WHITE) {   file=file.concat("white");}
+        else if(barva==Barva.YELLOW) {  file=file.concat("yellow");}
         else {
             throw new IllegalArgumentException("Spatna barva");
         }
@@ -47,7 +49,8 @@ public class Figurka extends JLabel {
         obrazek=new ImageIcon(Figurka.class.getResource(file));
         setIcon(obrazek);
     }
-    public void zmenB(Color barva) {
+    public void zmenB(Barva barva) {
+        System.out.println(this.barva);
         this.barva=barva;
         nactiObrazek();
     }
@@ -55,7 +58,7 @@ public class Figurka extends JLabel {
     /**
      * @return the barva
      */
-    public Color getBarva() {
+    public Barva getBarva() {
         return barva;
     }
 

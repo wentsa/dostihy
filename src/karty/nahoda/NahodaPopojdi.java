@@ -7,12 +7,13 @@ package karty.nahoda;
 
 import dostihy.Control;
 import dostihy.Hrac;
+import java.io.Serializable;
 
 /**
  *
  * @author wentsa
  */
-public class NahodaPopojdi extends Nahoda {
+public class NahodaPopojdi extends Nahoda implements Serializable {
 
     boolean dostatBonus;
     boolean presnyPocet;

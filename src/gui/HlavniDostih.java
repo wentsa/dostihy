@@ -5,13 +5,14 @@
  */
 package gui;
 
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author wentsa
  */
-public class HlavniDostih extends Dostihy {
+public class HlavniDostih extends Dostihy implements Serializable {
     public HlavniDostih(int pozice) {
         super(pozice, new ImageIcon(HlavniDostih.class.getResource("/dostih2.png")));
     }

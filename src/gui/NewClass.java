@@ -24,11 +24,11 @@ public class NewClass extends JFrame {
         pan.setLayout(new BorderLayout());
         pan.setBackground(Color.red);
         setContentPane(pan);
-        Figurka f=new Figurka(Color.blue,1);
+        //Figurka f=new Figurka(Color.blue,1);
         //f.setBackground(Color.BLUE);
         JPanel pan2=new JPanel();
         pan2.setBackground(Color.BLUE);
-        pan.add(f);
+       // pan.add(f);
     }
     
     public static void main(String args[]) {

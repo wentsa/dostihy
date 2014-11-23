@@ -5,6 +5,7 @@
  */
 package dostihy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,9 +24,9 @@ import kolekce.*;
  *
  * @author wentsa
  */
-public final class Hra {
+public final class Hra implements Serializable {
 
-    private final Kostka kostka;
+    private Kostka kostka;
     private List<Hrac> hraci;
     private final List<Policko> policka;
     private KolekceKaret nahodaNove;
@@ -147,7 +148,7 @@ public final class Hra {
 
     public boolean tahni() throws InterruptedException {
         //-------------TAH S FIGURKOU---------------------------
-
+System.out.println("aaa");
         Hrac hrac = hraci.get(aktualniHrac);
         aktualniHrac = (aktualniHrac + 1) % pocetHracu;
 
@@ -159,8 +160,7 @@ public final class Hra {
             hrac.snizZdrzeni();
             return false;
         }
-        statusBox.setText("Hraje "+hrac.getJmeno());
-        statusBox.setForeground(hrac.getFigurka().getBarva());
+        statusBox.setText("Hraje " + hrac.getJmeno());
         int kolik = kostka.hazej(statusBox);
         if (hrac.isDistanc()) {
             if (kolik > 6) {
@@ -247,7 +247,7 @@ public final class Hra {
                 if (hrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
                     JDialog.setDefaultLookAndFeelDecorated(true);
                     Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit " + p.getNazev() + "za " +  p.getKarta().getPorizovaciCena() +"?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit " + p.getNazev() + " za " + p.getKarta().getPorizovaciCena() + "?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
                     if (odpoved == JOptionPane.YES_OPTION) {
                         hrac.pricti(-p.getKarta().getPorizovaciCena());
                         hrac.pridejKartu(p.getKarta());
@@ -264,15 +264,33 @@ public final class Hra {
                     Karta k = p.getKarta();
                     if (k instanceof Kun) {
                         Kun kun = (Kun) k;
-                        int dostihu=kun.getPocetDostihu();
-                        int navsteva=0;
-                        switch(dostihu) {
-                            case 0: {navsteva = kun.getProhlidkaStaje();} break;
-                            case 1: {navsteva=kun.getDostih1();} break;
-                            case 2: {navsteva=kun.getDostih2();} break;
-                            case 3: {navsteva=kun.getDostih3();} break;
-                            case 4: {navsteva=kun.getDostih4();} break;
-                            case 5: {navsteva=kun.getHlDostih();} break;
+                        int dostihu = kun.getPocetDostihu();
+                        int navsteva = 0;
+                        switch (dostihu) {
+                            case 0: {
+                                navsteva = kun.getProhlidkaStaje();
+                            }
+                            break;
+                            case 1: {
+                                navsteva = kun.getDostih1();
+                            }
+                            break;
+                            case 2: {
+                                navsteva = kun.getDostih2();
+                            }
+                            break;
+                            case 3: {
+                                navsteva = kun.getDostih3();
+                            }
+                            break;
+                            case 4: {
+                                navsteva = kun.getDostih4();
+                            }
+                            break;
+                            case 5: {
+                                navsteva = kun.getHlDostih();
+                            }
+                            break;
                         }
                         hrac.pricti(-navsteva);
                         p.getMajitel().pricti(navsteva);
@@ -288,16 +306,17 @@ public final class Hra {
                         p.getMajitel().pricti(castka);
                         status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + castka + " za " + p.getNazev().toLowerCase());
                     }
-                }
-                else if(p.getKarta() instanceof Kun) {
-                    Kun kun=(Kun) p.getKarta();
-                    if(maCelouStaj(hrac, kun.getStaj())) {
-                        if(kun.getPocetDostihu()<5) {
-                            Object[] volby = {"Ano", "Ne"};
-                            int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu()<4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?" ), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
-                            if(odpoved==JOptionPane.YES_OPTION) {
-                                hrac.pricti(-(kun.getPocetDostihu()<4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
-                                kun.pridejDostih();
+                } else if (p.getKarta() instanceof Kun) {
+                    Kun kun = (Kun) p.getKarta();
+                    if (maCelouStaj(hrac, kun.getStaj())) {
+                        if (kun.getPocetDostihu() < 5) {
+                            if (hrac.getRozpocet() >= (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu())) {
+                                Object[] volby = {"Ano", "Ne"};
+                                int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?"), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                                if (odpoved == JOptionPane.YES_OPTION) {
+                                    hrac.pricti(-(kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
+                                    kun.pridejDostih();
+                                }
                             }
                         }
                     }
@@ -424,13 +443,13 @@ public final class Hra {
             }
         }
     }
-    
+
     private boolean maCelouStaj(Hrac h, Staj s) {
         for (Policko p : policka) {
-            if(p.isVlastnicka()) {
-                if(p.getKarta() instanceof Kun) {
-                    if(((Kun)p.getKarta()).getStaj()==s) {
-                        if(!h.getKarty().contains(p.getKarta())) {
+            if (p.isVlastnicka()) {
+                if (p.getKarta() instanceof Kun) {
+                    if (((Kun) p.getKarta()).getStaj() == s) {
+                        if (!h.getKarty().contains(p.getKarta())) {
                             return false;
                         }
                     }
@@ -438,6 +457,13 @@ public final class Hra {
             }
         }
         return true;
+    }
+
+    /**
+     * @param kostka the kostka to set
+     */
+    public void setKostka(Kostka kostka) {
+        this.kostka = kostka;
     }
 
 }

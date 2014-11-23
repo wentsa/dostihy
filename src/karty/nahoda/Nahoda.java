@@ -7,13 +7,14 @@ package karty.nahoda;
 
 import dostihy.Hra;
 import dostihy.Hrac;
+import java.io.Serializable;
 import karty.Karta;
 
 /**
  *
  * @author wentsa
  */
-public abstract class Nahoda extends Karta {
+public abstract class Nahoda extends Karta implements Serializable {
 
     private final String popis;
 

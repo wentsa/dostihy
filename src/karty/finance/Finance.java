@@ -7,13 +7,14 @@ package karty.finance;
 
 import dostihy.Hra;
 import dostihy.Hrac;
+import java.io.Serializable;
 import karty.Karta;
 
 /**
  *
  * @author wentsa
  */
-public abstract class Finance extends Karta {
+public abstract class Finance extends Karta implements Serializable {
     
     private final String popis;
     private final int castka;

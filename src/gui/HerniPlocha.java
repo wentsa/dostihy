@@ -13,9 +13,19 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import karty.Kun;
 
@@ -29,6 +39,8 @@ public class HerniPlocha extends javax.swing.JFrame {
     Image pl;
     Image st;
     Image pr;
+    int ukladacOption;
+    int nacitacOption;
     /**
      * Creates new form HerniPlocha
      * @param hra
@@ -61,6 +73,30 @@ public class HerniPlocha extends javax.swing.JFrame {
     private void initComponents() {
 
         nacitacSouboru = new javax.swing.JFileChooser();
+        ukladacSouboru = new javax.swing.JFileChooser() {
+            @Override
+            public void approveSelection(){
+                File f = getSelectedFile();
+                File f2=new File(getSelectedFile()+".das");
+                if((f.exists() || f.exists()) && getDialogType() == SAVE_DIALOG){
+                    Object[] volby={"Ano","Ne"};
+                    int result = JOptionPane.showOptionDialog(this,"Tento soubor jiz existuje. Prejete si jej prepsat?","Soubor existuje",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    switch(result){
+                        case JOptionPane.YES_OPTION:
+                        super.approveSelection();
+                        return;
+                        case JOptionPane.NO_OPTION:
+                        return;
+                        case JOptionPane.CLOSED_OPTION:
+                        return;
+                        case JOptionPane.CANCEL_OPTION:
+                        cancelSelection();
+                        return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         plocha = new javax.swing.JPanel() {
@@ -93,12 +129,24 @@ public class HerniPlocha extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         soubor = new javax.swing.JMenu();
         nacist = new javax.swing.JMenuItem();
+        ulozit = new javax.swing.JMenuItem();
         upravit = new javax.swing.JMenu();
 
         nacitacSouboru.setAcceptAllFileFilterUsed(false);
         nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
         nacitacSouboru.setDialogTitle("");
-        nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.dss)", "DSS"));
+        nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
+        nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nacitacSouboruActionPerformed(evt);
+            }
+        });
+
+        ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ukladacSouboruActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 0, 0));
@@ -219,6 +267,14 @@ public class HerniPlocha extends javax.swing.JFrame {
         });
         soubor.add(nacist);
 
+        ulozit.setText("jMenuItem1");
+        ulozit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ulozitActionPerformed(evt);
+            }
+        });
+        soubor.add(ulozit);
+
         menuBar.add(soubor);
 
         upravit.setText("Upravy");
@@ -230,12 +286,82 @@ public class HerniPlocha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
-        nacitacSouboru.showOpenDialog(soubor);
+        nacitacSouboru.showOpenDialog(nacist);
     }//GEN-LAST:event_nacistActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ulozitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitActionPerformed
+        ukladacSouboru.setSelectedFile(new File(""));
+        ukladacSouboru.setFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                if(f.isDirectory()) return true;
+                String path=f.getAbsolutePath().toLowerCase();
+                return path.endsWith(".das") && (path.charAt(path.length()-4)=='.');
+            }
+
+            @Override
+            public String getDescription() {
+                return "Dostihy a Sazky (*.das)";
+            }
+        });
+        ukladacOption=ukladacSouboru.showSaveDialog(ulozit);       // TODO add your handling code here:
+    }//GEN-LAST:event_ulozitActionPerformed
+
+    private void ukladacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukladacSouboruActionPerformed
+        if(ukladacOption==JFileChooser.APPROVE_OPTION) {
+            try {
+                File f;
+                if(ukladacSouboru.getSelectedFile().getAbsolutePath().toLowerCase().endsWith(".das")) {
+                    f=ukladacSouboru.getSelectedFile();
+                }
+                else {
+                    f=new File(ukladacSouboru.getSelectedFile()+".das");
+                }
+                ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(f));
+                oos.writeObject(Control.hra);
+                oos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            
+        }
+    }//GEN-LAST:event_ukladacSouboruActionPerformed
+
+    private void nacitacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitacSouboruActionPerformed
+        if(nacitacOption==JFileChooser.APPROVE_OPTION) {
+            
+                ObjectInputStream ois=null;
+            try {
+                if("".equals(nacitacSouboru.getSelectedFile().getName())) {
+                    return;
+                }
+                ois = new ObjectInputStream(new FileInputStream(nacitacSouboru.getSelectedFile()));
+                Control.hra=(Hra) ois.readObject();
+                ois.close();
+                plocha.removeAll();
+                plocha.updateUI();
+                nactiHrace();
+                nactiPole();
+                nactiKostku();
+                Control.plocha.repaint();
+                System.out.println(Control.hra.getHraci().get(0).getRozpocet());
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    ois.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +414,8 @@ public class HerniPlocha extends javax.swing.JFrame {
     private javax.swing.JMenu soubor;
     private javax.swing.JTextPane statusBox;
     private javax.swing.JPanel stred;
+    private javax.swing.JFileChooser ukladacSouboru;
+    private javax.swing.JMenuItem ulozit;
     private javax.swing.JMenu upravit;
     // End of variables declaration//GEN-END:variables
 
@@ -338,7 +466,9 @@ public class HerniPlocha extends javax.swing.JFrame {
     }
     
     private void nactiKostku() {
-        prava.add(hra.getKostka());
+        System.out.println("ttt");
+        prava.add(Control.hra.getKostka());
+        System.out.println(hra.getKostka().toString());
     }
     
     
