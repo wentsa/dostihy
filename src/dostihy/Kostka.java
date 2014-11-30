@@ -29,9 +29,9 @@ public final class Kostka extends JButton implements Serializable {
         this.hozeno=false;
         random=new Random();
         
-        //setContentAreaFilled(false);
-        //setOpaque(false);
-        //setBorderPainted(false);
+        setContentAreaFilled(false);
+        setOpaque(false);
+        setBorderPainted(false);
         setEnabled(false);
     }
     
@@ -50,6 +50,7 @@ public final class Kostka extends JButton implements Serializable {
     public int hazej(JTextPane box) {
         kolik=0;
         setEnabled(true);
+        Control.plocha.prepniKostky();
         while(!hozeno) {try {
             Thread.sleep(1);
             } catch (InterruptedException ex) {
@@ -69,6 +70,7 @@ public final class Kostka extends JButton implements Serializable {
             box.setText("Hodil jsi " + (kolik-6));
             hozeno=false;
         }
+        Control.plocha.prepniKostky();
         setEnabled(false);
         return kolik;
     }
