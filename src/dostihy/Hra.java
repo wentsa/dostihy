@@ -5,6 +5,8 @@
  */
 package dostihy;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +150,6 @@ public final class Hra implements Serializable {
 
     public boolean tahni() throws InterruptedException {
         //-------------TAH S FIGURKOU---------------------------
-System.out.println("aaa");
         Hrac hrac = hraci.get(aktualniHrac);
         aktualniHrac = (aktualniHrac + 1) % pocetHracu;
 
@@ -160,8 +161,8 @@ System.out.println("aaa");
             hrac.snizZdrzeni();
             return false;
         }
-        statusBox.setText("Hraje " + hrac.getJmeno());
-        int kolik = kostka.hazej(statusBox);
+        status("Hraje " + hrac.getJmeno());
+        int kolik = kostka.hazej();
         if (hrac.isDistanc()) {
             if (kolik > 6) {
                 hrac.setDistanc(false);
@@ -184,17 +185,17 @@ System.out.println("aaa");
             hrac.setDistanc(true);
         }
         if (aktualniPozice < kolik) {
-            status("Za pruchod startem jsi obdrzel 4000");
+            status("Za pruchod startem jsi obdrzel 4000,-");
             hrac.pricti(4000);
         }
         if (aktualniPozice == 4) {
-            status("Vysetreni, zaplat 500");
+            status("Vysetreni, zaplat 500,-");
             hrac.pricti(-500);
         } else if (aktualniPozice == 38) {
-            status("Vysetreni, zaplat 1000");
+            status("Vysetreni, zaplat 1000,-");
             hrac.pricti(-1000);
         } else if (aktualniPozice == 30) {
-            status("Podezreni z dopingu, zdrsis se jedno kolo");
+            status("Podezreni z dopingu, zdrsis se 1 kolo");
             hrac.setZdrzeni(1);
         }
         //----------------------------------------------------
@@ -247,7 +248,7 @@ System.out.println("aaa");
                 if (hrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
                     JDialog.setDefaultLookAndFeelDecorated(true);
                     Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit " + p.getNazev() + " za " + p.getKarta().getPorizovaciCena() + "?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
                     if (odpoved == JOptionPane.YES_OPTION) {
                         hrac.pricti(-p.getKarta().getPorizovaciCena());
                         hrac.pridejKartu(p.getKarta());
@@ -255,7 +256,7 @@ System.out.println("aaa");
                         p.getObsazFigurka().setObsazeno(true);
                         p.setObsazeno(true);
                         p.setMajitel(hrac);
-                        status("Zakoupil jsi " + p.getNazev());
+                        status("Zakoupil jsi \"" + p.getNazev() + "\"");
                     }
                 }
 
@@ -294,17 +295,17 @@ System.out.println("aaa");
                         }
                         hrac.pricti(-navsteva);
                         p.getMajitel().pricti(navsteva);
-                        status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + navsteva + " za prohlidku staje");
+                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + navsteva + ",- za prohlidku staje");
                     } else if (k instanceof Trener) {
                         int castka = p.getMajitel().getPocetTreneru() * 1000;
                         hrac.pricti(-castka);
                         p.getMajitel().pricti(castka);
-                        status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + castka + " za vyuziti sluzeb trenera");
+                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za vyuziti sluzeb trenera");
                     } else if (k instanceof PrepravaStaje) {
                         int castka = (p.getMajitel().getPocetPrepravaStaje() == 1 ? 80 * kolik : 200 * kolik);
                         hrac.pricti(-castka);
                         p.getMajitel().pricti(castka);
-                        status("Zaplatil jsi hraci " + p.getMajitel().getJmeno() + " " + castka + " za " + p.getNazev().toLowerCase());
+                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za " + p.getNazev().toLowerCase());
                     }
                 } else if (p.getKarta() instanceof Kun) {
                     Kun kun = (Kun) p.getKarta();
@@ -413,9 +414,10 @@ System.out.println("aaa");
         return kostka;
     }
 
-    private void status(String message) {
+    public void status(String message) {
+        Control.plocha.repaintStatus();
         statusBox.setText(message);
-        statusBox.repaint();
+        //statusBox.repaint();
     }
 
     /**

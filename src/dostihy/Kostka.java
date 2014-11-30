@@ -47,7 +47,7 @@ public final class Kostka extends JButton implements Serializable {
                 });
     }
     
-    public int hazej(JTextPane box) {
+    public int hazej() {
         kolik=0;
         setEnabled(true);
         Control.plocha.prepniKostky();
@@ -58,17 +58,19 @@ public final class Kostka extends JButton implements Serializable {
             }
         }
         hozeno=false;
-        box.setText("Hodil jsi " + kolik);
         if(kolik==6) {
-            box.setText("Hodil jsi 6, hazej znovu");
+            Control.hra.status("Hodil jsi 6, hazej znovu");
             while(!hozeno) {try {
                 Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            box.setText("Hodil jsi " + (kolik-6));
+            Control.hra.status("Hodil jsi " + (kolik-6) + " posouvas se o " + kolik);
             hozeno=false;
+        }
+        else {
+            Control.hra.status("Hodil jsi " + kolik);
         }
         Control.plocha.prepniKostky();
         setEnabled(false);
