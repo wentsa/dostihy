@@ -48,6 +48,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     Image statusP;
     int ukladacOption;
     int nacitacOption;
+    private boolean ukoncenTah=false;
     /**
      * Creates new form HerniPlocha
      * @param hra
@@ -142,211 +143,210 @@ public class HerniPlocha extends javax.swing.JFrame {
         };
         jScrollPane1 = new javax.swing.JScrollPane();
         statusBoxik = Control.hra.getStatusBox();
-        status_pozadi = new javax.swing.JPanel() {
+        stredD = new javax.swing.JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(statusP, 0, 0, null);
+                g.drawImage(st_d, 0, 0, null);
             }};
-            stredD = new javax.swing.JPanel() {
-                @Override
-                public void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.drawImage(st_d, 0, 0, null);
-                }};
-                tlacitka = new javax.swing.JPanel();
-                ukoncit = new javax.swing.JButton();
-                prodat = new javax.swing.JButton();
-                vzdat = new javax.swing.JButton();
-                menuBar = new javax.swing.JMenuBar();
-                soubor = new javax.swing.JMenu();
-                nacist = new javax.swing.JMenuItem();
-                ulozit = new javax.swing.JMenuItem();
-                upravit = new javax.swing.JMenu();
+            tlacitka = new javax.swing.JPanel();
+            ukoncit = new javax.swing.JButton();
+            prodat = new javax.swing.JButton();
+            vzdat = new javax.swing.JButton();
+            menuBar = new javax.swing.JMenuBar();
+            soubor = new javax.swing.JMenu();
+            nacist = new javax.swing.JMenuItem();
+            ulozit = new javax.swing.JMenuItem();
+            upravit = new javax.swing.JMenu();
 
-                nacitacSouboru.setAcceptAllFileFilterUsed(false);
-                nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
-                nacitacSouboru.setDialogTitle("");
-                nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
-                nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        nacitacSouboruActionPerformed(evt);
-                    }
-                });
+            nacitacSouboru.setAcceptAllFileFilterUsed(false);
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            nacitacSouboru.setDialogTitle("");
+            nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
+            nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    nacitacSouboruActionPerformed(evt);
+                }
+            });
 
-                ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ukladacSouboruActionPerformed(evt);
-                    }
-                });
+            ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ukladacSouboruActionPerformed(evt);
+                }
+            });
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                setBackground(new java.awt.Color(255, 0, 0));
-                setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-                getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setBackground(new java.awt.Color(255, 0, 0));
+            setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-                cela_plocha.setBorder(null);
-                cela_plocha.setDividerSize(0);
-                cela_plocha.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-                cela_plocha.setMinimumSize(new java.awt.Dimension(1280, 750));
-                cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
+            cela_plocha.setBorder(null);
+            cela_plocha.setDividerSize(0);
+            cela_plocha.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+            cela_plocha.setMinimumSize(new java.awt.Dimension(1280, 750));
+            cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
 
-                hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
-                hlavni_plocha.setBorder(null);
-                hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
-                hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
-                hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
-                hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+            hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
+            hlavni_plocha.setBorder(null);
+            hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
+            hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
+            hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
+            hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                plocha.setBackground(new java.awt.Color(0, 255, 221));
-                plocha.setBorder(null);
-                plocha.setMaximumSize(new java.awt.Dimension(700, 700));
-                plocha.setMinimumSize(new java.awt.Dimension(700, 700));
-                plocha.setLayout(new javax.swing.OverlayLayout(plocha));
-                hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
+            plocha.setBackground(new java.awt.Color(0, 255, 221));
+            plocha.setBorder(null);
+            plocha.setMaximumSize(new java.awt.Dimension(700, 700));
+            plocha.setMinimumSize(new java.awt.Dimension(700, 700));
+            plocha.setLayout(new javax.swing.OverlayLayout(plocha));
+            hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
 
-                stred.setBackground(new java.awt.Color(0, 176, 255));
-                stred.setBorder(null);
-                stred.setMaximumSize(new java.awt.Dimension(100, 700));
-                stred.setMinimumSize(new java.awt.Dimension(100, 700));
-                stred.setPreferredSize(new java.awt.Dimension(100, 700));
-                stred.setLayout(new javax.swing.OverlayLayout(stred));
-                hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
+            stred.setBackground(new java.awt.Color(0, 176, 255));
+            stred.setBorder(null);
+            stred.setMaximumSize(new java.awt.Dimension(100, 700));
+            stred.setMinimumSize(new java.awt.Dimension(100, 700));
+            stred.setPreferredSize(new java.awt.Dimension(100, 700));
+            stred.setLayout(new javax.swing.OverlayLayout(stred));
+            hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
-                prava.setBackground(new java.awt.Color(0, 108, 255));
-                prava.setBorder(null);
-                prava.setMaximumSize(new java.awt.Dimension(480, 700));
-                prava.setMinimumSize(new java.awt.Dimension(480, 700));
-                prava.setName(""); // NOI18N
-                prava.setLayout(new javax.swing.OverlayLayout(prava));
-                hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 480, 700));
+            prava.setBackground(new java.awt.Color(0, 108, 255));
+            prava.setBorder(null);
+            prava.setMaximumSize(new java.awt.Dimension(480, 700));
+            prava.setMinimumSize(new java.awt.Dimension(480, 700));
+            prava.setName(""); // NOI18N
+            prava.setLayout(new javax.swing.OverlayLayout(prava));
+            hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 480, 700));
 
-                cela_plocha.setLeftComponent(hlavni_plocha);
+            cela_plocha.setLeftComponent(hlavni_plocha);
 
-                cely_spodek.setBorder(null);
-                cely_spodek.setDividerLocation(800);
-                cely_spodek.setDividerSize(0);
-                cely_spodek.setMaximumSize(new java.awt.Dimension(1280, 2147483647));
-                cely_spodek.setMinimumSize(new java.awt.Dimension(1280, 50));
-                cely_spodek.setPreferredSize(new java.awt.Dimension(1280, 50));
+            cely_spodek.setBorder(null);
+            cely_spodek.setDividerLocation(800);
+            cely_spodek.setDividerSize(0);
+            cely_spodek.setMaximumSize(new java.awt.Dimension(1280, 2147483647));
+            cely_spodek.setMinimumSize(new java.awt.Dimension(1280, 50));
+            cely_spodek.setPreferredSize(new java.awt.Dimension(1280, 50));
 
-                leva.setBorder(null);
-                leva.setDividerLocation(700);
-                leva.setDividerSize(0);
-                leva.setLastDividerLocation(700);
-                leva.setMaximumSize(new java.awt.Dimension(800, 50));
-                leva.setMinimumSize(new java.awt.Dimension(800, 50));
-                leva.setPreferredSize(new java.awt.Dimension(800, 50));
+            leva.setBorder(null);
+            leva.setDividerLocation(700);
+            leva.setDividerSize(0);
+            leva.setLastDividerLocation(700);
+            leva.setMaximumSize(new java.awt.Dimension(800, 50));
+            leva.setMinimumSize(new java.awt.Dimension(800, 50));
+            leva.setPreferredSize(new java.awt.Dimension(800, 50));
 
-                statusB.setBackground(new java.awt.Color(0, 24, 255));
-                statusB.setBorder(null);
-                statusB.setMaximumSize(new java.awt.Dimension(100, 50));
-                statusB.setMinimumSize(new java.awt.Dimension(100, 50));
-                statusB.setPreferredSize(new java.awt.Dimension(100, 50));
-                statusB.setLayout(new javax.swing.OverlayLayout(statusB));
+            statusB.setBackground(new java.awt.Color(0, 24, 255));
+            statusB.setBorder(null);
+            statusB.setMaximumSize(new java.awt.Dimension(100, 50));
+            statusB.setMinimumSize(new java.awt.Dimension(100, 50));
+            statusB.setPreferredSize(new java.awt.Dimension(100, 50));
+            statusB.setLayout(new javax.swing.OverlayLayout(statusB));
 
-                jScrollPane1.setBackground(new Color(0,0,0,0));
-                jScrollPane1.setBorder(null);
-                jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-                jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            jScrollPane1.setBackground(new Color(0,0,0,0));
+            jScrollPane1.setBorder(null);
+            jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-                statusBoxik.setEditable(false);
-                statusBoxik.setBackground(new Color(0,0,0,1));
-                statusBoxik.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 10, 20));
-                statusBoxik.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-                statusBoxik.setForeground(new java.awt.Color(29, 29, 29));
-                jScrollPane1.setViewportView(statusBoxik);
+            statusBoxik.setEditable(false);
+            statusBoxik.setBackground(new Color(0,0,0,0));
+            statusBoxik.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 10, 20));
+            statusBoxik.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+            statusBoxik.setForeground(new java.awt.Color(29, 29, 29));
+            statusBoxik.setOpaque(false);
+            jScrollPane1.setViewportView(statusBoxik);
 
-                statusB.add(jScrollPane1);
+            statusB.add(jScrollPane1);
 
-                status_pozadi.setBackground(new java.awt.Color(255, 238, 0));
-                status_pozadi.setBorder(null);
-                statusB.add(status_pozadi);
+            leva.setLeftComponent(statusB);
+            leva.setRightComponent(stredD);
 
-                leva.setLeftComponent(statusB);
-                leva.setRightComponent(stredD);
+            cely_spodek.setLeftComponent(leva);
 
-                cely_spodek.setLeftComponent(leva);
+            tlacitka.setBackground(new java.awt.Color(93, 93, 93));
+            tlacitka.setBorder(null);
+            tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
+            tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
+            tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));
+            tlacitka.setLayout(new javax.swing.BoxLayout(tlacitka, javax.swing.BoxLayout.LINE_AXIS));
 
-                tlacitka.setBackground(new java.awt.Color(93, 93, 93));
-                tlacitka.setBorder(null);
-                tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
-                tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
-                tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));
-                tlacitka.setLayout(new javax.swing.BoxLayout(tlacitka, javax.swing.BoxLayout.LINE_AXIS));
+            ukoncit.setBackground(new java.awt.Color(93, 93, 93));
+            ukoncit.setForeground(new java.awt.Color(254, 254, 254));
+            ukoncit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ukoncit.jpg"))); // NOI18N
+            ukoncit.setBorder(null);
+            ukoncit.setBorderPainted(false);
+            ukoncit.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/ukoncit.jpg"))); // NOI18N
+            ukoncit.setEnabled(false);
+            ukoncit.setMaximumSize(new java.awt.Dimension(218, 50));
+            ukoncit.setMinimumSize(new java.awt.Dimension(218, 50));
+            ukoncit.setPreferredSize(new java.awt.Dimension(218, 50));
+            ukoncit.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ukoncitActionPerformed(evt);
+                }
+            });
+            tlacitka.add(ukoncit);
 
-                ukoncit.setBackground(new java.awt.Color(93, 93, 93));
-                ukoncit.setForeground(new java.awt.Color(254, 254, 254));
-                ukoncit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ukoncit.jpg"))); // NOI18N
-                ukoncit.setBorderPainted(false);
-                ukoncit.setMaximumSize(new java.awt.Dimension(218, 50));
-                ukoncit.setMinimumSize(new java.awt.Dimension(218, 50));
-                ukoncit.setPreferredSize(new java.awt.Dimension(218, 50));
-                ukoncit.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ukoncitActionPerformed(evt);
-                    }
-                });
-                tlacitka.add(ukoncit);
+            prodat.setBackground(new java.awt.Color(93, 93, 93));
+            prodat.setForeground(new java.awt.Color(254, 254, 254));
+            prodat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prodat.jpg"))); // NOI18N
+            prodat.setBorder(null);
+            prodat.setBorderPainted(false);
+            prodat.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    prodatActionPerformed(evt);
+                }
+            });
+            tlacitka.add(prodat);
 
-                prodat.setBackground(new java.awt.Color(93, 93, 93));
-                prodat.setForeground(new java.awt.Color(254, 254, 254));
-                prodat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prodat.jpg"))); // NOI18N
-                prodat.setBorder(null);
-                prodat.setBorderPainted(false);
-                tlacitka.add(prodat);
+            vzdat.setBackground(new java.awt.Color(93, 93, 93));
+            vzdat.setForeground(new java.awt.Color(254, 254, 254));
+            vzdat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vzdat.jpg"))); // NOI18N
+            vzdat.setBorder(null);
+            vzdat.setBorderPainted(false);
+            tlacitka.add(vzdat);
 
-                vzdat.setBackground(new java.awt.Color(93, 93, 93));
-                vzdat.setForeground(new java.awt.Color(254, 254, 254));
-                vzdat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vzdat.jpg"))); // NOI18N
-                vzdat.setBorder(null);
-                vzdat.setBorderPainted(false);
-                tlacitka.add(vzdat);
+            cely_spodek.setRightComponent(tlacitka);
 
-                cely_spodek.setRightComponent(tlacitka);
+            cela_plocha.setRightComponent(cely_spodek);
 
-                cela_plocha.setRightComponent(cely_spodek);
+            getContentPane().add(cela_plocha);
 
-                getContentPane().add(cela_plocha);
+            menuBar.setBackground(new java.awt.Color(19, 19, 19));
+            menuBar.setBorder(null);
+            menuBar.setForeground(new java.awt.Color(232, 232, 232));
 
-                menuBar.setBackground(new java.awt.Color(19, 19, 19));
-                menuBar.setBorder(null);
-                menuBar.setForeground(new java.awt.Color(232, 232, 232));
+            soubor.setText("Soubor");
 
-                soubor.setText("Soubor");
+            nacist.setText("Nacist hru");
+            nacist.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    nacistActionPerformed(evt);
+                }
+            });
+            soubor.add(nacist);
 
-                nacist.setText("Nacist hru");
-                nacist.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        nacistActionPerformed(evt);
-                    }
-                });
-                soubor.add(nacist);
+            ulozit.setText("jMenuItem1");
+            ulozit.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ulozitActionPerformed(evt);
+                }
+            });
+            soubor.add(ulozit);
 
-                ulozit.setText("jMenuItem1");
-                ulozit.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ulozitActionPerformed(evt);
-                    }
-                });
-                soubor.add(ulozit);
+            menuBar.add(soubor);
 
-                menuBar.add(soubor);
+            upravit.setText("Upravy");
+            menuBar.add(upravit);
 
-                upravit.setText("Upravy");
-                menuBar.add(upravit);
+            setJMenuBar(menuBar);
 
-                setJMenuBar(menuBar);
-
-                pack();
-            }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
-        nacitacSouboru.showOpenDialog(nacist);
+        nacitacOption=nacitacSouboru.showOpenDialog(nacist);
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
-        // TODO add your handling code here:
+        setUkoncenTah(true);
     }//GEN-LAST:event_ukoncitActionPerformed
 
     private void ulozitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitActionPerformed
@@ -419,6 +419,12 @@ public class HerniPlocha extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
+    private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
+        ProdejDialog dialog=new ProdejDialog(new NewJPanel());
+        //dialog.setSize(300,300);
+        //Control.hra.nabidkaProdat();
+    }//GEN-LAST:event_prodatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -469,7 +475,6 @@ public class HerniPlocha extends javax.swing.JFrame {
     private javax.swing.JMenu soubor;
     private javax.swing.JPanel statusB;
     private javax.swing.JTextPane statusBoxik;
-    private javax.swing.JPanel status_pozadi;
     private javax.swing.JPanel stred;
     private javax.swing.JPanel stredD;
     private javax.swing.JPanel tlacitka;
@@ -540,17 +545,24 @@ public class HerniPlocha extends javax.swing.JFrame {
         }
     }
 
-    private void nactiStatusBox() {
-        statusB.setLayout(new BorderLayout());
-        JTextPane p=Control.hra.getStatusBox();
-        p.setBackground(new Color(0,0,0,0));
-        p.setOpaque(false);
-        statusB.add(p);
-        p.setText("aweqweqweqwe");
+    /**
+     * @return the ukoncenTah
+     */
+    public boolean isUkoncenTah() {
+        return ukoncenTah;
     }
-    public void repaintStatus() {
-        status_pozadi.repaint();
+
+    /**
+     * @param ukoncenTah the ukoncenTah to set
+     */
+    public void setUkoncenTah(boolean ukoncenTah) {
+        this.ukoncenTah = ukoncenTah;
     }
-    
+    public void zapniTlacitko() {
+        ukoncit.setEnabled(true);
+    }
+    public void vypniTlacitko() {
+        ukoncit.setEnabled(false);
+    }
     
 }

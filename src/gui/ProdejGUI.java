@@ -32,9 +32,10 @@ public class ProdejGUI extends javax.swing.JFrame {
     private final Hrac hrac;
     private final Set<VlastnickaKarta> karty;
     private final String[] sKarty;
-    private boolean prodal = false;
+    
 
     public ProdejGUI(Hrac hrac) {
+        System.out.println("prodavac");
         this.hra = Control.hra;
         this.hrac = hrac;
         karty = this.hrac.getKarty();
@@ -43,9 +44,12 @@ public class ProdejGUI extends javax.swing.JFrame {
         for (VlastnickaKarta k : karty) {
             sKarty[i++] = k.toString();
         }
+        System.out.println("a");
+        
         initComponents();
         vypis.setContentType("text/html");
         celkem.setText("");
+        System.out.println("b");
         ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -54,7 +58,7 @@ public class ProdejGUI extends javax.swing.JFrame {
                     JList list = (JList) listSelectionEvent.getSource();
                     List selectionValues = list.getSelectedValuesList();
                     int sirka = ProdejGUI.this.vypis.getWidth();
-                    String text = new String("<html><table width=" + sirka + ">");
+                    String text = "<html><table width=" + sirka + ">";
                     int suma = 0;
                     for (Object o : selectionValues) {
                         VlastnickaKarta k = null;
@@ -74,16 +78,12 @@ public class ProdejGUI extends javax.swing.JFrame {
                 }
             }
         };
-        
+        System.out.println("c");
         jList1.addListSelectionListener(listSelectionListener);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                ProdejGUI.this.prodal = true;
-            }
-
-        });
+        
         setLocationRelativeTo(null);
+        System.out.println("d");
+        System.out.println(hrac.getJmeno());
     }
 
     /**
@@ -195,7 +195,7 @@ public class ProdejGUI extends javax.swing.JFrame {
             p.getObsazFigurka().setObsazeno(false);
             karty.remove(k);
         }
-        prodal = true;
+        //prodal = true;
         dispose();
     }//GEN-LAST:event_buttonActionPerformed
 
@@ -212,10 +212,5 @@ public class ProdejGUI extends javax.swing.JFrame {
     private javax.swing.JTextPane vypis;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the prodal
-     */
-    public boolean isProdal() {
-        return prodal;
-    }
+    
 }

@@ -31,7 +31,6 @@ public class Figurka extends JLabel implements Serializable {
         
     }
     private void nactiObrazek() {
-        System.out.println(barva.toString());
         String file=new String("/fig/");
         if(barva==Barva.BLACK) {        file=file.concat("black");}
         else if(barva==Barva.BLUE) {    file=file.concat("blue");}
@@ -50,7 +49,6 @@ public class Figurka extends JLabel implements Serializable {
         setIcon(obrazek);
     }
     public void zmenB(Barva barva) {
-        System.out.println(this.barva);
         this.barva=barva;
         nactiObrazek();
     }

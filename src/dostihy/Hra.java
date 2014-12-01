@@ -5,13 +5,16 @@
  */
 package dostihy;
 
+import gui.HerniPlocha;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -47,7 +50,14 @@ public final class Hra implements Serializable {
         this.nahodaStare = new KolekceKaretImplementace(14);
         this.kostka = new Kostka();
         this.aktualniHrac = 0;
-        this.statusBox = new JTextPane();
+        this.statusBox = new JTextPane() {
+            @Override
+            public void paintComponent(Graphics g) {
+                Image statusP=new ImageIcon(HerniPlocha.class.getResource("/status.jpg")).getImage();
+                g.drawImage(statusP, 0, 0,statusP.getWidth(null),statusP.getHeight(null), null);
+                super.paintComponent(g);
+            }
+        };
         inicializovatPolicka();
         inicializovatNahodu();
         inicializovatFinance();
@@ -149,14 +159,14 @@ public final class Hra implements Serializable {
     }
 
     public boolean tahni() throws InterruptedException {
+        Control.plocha.setUkoncenTah(false);
         //-------------TAH S FIGURKOU---------------------------
-        Hrac hrac = hraci.get(aktualniHrac);
-        aktualniHrac = (aktualniHrac + 1) % pocetHracu;
+        Hrac hrac = hraci.get(getAktualniHrac());
 
         while (hrac.getRozpocet() < 0) {
-            hrac.prodej();
+            nabidkaProdat();
         }
-
+        
         if (hrac.getZdrzeni() > 0) {
             hrac.snizZdrzeni();
             return false;
@@ -325,10 +335,14 @@ public final class Hra implements Serializable {
             }
 
         }
-
+        //hrac.pricti(-50000);
+        Control.plocha.zapniTlacitko();
+        while(!Control.plocha.isUkoncenTah()) {
         Thread.sleep(
-                1000);
-
+                100);
+        }
+        Control.plocha.vypniTlacitko();
+        aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
         return false;
     }
 
@@ -415,9 +429,8 @@ public final class Hra implements Serializable {
     }
 
     public void status(String message) {
-        Control.plocha.repaintStatus();
         statusBox.setText(message);
-        //statusBox.repaint();
+        statusBox.repaint();
     }
 
     /**
@@ -467,5 +480,22 @@ public final class Hra implements Serializable {
     public void setKostka(Kostka kostka) {
         this.kostka = kostka;
     }
+
+    /**
+     * @return the aktualniHrac
+     */
+    public int getAktualniHrac() {
+        return aktualniHrac;
+    }
+
+    public void nabidkaProdat() {
+        try {
+            hraci.get(aktualniHrac).prodej();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
 
 }

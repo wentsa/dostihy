@@ -7,12 +7,18 @@ package dostihy;
 
 import gui.ProdejGUI;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import karty.VlastnickaKarta;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import karty.PrepravaStaje;
 import karty.Trener;
 
@@ -21,7 +27,7 @@ import karty.Trener;
  * @author wentsa
  */
 public class Hrac implements Serializable {
-    
+
     private int zdrzeni; // 0 muze hrat, jinak pocet kol kolik stoji
     private boolean distanc;
     private final String jmeno;
@@ -32,25 +38,29 @@ public class Hrac implements Serializable {
     private final Jmenovka jmenovka;
     private int pocetTreneru;
     private int pocetPrepravaStaje;
+    private static Object lock;
+    private static ProdejGUI prodej;
+    private static JFrame frame=new JFrame();
 
-    public Hrac(String jmeno, Barva barva,int cislo) {
+    public Hrac(String jmeno, Barva barva, int cislo) {
         this.jmeno = jmeno;
         this.rozpocet = 30000;
         this.karty = new HashSet<>();
-        this.figurka=new Figurka(barva,cislo);
-        this.zdrzeni=0;
-        this.distanc=false;
-        this.cislo=cislo;
-        this.jmenovka=new Jmenovka(this.jmeno, this.getRozpocet(), this.cislo, barva);
-        this.pocetTreneru=0;
-        this.pocetPrepravaStaje=0;
+        this.figurka = new Figurka(barva, cislo);
+        this.zdrzeni = 0;
+        this.distanc = false;
+        this.cislo = cislo;
+        this.jmenovka = new Jmenovka(this.jmeno, this.getRozpocet(), this.cislo, barva);
+        this.pocetTreneru = 0;
+        this.pocetPrepravaStaje = 0;
+        this.lock = new Object();
+
     }
-    
 
     public void popojdi(int kolik) {
-        if(kolik<0) {
-            kolik*=-1;
-            for(int i=0;i<kolik;i++) {
+        if (kolik < 0) {
+            kolik *= -1;
+            for (int i = 0; i < kolik; i++) {
                 this.figurka.popojdi(-1);
                 try {
                     Thread.sleep(300);
@@ -58,9 +68,8 @@ public class Hrac implements Serializable {
                     Logger.getLogger(Hrac.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        else {
-            for(int i=0;i<kolik;i++) {
+        } else {
+            for (int i = 0; i < kolik; i++) {
                 this.figurka.popojdi(1);
                 try {
                     Thread.sleep(300);
@@ -70,10 +79,12 @@ public class Hrac implements Serializable {
             }
         }
     }
+
     public void pricti(int castka) {
-        rozpocet+=castka;
+        rozpocet += castka;
         this.jmenovka.aktualizujCastku(getRozpocet());
     }
+
     /**
      * @return the jmeno
      */
@@ -81,7 +92,6 @@ public class Hrac implements Serializable {
         return jmeno;
     }
 
-        
     /**
      * @return the karty
      */
@@ -109,8 +119,9 @@ public class Hrac implements Serializable {
     public int getZdrzeni() {
         return zdrzeni;
     }
+
     public void setZdrzeni(int kolik) {
-        zdrzeni=kolik;
+        zdrzeni = kolik;
     }
 
     public void snizZdrzeni() {
@@ -129,8 +140,8 @@ public class Hrac implements Serializable {
      */
     public void setDistanc(boolean distanc) {
         this.distanc = distanc;
-        if(distanc) {
-            popojdi(figurka.getPozice() <= 10 ? 10-figurka.getPozice() : 50-figurka.getPozice());
+        if (distanc) {
+            popojdi(figurka.getPozice() <= 10 ? 10 - figurka.getPozice() : 50 - figurka.getPozice());
         }
     }
 
@@ -143,10 +154,9 @@ public class Hrac implements Serializable {
 
     void pridejKartu(VlastnickaKarta karta) {
         this.karty.add(karta);
-        if(karta instanceof Trener) {
+        if (karta instanceof Trener) {
             this.pocetTreneru++;
-        }
-        else if(karta instanceof PrepravaStaje) {
+        } else if (karta instanceof PrepravaStaje) {
             this.pocetPrepravaStaje++;
         }
     }
@@ -166,13 +176,43 @@ public class Hrac implements Serializable {
     }
 
     public void prodej() throws InterruptedException {
-        final ProdejGUI prodej=new ProdejGUI(this);
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        //prodej = new ProdejGUI(Hrac.this);
+        //prodej.setVisible(true);
+        frame.setSize(300, 300);
+        //frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setVisible(true);
+        Thread t = new Thread(new Runnable() {
             public void run() {
-                prodej.setVisible(true);
+                
+                
+                synchronized (lock) {
+                    while (frame.isVisible()) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    System.out.println("Working now");
+                }
             }
-        });   
-        while(!prodej.isProdal()) {Thread.sleep(1);}
+
+        });
+        t.start();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                //ProdejGUI.this.hrac.setProdal(true);
+                System.out.println("event");
+                synchronized (lock) {
+                    frame.setVisible(false);
+                    lock.notify();
+                }
+            }
+
+        });
+        System.out.println("join");
+        //t.join();
     }
 
     /**
@@ -181,6 +221,6 @@ public class Hrac implements Serializable {
     public int getRozpocet() {
         return rozpocet;
     }
-        
-    
+
+   
 }
