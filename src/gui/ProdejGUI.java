@@ -23,7 +23,7 @@ import karty.VlastnickaKarta;
  *
  * @author wentsa
  */
-public class ProdejGUI extends javax.swing.JFrame {
+public class ProdejGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form ProdejGUI
@@ -31,25 +31,17 @@ public class ProdejGUI extends javax.swing.JFrame {
     private final Hra hra;
     private final Hrac hrac;
     private final Set<VlastnickaKarta> karty;
-    private final String[] sKarty;
-    
+    private String[] sKarty;
 
     public ProdejGUI(Hrac hrac) {
         System.out.println("prodavac");
         this.hra = Control.hra;
         this.hrac = hrac;
         karty = this.hrac.getKarty();
-        sKarty = new String[karty.size()];
-        int i = 0;
-        for (VlastnickaKarta k : karty) {
-            sKarty[i++] = k.toString();
-        }
-        System.out.println("a");
-        
         initComponents();
+        nactiData();
         vypis.setContentType("text/html");
-        celkem.setText("");
-        System.out.println("b");
+
         ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -78,12 +70,7 @@ public class ProdejGUI extends javax.swing.JFrame {
                 }
             }
         };
-        System.out.println("c");
         jList1.addListSelectionListener(listSelectionListener);
-        
-        setLocationRelativeTo(null);
-        System.out.println("d");
-        System.out.println(hrac.getJmeno());
     }
 
     /**
@@ -104,8 +91,6 @@ public class ProdejGUI extends javax.swing.JFrame {
         vypis = new javax.swing.JTextPane();
         celkem = new javax.swing.JLabel();
         button = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jSplitPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jSplitPane1.setDividerLocation(200);
@@ -143,7 +128,7 @@ public class ProdejGUI extends javax.swing.JFrame {
 
         jSplitPane2.setTopComponent(jSplitPane3);
 
-        button.setText("jButton1");
+        button.setText("Prodej");
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionPerformed(evt);
@@ -153,8 +138,8 @@ public class ProdejGUI extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(jSplitPane2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -169,34 +154,35 @@ public class ProdejGUI extends javax.swing.JFrame {
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-
-        List selectionValues = jList1.getSelectedValuesList();
-        Set<VlastnickaKarta> vymazat = new HashSet<>();
-        for (Object o : selectionValues) {
-            VlastnickaKarta k = null;
-            for (VlastnickaKarta c : ProdejGUI.this.karty) {
-                if (c.toString().equals(o.toString())) {
-                    k = c;
-                    break;
+        if (!jList1.isSelectionEmpty()) {
+            List selectionValues = jList1.getSelectedValuesList();
+            Set<VlastnickaKarta> vymazat = new HashSet<>();
+            for (Object o : selectionValues) {
+                VlastnickaKarta k = null;
+                for (VlastnickaKarta c : ProdejGUI.this.karty) {
+                    if (c.toString().equals(o.toString())) {
+                        k = c;
+                        break;
+                    }
                 }
+                vymazat.add(k);
             }
-            vymazat.add(k);
+            for (VlastnickaKarta k : vymazat) {
+                hrac.pricti(k.getPorizovaciCena());
+                Policko p = hra.getPolicka().get(k.getPozice());
+                p.setObsazeno(false);
+                p.setMajitel(null);
+                p.getObsazFigurka().setObsazeno(false);
+                karty.remove(k);
+            }
+            jList1.clearSelection();
+            nactiData();
+            vypis.setText("");
+            repaint();
         }
-        for (VlastnickaKarta k : vymazat) {
-            hrac.pricti(k.getPorizovaciCena());
-            Policko p = hra.getPolicka().get(k.getPozice());
-            p.setObsazeno(false);
-            p.setMajitel(null);
-            p.getObsazFigurka().setObsazeno(false);
-            karty.remove(k);
-        }
-        //prodal = true;
-        dispose();
     }//GEN-LAST:event_buttonActionPerformed
 
 
@@ -212,5 +198,13 @@ public class ProdejGUI extends javax.swing.JFrame {
     private javax.swing.JTextPane vypis;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void nactiData() {
+        sKarty = new String[karty.size()];
+        int i = 0;
+        for (VlastnickaKarta k : karty) {
+            sKarty[i++] = k.toString();
+        }
+        celkem.setText("");
+    }
+
 }

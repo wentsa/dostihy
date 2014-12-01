@@ -420,7 +420,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog=new ProdejDialog(new NewJPanel());
+        ProdejDialog dialog=new ProdejDialog(new ProdejGUI(Control.hra.getHraci().get(Control.hra.getAktualniHrac())));
         //dialog.setSize(300,300);
         //Control.hra.nabidkaProdat();
     }//GEN-LAST:event_prodatActionPerformed

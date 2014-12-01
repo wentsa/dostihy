@@ -16,7 +16,7 @@ import javax.swing.JSplitPane;
  */
 public class ProdejDialog extends JDialog {
 
-    public ProdejDialog(JPanel prodej) {
+    public ProdejDialog(ProdejGUI prodej) {
         super(Control.plocha,"Prodej");
         setModal(true);
         setContentPane(prodej);
