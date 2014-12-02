@@ -42,37 +42,37 @@ public class HerniPlocha extends javax.swing.JFrame {
     Hra hra;
     Image pl;
     Image st;
-    Image pr,pr2;
+    Image pr, pr2;
     Image aktualniPr;
     Image st_d;
     Image statusP;
     int ukladacOption;
     int nacitacOption;
-    private boolean ukoncenTah=false;
+    private boolean ukoncenTah = false;
+
     /**
      * Creates new form HerniPlocha
+     *
      * @param hra
      */
     public HerniPlocha() {
-        this.hra=Control.hra;
-        pl=new ImageIcon(HerniPlocha.class.getResource("/plocha.jpg")).getImage();
-        st=new ImageIcon(HerniPlocha.class.getResource("/stred.jpg")).getImage();
-        aktualniPr=pr=new ImageIcon(HerniPlocha.class.getResource("/prava.jpg")).getImage();
-        pr2=new ImageIcon(HerniPlocha.class.getResource("/prava-aktiv.jpg")).getImage();
-        st_d=new ImageIcon(HerniPlocha.class.getResource("/spodek_lista.jpg")).getImage();
-        statusP=new ImageIcon(HerniPlocha.class.getResource("/status.jpg")).getImage();
-        
+        this.hra = Control.hra;
+        pl = new ImageIcon(HerniPlocha.class.getResource("/plocha.jpg")).getImage();
+        st = new ImageIcon(HerniPlocha.class.getResource("/stred.jpg")).getImage();
+        aktualniPr = pr = new ImageIcon(HerniPlocha.class.getResource("/prava.jpg")).getImage();
+        pr2 = new ImageIcon(HerniPlocha.class.getResource("/prava-aktiv.jpg")).getImage();
+        st_d = new ImageIcon(HerniPlocha.class.getResource("/spodek_lista.jpg")).getImage();
+        statusP = new ImageIcon(HerniPlocha.class.getResource("/status.jpg")).getImage();
+
         initComponents();
-        
+
         nactiHrace();
         nactiPole();
         nactiKostku();
         //nactiStatusBox();
-        
-        
+
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     /**
@@ -274,9 +274,6 @@ public class HerniPlocha extends javax.swing.JFrame {
             ukoncit.setBorderPainted(false);
             ukoncit.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/ukoncit.jpg"))); // NOI18N
             ukoncit.setEnabled(false);
-            ukoncit.setMaximumSize(new java.awt.Dimension(218, 50));
-            ukoncit.setMinimumSize(new java.awt.Dimension(218, 50));
-            ukoncit.setPreferredSize(new java.awt.Dimension(218, 50));
             ukoncit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ukoncitActionPerformed(evt);
@@ -301,6 +298,11 @@ public class HerniPlocha extends javax.swing.JFrame {
             vzdat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vzdat.jpg"))); // NOI18N
             vzdat.setBorder(null);
             vzdat.setBorderPainted(false);
+            vzdat.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    vzdatActionPerformed(evt);
+                }
+            });
             tlacitka.add(vzdat);
 
             cely_spodek.setRightComponent(tlacitka);
@@ -342,7 +344,7 @@ public class HerniPlocha extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
-        nacitacOption=nacitacSouboru.showOpenDialog(nacist);
+        nacitacOption = nacitacSouboru.showOpenDialog(nacist);
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
@@ -355,9 +357,11 @@ public class HerniPlocha extends javax.swing.JFrame {
 
             @Override
             public boolean accept(File f) {
-                if(f.isDirectory()) return true;
-                String path=f.getAbsolutePath().toLowerCase();
-                return path.endsWith(".das") && (path.charAt(path.length()-4)=='.');
+                if (f.isDirectory()) {
+                    return true;
+                }
+                String path = f.getAbsolutePath().toLowerCase();
+                return path.endsWith(".das") && (path.charAt(path.length() - 4) == '.');
             }
 
             @Override
@@ -365,40 +369,38 @@ public class HerniPlocha extends javax.swing.JFrame {
                 return "Dostihy a Sazky (*.das)";
             }
         });
-        ukladacOption=ukladacSouboru.showSaveDialog(ulozit);       // TODO add your handling code here:
+        ukladacOption = ukladacSouboru.showSaveDialog(ulozit);       // TODO add your handling code here:
     }//GEN-LAST:event_ulozitActionPerformed
 
     private void ukladacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukladacSouboruActionPerformed
-        if(ukladacOption==JFileChooser.APPROVE_OPTION) {
+        if (ukladacOption == JFileChooser.APPROVE_OPTION) {
             try {
                 File f;
-                if(ukladacSouboru.getSelectedFile().getAbsolutePath().toLowerCase().endsWith(".das")) {
-                    f=ukladacSouboru.getSelectedFile();
+                if (ukladacSouboru.getSelectedFile().getAbsolutePath().toLowerCase().endsWith(".das")) {
+                    f = ukladacSouboru.getSelectedFile();
+                } else {
+                    f = new File(ukladacSouboru.getSelectedFile() + ".das");
                 }
-                else {
-                    f=new File(ukladacSouboru.getSelectedFile()+".das");
-                }
-                ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(f));
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
                 oos.writeObject(Control.hra);
                 oos.close();
             } catch (IOException ex) {
                 Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
-            
+
         }
     }//GEN-LAST:event_ukladacSouboruActionPerformed
 
     private void nacitacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitacSouboruActionPerformed
-        if(nacitacOption==JFileChooser.APPROVE_OPTION) {
-            
-                ObjectInputStream ois=null;
+        if (nacitacOption == JFileChooser.APPROVE_OPTION) {
+
+            ObjectInputStream ois = null;
             try {
-                if("".equals(nacitacSouboru.getSelectedFile().getName())) {
+                if ("".equals(nacitacSouboru.getSelectedFile().getName())) {
                     return;
                 }
                 ois = new ObjectInputStream(new FileInputStream(nacitacSouboru.getSelectedFile()));
-                Control.hra=(Hra) ois.readObject();
+                Control.hra = (Hra) ois.readObject();
                 ois.close();
                 plocha.removeAll();
                 plocha.updateUI();
@@ -420,10 +422,20 @@ public class HerniPlocha extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog=new ProdejDialog(new ProdejGUI(Control.hra.getHraci().get(Control.hra.getAktualniHrac())));
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Control.hra.getHraci().get(Control.hra.getAktualniHrac())));
         //dialog.setSize(300,300);
         //Control.hra.nabidkaProdat();
     }//GEN-LAST:event_prodatActionPerformed
+
+    private void vzdatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vzdatActionPerformed
+        Object[] volby = {"Ano", "Ne"};
+        int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdat?", "Vzdat se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
+        if (odpoved == JOptionPane.YES_OPTION) {
+
+            Control.hra.vyradHrace();
+            ukoncit.doClick();
+        }
+    }//GEN-LAST:event_vzdatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,11 +465,11 @@ public class HerniPlocha extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HerniPlocha().setVisible(true);
-            }
-        });*/
+         java.awt.EventQueue.invokeLater(new Runnable() {
+         public void run() {
+         new HerniPlocha().setVisible(true);
+         }
+         });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -494,16 +506,15 @@ public class HerniPlocha extends javax.swing.JFrame {
             prava.add(h.getJmenovka().getPuntik());
         }
         //prava.add(new JLabel("ahoj"));
-        
+
         //pack();
-        
     }
-    
+
     private void nactiPole() {
         //plocha.setLayout(new OverlayLayout(plocha));
         for (final Policko p : hra.getPolicka()) {
-            if(p.isVlastnicka()) {
-                
+            if (p.isVlastnicka()) {
+
                 p.setOpaque(false);
                 p.setContentAreaFilled(false);
                 p.setBorderPainted(false);
@@ -520,9 +531,9 @@ public class HerniPlocha extends javax.swing.JFrame {
                 });
                 plocha.add(p.getObsazFigurka());
                 plocha.add(p);
-                if(p.getKarta() instanceof Kun) {
-                    Kun kun=(Kun)p.getKarta();
-                    for(Dostihy d : kun.getDostihy()) {
+                if (p.getKarta() instanceof Kun) {
+                    Kun kun = (Kun) p.getKarta();
+                    for (Dostihy d : kun.getDostihy()) {
                         plocha.add(d);
                     }
                 }
@@ -530,18 +541,18 @@ public class HerniPlocha extends javax.swing.JFrame {
         }
         //pack();
     }
-    
+
     private void nactiKostku() {
-        Kostka k=Control.hra.getKostka();
+        Kostka k = Control.hra.getKostka();
         k.pridejListener();
         prava.add(k);
     }
+
     public void prepniKostky() {
-        if(aktualniPr.equals(pr)) {
-            aktualniPr=pr2;
-        }
-        else {
-            aktualniPr=pr;
+        if (aktualniPr.equals(pr)) {
+            aktualniPr = pr2;
+        } else {
+            aktualniPr = pr;
         }
     }
 
@@ -558,11 +569,13 @@ public class HerniPlocha extends javax.swing.JFrame {
     public void setUkoncenTah(boolean ukoncenTah) {
         this.ukoncenTah = ukoncenTah;
     }
+
     public void zapniTlacitko() {
         ukoncit.setEnabled(true);
     }
+
     public void vypniTlacitko() {
         ukoncit.setEnabled(false);
     }
-    
+
 }

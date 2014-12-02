@@ -18,11 +18,12 @@ public abstract class Karta implements Serializable {
             
     public void zobraz() throws InterruptedException {
         final KartaGUI gui=new KartaGUI(this);
-        SwingUtilities.invokeLater(new Runnable() {
+        gui.setLocationRelativeTo(null);
+        /*SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 gui.setVisible(true);
             }
-        });
+        });*/
     }
 }

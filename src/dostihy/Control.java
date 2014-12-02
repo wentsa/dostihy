@@ -9,18 +9,11 @@ import gui.HerniPlocha;
 import gui.Menu;
 import gui.NacitacSouboru;
 import gui.VolbaHracu;
-import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -50,10 +43,11 @@ public class Control {
         nic, nova, nacist, konec
     }
     DataHraci data;
-    public static Volba zvoleno = Volba.nic;
+    public static Volba zvoleno;
 
-    public void run() throws InterruptedException, IOException, ClassNotFoundException {
+    public int run() throws InterruptedException, IOException, ClassNotFoundException {
         // ----------  1 - MENU -------------------
+        zvoleno=Volba.nic;
         final Menu menu = new Menu();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -61,8 +55,9 @@ public class Control {
                 menu.setVisible(true);
             }
         });
+        System.out.println(zvoleno);
         while (zvoleno == Volba.nic) {
-            Thread.sleep(1);
+            Thread.sleep(100);
         }
         if (zvoleno == Volba.nova) {
             // ----------  2 - HRACI ------------------
@@ -92,9 +87,10 @@ public class Control {
             if(volba==JFileChooser.APPROVE_OPTION) {
                 nacitac.vyhodnot();
             }
+            else return 1;
         }
         else if(zvoleno==Volba.konec) {
-            return;
+            return 0;
         }
         // ----------  3 - PLOCHA -----------------
         plocha = new HerniPlocha();
@@ -110,6 +106,7 @@ public class Control {
             status = hra.tahni();
         }
         // ----------------------------------------
+        return 1;
     }
 
     Barva parseColor(String barva) {

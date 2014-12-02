@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dostihy.Control;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
@@ -17,45 +18,36 @@ import karty.nahoda.*;
  *
  * @author wentsa
  */
-public class KartaGUI extends JFrame implements ActionListener {
+public class KartaGUI extends JDialog implements ActionListener {
     Karta karta;
     public KartaGUI(Karta karta) {
+        super(Control.plocha);
         this.karta=karta;
-        setTitle("karta");
+        setModal(true);
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setUndecorated(true); //odstrani horni panel
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         
-        setLayout(new BorderLayout());
+        //setLayout(new BorderLayout());
         ImageIcon obrazek=new ImageIcon(KartaGUI.class.getResource("/step9.jpg"));
-        final JButton but=new JButton(obrazek);
-        setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
+        
+        //setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
 
-        but.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-            }
-        });
         
-        setSize(obrazek.getIconWidth(),obrazek.getIconHeight());
-        setContentPane(but);
-        
-        setLayout(null);
-        JLabel nadpis=new JLabel();
-        JLabel popis=null;
+        String nadpis=null;
+        String popis=null;
         if(this.karta instanceof Finance) {
-            nadpis.setText("FINANCE");
-            popis=new JLabel("<html><p><center>" + this.karta.toString() + "</center></p></html>",JLabel.CENTER);
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>FINANCE</center></p>";
+            popis="<p><center>" + this.karta.toString() + "</center></p></body></html>";
         }
         else if(this.karta instanceof Nahoda) {
-            nadpis.setText("NAHODA");
-            popis=new JLabel("<html><p><center>" + this.karta.toString() + "</center></p></html>",JLabel.CENTER);
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>NAHODA</center></p>";
+            popis="<p><center>" + this.karta.toString() + "</center></p></body></html>";
         }
         else if(this.karta instanceof Kun) {
             Kun tmp=(Kun) this.karta;
-            nadpis.setText(tmp.getJmeno().toUpperCase());
-            popis=new JLabel("<html>" +
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
+            popis=
                     "Porizovaci cena: " + tmp.getPorizovaciCena() + "<br>" +
                     "Prohlidka staje: " + tmp.getProhlidkaStaje() + "<br><br>" +
                     "Zisk z<br>" +
@@ -67,41 +59,43 @@ public class KartaGUI extends JFrame implements ActionListener {
                     "Naklady na pripravu<br>" +
                     "<table><tr><td>na novy dostih:</td><td align=right>" + tmp.getPripravaDostihu() + "</td></tr>" +
                     "<tr><td>na hl. dostih:</td><td align=right>" + tmp.getPripravaHlavnihoDostihu() + "</td></tr></table>" +
-                    "</html>",JLabel.CENTER);
+                    "</body></html>";
         }
         else if(this.karta instanceof Trener) {
             Trener tmp=(Trener) this.karta;
-            nadpis.setText("TRENER " + tmp.getCislo());
-            popis=new JLabel("<html>" + 
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>TRENER " + tmp.getCislo() + "</center></p>";
+            popis= 
                     "Cena licence:    " + tmp.getPorizovaciCena() + "<br><br>" +
                     "Majitel licenci vybira tyto poplatky:<br>" +
                     "1. licence:      1000<br>" +
                     "2. licence:      2000<br>" +
                     "3. licence:      3000<br>" +
                     "4. licence:      4000<br>" +
-                    "</html>",JLabel.CENTER);
+                    "</body></html>";
         }
         else if(this.karta instanceof PrepravaStaje) {
             PrepravaStaje tmp=(PrepravaStaje) this.karta;
-            nadpis.setText(tmp.getJmeno().toUpperCase());
-            popis=new JLabel("<html><p>" + tmp.getPopis() + "</p></html>");
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
+            popis="<p>" + tmp.getPopis() + "</p></body></html>";
         }
         Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, 16);
-        nadpis.setForeground(Color.BLACK);
-        popis.setForeground(Color.BLACK);
-        popis.setFont(font);
-        nadpis.setFont(font);
-        nadpis.setLocation(obrazek.getIconWidth()/8, obrazek.getIconHeight()/8);
-        popis.setLocation(obrazek.getIconWidth()/8, obrazek.getIconHeight()/4);
-        nadpis.setSize(obrazek.getIconWidth()*3/4,obrazek.getIconHeight()/4);
-        popis.setSize(obrazek.getIconWidth()*3/4, obrazek.getIconHeight()*3/4);
-        nadpis.setVerticalAlignment(SwingConstants.TOP);
-        nadpis.setHorizontalAlignment(SwingConstants.CENTER);
-        popis.setVerticalAlignment(SwingConstants.TOP);
-        add(popis);
-        add(nadpis);
-        //but.addActionListener(this);
+               
+        final JButton but=new JButton(nadpis.concat("<br><br>" + popis),obrazek);
+        but.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+            }
+        });
+        but.setHorizontalTextPosition(SwingConstants.CENTER);
+        but.setSize(obrazek.getIconWidth(),obrazek.getIconHeight());
+        but.setContentAreaFilled(false);
+        but.setFocusPainted(false);
         but.setBorderPainted(false);
+        but.setBackground(Color.red);
+        setContentPane(but);
+        setBackground(Color.yellow);
+        pack();
         setVisible(true);
         setLocationRelativeTo(null); //na stred
     }

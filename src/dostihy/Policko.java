@@ -76,6 +76,10 @@ public class Policko extends JButton implements Serializable {
      */
     public void setObsazeno(boolean obsazeno) {
         this.obsazeno = obsazeno;
+        obsazFigurka.setObsazeno(obsazeno);
+        if(obsazeno) {
+            obsazFigurka.zmenBarvu(this.majitel.getFigurka().getBarva());
+        }        
     }
 
     /**

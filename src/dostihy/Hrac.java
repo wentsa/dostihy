@@ -38,9 +38,7 @@ public class Hrac implements Serializable {
     private final Jmenovka jmenovka;
     private int pocetTreneru;
     private int pocetPrepravaStaje;
-    private static Object lock;
-    private static ProdejGUI prodej;
-    private static JFrame frame=new JFrame();
+    private boolean aktivni;
 
     public Hrac(String jmeno, Barva barva, int cislo) {
         this.jmeno = jmeno;
@@ -53,7 +51,7 @@ public class Hrac implements Serializable {
         this.jmenovka = new Jmenovka(this.jmeno, this.getRozpocet(), this.cislo, barva);
         this.pocetTreneru = 0;
         this.pocetPrepravaStaje = 0;
-        this.lock = new Object();
+        this.aktivni=true;
 
     }
 
@@ -175,51 +173,26 @@ public class Hrac implements Serializable {
         return pocetPrepravaStaje;
     }
 
-    public void prodej() throws InterruptedException {
-        //prodej = new ProdejGUI(Hrac.this);
-        //prodej.setVisible(true);
-        frame.setSize(300, 300);
-        //frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setVisible(true);
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                
-                
-                synchronized (lock) {
-                    while (frame.isVisible()) {
-                        try {
-                            lock.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    System.out.println("Working now");
-                }
-            }
-
-        });
-        t.start();
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                //ProdejGUI.this.hrac.setProdal(true);
-                System.out.println("event");
-                synchronized (lock) {
-                    frame.setVisible(false);
-                    lock.notify();
-                }
-            }
-
-        });
-        System.out.println("join");
-        //t.join();
-    }
-
     /**
      * @return the rozpocet
      */
     public int getRozpocet() {
         return rozpocet;
+    }
+
+    /**
+     * @return the aktivni
+     */
+    public boolean isAktivni() {
+        return aktivni;
+    }
+
+    void vyrad(int poradi) {
+        this.aktivni=false;
+        this.figurka.setVisible(false);
+        this.karty.clear();
+        this.rozpocet=0;
+        this.jmenovka.setPoradi(poradi);
     }
 
    

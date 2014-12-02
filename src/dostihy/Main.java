@@ -17,8 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
 
-    
-        /**
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
@@ -33,11 +32,16 @@ public class Main {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Control c=new Control();
-        c.run();
-            
-        
+        do {
+            System.out.println("nova");
+            Control c = new Control();
+            System.out.println(c);
+            if (c.run() == 0) {
+                break;
+            }
+            c=null;
+        } while (true);
+
     }
-    
-    
+
 }

@@ -21,6 +21,8 @@ public class Jmenovka extends JLabel implements Serializable {
     private final int pozice;
     private final int souradniceY;
     private final Puntik puntik;
+    private boolean aktivni=true;
+    private int poradi;
 
     public Jmenovka(String jmeno, int castka, int pozice, Barva barva) {
         super("<html><table width=345><tr><td>" + jmeno.toUpperCase() + "</td><td align=right>" + castka + "</td></tr></table></html>");
@@ -50,7 +52,7 @@ public class Jmenovka extends JLabel implements Serializable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setText("<html><table width=345><tr><td>" + this.jmeno.toUpperCase() + "</td><td align=right>" + castka + "</td></tr></table></html>");
+        setText("<html><table width=345><tr><td>" + this.jmeno.toUpperCase() + "</td><td align=right>" + (aktivni? castka : (poradi + ". misto") ) + "</td></tr></table></html>");
         setLocation(70, souradniceY);
     }
 
@@ -64,6 +66,11 @@ public class Jmenovka extends JLabel implements Serializable {
     public void aktualizujCastku(int castka) {
         this.castka=castka;
     }
+    public void setPoradi(int poradi) {
+        this.poradi=poradi;
+        this.aktivni=false;
+    }
+    
 
     
     
