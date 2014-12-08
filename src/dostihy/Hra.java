@@ -31,21 +31,34 @@ public final class Hra implements Serializable {
     private Kostka kostka;
     private List<Hrac> hraci;
     private final List<Policko> policka;
-    private KolekceKaret nahodaNove;
-    private KolekceKaret nahodaStare;
-    private KolekceKaret financeNove;
-    private KolekceKaret financeStare;
+    private KolekceKaret<Nahoda> nahodaNove;
+    private KolekceKaret<Nahoda> nahodaStare;
+    private KolekceKaret<Finance> financeNove;
+    private KolekceKaret<Finance> financeStare;
     private int aktualniHrac; // 0...pocet-1
     private int pocetHracu;
     private final JTextPane statusBox;
     private List<Hrac> vyherci;
     
-    public Hra() {
+    private static Hra instance=null;
+    
+    public static Hra getInstance() {
+        if(instance==null) {
+            instance= new Hra();
+        }
+        return instance;
+    }
+    public static void changeInstance(Hra other) {
+        instance=other;
+    }
+    
+    private Hra() {
+        System.out.println("vytvarim hru");
         this.policka = new ArrayList<>(40);
-        this.financeNove = new KolekceKaretImplementace(14);
-        this.financeStare = new KolekceKaretImplementace(14);
-        this.nahodaNove = new KolekceKaretImplementace(14);
-        this.nahodaStare = new KolekceKaretImplementace(14);
+        this.financeNove = new KolekceKaretImplementace<>(14);
+        this.financeStare = new KolekceKaretImplementace<>(14);
+        this.nahodaNove = new KolekceKaretImplementace<>(14);
+        this.nahodaStare = new KolekceKaretImplementace<>(14);
         this.kostka = new Kostka();
         this.aktualniHrac = 0;
         this.vyherci = new ArrayList<>();
@@ -158,7 +171,7 @@ public final class Hra implements Serializable {
     }
     
     public boolean tahni() throws InterruptedException {
-        Control.plocha.setUkoncenTah(false);
+        HerniPlocha.getInstance().setUkoncenTah(false);
         //-------------TAH S FIGURKOU---------------------------
         Hrac hrac = hraci.get(aktualniHrac);
         
@@ -347,12 +360,12 @@ public final class Hra implements Serializable {
             }
             
         }
-        Control.plocha.zapniTlacitko();
-        while (!Control.plocha.isUkoncenTah()) {
+        HerniPlocha.getInstance().zapniTlacitko();
+        while (!HerniPlocha.getInstance().isUkoncenTah()) {
             Thread.sleep(
                     100);
         }
-        Control.plocha.vypniTlacitko();
+        HerniPlocha.getInstance().vypniTlacitko();
         aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
         return false;
     }

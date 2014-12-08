@@ -6,6 +6,7 @@
 package karty.finance;
 
 import dostihy.Control;
+import dostihy.Hra;
 import dostihy.Hrac;
 import java.io.Serializable;
 import pomocne.VyberciDani;
@@ -23,7 +24,7 @@ public class FinanceDarek extends Finance implements Serializable { // od kazdeh
     @Override
     public void proved(Hrac h) {
         VyberciDani vyberci=new VyberciDani();
-        for (Hrac hrac : Control.hra.getHraci()) {
+        for (Hrac hrac : Hra.getInstance().getHraci()) {
             if(!hrac.equals(h)) {
                 vyberci.navstiv(hrac);
             }

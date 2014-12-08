@@ -22,8 +22,7 @@ import javax.swing.SwingUtilities;
  */
 public class Control {
 
-    public static HerniPlocha plocha;
-    public static Hra hra;
+    
     
 
     public class DataHraci {
@@ -78,8 +77,7 @@ public class Control {
                 hraci.add(new Hrac(jmeno, parseColor(data.barvy.get(i)), i + 1));
                 i++;
             }
-            hra = new Hra();
-            hra.zalozHrace(hraci);
+            Hra.getInstance().zalozHrace(hraci);
         }
         else if(zvoleno==Volba.nacist) {
             NacitacSouboru nacitac = new NacitacSouboru();
@@ -93,17 +91,18 @@ public class Control {
             return 0;
         }
         // ----------  3 - PLOCHA -----------------
-        plocha = new HerniPlocha();
+        HerniPlocha.getInstance();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                plocha.setVisible(true);
+                HerniPlocha h=HerniPlocha.getInstance();
+                h.repaint();
             }
         });
 
         boolean status = false;
         while (!status) {
-            status = hra.tahni();
+            status = Hra.getInstance().tahni();
         }
         // ----------------------------------------
         return 1;

@@ -21,7 +21,7 @@ import karty.nahoda.*;
 public class KartaGUI extends JDialog implements ActionListener {
     Karta karta;
     public KartaGUI(Karta karta) {
-        super(Control.plocha);
+        super(HerniPlocha.getInstance());
         this.karta=karta;
         setModal(true);
         

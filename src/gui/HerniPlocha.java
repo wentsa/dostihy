@@ -39,7 +39,6 @@ import karty.Kun;
  */
 public class HerniPlocha extends javax.swing.JFrame {
 
-    Hra hra;
     Image pl;
     Image st;
     Image pr, pr2;
@@ -50,13 +49,17 @@ public class HerniPlocha extends javax.swing.JFrame {
     int nacitacOption;
     private boolean ukoncenTah = false;
 
-    /**
-     * Creates new form HerniPlocha
-     *
-     * @param hra
-     */
-    public HerniPlocha() {
-        this.hra = Control.hra;
+    private static HerniPlocha instance=null;
+    
+    
+    public static HerniPlocha getInstance() {
+        if(instance==null) {
+            instance= new HerniPlocha();
+        }
+        return instance;
+    }
+    private HerniPlocha() {
+        System.out.println("plochu");
         pl = new ImageIcon(HerniPlocha.class.getResource("/plocha.jpg")).getImage();
         st = new ImageIcon(HerniPlocha.class.getResource("/stred.jpg")).getImage();
         aktualniPr = pr = new ImageIcon(HerniPlocha.class.getResource("/prava.jpg")).getImage();
@@ -72,7 +75,7 @@ public class HerniPlocha extends javax.swing.JFrame {
         //nactiStatusBox();
 
         setLocationRelativeTo(null);
-
+        setVisible(true);
     }
 
     /**
@@ -142,7 +145,7 @@ public class HerniPlocha extends javax.swing.JFrame {
             }
         };
         jScrollPane1 = new javax.swing.JScrollPane();
-        statusBoxik = Control.hra.getStatusBox();
+        statusBoxik = Hra.getInstance().getStatusBox();
         stredD = new javax.swing.JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -160,7 +163,7 @@ public class HerniPlocha extends javax.swing.JFrame {
             upravit = new javax.swing.JMenu();
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
-            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/classroom/user/chaluto2"));
             nacitacSouboru.setDialogTitle("");
             nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
@@ -187,21 +190,18 @@ public class HerniPlocha extends javax.swing.JFrame {
             cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
 
             hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
-            hlavni_plocha.setBorder(null);
             hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
             plocha.setBackground(new java.awt.Color(0, 255, 221));
-            plocha.setBorder(null);
             plocha.setMaximumSize(new java.awt.Dimension(700, 700));
             plocha.setMinimumSize(new java.awt.Dimension(700, 700));
             plocha.setLayout(new javax.swing.OverlayLayout(plocha));
             hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
 
             stred.setBackground(new java.awt.Color(0, 176, 255));
-            stred.setBorder(null);
             stred.setMaximumSize(new java.awt.Dimension(100, 700));
             stred.setMinimumSize(new java.awt.Dimension(100, 700));
             stred.setPreferredSize(new java.awt.Dimension(100, 700));
@@ -209,7 +209,6 @@ public class HerniPlocha extends javax.swing.JFrame {
             hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
             prava.setBackground(new java.awt.Color(0, 108, 255));
-            prava.setBorder(null);
             prava.setMaximumSize(new java.awt.Dimension(480, 700));
             prava.setMinimumSize(new java.awt.Dimension(480, 700));
             prava.setName(""); // NOI18N
@@ -234,7 +233,6 @@ public class HerniPlocha extends javax.swing.JFrame {
             leva.setPreferredSize(new java.awt.Dimension(800, 50));
 
             statusB.setBackground(new java.awt.Color(0, 24, 255));
-            statusB.setBorder(null);
             statusB.setMaximumSize(new java.awt.Dimension(100, 50));
             statusB.setMinimumSize(new java.awt.Dimension(100, 50));
             statusB.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -261,7 +259,6 @@ public class HerniPlocha extends javax.swing.JFrame {
             cely_spodek.setLeftComponent(leva);
 
             tlacitka.setBackground(new java.awt.Color(93, 93, 93));
-            tlacitka.setBorder(null);
             tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
             tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
             tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));
@@ -382,7 +379,7 @@ public class HerniPlocha extends javax.swing.JFrame {
                     f = new File(ukladacSouboru.getSelectedFile() + ".das");
                 }
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
-                oos.writeObject(Control.hra);
+                oos.writeObject(Hra.getInstance());
                 oos.close();
             } catch (IOException ex) {
                 Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
@@ -400,15 +397,15 @@ public class HerniPlocha extends javax.swing.JFrame {
                     return;
                 }
                 ois = new ObjectInputStream(new FileInputStream(nacitacSouboru.getSelectedFile()));
-                Control.hra = (Hra) ois.readObject();
+                Hra.changeInstance((Hra) ois.readObject());
                 ois.close();
                 plocha.removeAll();
                 plocha.updateUI();
                 nactiHrace();
                 nactiPole();
                 nactiKostku();
-                Control.plocha.repaint();
-                System.out.println(Control.hra.getHraci().get(0).getRozpocet());
+                HerniPlocha.getInstance().repaint();
+                System.out.println(Hra.getInstance().getHraci().get(0).getRozpocet());
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -422,7 +419,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Control.hra.getHraci().get(Control.hra.getAktualniHrac())));
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getHraci().get(Hra.getInstance().getAktualniHrac())));
         //dialog.setSize(300,300);
         //Control.hra.nabidkaProdat();
     }//GEN-LAST:event_prodatActionPerformed
@@ -432,7 +429,7 @@ public class HerniPlocha extends javax.swing.JFrame {
         int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdat?", "Vzdat se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
         if (odpoved == JOptionPane.YES_OPTION) {
 
-            Control.hra.vyradHrace();
+            Hra.getInstance().vyradHrace();
             ukoncit.doClick();
         }
     }//GEN-LAST:event_vzdatActionPerformed
@@ -500,7 +497,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     private void nactiHrace() {
         //plocha.setLayout(new OverlayLayout(plocha));
         //prava.setLayout(new OverlayLayout(prava));
-        for (Hrac h : hra.getHraci()) {
+        for (Hrac h : Hra.getInstance().getHraci()) {
             plocha.add(h.getFigurka());
             prava.add(h.getJmenovka());
             prava.add(h.getJmenovka().getPuntik());
@@ -512,7 +509,7 @@ public class HerniPlocha extends javax.swing.JFrame {
 
     private void nactiPole() {
         //plocha.setLayout(new OverlayLayout(plocha));
-        for (final Policko p : hra.getPolicka()) {
+        for (final Policko p : Hra.getInstance().getPolicka()) {
             if (p.isVlastnicka()) {
 
                 p.setOpaque(false);
@@ -543,7 +540,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     }
 
     private void nactiKostku() {
-        Kostka k = Control.hra.getKostka();
+        Kostka k = Hra.getInstance().getKostka();
         k.pridejListener();
         prava.add(k);
     }

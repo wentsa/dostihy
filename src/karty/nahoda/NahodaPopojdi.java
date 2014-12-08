@@ -6,6 +6,7 @@
 package karty.nahoda;
 
 import dostihy.Control;
+import dostihy.Hra;
 import dostihy.Hrac;
 import java.io.Serializable;
 
@@ -43,7 +44,7 @@ public class NahodaPopojdi extends Nahoda implements Serializable {
         if (presnyPocet) {
             h.popojdi(dopredu ? kolik : -kolik);
         } else {
-            Control.hra.popojdiNa(h, kam, dopredu);
+            Hra.getInstance().popojdiNa(h, kam, dopredu);
         }
         int pozicePo = h.getFigurka().getPozice();
         if (dopredu && dostatBonus && pozicePred > pozicePo) {

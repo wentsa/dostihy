@@ -36,7 +36,7 @@ public class NacitacSouboru extends JFileChooser {
                 return;
             }
             ois = new ObjectInputStream(new FileInputStream(getSelectedFile()));
-            Control.hra = (Hra) ois.readObject();
+            Hra.changeInstance((Hra) ois.readObject());
             ois.close();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);

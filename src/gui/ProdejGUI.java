@@ -28,14 +28,12 @@ public class ProdejGUI extends javax.swing.JPanel {
     /**
      * Creates new form ProdejGUI
      */
-    private final Hra hra;
     private final Hrac hrac;
     private final Set<VlastnickaKarta> karty;
     private String[] sKarty;
 
     public ProdejGUI(Hrac hrac) {
         System.out.println("prodavac");
-        this.hra = Control.hra;
         this.hrac = hrac;
         karty = this.hrac.getKarty();
         initComponents();
@@ -172,7 +170,7 @@ public class ProdejGUI extends javax.swing.JPanel {
             }
             for (VlastnickaKarta k : vymazat) {
                 hrac.pricti(k.getPorizovaciCena());
-                Policko p = hra.getPolicka().get(k.getPozice());
+                Policko p = Hra.getInstance().getPolicka().get(k.getPozice());
                 p.setObsazeno(false);
                 p.setMajitel(null);
                 p.getObsazFigurka().setObsazeno(false);

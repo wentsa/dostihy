@@ -5,6 +5,7 @@
  */
 package dostihy;
 
+import gui.HerniPlocha;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +51,7 @@ public final class Kostka extends JButton implements Serializable {
     public int hazej() {
         kolik=0;
         setEnabled(true);
-        Control.plocha.prepniKostky();
+        HerniPlocha.getInstance().prepniKostky();
         while(!hozeno) {try {
             Thread.sleep(1);
             } catch (InterruptedException ex) {
@@ -59,20 +60,20 @@ public final class Kostka extends JButton implements Serializable {
         }
         hozeno=false;
         if(kolik==6) {
-            Control.hra.status("Hodil jsi 6, hazej znovu");
+            Hra.getInstance().status("Hodil jsi 6, hazej znovu");
             while(!hozeno) {try {
                 Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            Control.hra.status("Hodil jsi " + (kolik-6) + " posouvas se o " + kolik);
+            Hra.getInstance().status("Hodil jsi " + (kolik-6) + " posouvas se o " + kolik);
             hozeno=false;
         }
         else {
-            Control.hra.status("Hodil jsi " + kolik);
+            Hra.getInstance().status("Hodil jsi " + kolik);
         }
-        Control.plocha.prepniKostky();
+        HerniPlocha.getInstance().prepniKostky();
         setEnabled(false);
         return kolik;
     }
