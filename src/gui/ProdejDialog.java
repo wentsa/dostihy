@@ -21,7 +21,7 @@ public class ProdejDialog extends JDialog {
         setModal(true);
         setContentPane(prodej);
         pack();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(HerniPlocha.getInstance());
         //setSize(prodej.getWidth(), prodej.getHeight());
         setVisible(true);
     }

@@ -31,7 +31,7 @@ public class KartaGUI extends JDialog implements ActionListener {
         //setLayout(new BorderLayout());
         ImageIcon obrazek=new ImageIcon(KartaGUI.class.getResource("/step9.jpg"));
         
-        //setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
+        setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
 
         
         String nadpis=null;
@@ -75,8 +75,8 @@ public class KartaGUI extends JDialog implements ActionListener {
         }
         else if(this.karta instanceof PrepravaStaje) {
             PrepravaStaje tmp=(PrepravaStaje) this.karta;
-            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
-            popis="<p>" + tmp.getPopis() + "</p></body></html>";
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*1/2 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
+            popis="<br><p>" + tmp.getPopis() + "</p><br><br><br><br><br><br><br><br></body></html>";
         }
         Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, 16);
                
@@ -87,17 +87,24 @@ public class KartaGUI extends JDialog implements ActionListener {
                 dispose();
             }
         });
+        but.setFont(font);
         but.setHorizontalTextPosition(SwingConstants.CENTER);
+        but.setMargin(new Insets(15, 50, 15, 50));
         but.setSize(obrazek.getIconWidth(),obrazek.getIconHeight());
+        but.setBounds(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight());
         but.setContentAreaFilled(false);
         but.setFocusPainted(false);
         but.setBorderPainted(false);
         but.setBackground(Color.red);
+        setLayout(null);
+        setBounds(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight());
         setContentPane(but);
         setBackground(Color.yellow);
-        pack();
+        //pack();
+        
+        setLocationRelativeTo(HerniPlocha.getInstance());
+        
         setVisible(true);
-        setLocationRelativeTo(null); //na stred
     }
 
     @Override
