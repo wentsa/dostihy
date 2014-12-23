@@ -21,12 +21,13 @@ import karty.nahoda.*;
 public class KartaGUI extends JDialog implements ActionListener {
     Karta karta;
     public KartaGUI(Karta karta) {
-        super(HerniPlocha.getInstance());
+        //super(HerniPlocha1.getInstance());
         this.karta=karta;
         setModal(true);
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         
         //setLayout(new BorderLayout());
         ImageIcon obrazek=new ImageIcon(KartaGUI.class.getResource("/step9.jpg"));
@@ -102,7 +103,7 @@ public class KartaGUI extends JDialog implements ActionListener {
         setBackground(Color.yellow);
         //pack();
         
-        setLocationRelativeTo(HerniPlocha.getInstance());
+        //setLocationRelativeTo(HerniPlocha.getInstance());
         
         setVisible(true);
     }

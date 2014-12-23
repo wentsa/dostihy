@@ -5,20 +5,12 @@
  */
 package dostihy;
 
-import gui.ProdejGUI;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import karty.VlastnickaKarta;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import karty.PrepravaStaje;
 import karty.Trener;
 
@@ -193,6 +185,18 @@ public class Hrac implements Serializable {
         this.karty.clear();
         this.rozpocet=0;
         this.jmenovka.setPoradi(poradi);
+    }
+
+    public Object getCas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getMaxHotovost() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getMaxKaret() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    

@@ -25,7 +25,7 @@ public class Control {
     
     
 
-    public class DataHraci {
+    public static class DataHraci {
 
         public List<String> jmena;
         public List<String> barvy;
@@ -34,6 +34,7 @@ public class Control {
             jmena = new ArrayList<>();
             barvy = new ArrayList<>();
         }
+
 
     }
 
@@ -77,7 +78,7 @@ public class Control {
                 hraci.add(new Hrac(jmeno, parseColor(data.barvy.get(i)), i + 1));
                 i++;
             }
-            Hra.getInstance().zalozHrace(hraci);
+            //Hra.getInstance().zalozHrace(hraci);
         }
         else if(zvoleno==Volba.nacist) {
             NacitacSouboru nacitac = new NacitacSouboru();

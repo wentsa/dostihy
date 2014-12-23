@@ -5,15 +5,16 @@
  */
 package dostihy;
 
+import MVC.HerniPlochaController;
 import gui.HerniPlocha;
+import dostihy.Control.DataHraci;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -29,16 +30,16 @@ import kolekce.*;
 public final class Hra implements Serializable {
     
     private Kostka kostka;
-    private List<Hrac> hraci;
+    private final List<Hrac> hraci;
     private final List<Policko> policka;
-    private KolekceKaret<Nahoda> nahodaNove;
-    private KolekceKaret<Nahoda> nahodaStare;
-    private KolekceKaret<Finance> financeNove;
-    private KolekceKaret<Finance> financeStare;
+    private KolekceKaret<Nahoda> nahodaNove, nahodaStare;
+    private KolekceKaret<Finance> financeNove,financeStare;
     private int aktualniHrac; // 0...pocet-1
     private int pocetHracu;
     private final JTextPane statusBox;
     private List<Hrac> vyherci;
+    private long cas;
+    private int pocetTahu=0, aktivnichHracu;
     
     private static Hra instance=null;
     
@@ -59,13 +60,14 @@ public final class Hra implements Serializable {
         this.financeStare = new KolekceKaretImplementace<>(14);
         this.nahodaNove = new KolekceKaretImplementace<>(14);
         this.nahodaStare = new KolekceKaretImplementace<>(14);
+        this.hraci=new ArrayList<>();
         this.kostka = new Kostka();
         this.aktualniHrac = 0;
         this.vyherci = new ArrayList<>();
         this.statusBox = new JTextPane() {
             @Override
             public void paintComponent(Graphics g) {
-                Image statusP = new ImageIcon(HerniPlocha.class.getResource("/status.jpg")).getImage();
+                BufferedImage statusP = HerniPlochaController.getInstance().getBoxPozadi();
                 g.drawImage(statusP, 0, 0, statusP.getWidth(null), statusP.getHeight(null), null);
                 super.paintComponent(g);
             }
@@ -173,6 +175,13 @@ public final class Hra implements Serializable {
     public boolean tahni() throws InterruptedException {
         HerniPlocha.getInstance().setUkoncenTah(false);
         //-------------TAH S FIGURKOU---------------------------
+        if(pocetTahu++==0) {
+            cas=System.currentTimeMillis();
+        }
+        if(aktivnichHracu==1) {
+            vyradHrace();
+            return true;
+        }
         Hrac hrac = hraci.get(aktualniHrac);
         
         while (hrac.getRozpocet() < 0 && hrac.isAktivni()) {
@@ -370,11 +379,37 @@ public final class Hra implements Serializable {
         return false;
     }
     
-    void zalozHrace(List<Hrac> hraci) {
-        this.hraci = hraci;
-        this.pocetHracu = hraci.size();
+    public void zalozHrace(DataHraci data) {
+        int i=0;
+        for (String jmeno : data.jmena) {
+                hraci.add(new Hrac(jmeno, parseColor(data.barvy.get(i)), i+1));
+                i++;
+        }
+        aktivnichHracu=pocetHracu = hraci.size();
     }
-
+    private Barva parseColor(String barva) {
+        switch (barva) {
+            case "Cerna":
+                return Barva.BLACK;
+            case "Modra":
+                return Barva.BLUE;
+            case "Tyrkysova":
+                return Barva.CYAN;
+            case "Zelena":
+                return Barva.GREEN;
+            case "Fialova":
+                return Barva.MAGENTA;
+            case "Oranzova":
+                return Barva.ORANGE;
+            case "Cervena":
+                return Barva.RED;
+            case "Bila":
+                return Barva.WHITE;
+            case "Zluta":
+                return Barva.YELLOW;
+        }
+        return null;
+    }
     /**
      * @return the hraci
      */
@@ -522,7 +557,18 @@ public final class Hra implements Serializable {
                 p.setMajitel(null);
             }
         }
+        aktivnichHracu--;
         status("Hrac \"" + aktH.getJmeno() + "\" se jiz nezucastni dalsiho herniho kola");
+    }
+
+    public String getCelkovyCas() {
+        cas/=1000;
+        String res=":" + cas%3600;
+        cas/=60;
+        res = ":" + cas%60 + res;
+        cas/=60;
+        res=cas + res;
+        return res;
     }
     
 }
