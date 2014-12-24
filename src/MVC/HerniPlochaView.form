@@ -515,9 +515,6 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="borderPainted" type="boolean" value="false"/>
-                        <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection component="ukoncit" name="icon" type="property"/>
-                        </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>

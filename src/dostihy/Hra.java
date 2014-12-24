@@ -80,29 +80,51 @@ public final class Hra implements Serializable {
             public Void call() throws Exception {
                 while (true) {
                     HerniPlochaController.getInstance().setUkoncenTah(false);
-
+                    System.out.println("A");
                     if (zacatekTahu()) {
+                        vyradHrace();
                         break;
                     }
+                    System.out.println("B");
                     if (!zvolHrace()) {
                         continue;
                     }
+                    System.out.println("C");
                     status("Hraje " + aktualniHrac.getJmeno());
+                    System.out.println("D");
                     int kolik = kostka.hazej();
+                    if(kolik==-1) {
+                        vyradHrace();
+                        continue;
+                    }
+                    System.out.println("E");
                     if (!vyhodnotHod(kolik)) {
                         continue;
                     }
+                    System.out.println("F");
                     aktualniHrac.popojdi(kolik);
+                    System.out.println("G");
                     int aktualniPozice = aktualniHrac.getFigurka().getPozice();
                     vyhodnotPozici(aktualniPozice, kolik);
+                    System.out.println("H");
                     Policko p = policka.get(aktualniPozice);
                     vyhodnotPolicko(p, kolik);
+                    System.out.println("I");
                     shoutOut("zapni");
+                    Thread.sleep(200);
                     while (!HerniPlochaController.getInstance().isUkoncenTah()) {
+                        if(!aktualniHrac.isAktivni()) break;
                         Thread.sleep(100);
+                        System.out.print("a-");
                     }
                     shoutOut("vypni");
+                    Thread.sleep(1000);
+                    if(!aktualniHrac.isAktivni()) {
+                        vyradHrace();
+                        continue;
+                    }
                     dalsiHrac();
+                    System.out.println("\nJ");
                 }
                 return null;
             }
@@ -215,6 +237,7 @@ public final class Hra implements Serializable {
             i++;
         }
         aktivnichHracu = pocetHracu = hraci.size();
+        System.out.println("AKTIVNICH HRACU " + aktivnichHracu);
         aktualniHrac = hraci.get(0);
     }
 
@@ -320,8 +343,12 @@ public final class Hra implements Serializable {
     }
 
     public void status(String message) {
-        statusBox.setText(message);
-        statusBox.repaint();
+        tah.shoutOut("msg" + message);
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -381,6 +408,10 @@ public final class Hra implements Serializable {
 
     public void vyradHrace() {
         aktualniHrac.vyrad(pocetHracu - getVyherci().size());
+        try{if(vyherci.contains(aktualniHrac)) throw new ArrayStoreException("uz tam je " + aktualniHrac.getJmeno());}
+        catch(ArrayStoreException e) {
+            System.out.println(e.getMessage());
+        }
         getVyherci().add(aktualniHrac);
         for (Policko p : policka) {
             if (p.isVlastnicka() && p.isObsazeno() && p.getMajitel().equals(aktualniHrac)) {
@@ -390,6 +421,12 @@ public final class Hra implements Serializable {
         }
         aktivnichHracu--;
         status("Hrac \"" + aktualniHrac.getJmeno() + "\" se jiz nezucastni dalsiho herniho kola");
+        System.out.println("+++ vyrazen " + aktualniHrac.getJmeno());
+        dalsiHrac();
+    }
+    
+    public boolean jeAktualniHracAktivni() {
+        return aktualniHrac.isAktivni();
     }
 
     public String getCelkovyCas() {
@@ -408,8 +445,8 @@ public final class Hra implements Serializable {
         if (pocetTahu++ == 0) {
             cas = System.currentTimeMillis();
         }
+        System.out.println("aktivnich hracu=" + aktivnichHracu);
         if (aktivnichHracu == 1) {
-            vyradHrace();
             return true;
         }
         return false;
@@ -438,7 +475,9 @@ public final class Hra implements Serializable {
     }
 
     private void dalsiHrac() {
+        System.out.print("-----dalsi hrac " + aktualniHrac.getJmeno() + " => ");
         aktualniHrac = hraci.get((hraci.indexOf(aktualniHrac) + 1) % pocetHracu);
+        System.out.println(aktualniHrac.getJmeno());
     }
 
     private boolean vyhodnotHod(int kolik) {
@@ -484,13 +523,14 @@ public final class Hra implements Serializable {
     }
 
     private void vyhodnotPolicko(Policko p, int kolik) throws InterruptedException {
+        System.out.println("policko " + p.getNazev());
         if ("Finance".equals(p.getNazev())) {
             try {
                 vyhodnotFinance();
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("Nahoda".equals(p.getNazev())) {
+        } else if ("Náhoda".equals(p.getNazev())) {
             try {
                 vyhodnotNahodu();
 
@@ -514,6 +554,7 @@ public final class Hra implements Serializable {
     }
 
     private void vyhodnotFinance() throws InterruptedException, IllegalAccessException {
+        System.out.println("FINANCE");
         if (financeNove.pocet() == 0) {
             KolekceKaret tmp = financeNove;
             financeNove = financeStare;
@@ -527,6 +568,7 @@ public final class Hra implements Serializable {
     }
 
     private void vyhodnotNahodu() throws IllegalAccessException, InterruptedException {
+        System.out.println("NAHODA");
         if (nahodaNove.pocet() == 0) {
             KolekceKaret tmp = nahodaNove;
             nahodaNove = nahodaStare;
@@ -555,7 +597,8 @@ public final class Hra implements Serializable {
 
                 p.setMajitel(aktualniHrac);
                 p.setObsazeno(true);
-                status("Zakoupil jsi \"" + p.getNazev() + "\"");
+                System.out.println(Thread.currentThread());
+                Hra.getInstance().status("Zakoupil jsi \"" + p.getNazev() + "\"");
             }
         }
     }

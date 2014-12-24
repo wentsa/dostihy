@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -50,6 +51,7 @@ public class TEST extends javax.swing.JFrame {
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
         nastavPlochu();
+        tahni();
     }
 
     public void nactiHru() {
@@ -84,14 +86,14 @@ public class TEST extends javax.swing.JFrame {
         plocha = HerniPlochaController.getInstance().getView();
         jPanel2.add(plocha, "plocha");
         jPanel2.revalidate();
-        repaint();
+        jPanel2.repaint();
         cardLayout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
-        tahni();
     }
 
     public void nastavVysledky() {
+        System.out.println("qweweq   " + Thread.currentThread());
         vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
         MyCardLayout cardLayout = (MyCardLayout) jPanel2.getLayout();
         cardLayout.show(jPanel2, "vysledky");
@@ -279,13 +281,21 @@ public class TEST extends javax.swing.JFrame {
 
             @Override
             protected void process(List<String> chunks) {
-                switch (chunks.get(chunks.size()-1)) {
+                System.out.println("dostal jsem chunk");
+                String chunk=chunks.get(chunks.size()-1);
+                switch (chunk) {
                     case "zapni":
                         HerniPlochaController.getInstance().zapniTlacitko();
                         break;
                     case "vypni":
                         HerniPlochaController.getInstance().vypniTlacitko();
                         break;
+                    default: {
+                        chunk=chunk.substring(3);
+                        Hra.getInstance().getStatusBox().setText(chunk);
+                        Hra.getInstance().getStatusBox().repaint();
+                        System.out.println("     " + chunk.toUpperCase());
+                    } break;
                 }
             }
             @Override

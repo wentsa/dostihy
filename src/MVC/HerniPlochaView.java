@@ -276,7 +276,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
             ukoncit.setIcon(controller.getUkoncit());
             ukoncit.setBorder(null);
             ukoncit.setBorderPainted(false);
-            ukoncit.setDisabledIcon(ukoncit.getIcon());
             ukoncit.setEnabled(false);
             ukoncit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,6 +324,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
+        System.out.println("UKONCENO");
         controller.setUkoncenTah(true);
     }//GEN-LAST:event_ukoncitActionPerformed
 
@@ -359,17 +359,14 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));
-        //dialog.setSize(300,300);
-        //Control.hra.nabidkaProdat();
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));        
     }//GEN-LAST:event_prodatActionPerformed
 
     private void vzdatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vzdatActionPerformed
         Object[] volby = {"Ano", "Ne"};
         int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdat?", "Vzdat se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
         if (odpoved == JOptionPane.YES_OPTION) {
-            Hra.getInstance().vyradHrace();
-            ukoncit.doClick();
+            Hra.getInstance().getAktualniHrac().setAktivni(false);
         }
     }//GEN-LAST:event_vzdatActionPerformed
 
@@ -472,25 +469,25 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }
 
     protected void pridejHrace(Hrac h) {
-        System.out.println("pridej hrace " + SwingUtilities.isEventDispatchThread());
+        //System.out.println("pridej hrace " + SwingUtilities.isEventDispatchThread());
         plocha.add(h.getFigurka());
         prava.add(h.getJmenovka());
         prava.add(h.getJmenovka().getPuntik());
     }
 
     protected void pridejPolicko(Policko p) {
-        System.out.println("pridej policko " + SwingUtilities.isEventDispatchThread());
+        //System.out.println("pridej policko " + SwingUtilities.isEventDispatchThread());
         plocha.add(p.getObsazFigurka());
         plocha.add(p);
     }
 
     protected void pridejDostih(Dostihy d) {
-        System.out.println("pridej dostihy " + SwingUtilities.isEventDispatchThread());
+        //System.out.println("pridej dostihy " + SwingUtilities.isEventDispatchThread());
         plocha.add(d);
     }
 
     protected void pridejKostku(Kostka k) {
-        System.out.println("pridej kostku " + SwingUtilities.isEventDispatchThread());
+        //System.out.println("pridej kostku " + SwingUtilities.isEventDispatchThread());
         prava.add(k);
     }
 

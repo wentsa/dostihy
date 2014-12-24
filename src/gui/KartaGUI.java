@@ -5,6 +5,7 @@
  */
 package gui;
 
+import MVC.HerniPlochaController;
 import dostihy.Control;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,7 +22,6 @@ import karty.nahoda.*;
 public class KartaGUI extends JDialog implements ActionListener {
     Karta karta;
     public KartaGUI(Karta karta) {
-        //super(HerniPlocha1.getInstance());
         this.karta=karta;
         setModal(true);
         
@@ -103,7 +103,7 @@ public class KartaGUI extends JDialog implements ActionListener {
         setBackground(Color.yellow);
         //pack();
         
-        //setLocationRelativeTo(HerniPlocha.getInstance());
+        setLocationRelativeTo((TEST)SwingUtilities.getWindowAncestor(HerniPlochaController.getInstance().getView()));
         
         setVisible(true);
     }

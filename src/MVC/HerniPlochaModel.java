@@ -126,8 +126,10 @@ public class HerniPlochaModel {
     void prepniKostky() {
         if (aktualniPrava.equals(prava)) {
             aktualniPrava = pravaAktiv;
+            System.out.println("---zapnul kostky");
         } else {
             aktualniPrava = prava;
+            System.out.println("---vypnul kostky");
         }
     }
 

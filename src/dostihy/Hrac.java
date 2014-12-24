@@ -181,7 +181,7 @@ public class Hrac implements Serializable {
     }
 
     void vyrad(int poradi) {
-        this.aktivni=false;
+        this.setAktivni(false);
         this.figurka.setVisible(false);
         this.karty.clear();
         this.rozpocet=0;
@@ -199,6 +199,10 @@ public class Hrac implements Serializable {
 
     public int getMaxKaret() {
         return 2;
+    }
+
+    public void setAktivni(boolean aktivni) {
+        this.aktivni = aktivni;
     }
 
    
