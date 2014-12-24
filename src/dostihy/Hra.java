@@ -6,7 +6,6 @@
 package dostihy;
 
 import MVC.HerniPlochaController;
-import gui.HerniPlocha;
 import dostihy.Control.DataHraci;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -22,47 +21,50 @@ import karty.*;
 import karty.finance.*;
 import karty.nahoda.*;
 import kolekce.*;
+import pomocne.LoudCall;
 
 /**
  *
  * @author wentsa
  */
 public final class Hra implements Serializable {
-    
+
     private Kostka kostka;
     private final List<Hrac> hraci;
     private final List<Policko> policka;
     private KolekceKaret<Nahoda> nahodaNove, nahodaStare;
-    private KolekceKaret<Finance> financeNove,financeStare;
-    private int aktualniHrac; // 0...pocet-1
+    private KolekceKaret<Finance> financeNove, financeStare;
+    private Hrac aktualniHrac; // 0...pocet-1
     private int pocetHracu;
     private final JTextPane statusBox;
     private List<Hrac> vyherci;
     private long cas;
-    private int pocetTahu=0, aktivnichHracu;
-    
-    private static Hra instance=null;
-    
+    private int pocetTahu = 0, aktivnichHracu;
+    private final LoudCall<Void, String> tah;
+
+    private static Hra instance = null;
+
     public static Hra getInstance() {
-        if(instance==null) {
-            instance= new Hra();
+        if (instance == null) {
+            instance = new Hra();
         }
         return instance;
     }
+
     public static void changeInstance(Hra other) {
-        instance=other;
+        instance = other;
     }
-    
+
     private Hra() {
-        System.out.println("vytvarim hru");
+        System.out.println("vytvarim hru na vlakne " + Thread.currentThread().toString());
         this.policka = new ArrayList<>(40);
         this.financeNove = new KolekceKaretImplementace<>(14);
         this.financeStare = new KolekceKaretImplementace<>(14);
         this.nahodaNove = new KolekceKaretImplementace<>(14);
         this.nahodaStare = new KolekceKaretImplementace<>(14);
-        this.hraci=new ArrayList<>();
+        this.hraci = new ArrayList<>();
         this.kostka = new Kostka();
-        this.aktualniHrac = 0;
+        this.aktualniHrac = null;
         this.vyherci = new ArrayList<>();
         this.statusBox = new JTextPane() {
             @Override
@@ -71,6 +73,40 @@ public final class Hra implements Serializable {
                 g.drawImage(statusP, 0, 0, statusP.getWidth(null), statusP.getHeight(null), null);
                 super.paintComponent(g);
             }
+        };
+        this.tah = new LoudCall<Void, String>() {
+
+            @Override
+            public Void call() throws Exception {
+                while (true) {
+                    HerniPlochaController.getInstance().setUkoncenTah(false);
+
+                    if (zacatekTahu()) {
+                        break;
+                    }
+                    if (!zvolHrace()) {
+                        continue;
+                    }
+                    status("Hraje " + aktualniHrac.getJmeno());
+                    int kolik = kostka.hazej();
+                    if (!vyhodnotHod(kolik)) {
+                        continue;
+                    }
+                    aktualniHrac.popojdi(kolik);
+                    int aktualniPozice = aktualniHrac.getFigurka().getPozice();
+                    vyhodnotPozici(aktualniPozice, kolik);
+                    Policko p = policka.get(aktualniPozice);
+                    vyhodnotPolicko(p, kolik);
+                    shoutOut("zapni");
+                    while (!HerniPlochaController.getInstance().isUkoncenTah()) {
+                        Thread.sleep(100);
+                    }
+                    shoutOut("vypni");
+                    dalsiHrac();
+                }
+                return null;
+            }
+
         };
         inicializovatPolicka();
         inicializovatNahodu();
@@ -119,7 +155,7 @@ public final class Hra implements Serializable {
         getPolicka().add(new Policko(38, "Narcius", new Kun(38, "Narcius", 7000, Staj.MODRA, 700, 3500, 10000, 22000, 26000, 30000, 4000, 4000)));
         getPolicka().add(new Policko(39, "Veterinární vyšetření"));
         getPolicka().add(new Policko(40, "Napoli", new Kun(40, "Napoli", 8000, Staj.MODRA, 1000, 4000, 12000, 28000, 34000, 40000, 4000, 4000)));
-        
+
     }
     // </editor-fold>
 
@@ -171,222 +207,17 @@ public final class Hra implements Serializable {
         }
         return tmp;
     }
-    
-    public boolean tahni() throws InterruptedException {
-        HerniPlocha.getInstance().setUkoncenTah(false);
-        //-------------TAH S FIGURKOU---------------------------
-        if(pocetTahu++==0) {
-            cas=System.currentTimeMillis();
-        }
-        if(aktivnichHracu==1) {
-            vyradHrace();
-            return true;
-        }
-        Hrac hrac = hraci.get(aktualniHrac);
-        
-        while (hrac.getRozpocet() < 0 && hrac.isAktivni()) {
-            status("Nejprve musis neco prodat");
-            Thread.sleep(500);
-        }
-        if (!hrac.isAktivni()) {
-            aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-            return false;
-        }
-        
-        if (hrac.getZdrzeni() > 0) {
-            hrac.snizZdrzeni();
-            aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-            return false;
-        }
-        status("Hraje " + hrac.getJmeno());
-        int kolik = kostka.hazej();
-        if (!hrac.isAktivni()) {
-            aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-            return false;
-        }
-        if (hrac.isDistanc()) {
-            if (kolik > 6) {
-                hrac.setDistanc(false);
-                kolik -= 6;
-                status("Muzes hrat, hazej znovu");
-            } else {
-                status("Tak priste");
-                aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-                return false;
-            }
-        }
-        if (kolik == 12) {
-            status("Musis na distanc");
-            hrac.setDistanc(true);
-            aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-            return false;
-        }
-        hrac.popojdi(kolik);
-        int aktualniPozice = hrac.getFigurka().getPozice();
-        if (aktualniPozice == 10) {
-            status("DISTANC");
-            hrac.setDistanc(true);
-        }
-        if (aktualniPozice < kolik) {
-            status("Za pruchod startem jsi obdrzel 4000,-");
-            hrac.pricti(4000);
-        }
-        if (aktualniPozice == 4) {
-            status("Vysetreni, zaplat 500,-");
-            hrac.pricti(-500);
-        } else if (aktualniPozice == 38) {
-            status("Vysetreni, zaplat 1000,-");
-            hrac.pricti(-1000);
-        } else if (aktualniPozice == 30) {
-            status("Podezreni z dopingu, zdrsis se 1 kolo");
-            hrac.setZdrzeni(1);
-        }
-        //----------------------------------------------------
-        int pozice = hrac.getFigurka().getPozice();
-        Policko p = policka.get(pozice);
-        if ("Finance".equals(p.getNazev())) {
-            try {
-                if (financeNove.pocet() == 0) {
-                    KolekceKaret tmp = financeNove;
-                    financeNove = financeStare;
-                    financeStare = tmp;
-                }
-                Finance f = (Finance) financeNove.vratNahodny();
-                status(f.getPopis());
-                f.zobraz();
-                f.proved(hrac);
-                financeStare.vloz(f);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if ("Nahoda".equals(p.getNazev())) {
-            try {
-                if (nahodaNove.pocet() == 0) {
-                    KolekceKaret tmp = nahodaNove;
-                    nahodaNove = nahodaStare;
-                    nahodaStare = tmp;
-                }
-                Nahoda n = (Nahoda) nahodaNove.vratNahodny();
-                status(n.getPopis());
-                n.zobraz();
-                n.proved(hrac);
-                if (policka.get(hrac.getFigurka().getPozice()).getNazev().equals("Finance")) {
-                    if (financeNove.pocet() == 0) {
-                        KolekceKaret tmp = financeNove;
-                        financeNove = financeStare;
-                        financeStare = tmp;
-                    }
-                    Finance f = (Finance) financeNove.vratNahodny();
-                    status(f.getPopis());
-                    f.zobraz();
-                    f.proved(hrac);
-                    financeStare.vloz(f);
-                }
-                nahodaStare.vloz(n);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (p.isVlastnicka()) {
-            if (!p.isObsazeno()) {
-                if (hrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
-                    JDialog.setDefaultLookAndFeelDecorated(true);
-                    Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
-                    if (odpoved == JOptionPane.YES_OPTION) {
-                        hrac.pricti(-p.getKarta().getPorizovaciCena());
-                        hrac.pridejKartu(p.getKarta());
-                        //p.getObsazFigurka().zmenBarvu(hrac.getFigurka().getBarva());
-                        //p.getObsazFigurka().setObsazeno(true);
-                        
-                        p.setMajitel(hrac);
-                        p.setObsazeno(true);
-                        status("Zakoupil jsi \"" + p.getNazev() + "\"");
-                    }
-                }
-                
-            } else {
-                if (!p.getMajitel().equals(hrac)) {
-                    Karta k = p.getKarta();
-                    if (k instanceof Kun) {
-                        Kun kun = (Kun) k;
-                        int dostihu = kun.getPocetDostihu();
-                        int navsteva = 0;
-                        switch (dostihu) {
-                            case 0: {
-                                navsteva = kun.getProhlidkaStaje();
-                            }
-                            break;
-                            case 1: {
-                                navsteva = kun.getDostih1();
-                            }
-                            break;
-                            case 2: {
-                                navsteva = kun.getDostih2();
-                            }
-                            break;
-                            case 3: {
-                                navsteva = kun.getDostih3();
-                            }
-                            break;
-                            case 4: {
-                                navsteva = kun.getDostih4();
-                            }
-                            break;
-                            case 5: {
-                                navsteva = kun.getHlDostih();
-                            }
-                            break;
-                        }
-                        hrac.pricti(-navsteva);
-                        p.getMajitel().pricti(navsteva);
-                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + navsteva + ",- za prohlidku staje");
-                    } else if (k instanceof Trener) {
-                        int castka = p.getMajitel().getPocetTreneru() * 1000;
-                        hrac.pricti(-castka);
-                        p.getMajitel().pricti(castka);
-                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za vyuziti sluzeb trenera");
-                    } else if (k instanceof PrepravaStaje) {
-                        int castka = (p.getMajitel().getPocetPrepravaStaje() == 1 ? 80 * kolik : 200 * kolik);
-                        hrac.pricti(-castka);
-                        p.getMajitel().pricti(castka);
-                        status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za " + p.getNazev().toLowerCase());
-                    }
-                } else if (p.getKarta() instanceof Kun) {
-                    Kun kun = (Kun) p.getKarta();
-                    if (maCelouStaj(hrac, kun.getStaj())) {
-                        if (kun.getPocetDostihu() < 5) {
-                            if (hrac.getRozpocet() >= (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu())) {
-                                Object[] volby = {"Ano", "Ne"};
-                                int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?"), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
-                                if (odpoved == JOptionPane.YES_OPTION) {
-                                    hrac.pricti(-(kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
-                                    kun.pridejDostih();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-        }
-        HerniPlocha.getInstance().zapniTlacitko();
-        while (!HerniPlocha.getInstance().isUkoncenTah()) {
-            Thread.sleep(
-                    100);
-        }
-        HerniPlocha.getInstance().vypniTlacitko();
-        aktualniHrac = (getAktualniHrac() + 1) % pocetHracu;
-        return false;
-    }
-    
+
     public void zalozHrace(DataHraci data) {
-        int i=0;
+        int i = 0;
         for (String jmeno : data.jmena) {
-                hraci.add(new Hrac(jmeno, parseColor(data.barvy.get(i)), i+1));
-                i++;
+            hraci.add(new Hrac(jmeno, parseColor(data.barvy.get(i)), i + 1));
+            i++;
         }
-        aktivnichHracu=pocetHracu = hraci.size();
+        aktivnichHracu = pocetHracu = hraci.size();
+        aktualniHrac = hraci.get(0);
     }
+
     private Barva parseColor(String barva) {
         switch (barva) {
             case "Cerna":
@@ -410,6 +241,7 @@ public final class Hra implements Serializable {
         }
         return null;
     }
+
     /**
      * @return the hraci
      */
@@ -486,7 +318,7 @@ public final class Hra implements Serializable {
     public Kostka getKostka() {
         return kostka;
     }
-    
+
     public void status(String message) {
         statusBox.setText(message);
         statusBox.repaint();
@@ -498,7 +330,7 @@ public final class Hra implements Serializable {
     public JTextPane getStatusBox() {
         return statusBox;
     }
-    
+
     public void popojdiNa(Hrac hrac, String pole, boolean dopredu) {
         int aktPozice = hrac.getFigurka().getPozice();
         for (int i = aktPozice;;) {
@@ -517,7 +349,7 @@ public final class Hra implements Serializable {
             }
         }
     }
-    
+
     private boolean maCelouStaj(Hrac h, Staj s) {
         for (Policko p : policka) {
             if (p.isVlastnicka()) {
@@ -543,32 +375,261 @@ public final class Hra implements Serializable {
     /**
      * @return the aktualniHrac
      */
-    public int getAktualniHrac() {
+    public Hrac getAktualniHrac() {
         return aktualniHrac;
     }
-    
+
     public void vyradHrace() {
-        Hrac aktH=hraci.get(aktualniHrac);
-        aktH.vyrad(pocetHracu - vyherci.size());
-        vyherci.add(aktH);
-        for(Policko p : policka) {
-            if(p.isVlastnicka() && p.isObsazeno() && p.getMajitel().equals(aktH)) {
+        aktualniHrac.vyrad(pocetHracu - getVyherci().size());
+        getVyherci().add(aktualniHrac);
+        for (Policko p : policka) {
+            if (p.isVlastnicka() && p.isObsazeno() && p.getMajitel().equals(aktualniHrac)) {
                 p.setObsazeno(false);
                 p.setMajitel(null);
             }
         }
         aktivnichHracu--;
-        status("Hrac \"" + aktH.getJmeno() + "\" se jiz nezucastni dalsiho herniho kola");
+        status("Hrac \"" + aktualniHrac.getJmeno() + "\" se jiz nezucastni dalsiho herniho kola");
     }
 
     public String getCelkovyCas() {
-        cas/=1000;
-        String res=":" + cas%3600;
-        cas/=60;
-        res = ":" + cas%60 + res;
-        cas/=60;
-        res=cas + res;
+        long tmp=cas;
+        tmp=System.currentTimeMillis()-tmp;
+        tmp /= 1000;
+        String res = ":" + (((tmp % 60)<10)? "0" : "") + tmp % 60;
+        tmp /= 60;
+        res = ":" + (((tmp % 60)<10)? "0" : "") + tmp % 60 + res;
+        tmp /= 60;
+        res = tmp + res;
         return res;
     }
-    
+
+    private boolean zacatekTahu() {
+        if (pocetTahu++ == 0) {
+            cas = System.currentTimeMillis();
+        }
+        if (aktivnichHracu == 1) {
+            vyradHrace();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean zvolHrace() {
+        while (aktualniHrac.getRozpocet() < 0 && aktualniHrac.isAktivni()) {
+            status("Nejprve musis neco prodat");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (!aktualniHrac.isAktivni()) {
+            dalsiHrac();
+            return false;
+        }
+
+        if (aktualniHrac.getZdrzeni() > 0) {
+            aktualniHrac.snizZdrzeni();
+            dalsiHrac();
+            return false;
+        }
+        return true;
+    }
+
+    private void dalsiHrac() {
+        aktualniHrac = hraci.get((hraci.indexOf(aktualniHrac) + 1) % pocetHracu);
+    }
+
+    private boolean vyhodnotHod(int kolik) {
+        if (aktualniHrac.isDistanc()) {
+            if (kolik > 6) {
+                aktualniHrac.setDistanc(false);
+                kolik -= 6;
+                status("Muzes hrat, hazej znovu");
+            } else {
+                status("Tak priste");
+                dalsiHrac();
+                return false;
+            }
+        }
+        if (kolik == 12) {
+            status("Hodil jsi 2x 6 - musis na distanc");
+            aktualniHrac.setDistanc(true);
+            dalsiHrac();
+            return false;
+        }
+        return true;
+    }
+
+    private void vyhodnotPozici(int aktualniPozice, int kolik) {
+        if (aktualniPozice == 10) {
+            status("DISTANC");
+            aktualniHrac.setDistanc(true);
+        }
+        if (aktualniPozice < kolik) {
+            status("Za pruchod startem jsi obdrzel 4000,-");
+            aktualniHrac.pricti(4000);
+        }
+        if (aktualniPozice == 4) {
+            status("Vysetreni, zaplat 500,-");
+            aktualniHrac.pricti(-500);
+        } else if (aktualniPozice == 38) {
+            status("Vysetreni, zaplat 1000,-");
+            aktualniHrac.pricti(-1000);
+        } else if (aktualniPozice == 30) {
+            status("Podezreni z dopingu, zdrsis se 1 kolo");
+            aktualniHrac.setZdrzeni(1);
+        }
+    }
+
+    private void vyhodnotPolicko(Policko p, int kolik) throws InterruptedException {
+        if ("Finance".equals(p.getNazev())) {
+            try {
+                vyhodnotFinance();
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if ("Nahoda".equals(p.getNazev())) {
+            try {
+                vyhodnotNahodu();
+
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (p.isVlastnicka()) {
+            if (!p.isObsazeno()) {
+                nabidkaNakupu(p);
+
+            } else {
+                if (!p.getMajitel().equals(aktualniHrac)) {
+                    zaplat(p, kolik);
+                } else if (p.getKarta() instanceof Kun) {
+                    dokoupitDostih(p);
+
+                }
+            }
+
+        }
+    }
+
+    private void vyhodnotFinance() throws InterruptedException, IllegalAccessException {
+        if (financeNove.pocet() == 0) {
+            KolekceKaret tmp = financeNove;
+            financeNove = financeStare;
+            financeStare = tmp;
+        }
+        Finance f = (Finance) financeNove.vratNahodny();
+        status(f.getPopis());
+        f.zobraz();
+        f.proved(aktualniHrac);
+        financeStare.vloz(f);
+    }
+
+    private void vyhodnotNahodu() throws IllegalAccessException, InterruptedException {
+        if (nahodaNove.pocet() == 0) {
+            KolekceKaret tmp = nahodaNove;
+            nahodaNove = nahodaStare;
+            nahodaStare = tmp;
+        }
+        Nahoda n = (Nahoda) nahodaNove.vratNahodny();
+        status(n.getPopis());
+        n.zobraz();
+        n.proved(aktualniHrac);
+        if (policka.get(aktualniHrac.getFigurka().getPozice()).getNazev().equals("Finance")) {
+            vyhodnotFinance();
+        }
+        nahodaStare.vloz(n);
+    }
+
+    private void nabidkaNakupu(Policko p) {
+        if (aktualniHrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            Object[] volby = {"Ano", "Ne"};
+            int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+            if (odpoved == JOptionPane.YES_OPTION) {
+                aktualniHrac.pricti(-p.getKarta().getPorizovaciCena());
+                aktualniHrac.pridejKartu(p.getKarta());
+                //p.getObsazFigurka().zmenBarvu(hrac.getFigurka().getBarva());
+                //p.getObsazFigurka().setObsazeno(true);
+
+                p.setMajitel(aktualniHrac);
+                p.setObsazeno(true);
+                status("Zakoupil jsi \"" + p.getNazev() + "\"");
+            }
+        }
+    }
+
+    private void zaplat(Policko p, int kolik) {
+        Karta k = p.getKarta();
+        if (k instanceof Kun) {
+            Kun kun = (Kun) k;
+            int dostihu = kun.getPocetDostihu();
+            int navsteva = 0;
+            switch (dostihu) {
+                case 0: {
+                    navsteva = kun.getProhlidkaStaje();
+                }
+                break;
+                case 1: {
+                    navsteva = kun.getDostih1();
+                }
+                break;
+                case 2: {
+                    navsteva = kun.getDostih2();
+                }
+                break;
+                case 3: {
+                    navsteva = kun.getDostih3();
+                }
+                break;
+                case 4: {
+                    navsteva = kun.getDostih4();
+                }
+                break;
+                case 5: {
+                    navsteva = kun.getHlDostih();
+                }
+                break;
+            }
+            aktualniHrac.pricti(-navsteva);
+            p.getMajitel().pricti(navsteva);
+            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + navsteva + ",- za prohlidku staje");
+        } else if (k instanceof Trener) {
+            int castka = p.getMajitel().getPocetTreneru() * 1000;
+            aktualniHrac.pricti(-castka);
+            p.getMajitel().pricti(castka);
+            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za vyuziti sluzeb trenera");
+        } else if (k instanceof PrepravaStaje) {
+            int castka = (p.getMajitel().getPocetPrepravaStaje() == 1 ? 80 * kolik : 200 * kolik);
+            aktualniHrac.pricti(-castka);
+            p.getMajitel().pricti(castka);
+            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za " + p.getNazev().toLowerCase());
+        }
+    }
+
+    private void dokoupitDostih(Policko p) {
+        Kun kun = (Kun) p.getKarta();
+        if (maCelouStaj(aktualniHrac, kun.getStaj())) {
+            if (kun.getPocetDostihu() < 5) {
+                if (aktualniHrac.getRozpocet() >= (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu())) {
+                    Object[] volby = {"Ano", "Ne"};
+                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?"), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    if (odpoved == JOptionPane.YES_OPTION) {
+                        aktualniHrac.pricti(-(kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
+                        kun.pridejDostih();
+                    }
+                }
+            }
+        }
+    }
+
+    public LoudCall<Void, String> getTah() {
+        return tah;
+    }
+
+    public List<Hrac> getVyherci() {
+        return vyherci;
+    }
+
 }

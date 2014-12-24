@@ -31,6 +31,7 @@ public class Hrac implements Serializable {
     private int pocetTreneru;
     private int pocetPrepravaStaje;
     private boolean aktivni;
+    private String cas;
 
     public Hrac(String jmeno, Barva barva, int cislo) {
         this.jmeno = jmeno;
@@ -185,18 +186,19 @@ public class Hrac implements Serializable {
         this.karty.clear();
         this.rozpocet=0;
         this.jmenovka.setPoradi(poradi);
+        this.cas=Hra.getInstance().getCelkovyCas();
     }
 
-    public Object getCas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getCas() {
+        return cas;
     }
 
-    public Object getMaxHotovost() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getMaxHotovost() {
+        return 1;
     }
 
-    public Object getMaxKaret() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getMaxKaret() {
+        return 2;
     }
 
    

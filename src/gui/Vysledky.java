@@ -7,6 +7,8 @@ package gui;
 
 import dostihy.Hra;
 import dostihy.Hrac;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -121,6 +123,7 @@ public class Vysledky extends javax.swing.JPanel {
     public void vyplnTabulku(List<Hrac> vysledky) {
         cas.setText(Hra.getInstance().getCelkovyCas());
         int i=0;
+        Collections.reverse(vysledky);
         for (Hrac h : vysledky) {
             tabulka.setValueAt(i+1, i, 0);
             tabulka.setValueAt(h.getJmeno(), i, 1);

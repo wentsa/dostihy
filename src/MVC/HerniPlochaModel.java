@@ -32,6 +32,7 @@ public class HerniPlochaModel {
     private int nacitacOption;
     private float scale=1.0f;
     private float offset=0;
+    private boolean ukoncenTah=false;
     
     private static HerniPlochaModel instance=null;
     
@@ -203,6 +204,14 @@ public class HerniPlochaModel {
     }
     ImageIcon getVzdat() {
         return vzdatIcon;
+    }
+
+    void setUkoncenTah(boolean b) {
+        ukoncenTah=b;
+    }
+
+    boolean isUkoncenTah() {
+        return ukoncenTah;
     }
     
     

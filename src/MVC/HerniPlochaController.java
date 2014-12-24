@@ -10,6 +10,7 @@ import dostihy.Hrac;
 import dostihy.Kostka;
 import dostihy.Policko;
 import gui.Dostihy;
+import gui.TEST;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import karty.Kun;
 
 /**
@@ -98,7 +100,7 @@ public class HerniPlochaController {
         view.pridejKostku(k);
     }
 
-    protected void prepniKostky() {
+    public void prepniKostky() {
         model.prepniKostky();
     }
 
@@ -122,11 +124,11 @@ public class HerniPlochaController {
         return model.getSt_d();
     }
 
-    void setUkladacOption(int showSaveDialog) {
+    protected void setUkladacOption(int showSaveDialog) {
         model.setUkladacOption(showSaveDialog);
     }
 
-    void ulozHru(File selectedFile) {
+    protected void ulozHru(File selectedFile) {
         if (model.getUkladacOption() == JFileChooser.APPROVE_OPTION) {
             try {
                 File f;
@@ -145,7 +147,7 @@ public class HerniPlochaController {
         }
     }
 
-    void nactiHru(File selectedFile) {
+    protected void nactiHru(File selectedFile) {
         if (model.getNacitacOption() == JFileChooser.APPROVE_OPTION) {
 
             ObjectInputStream ois = null;
@@ -174,7 +176,7 @@ public class HerniPlochaController {
         }
     }
 
-    void setNacitacOption(int showOpenDialog) {
+    protected void setNacitacOption(int showOpenDialog) {
         model.setNacitacOption(showOpenDialog);
     }
 
@@ -192,14 +194,30 @@ public class HerniPlochaController {
         return model.getBoxPozadi();
     }
 
-    ImageIcon getUkoncit() {
+    protected ImageIcon getUkoncit() {
         return model.getUkoncit();
     }
-    ImageIcon getProdat() {
+    protected ImageIcon getProdat() {
         return model.getProdat();
     }
-    ImageIcon getVzdat() {
+    protected ImageIcon getVzdat() {
         return model.getVzdat();
+    }
+
+    public void setUkoncenTah(boolean b) {
+        model.setUkoncenTah(b);
+    }
+
+    public void zapniTlacitko() {
+        view.zapniTlacitko();
+    }
+
+    public boolean isUkoncenTah() {
+        return model.isUkoncenTah();
+    }
+
+    public void vypniTlacitko() {
+        view.vypniTlacitko();
     }
     
 

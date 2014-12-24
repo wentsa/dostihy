@@ -25,7 +25,7 @@ public class FinanceDarek extends Finance implements Serializable { // od kazdeh
     public void proved(Hrac h) {
         VyberciDani vyberci=new VyberciDani();
         for (Hrac hrac : Hra.getInstance().getHraci()) {
-            if(!hrac.equals(h)) {
+            if(!hrac.equals(h) && hrac.isAktivni()) {
                 vyberci.navstiv(hrac);
             }
         }

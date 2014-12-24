@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -29,7 +30,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
-    private boolean ukoncenTah = false;
 
     protected static HerniPlochaView getInstance(HerniPlochaController controller) {
         if (instance == null) {
@@ -325,7 +325,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
-        setUkoncenTah(true);
+        controller.setUkoncenTah(true);
     }//GEN-LAST:event_ukoncitActionPerformed
 
     private void ulozitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitActionPerformed
@@ -359,7 +359,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getHraci().get(Hra.getInstance().getAktualniHrac())));
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));
         //dialog.setSize(300,300);
         //Control.hra.nabidkaProdat();
     }//GEN-LAST:event_prodatActionPerformed
@@ -460,49 +460,42 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private javax.swing.JButton vzdat;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the ukoncenTah
-     */
-    protected boolean isUkoncenTah() {
-        return ukoncenTah;
-    }
-
-    /**
-     * @param ukoncenTah the ukoncenTah to set
-     */
-    private void setUkoncenTah(boolean ukoncenTah) {
-        this.ukoncenTah = ukoncenTah;
-    }
-
+    
     protected void zapniTlacitko() {
+        System.out.println("zapni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(true);
     }
 
     protected void vypniTlacitko() {
+        System.out.println("vypni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(false);
     }
 
     protected void pridejHrace(Hrac h) {
+        System.out.println("pridej hrace " + SwingUtilities.isEventDispatchThread());
         plocha.add(h.getFigurka());
         prava.add(h.getJmenovka());
         prava.add(h.getJmenovka().getPuntik());
     }
 
     protected void pridejPolicko(Policko p) {
+        System.out.println("pridej policko " + SwingUtilities.isEventDispatchThread());
         plocha.add(p.getObsazFigurka());
         plocha.add(p);
     }
 
     protected void pridejDostih(Dostihy d) {
+        System.out.println("pridej dostihy " + SwingUtilities.isEventDispatchThread());
         plocha.add(d);
     }
 
     protected void pridejKostku(Kostka k) {
+        System.out.println("pridej kostku " + SwingUtilities.isEventDispatchThread());
         prava.add(k);
     }
 
     protected void vycistiPlochu() {
-
+        System.out.println("vycisti plochu " + SwingUtilities.isEventDispatchThread());
         plocha.removeAll();
         plocha.updateUI();
     }

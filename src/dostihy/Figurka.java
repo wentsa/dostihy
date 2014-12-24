@@ -31,7 +31,7 @@ public class Figurka extends JLabel implements Serializable {
         
     }
     private void nactiObrazek() {
-        String file=new String("/fig/");
+        String file="/fig/";
         if(barva==Barva.BLACK) {        file=file.concat("black");}
         else if(barva==Barva.BLUE) {    file=file.concat("blue");}
         else if(barva==Barva.CYAN) {    file=file.concat("cyan");}

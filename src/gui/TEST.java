@@ -10,7 +10,14 @@ import MVC.HerniPlochaController;
 import dostihy.Control.DataHraci;
 import dostihy.Hra;
 import java.awt.CardLayout;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
 
 /**
@@ -25,9 +32,11 @@ public class TEST extends javax.swing.JFrame {
     Menu1 menu = new Menu1();
     VolbaHracu1 volba = new VolbaHracu1();
     HerniPlochaView plocha = HerniPlochaController.getInstance().getView();
-    Vysledky vysledky=new Vysledky();
+    Vysledky vysledky = new Vysledky();
+    private boolean konec=false;
 
     public TEST() {
+        System.out.println("test na " + Thread.currentThread().toString());
         initComponents();
         jPanel2.add(menu, "menu");
         jPanel2.add(volba, "volba");
@@ -37,18 +46,20 @@ public class TEST extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void zalozHrace(DataHraci d) {
+    public void zalozHrace(DataHraci d) throws InterruptedException {
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
         nastavPlochu();
     }
+
     public void nactiHru() {
         NacitacSouboru nacitac = new NacitacSouboru();
         int zvoleno = nacitac.showOpenDialog(null);
         if (zvoleno == JFileChooser.APPROVE_OPTION) {
             nacitac.vyhodnot();
+        } else {
+            nastavMenu();
         }
-        else nastavMenu();
     }
 
     public void nastavMenu() {
@@ -65,13 +76,23 @@ public class TEST extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void nastavPlochu() {
+    public void nastavPlochu() throws InterruptedException {
         MyCardLayout cardLayout = (MyCardLayout) jPanel2.getLayout();
+        cardLayout.removeLayoutComponent(plocha);
+        jPanel2.remove(plocha);
+        plocha = null;
+        plocha = HerniPlochaController.getInstance().getView();
+        jPanel2.add(plocha, "plocha");
+        jPanel2.revalidate();
+        repaint();
         cardLayout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
+        tahni();
     }
+
     public void nastavVysledky() {
+        vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
         MyCardLayout cardLayout = (MyCardLayout) jPanel2.getLayout();
         cardLayout.show(jPanel2, "vysledky");
         pack();
@@ -195,7 +216,11 @@ public class TEST extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        nastavPlochu();
+        try {
+            nastavPlochu();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TEST.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
@@ -231,6 +256,7 @@ public class TEST extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TEST().setVisible(true);
             }
@@ -248,6 +274,30 @@ public class TEST extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
-    
+    public void tahni() throws InterruptedException {
+        (new ListenerTask<Void, String>(Hra.getInstance().getTah()) {
+
+            @Override
+            protected void process(List<String> chunks) {
+                switch (chunks.get(chunks.size()-1)) {
+                    case "zapni":
+                        HerniPlochaController.getInstance().zapniTlacitko();
+                        break;
+                    case "vypni":
+                        HerniPlochaController.getInstance().vypniTlacitko();
+                        break;
+                }
+            }
+            @Override
+            protected void done() {
+                TEST.this.nastavVysledky();
+            }
+            
+        }).execute();
+    }
+
+    public void setKonec(boolean konec) {
+        this.konec=konec;
+    }
 
 }

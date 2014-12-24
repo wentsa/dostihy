@@ -5,6 +5,7 @@
  */
 package dostihy;
 
+import MVC.HerniPlochaController;
 import gui.HerniPlocha;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -21,68 +22,74 @@ import javax.swing.JTextPane;
  * @author wentsa
  */
 public final class Kostka extends JButton implements Serializable {
+
     private int kolik;
     private boolean hozeno;
     Random random;
 
     public Kostka() {
-        this.kolik=0;
-        this.hozeno=false;
-        random=new Random();
-        
+        this.kolik = 0;
+        this.hozeno = false;
+        random = new Random();
+
         setContentAreaFilled(false);
         setOpaque(false);
         setBorderPainted(false);
         setEnabled(false);
     }
-    
+
     public void pridejListener() {
         addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("hazi");
-                        kolik+=(random.nextInt(6)+1);
-                        hozeno=true;
-                    }
-                });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("hazi");
+                kolik += (random.nextInt(6) + 1);
+                hozeno = true;
+            }
+        });
     }
-    
+
     public int hazej() {
-        kolik=0;
+        kolik = 0;
         setEnabled(true);
-        HerniPlocha.getInstance().prepniKostky();
-        while(!hozeno) {try {
-            Thread.sleep(1);
+        HerniPlochaController.getInstance().prepniKostky();
+        System.out.println("nehozeno");
+        while (!hozeno) {
+            try {
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        hozeno=false;
-        if(kolik==6) {
+        System.out.println("hozeno");
+        hozeno = false;
+        if (kolik == 6) {
             Hra.getInstance().status("Hodil jsi 6, hazej znovu");
-            while(!hozeno) {try {
-                Thread.sleep(1);
+            while (!hozeno) {
+                try {
+                    Thread.sleep(100);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            Hra.getInstance().status("Hodil jsi " + (kolik-6) + " posouvas se o " + kolik);
-            hozeno=false;
-        }
-        else {
+            Hra.getInstance().status("Hodil jsi " + (kolik - 6) + " posouvas se o " + kolik);
+            hozeno = false;
+        } else {
             Hra.getInstance().status("Hodil jsi " + kolik);
         }
-        HerniPlocha.getInstance().prepniKostky();
-        setEnabled(false);
+
+        HerniPlochaController.getInstance()
+                .prepniKostky();
+        setEnabled(
+                false);
         return kolik;
     }
 
-        
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBounds(80, 550, 150, 100);
     }
-    
+
 }

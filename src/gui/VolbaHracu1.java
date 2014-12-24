@@ -8,6 +8,8 @@ package gui;
 import dostihy.Control.DataHraci;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 
@@ -297,7 +299,11 @@ public class VolbaHracu1 extends javax.swing.JPanel {
             data.barvy.add(barva);
         }
         data.jmena=tmp;
-        ((TEST)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
+        try {
+            ((TEST)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(VolbaHracu1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
         

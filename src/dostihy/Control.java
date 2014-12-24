@@ -92,7 +92,7 @@ public class Control {
             return 0;
         }
         // ----------  3 - PLOCHA -----------------
-        HerniPlocha.getInstance();
+        /*HerniPlocha.getInstance();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -100,11 +100,11 @@ public class Control {
                 h.repaint();
             }
         });
-
+*/
         boolean status = false;
-        while (!status) {
+        /*while (!status) {
             status = Hra.getInstance().tahni();
-        }
+        }*/
         // ----------------------------------------
         return 1;
     }

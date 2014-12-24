@@ -52,14 +52,14 @@ public class HerniPlocha extends javax.swing.JFrame {
     private static HerniPlocha instance=null;
     
     
-    public static HerniPlocha getInstance() {
+    /*public static HerniPlocha getInstance() {
         if(instance==null) {
             instance= new HerniPlocha();
         }
         return instance;
-    }
+    }*/
     private HerniPlocha() {
-        System.out.println("plochu");
+        System.out.println("SPATNOU plochu");
         pl = new ImageIcon(HerniPlocha.class.getResource("/plocha.jpg")).getImage();
         st = new ImageIcon(HerniPlocha.class.getResource("/stred.jpg")).getImage();
         aktualniPr = pr = new ImageIcon(HerniPlocha.class.getResource("/prava.jpg")).getImage();
@@ -404,7 +404,7 @@ public class HerniPlocha extends javax.swing.JFrame {
                 nactiHrace();
                 nactiPole();
                 nactiKostku();
-                HerniPlocha.getInstance().repaint();
+                repaint();
                 System.out.println(Hra.getInstance().getHraci().get(0).getRozpocet());
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
@@ -419,7 +419,7 @@ public class HerniPlocha extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getHraci().get(Hra.getInstance().getAktualniHrac())));
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));
         //dialog.setSize(300,300);
         //Control.hra.nabidkaProdat();
     }//GEN-LAST:event_prodatActionPerformed
