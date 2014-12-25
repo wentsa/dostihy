@@ -93,12 +93,28 @@ public final class Hra implements Serializable {
                     status("Hraje " + aktualniHrac.getJmeno());
                     System.out.println("D");
                     int kolik = kostka.hazej();
-                    if(kolik==-1) {
+                    if (kolik == -1) {
                         vyradHrace();
                         continue;
                     }
                     System.out.println("E");
                     if (!vyhodnotHod(kolik)) {
+                        shoutOut("zapni");
+                        Thread.sleep(200);
+                        while (!HerniPlochaController.getInstance().isUkoncenTah()) {
+                            if (!aktualniHrac.isAktivni()) {
+                                break;
+                            }
+                            Thread.sleep(100);
+                            System.out.print("a-");
+                        }
+                        shoutOut("vypni");
+                        Thread.sleep(1000);
+                        if (!aktualniHrac.isAktivni()) {
+                            vyradHrace();
+                            continue;
+                        }
+                        dalsiHrac();
                         continue;
                     }
                     System.out.println("F");
@@ -113,13 +129,15 @@ public final class Hra implements Serializable {
                     shoutOut("zapni");
                     Thread.sleep(200);
                     while (!HerniPlochaController.getInstance().isUkoncenTah()) {
-                        if(!aktualniHrac.isAktivni()) break;
+                        if (!aktualniHrac.isAktivni()) {
+                            break;
+                        }
                         Thread.sleep(100);
                         System.out.print("a-");
                     }
                     shoutOut("vypni");
                     Thread.sleep(1000);
-                    if(!aktualniHrac.isAktivni()) {
+                    if (!aktualniHrac.isAktivni()) {
                         vyradHrace();
                         continue;
                     }
@@ -408,8 +426,11 @@ public final class Hra implements Serializable {
 
     public void vyradHrace() {
         aktualniHrac.vyrad(pocetHracu - getVyherci().size());
-        try{if(vyherci.contains(aktualniHrac)) throw new ArrayStoreException("uz tam je " + aktualniHrac.getJmeno());}
-        catch(ArrayStoreException e) {
+        try {
+            if (vyherci.contains(aktualniHrac)) {
+                throw new ArrayStoreException("uz tam je " + aktualniHrac.getJmeno());
+            }
+        } catch (ArrayStoreException e) {
             System.out.println(e.getMessage());
         }
         getVyherci().add(aktualniHrac);
@@ -424,18 +445,18 @@ public final class Hra implements Serializable {
         System.out.println("+++ vyrazen " + aktualniHrac.getJmeno());
         dalsiHrac();
     }
-    
+
     public boolean jeAktualniHracAktivni() {
         return aktualniHrac.isAktivni();
     }
 
     public String getCelkovyCas() {
-        long tmp=cas;
-        tmp=System.currentTimeMillis()-tmp;
+        long tmp = cas;
+        tmp = System.currentTimeMillis() - tmp;
         tmp /= 1000;
-        String res = ":" + (((tmp % 60)<10)? "0" : "") + tmp % 60;
+        String res = ":" + (((tmp % 60) < 10) ? "0" : "") + tmp % 60;
         tmp /= 60;
-        res = ":" + (((tmp % 60)<10)? "0" : "") + tmp % 60 + res;
+        res = ":" + (((tmp % 60) < 10) ? "0" : "") + tmp % 60 + res;
         tmp /= 60;
         res = tmp + res;
         return res;
@@ -453,6 +474,10 @@ public final class Hra implements Serializable {
     }
 
     private boolean zvolHrace() {
+        if (!aktualniHrac.isAktivni()) {
+            dalsiHrac();
+            return false;
+        }
         while (aktualniHrac.getRozpocet() < 0 && aktualniHrac.isAktivni()) {
             status("Nejprve musis neco prodat");
             try {
@@ -462,7 +487,7 @@ public final class Hra implements Serializable {
             }
         }
         if (!aktualniHrac.isAktivni()) {
-            dalsiHrac();
+            vyradHrace();
             return false;
         }
 
@@ -488,14 +513,12 @@ public final class Hra implements Serializable {
                 status("Muzes hrat, hazej znovu");
             } else {
                 status("Tak priste");
-                dalsiHrac();
                 return false;
             }
         }
         if (kolik == 12) {
             status("Hodil jsi 2x 6 - musis na distanc");
             aktualniHrac.setDistanc(true);
-            dalsiHrac();
             return false;
         }
         return true;

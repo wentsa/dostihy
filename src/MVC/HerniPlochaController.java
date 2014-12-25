@@ -219,6 +219,10 @@ public class HerniPlochaController {
     public void vypniTlacitko() {
         view.vypniTlacitko();
     }
+
+    public void odpalVzdatSe() {
+        view.vzdatSe();
+    }
     
 
 }

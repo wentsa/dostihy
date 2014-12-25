@@ -5,6 +5,7 @@
  */
 package karty;
 
+import dostihy.Hrac;
 import dostihy.Staj;
 import gui.Dostih;
 import gui.Dostihy;
@@ -45,18 +46,15 @@ public class Kun extends VlastnickaKarta implements Serializable {
         this.hlDostih = hlDostih;
         this.pripravaDostihu = pripravaDostihu;
         this.pripravaHlavnihoDostihu = pripravaHlavnihoDostihu;
-        this.pocetDostihu=0;
-        this.dostihy=new ArrayList<>(5);
-        dostihy.add(new Dostih(pozice-1, 0));
-        dostihy.add(new Dostih(pozice-1, 1));
-        dostihy.add(new Dostih(pozice-1, 2));
-        dostihy.add(new Dostih(pozice-1, 3));
-        dostihy.add(new HlavniDostih(pozice-1));
+        this.pocetDostihu = 0;
+        this.dostihy = new ArrayList<>(5);
+        dostihy.add(new Dostih(pozice - 1, 0));
+        dostihy.add(new Dostih(pozice - 1, 1));
+        dostihy.add(new Dostih(pozice - 1, 2));
+        dostihy.add(new Dostih(pozice - 1, 3));
+        dostihy.add(new HlavniDostih(pozice - 1));
     }
-    
-    
-    
-    
+
     @Override
     public String toString() {
         return jmeno;
@@ -144,12 +142,46 @@ public class Kun extends VlastnickaKarta implements Serializable {
      */
     public void pridejDostih() {
         this.pocetDostihu++;
-        dostihy.get(pocetDostihu-1).setVisible(true);
-        if(pocetDostihu==5) {
-            for(int i=0;i<4;i++) {
+        dostihy.get(pocetDostihu - 1).setVisible(true);
+        if (pocetDostihu == 5) {
+            for (int i = 0; i < 4; i++) {
                 dostihy.get(i).setVisible(false);
             }
         }
+    }
+
+    public void odeberDostih(Hrac hrac) {
+        switch (pocetDostihu) {
+            case 1: {
+                hrac.pricti(dostih1 / 2);
+                dostihy.get(0).setVisible(false);
+            }
+            break;
+            case 2: {
+                hrac.pricti(dostih2 / 2);
+                dostihy.get(1).setVisible(false);
+            }
+            break;
+            case 3: {
+                hrac.pricti(dostih3 / 2);
+                dostihy.get(2).setVisible(false);
+            }
+            break;
+            case 4: {
+                hrac.pricti(dostih4 / 2);
+                dostihy.get(3).setVisible(false);
+            }
+            break;
+            case 5: {
+                hrac.pricti(hlDostih / 2);
+                for (int i = 0; i < 4; i++) {
+                    dostihy.get(i).setVisible(true);
+                }
+                dostihy.get(4).setVisible(false);
+            }
+            break;
+        }
+        this.pocetDostihu--;
     }
 
     @Override
@@ -184,7 +216,9 @@ public class Kun extends VlastnickaKarta implements Serializable {
     public List<Dostihy> getDostihy() {
         return dostihy;
     }
-    
-    
-    
+
+    public void setPocetDostihu(int pocetDostihu) {
+        this.pocetDostihu = pocetDostihu;
+    }
+
 }

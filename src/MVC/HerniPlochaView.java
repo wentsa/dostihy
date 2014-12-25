@@ -497,4 +497,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
         plocha.updateUI();
     }
 
+    void vzdatSe() {
+        vzdat.doClick();
+    }
+
 }

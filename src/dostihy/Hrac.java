@@ -11,6 +11,7 @@ import karty.VlastnickaKarta;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import karty.Kun;
 import karty.PrepravaStaje;
 import karty.Trener;
 
@@ -45,6 +46,18 @@ public class Hrac implements Serializable {
         this.pocetTreneru = 0;
         this.pocetPrepravaStaje = 0;
         this.aktivni=true;
+        
+        if(jmeno.contains("1")) {
+            pridejKartu(Hra.getInstance().getPolicka().get(1).getKarta());
+        }
+        for (VlastnickaKarta k : karty) {
+            Kun kun=(Kun) k;
+            kun.pridejDostih();
+            kun.pridejDostih();
+            kun.pridejDostih();
+            kun.pridejDostih();
+            kun.pridejDostih();
+        }
 
     }
 
