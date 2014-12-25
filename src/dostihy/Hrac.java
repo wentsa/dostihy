@@ -6,6 +6,7 @@
 package dostihy;
 
 import java.io.Serializable;
+import static java.lang.Math.max;
 import java.util.HashSet;
 import karty.VlastnickaKarta;
 import java.util.Set;
@@ -33,6 +34,8 @@ public class Hrac implements Serializable {
     private int pocetPrepravaStaje;
     private boolean aktivni;
     private String cas;
+    private int maxKaret;
+    private int maxHotovost;
 
     public Hrac(String jmeno, Barva barva, int cislo) {
         this.jmeno = jmeno;
@@ -46,6 +49,8 @@ public class Hrac implements Serializable {
         this.pocetTreneru = 0;
         this.pocetPrepravaStaje = 0;
         this.aktivni=true;
+        this.maxHotovost=30000;
+        this.maxKaret=0;
         
         if(jmeno.contains("1")) {
             pridejKartu(Hra.getInstance().getPolicka().get(1).getKarta());
@@ -86,6 +91,7 @@ public class Hrac implements Serializable {
 
     public void pricti(int castka) {
         rozpocet += castka;
+        maxHotovost=max(maxHotovost,rozpocet);
         this.jmenovka.aktualizujCastku(getRozpocet());
     }
 
@@ -163,6 +169,7 @@ public class Hrac implements Serializable {
         } else if (karta instanceof PrepravaStaje) {
             this.pocetPrepravaStaje++;
         }
+        this.maxKaret=max(maxKaret,karty.size());
     }
 
     /**
@@ -196,6 +203,14 @@ public class Hrac implements Serializable {
     void vyrad(int poradi) {
         this.setAktivni(false);
         this.figurka.setVisible(false);
+        for (VlastnickaKarta k : karty) {
+            if(k instanceof Kun) {
+                Kun kun=(Kun) k;
+                while(kun.getPocetDostihu()>0) {
+                    kun.odeberDostih(this);
+                }
+            }
+        }
         this.karty.clear();
         this.rozpocet=0;
         this.jmenovka.setPoradi(poradi);
@@ -207,11 +222,11 @@ public class Hrac implements Serializable {
     }
 
     public int getMaxHotovost() {
-        return 1;
+        return maxHotovost;
     }
 
     public int getMaxKaret() {
-        return 2;
+        return maxKaret;
     }
 
     public void setAktivni(boolean aktivni) {

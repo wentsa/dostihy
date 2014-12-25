@@ -10,7 +10,8 @@ import dostihy.Hrac;
 import dostihy.Kostka;
 import dostihy.Policko;
 import gui.Dostihy;
-import gui.TEST;
+import gui.JasDialog;
+import gui.HlavniOkno;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,8 +36,10 @@ import karty.Kun;
  */
 public class HerniPlochaController {
 
-    private final HerniPlochaModel model = HerniPlochaModel.getInstance();
-    private final HerniPlochaView view= HerniPlochaView.getInstance(this);
+    
+
+    private final HerniPlochaModel model;
+    private final HerniPlochaView view;
 
     private static HerniPlochaController instance=null;
     
@@ -48,7 +51,17 @@ public class HerniPlochaController {
         return instance;
     }
     
+    public static void smazInstance() {
+        HerniPlochaModel.smazInstance();
+        HerniPlochaView.smazInstance();
+        JasDialog.smazInstance();
+        Hra.smazInstance();
+        instance=null;
+    }
+    
     private HerniPlochaController() {
+        model = HerniPlochaModel.getInstance();
+        view= HerniPlochaView.getInstance(this);
         nactiPole();
         nactiKostku();
     }

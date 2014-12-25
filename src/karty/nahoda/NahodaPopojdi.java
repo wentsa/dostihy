@@ -5,7 +5,6 @@
  */
 package karty.nahoda;
 
-import dostihy.Control;
 import dostihy.Hra;
 import dostihy.Hrac;
 import java.io.Serializable;

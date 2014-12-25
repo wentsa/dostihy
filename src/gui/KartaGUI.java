@@ -6,7 +6,6 @@
 package gui;
 
 import MVC.HerniPlochaController;
-import dostihy.Control;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
@@ -103,7 +102,7 @@ public class KartaGUI extends JDialog implements ActionListener {
         setBackground(Color.yellow);
         //pack();
         
-        setLocationRelativeTo((TEST)SwingUtilities.getWindowAncestor(HerniPlochaController.getInstance().getView()));
+        setLocationRelativeTo((HlavniOkno)SwingUtilities.getWindowAncestor(HerniPlochaController.getInstance().getView()));
         
         setVisible(true);
     }

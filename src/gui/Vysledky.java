@@ -7,12 +7,12 @@ package gui;
 
 import dostihy.Hra;
 import dostihy.Hrac;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.RowSorter;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -25,6 +25,7 @@ public class Vysledky extends javax.swing.JPanel {
      */
     public Vysledky() {
         initComponents();
+        tabulka.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -42,7 +43,6 @@ public class Vysledky extends javax.swing.JPanel {
         celkCas = new javax.swing.JLabel();
         cas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         tabulka.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,6 +76,12 @@ public class Vysledky extends javax.swing.JPanel {
         tabulka.setFillsViewportHeight(true);
         tabulka.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabulka);
+        if (tabulka.getColumnModel().getColumnCount() > 0) {
+            tabulka.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tabulka.getColumnModel().getColumn(2).setPreferredWidth(1);
+            tabulka.getColumnModel().getColumn(3).setPreferredWidth(1);
+            tabulka.getColumnModel().getColumn(4).setPreferredWidth(1);
+        }
 
         vysledky.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         vysledky.setText("Výsledky");
@@ -83,11 +89,9 @@ public class Vysledky extends javax.swing.JPanel {
         celkCas.setText("Celkový čas hry:");
 
         jButton1.setText("Nová hra");
-
-        jButton2.setText("Zpět");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -108,8 +112,6 @@ public class Vysledky extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -121,36 +123,32 @@ public class Vysledky extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(celkCas)
-                    .addComponent(cas)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                        .addComponent(celkCas)
+                        .addComponent(cas)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            ((TEST)SwingUtilities.getWindowAncestor(this)).nastavPlochu();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Vysledky.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).reset();
+        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavMenu();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cas;
     private javax.swing.JLabel celkCas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabulka;
     private javax.swing.JLabel vysledky;
     // End of variables declaration//GEN-END:variables
 
     public void vyplnTabulku(List<Hrac> vysledky) {
+        ((DefaultTableModel)tabulka.getModel()).setRowCount(vysledky.size());
         cas.setText(Hra.getInstance().getCelkovyCas());
         int i=0;
         Collections.reverse(vysledky);

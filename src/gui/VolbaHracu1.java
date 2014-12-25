@@ -5,7 +5,7 @@
  */
 package gui;
 
-import dostihy.Control.DataHraci;
+import dostihy.DataHraci;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -300,7 +300,7 @@ public class VolbaHracu1 extends javax.swing.JPanel {
         }
         data.jmena=tmp;
         try {
-            ((TEST)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
+            ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
         } catch (InterruptedException ex) {
             Logger.getLogger(VolbaHracu1.class.getName()).log(Level.SEVERE, null, ex);
         }

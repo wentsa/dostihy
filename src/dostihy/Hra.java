@@ -6,7 +6,6 @@
 package dostihy;
 
 import MVC.HerniPlochaController;
-import dostihy.Control.DataHraci;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -49,6 +48,10 @@ public final class Hra implements Serializable {
             instance = new Hra();
         }
         return instance;
+    }
+    
+    public static void smazInstance() {
+        instance=null;
     }
 
     public static void changeInstance(Hra other) {

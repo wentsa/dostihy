@@ -16,6 +16,10 @@ import javax.swing.ImageIcon;
  * @author wentsa
  */
 public class HerniPlochaModel {
+
+    protected static void smazInstance() {
+        instance=null;
+    }
     private final BufferedImage plocha,plochaOrig,
                                 stred,stredOrig,
                                 prava, pravaOrig, pravaAktiv, pravaAktivOrig,
@@ -30,9 +34,9 @@ public class HerniPlochaModel {
                                 vzdatIcon;
     private int ukladacOption;
     private int nacitacOption;
-    private float scale=1.0f;
-    private float offset=0;
-    private boolean ukoncenTah=false;
+    private float scale;
+    private float offset;
+    private boolean ukoncenTah;
     
     private static HerniPlochaModel instance=null;
     
@@ -45,6 +49,9 @@ public class HerniPlochaModel {
     }
     
     private HerniPlochaModel() {
+        scale=1.0f;
+        offset=0;
+        ukoncenTah=false;
         Image tmp=new ImageIcon(HerniPlochaView.class.getResource("/plocha.jpg")).getImage();
         plochaOrig = new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);
         plocha = new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);

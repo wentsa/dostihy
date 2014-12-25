@@ -5,7 +5,6 @@
  */
 package gui;
 
-import dostihy.Control;
 import dostihy.Hra;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,22 +30,26 @@ public class NacitacSouboru extends JFileChooser {
     public void vyhodnot() {
 
         ObjectInputStream ois = null;
-        try {
-            if ("".equals(getSelectedFile().getName())) {
-                return;
-            }
-            ois = new ObjectInputStream(new FileInputStream(getSelectedFile()));
-            Hra.changeInstance((Hra) ois.readObject());
-            ois.close();
-        } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                ois.close();
-            } catch (IOException ex) {
-                Logger.getLogger(HerniPlocha.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        if ("".equals(getSelectedFile().getName())) {
+            return;
         }
+        try {
+            ois = new ObjectInputStream(new FileInputStream(getSelectedFile()));
+        } catch (IOException ex) {
+            Logger.getLogger(NacitacSouboru.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Hra.changeInstance((Hra) ois.readObject());
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(NacitacSouboru.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            ois.close();
+        } catch (IOException ex) {
+            Logger.getLogger(NacitacSouboru.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

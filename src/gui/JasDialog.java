@@ -5,14 +5,8 @@
  */
 package gui;
 
-import MVC.HerniPlochaController;
 import java.awt.Container;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -21,13 +15,17 @@ import javax.swing.event.ChangeListener;
 public class JasDialog extends JDialog {
     
     private static JasDialog instance=null;
-    private Jas jas=new Jas();
+    private final Jas jas=new Jas();
     
     public static JasDialog getInstance(Container parent) {
         if(instance==null) {
             instance=new JasDialog(parent);
         }
         return instance;
+    }
+    
+    public static void smazInstance() {
+        instance=null;
     }
     
     private JasDialog(Container parent) {

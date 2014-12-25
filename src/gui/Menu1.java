@@ -5,8 +5,6 @@
  */
 package gui;
 
-import dostihy.Control;
-import static dostihy.Control.Volba;
 import javax.swing.SwingUtilities;
 
 /**
@@ -139,15 +137,15 @@ public class Menu1 extends javax.swing.JPanel {
     }//GEN-LAST:event_pravidlaActionPerformed
 
     private void nova_hraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nova_hraActionPerformed
-        ((TEST)SwingUtilities.getWindowAncestor(this)).nastavVolbu();
+        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavVolbu();
     }//GEN-LAST:event_nova_hraActionPerformed
 
     private void nacist_hruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacist_hruActionPerformed
-        ((TEST)SwingUtilities.getWindowAncestor(this)).nactiHru();
+        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nactiHru();
     }//GEN-LAST:event_nacist_hruActionPerformed
 
     private void konecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konecActionPerformed
-        ((TEST)SwingUtilities.getWindowAncestor(this)).dispose();
+        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_konecActionPerformed
 
     

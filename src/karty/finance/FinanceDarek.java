@@ -5,7 +5,6 @@
  */
 package karty.finance;
 
-import dostihy.Control;
 import dostihy.Hra;
 import dostihy.Hrac;
 import java.io.Serializable;

@@ -11,15 +11,15 @@ import javax.swing.JDialog;
  *
  * @author wentsa
  */
-public class ProdejDialog extends JDialog {
+public class KonecInfoDialog extends JDialog{
 
-    public ProdejDialog(ProdejGUI prodej) {
+    public KonecInfoDialog() {
         setModal(true);
-        setContentPane(prodej);
+        setContentPane(new KonecInfo());
         pack();
         setLocationRelativeTo(null);
-        //setSize(prodej.getWidth(), prodej.getHeight());
         setVisible(true);
     }
+    
     
 }

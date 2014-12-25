@@ -28,6 +28,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class HerniPlochaView extends javax.swing.JPanel {
 
+    
+
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
 
@@ -38,6 +40,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
         return instance;
     }
 
+    protected static void smazInstance() {
+        instance=null;
+    }
+    
     private HerniPlochaView(HerniPlochaController controller) {
         this.controller = controller;
         initComponents();

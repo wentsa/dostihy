@@ -10,7 +10,6 @@ import dostihy.Hra;
 import dostihy.Hrac;
 import dostihy.Policko;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
