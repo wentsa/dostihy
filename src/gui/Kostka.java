@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
+package gui;
 
-import MVC.HerniPlochaController;
+import gui.plocha.HerniPlochaController;
+import hra.Hra;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
+package hra;
 
+import gui.figurka.obsazovaci.ObsazovaciFigurkaController;
+import pomocne.Barva;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
@@ -23,7 +25,7 @@ public class Policko extends JButton implements Serializable {
     private boolean obsazeno;
     private Hrac majitel;
     private final VlastnickaKarta karta;
-    private ObsazovaciFigurka obsazFigurka;
+    private ObsazovaciFigurkaController obsazFigurka;
 
     public Policko(int cislo, String nazev, VlastnickaKarta karta) {
         this.obsazeno = false;
@@ -32,7 +34,7 @@ public class Policko extends JButton implements Serializable {
         this.nazev=nazev;
         this.vlastnicka=true;
         this.cislo=cislo-1;
-        this.obsazFigurka=new ObsazovaciFigurka(Barva.RED, cislo-1, 0);
+        this.obsazFigurka=new ObsazovaciFigurkaController(Barva.RED, cislo-1, 0);
     }
 
     public Policko(int cislo, String nazev) {
@@ -42,7 +44,7 @@ public class Policko extends JButton implements Serializable {
         this.nazev=nazev;
         this.vlastnicka=false;
         this.cislo=cislo-1;
-        this.obsazFigurka=new ObsazovaciFigurka(Barva.RED, cislo-1, 0);
+        this.obsazFigurka=new ObsazovaciFigurkaController(Barva.RED, cislo-1, 0);
     }
 
     @Override
@@ -76,6 +78,7 @@ public class Policko extends JButton implements Serializable {
      */
     public void setObsazeno(boolean obsazeno) {
         this.obsazeno = obsazeno;
+        System.out.println(" do figurky");
         obsazFigurka.setObsazeno(obsazeno);
         if(obsazeno) {
             obsazFigurka.zmenBarvu(this.majitel.getFigurka().getBarva());
@@ -104,11 +107,11 @@ public class Policko extends JButton implements Serializable {
     }
 
     public int souradniceX() {
-        return (int)(255*Math.cos(Math.toRadians((cislo+5)*9 + 4.5))) + 330;
+        return (int)(255*Math.cos(Math.toRadians((getCislo()+5)*9 + 4.5))) + 330;
     }
     
     public int souradniceY() {
-        return (int)(255*Math.sin(Math.toRadians((cislo+5)*9 + 4.5))) + 330;
+        return (int)(255*Math.sin(Math.toRadians((getCislo()+5)*9 + 4.5))) + 330;
     }
 
     @Override
@@ -120,8 +123,12 @@ public class Policko extends JButton implements Serializable {
     /**
      * @return the obsazFigurka
      */
-    public ObsazovaciFigurka getObsazFigurka() {
+    public ObsazovaciFigurkaController getObsazFigurka() {
         return obsazFigurka;
+    }
+
+    public int getCislo() {
+        return cislo;
     }
 
      

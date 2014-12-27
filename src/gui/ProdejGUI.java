@@ -5,10 +5,10 @@
  */
 package gui;
 
-import MVC.HerniPlochaController;
-import dostihy.Hra;
-import dostihy.Hrac;
-import dostihy.Policko;
+import gui.plocha.HerniPlochaController;
+import hra.Hra;
+import hra.Hrac;
+import hra.Policko;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;

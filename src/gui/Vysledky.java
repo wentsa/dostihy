@@ -5,8 +5,8 @@
  */
 package gui;
 
-import dostihy.Hra;
-import dostihy.Hrac;
+import hra.Hra;
+import hra.Hrac;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.RowSorter;

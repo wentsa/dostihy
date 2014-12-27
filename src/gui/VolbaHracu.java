@@ -5,7 +5,7 @@
  */
 package gui;
 
-import dostihy.DataHraci;
+import pomocne.DataHraci;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,14 +17,14 @@ import javax.swing.SwingUtilities;
  *
  * @author wentsa
  */
-public class VolbaHracu1 extends javax.swing.JPanel {
+public class VolbaHracu extends javax.swing.JPanel {
 
     DataHraci data=new DataHraci();
     /**
      * Creates new form VolbaHracu
      * @param d
      */
-    public VolbaHracu1() {
+    public VolbaHracu() {
         initComponents();
     }
 
@@ -302,7 +302,7 @@ public class VolbaHracu1 extends javax.swing.JPanel {
         try {
             ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
         } catch (InterruptedException ex) {
-            Logger.getLogger(VolbaHracu1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VolbaHracu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
-
-import java.awt.Color;
+package pomocne;
 
 /**
  *
  * @author wentsa
  */
-public enum Barva {
-    BLACK,BLUE,CYAN,GREEN,MAGENTA,ORANGE,RED,WHITE,YELLOW
+public enum Staj {
+    ORANZOVA, HNEDA, SV_MODRA, SV_ZELENA, CERVENA, ZLUTA, ZELENA, MODRA
+    
 }

@@ -5,8 +5,8 @@
  */
 package karty.finance;
 
-import dostihy.Hra;
-import dostihy.Hrac;
+import hra.Hra;
+import hra.Hrac;
 import java.io.Serializable;
 import karty.Karta;
 

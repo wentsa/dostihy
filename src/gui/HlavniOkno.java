@@ -5,13 +5,12 @@
  */
 package gui;
 
-import MVC.HerniPlochaView;
-import MVC.HerniPlochaController;
-import dostihy.DataHraci;
-import dostihy.Hra;
+import gui.plocha.HerniPlochaView;
+import gui.plocha.HerniPlochaController;
+import pomocne.DataHraci;
+import hra.Hra;
+import hra.Policko;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
@@ -25,13 +24,13 @@ public class HlavniOkno extends javax.swing.JFrame {
     /**
      * Creates new form HlavniOkno
      */
-    Menu1 menu = new Menu1();
-    VolbaHracu1 volba = new VolbaHracu1();
+    Menu menu = new Menu();
+    VolbaHracu volba = new VolbaHracu();
     HerniPlochaView plocha = HerniPlochaController.getInstance().getView();
     Vysledky vysledky = new Vysledky();
-    MyCardLayout layout=new MyCardLayout();
-    private boolean konec=false;
-
+    MyCardLayout layout = new MyCardLayout();
+    private boolean konec = false;
+    
     public HlavniOkno() {
         System.out.println("test na " + Thread.currentThread().toString());
         initComponents();
@@ -39,7 +38,7 @@ public class HlavniOkno extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
     }
-
+    
     public void zalozHrace(DataHraci d) throws InterruptedException {
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
@@ -49,13 +48,13 @@ public class HlavniOkno extends javax.swing.JFrame {
     
     public void reset() {
         jPanel2.removeAll();
-        volba=new VolbaHracu1();
+        volba = new VolbaHracu();
         HerniPlochaController.smazInstance();
-        plocha=HerniPlochaController.getInstance().getView();
+        plocha = HerniPlochaController.getInstance().getView();
         nactiKarty();
         setLocationRelativeTo(null);
     }
-
+    
     public void nactiHru() {
         NacitacSouboru nacitac = new NacitacSouboru();
         int zvoleno = nacitac.showOpenDialog(null);
@@ -65,32 +64,32 @@ public class HlavniOkno extends javax.swing.JFrame {
             nastavMenu();
         }
     }
-
+    
     public void nastavMenu() {
         layout.show(jPanel2, "menu");
         pack();
         setLocationRelativeTo(null);
     }
-
+    
     public void nastavVolbu() {
         layout.show(jPanel2, "volba");
         pack();
         setLocationRelativeTo(null);
     }
-
+    
     public void nastavPlochu() throws InterruptedException {
         /*cardLayout.removeLayoutComponent(plocha);
-        jPanel2.remove(plocha);
-        plocha = null;
-        plocha = HerniPlochaController.getInstance().getView();
-        jPanel2.add(plocha, "plocha");
-        jPanel2.revalidate();
-        jPanel2.repaint();*/
+         jPanel2.remove(plocha);
+         plocha = null;
+         plocha = HerniPlochaController.getInstance().getView();
+         jPanel2.add(plocha, "plocha");
+         jPanel2.revalidate();
+         jPanel2.repaint();*/
         layout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
     }
-
+    
     public void nastavVysledky() {
         System.out.println("qweweq   " + Thread.currentThread());
         vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
@@ -175,11 +174,11 @@ public class HlavniOkno extends javax.swing.JFrame {
 
     public void tahni() throws InterruptedException {
         (new ListenerTask<Void, String>(Hra.getInstance().getTah()) {
-
+            
             @Override
             protected void process(List<String> chunks) {
                 System.out.println("dostal jsem chunk");
-                String chunk=chunks.get(chunks.size()-1);
+                String chunk = chunks.get(chunks.size() - 1);
                 switch (chunk) {
                     case "zapni":
                         HerniPlochaController.getInstance().zapniTlacitko();
@@ -188,13 +187,27 @@ public class HlavniOkno extends javax.swing.JFrame {
                         HerniPlochaController.getInstance().vypniTlacitko();
                         break;
                     default: {
-                        chunk=chunk.substring(3);
-                        Hra.getInstance().getStatusBox().setText(chunk);
-                        Hra.getInstance().getStatusBox().repaint();
-                        System.out.println("     " + chunk.toUpperCase());
-                    } break;
+                        if (chunk.startsWith("p-")) {
+                            System.out.println(chunk);
+                            System.out.println(Integer.getInteger(chunk.substring(2)));
+                            int cislo = Integer.parseInt(chunk.substring(2));
+                            for (Policko p : Hra.getInstance().getPolicka()) {
+                                if (p.getCislo() == cislo) {
+                                    p.setObsazeno(true);
+                                    break;
+                                }
+                            }
+                        } else {
+                            chunk = chunk.substring(3);
+                            Hra.getInstance().getStatusBox().setText(chunk);
+                            Hra.getInstance().getStatusBox().repaint();
+                            System.out.println("     " + chunk.toUpperCase());
+                        }
+                    }
+                    break;
                 }
             }
+
             @Override
             protected void done() {
                 new KonecInfoDialog();
@@ -203,11 +216,11 @@ public class HlavniOkno extends javax.swing.JFrame {
             
         }).execute();
     }
-
+    
     public void setKonec(boolean konec) {
-        this.konec=konec;
+        this.konec = konec;
     }
-
+    
     private void nactiKarty() {
         jPanel2.add(menu, "menu");
         jPanel2.add(volba, "volba");
@@ -215,5 +228,5 @@ public class HlavniOkno extends javax.swing.JFrame {
         jPanel2.add(vysledky, "vysledky");
         pack();
     }
-
+    
 }

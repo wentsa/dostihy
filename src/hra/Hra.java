@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
+package hra;
 
-import MVC.HerniPlochaController;
+import gui.Kostka;
+import pomocne.DataHraci;
+import pomocne.Barva;
+import gui.plocha.HerniPlochaController;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -21,6 +24,7 @@ import karty.finance.*;
 import karty.nahoda.*;
 import kolekce.*;
 import pomocne.LoudCall;
+import pomocne.Staj;
 
 /**
  *
@@ -39,7 +43,7 @@ public final class Hra implements Serializable {
     private List<Hrac> vyherci;
     private long cas;
     private int pocetTahu = 0, aktivnichHracu;
-    private final LoudCall<Void, String> tah;
+    private final LoudCall<Void, String> caller;
 
     private static Hra instance = null;
 
@@ -77,7 +81,7 @@ public final class Hra implements Serializable {
                 super.paintComponent(g);
             }
         };
-        this.tah = new LoudCall<Void, String>() {
+        this.caller = new LoudCall<Void, String>() {
 
             @Override
             public Void call() throws Exception {
@@ -364,7 +368,7 @@ public final class Hra implements Serializable {
     }
 
     public void status(String message) {
-        tah.shoutOut("msg" + message);
+        caller.shoutOut("msg" + message);
         try {
             Thread.sleep(200);
         } catch (InterruptedException ex) {
@@ -620,9 +624,17 @@ public final class Hra implements Serializable {
                 aktualniHrac.pridejKartu(p.getKarta());
                 //p.getObsazFigurka().zmenBarvu(hrac.getFigurka().getBarva());
                 //p.getObsazFigurka().setObsazeno(true);
-
+                System.out.println("nakupuji");
                 p.setMajitel(aktualniHrac);
-                p.setObsazeno(true);
+                System.out.println("majitel nastaven  posilam:\"p-" + p.getCislo() + "\"");
+                this.caller.shoutOut("p-"+p.getCislo());
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //p.setObsazeno(true);
+                System.out.println("obsazeno nastaveno");
                 System.out.println(Thread.currentThread());
                 Hra.getInstance().status("Zakoupil jsi \"" + p.getNazev() + "\"");
             }
@@ -694,7 +706,7 @@ public final class Hra implements Serializable {
     }
 
     public LoudCall<Void, String> getTah() {
-        return tah;
+        return caller;
     }
 
     public List<Hrac> getVyherci() {

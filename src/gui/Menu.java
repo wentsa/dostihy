@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
  *
  * @author wentsa
  */
-public class Menu1 extends javax.swing.JPanel {
+public class Menu extends javax.swing.JPanel {
 
     
 
@@ -19,7 +19,7 @@ public class Menu1 extends javax.swing.JPanel {
      * Creates new form Menu
      */
     
-    public Menu1() {
+    public Menu() {
         initComponents();
     }
 

@@ -5,7 +5,7 @@
  */
 package gui;
 
-import MVC.HerniPlochaController;
+import gui.plocha.HerniPlochaController;
 import javax.swing.JSlider;
 
 /**

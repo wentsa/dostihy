@@ -5,7 +5,7 @@
  */
 package gui;
 
-import dostihy.Hra;
+import hra.Hra;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;

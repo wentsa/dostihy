@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MVC;
+package gui.plocha;
 
-import dostihy.Hra;
-import dostihy.Hrac;
-import dostihy.Kostka;
-import dostihy.Policko;
-import gui.Dostihy;
+import hra.Hra;
+import hra.Hrac;
+import gui.Kostka;
+import hra.Policko;
+import gui.dostih.DostihyView;
 import gui.JasDialog;
 import gui.ProdejDialog;
 import gui.ProdejGUI;
@@ -380,62 +380,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
         JasDialog.getInstance(this).setVisible(true);
     }//GEN-LAST:event_jasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HerniPlochaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HerniPlochaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HerniPlochaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HerniPlochaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form 
-         java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new HerniPlocha().setVisible(true);
-         }
-         //</editor-fold>
-
-         /* Create and display the form 
-         java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new HerniPlocha().setVisible(true);
-         }
-        //</editor-fold>
-
-        /* Create and display the form 
-         java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new HerniPlocha().setVisible(true);
-         }
-         //</editor-fold>
-
-         /* Create and display the form 
-         java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new HerniPlocha().setVisible(true);
-         }
-         });*/
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSplitPane cela_plocha;
     private javax.swing.JSplitPane cely_spodek;
@@ -476,18 +420,18 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     protected void pridejHrace(Hrac h) {
         //System.out.println("pridej hrace " + SwingUtilities.isEventDispatchThread());
-        plocha.add(h.getFigurka());
-        prava.add(h.getJmenovka());
+        plocha.add(h.getFigurka().getView());
+        prava.add(h.getJmenovka().getView());
         prava.add(h.getJmenovka().getPuntik());
     }
 
     protected void pridejPolicko(Policko p) {
         //System.out.println("pridej policko " + SwingUtilities.isEventDispatchThread());
-        plocha.add(p.getObsazFigurka());
+        plocha.add(p.getObsazFigurka().getView());
         plocha.add(p);
     }
 
-    protected void pridejDostih(Dostihy d) {
+    protected void pridejDostih(DostihyView d) {
         //System.out.println("pridej dostihy " + SwingUtilities.isEventDispatchThread());
         plocha.add(d);
     }

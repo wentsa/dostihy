@@ -3,29 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
+package gui.figurka;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
+import javax.swing.JLabel;
 
 /**
  *
  * @author wentsa
  */
-public class Puntik extends Figurka implements Serializable {
+public class FigurkaView extends JLabel implements Serializable {
+        
+    private final FigurkaController controller;
 
-    int souradniceY;
-    public Puntik(Barva barva, int cislo, int y) {
-        super(barva, cislo);
-        this.souradniceY=y+8;
+    protected FigurkaView(FigurkaController controller) {
+        this.controller=controller;
     }
     
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        setLocation(50, souradniceY);
+        setLocation(controller.getSouradniceX(), controller.getSouradniceY());
     }
+
+   
+
+    
     
     
 }

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MVC;
+package gui.plocha;
 
-import dostihy.Hra;
-import dostihy.Hrac;
-import dostihy.Kostka;
-import dostihy.Policko;
-import gui.Dostihy;
+import gui.dostih.DostihController;
+import hra.Hra;
+import hra.Hrac;
+import gui.Kostka;
+import hra.Policko;
 import gui.JasDialog;
-import gui.HlavniOkno;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,10 +23,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
 import karty.Kun;
 
 /**
@@ -99,8 +96,9 @@ public class HerniPlochaController {
 
                 if (p.getKarta() instanceof Kun) {
                     Kun kun = (Kun) p.getKarta();
-                    for (Dostihy d : kun.getDostihy()) {
-                        view.pridejDostih(d);
+                    for (DostihController d : kun.getDostihy()) {
+                        view.pridejDostih(d.getView());
+                        view.pridejDostih(kun.getHlavniDostih().getView());
                     }
                 }
             }

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dostihy;
+package hra;
 
+import gui.jmenovka.JmenovkaController;
+import gui.figurka.FigurkaController;
+import gui.figurka.FigurkaView;
+import pomocne.Barva;
 import java.io.Serializable;
 import static java.lang.Math.max;
 import java.util.HashSet;
@@ -27,9 +31,9 @@ public class Hrac implements Serializable {
     private final String jmeno;
     private int rozpocet;
     private Set<VlastnickaKarta> karty;
-    protected final Figurka figurka;
+    protected final FigurkaController figurka;
     private final int cislo; //1-7
-    private final Jmenovka jmenovka;
+    private final JmenovkaController jmenovka;
     private int pocetTreneru;
     private int pocetPrepravaStaje;
     private boolean aktivni;
@@ -41,11 +45,11 @@ public class Hrac implements Serializable {
         this.jmeno = jmeno;
         this.rozpocet = 30000;
         this.karty = new HashSet<>();
-        this.figurka = new Figurka(barva, cislo);
+        this.figurka = new FigurkaController(barva, cislo);
         this.zdrzeni = 0;
         this.distanc = false;
         this.cislo = cislo;
-        this.jmenovka = new Jmenovka(this.jmeno, this.getRozpocet(), this.cislo, barva);
+        this.jmenovka = new JmenovkaController(this.jmeno, this.getRozpocet(), this.cislo, barva);
         this.pocetTreneru = 0;
         this.pocetPrepravaStaje = 0;
         this.aktivni=true;
@@ -119,7 +123,7 @@ public class Hrac implements Serializable {
     /**
      * @return the figurka
      */
-    public Figurka getFigurka() {
+    public FigurkaController getFigurka() {
         return figurka;
     }
 
@@ -158,7 +162,7 @@ public class Hrac implements Serializable {
     /**
      * @return the jmenovka
      */
-    public Jmenovka getJmenovka() {
+    public JmenovkaController getJmenovka() {
         return jmenovka;
     }
 
