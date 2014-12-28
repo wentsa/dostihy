@@ -13,6 +13,7 @@ import gui.dostih.DostihyView;
 import gui.JasDialog;
 import gui.ProdejDialog;
 import gui.ProdejGUI;
+import gui.slider.SliderView;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -202,6 +203,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
 
             hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
+            hlavni_plocha.setBorder(null);
             hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
@@ -215,6 +217,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
 
             stred.setBackground(new java.awt.Color(0, 176, 255));
+            stred.setBorder(null);
             stred.setMaximumSize(new java.awt.Dimension(100, 700));
             stred.setMinimumSize(new java.awt.Dimension(100, 700));
             stred.setPreferredSize(new java.awt.Dimension(100, 700));
@@ -267,6 +270,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
             statusB.add(jScrollPane1);
 
             leva.setLeftComponent(statusB);
+
+            stredD.setBorder(null);
             leva.setRightComponent(stredD);
 
             cely_spodek.setLeftComponent(leva);
@@ -279,9 +284,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             ukoncit.setBackground(new java.awt.Color(93, 93, 93));
             ukoncit.setForeground(new java.awt.Color(254, 254, 254));
-            ukoncit.setIcon(controller.getUkoncit());
+            ukoncit.setIcon(controller.getUkoncitAktiv());
             ukoncit.setBorder(null);
             ukoncit.setBorderPainted(false);
+            ukoncit.setDisabledIcon(controller.getUkoncit());
             ukoncit.setEnabled(false);
             ukoncit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,11 +417,13 @@ public class HerniPlochaView extends javax.swing.JPanel {
     protected void zapniTlacitko() {
         System.out.println("zapni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(true);
+        ukoncit.repaint();
     }
 
     protected void vypniTlacitko() {
         System.out.println("vypni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(false);
+        ukoncit.repaint();
     }
 
     protected void pridejHrace(Hrac h) {
@@ -447,8 +455,12 @@ public class HerniPlochaView extends javax.swing.JPanel {
         plocha.updateUI();
     }
 
-    void vzdatSe() {
+    protected void vzdatSe() {
         vzdat.doClick();
+    }
+
+    protected void pridejSlider(SliderView sliderView) {
+        prava.add(sliderView);
     }
 
 }

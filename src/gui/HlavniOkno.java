@@ -186,6 +186,9 @@ public class HlavniOkno extends javax.swing.JFrame {
                     case "vypni":
                         HerniPlochaController.getInstance().vypniTlacitko();
                         break;
+                    case "aktualizujSlider":
+                        HerniPlochaController.getInstance().aktualizujSlider();
+                        break;
                     default: {
                         if (chunk.startsWith("p-")) {
                             System.out.println(chunk);

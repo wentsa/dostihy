@@ -5,6 +5,8 @@
  */
 package gui.plocha;
 
+import gui.slider.SliderController;
+import gui.slider.SliderView;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -27,11 +29,14 @@ public class HerniPlochaModel {
                                 statusBox,statusBoxOrig,
                                 ukoncit, ukoncitOrig,
                                 prodat, prodatOrig,
-                                vzdat, vzdatOrig;
+                                vzdat, vzdatOrig,
+                                ukoncitAktiv, ukoncitAktivOrig;
     private BufferedImage       aktualniPrava;
     private ImageIcon           ukoncitIcon,
                                 prodatIcon,
-                                vzdatIcon;
+                                vzdatIcon,
+                                ukoncitAktivIcon;
+    private final SliderController slider;
     private int ukladacOption;
     private int nacitacOption;
     private float scale;
@@ -109,6 +114,15 @@ public class HerniPlochaModel {
         gr.drawImage(tmp, 0,0,null);
         ukoncitIcon=new ImageIcon(ukoncit);
         
+        tmp = new ImageIcon(HerniPlochaView.class.getResource("/ukoncit-aktiv.jpg")).getImage();
+        ukoncitAktiv= new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);
+        ukoncitAktivOrig= new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);
+        gr=ukoncitAktivOrig.createGraphics();
+        gr.drawImage(tmp, 0,0,null);
+        gr=ukoncitAktiv.createGraphics();
+        gr.drawImage(tmp, 0,0,null);
+        ukoncitAktivIcon=new ImageIcon(ukoncitAktiv);
+        
         tmp = new ImageIcon(HerniPlochaView.class.getResource("/prodat.jpg")).getImage();
         prodatOrig= new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);
         prodat= new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_USHORT_565_RGB);
@@ -128,6 +142,8 @@ public class HerniPlochaModel {
         vzdatIcon=new ImageIcon(vzdat);
         
         gr.dispose();
+        
+        this.slider=new SliderController();
     }
 
     void prepniKostky() {
@@ -187,6 +203,7 @@ public class HerniPlochaModel {
         ukoncitIcon=new ImageIcon(ukoncit);
         prodatIcon=new ImageIcon(prodat);
         vzdatIcon=new ImageIcon(vzdat);
+        ukoncitAktivIcon=new ImageIcon(ukoncitAktiv);
     }
     private void rescale() {
         RescaleOp rescaleOp = new RescaleOp(scale,offset, null);
@@ -199,28 +216,36 @@ public class HerniPlochaModel {
         rescaleOp.filter(ukoncitOrig, ukoncit);
         rescaleOp.filter(prodatOrig, prodat);
         rescaleOp.filter(vzdatOrig, vzdat);
+        rescaleOp.filter(ukoncitAktivOrig, ukoncitAktiv);
     }
 
     protected BufferedImage getBoxPozadi() {
         return statusBox;
     }
 
-    ImageIcon getUkoncit() {
+    protected ImageIcon getUkoncit() {
         return ukoncitIcon;
     }
-    ImageIcon getProdat() {
+    protected ImageIcon getProdat() {
         return prodatIcon;
     }
-    ImageIcon getVzdat() {
+    protected ImageIcon getVzdat() {
         return vzdatIcon;
     }
 
-    void setUkoncenTah(boolean b) {
+    protected void setUkoncenTah(boolean b) {
         ukoncenTah=b;
     }
 
-    boolean isUkoncenTah() {
+    protected boolean isUkoncenTah() {
         return ukoncenTah;
+    }
+    protected SliderController getSlider() {
+        return slider;
+    }
+
+    protected ImageIcon getUkoncitAktiv() {
+        return ukoncitAktivIcon;
     }
     
     

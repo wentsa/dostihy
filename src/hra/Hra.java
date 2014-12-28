@@ -96,6 +96,8 @@ public final class Hra implements Serializable {
                     if (!zvolHrace()) {
                         continue;
                     }
+                    shoutOut("aktualizujSlider");
+                    Thread.sleep(100);
                     System.out.println("C");
                     status("Hraje " + aktualniHrac.getJmeno());
                     System.out.println("D");
@@ -105,7 +107,8 @@ public final class Hra implements Serializable {
                         continue;
                     }
                     System.out.println("E");
-                    if (!vyhodnotHod(kolik)) {
+                    int x=vyhodnotHod(kolik);
+                    if (x==1) {
                         shoutOut("zapni");
                         Thread.sleep(200);
                         while (!HerniPlochaController.getInstance().isUkoncenTah()) {
@@ -124,6 +127,7 @@ public final class Hra implements Serializable {
                         dalsiHrac();
                         continue;
                     }
+                    if(x==0) kolik-=6;
                     System.out.println("F");
                     aktualniHrac.popojdi(kolik);
                     System.out.println("G");
@@ -512,23 +516,23 @@ public final class Hra implements Serializable {
         System.out.println(aktualniHrac.getJmeno());
     }
 
-    private boolean vyhodnotHod(int kolik) {
+    private int vyhodnotHod(int kolik) {
         if (aktualniHrac.isDistanc()) {
             if (kolik > 6) {
                 aktualniHrac.setDistanc(false);
-                kolik -= 6;
                 status("Muzes hrat, hazej znovu");
+                return 0;
             } else {
                 status("Tak priste");
-                return false;
+                return 1;
             }
         }
         if (kolik == 12) {
             status("Hodil jsi 2x 6 - musis na distanc");
             aktualniHrac.setDistanc(true);
-            return false;
+            return 1;
         }
-        return true;
+        return 2;
     }
 
     private void vyhodnotPozici(int aktualniPozice, int kolik) {

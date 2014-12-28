@@ -47,6 +47,18 @@ public class Main {
                 new HlavniOkno().setVisible(true);
             }
         });
+        
+        /**
+         * BUGY
+         * 
+         * nahoda zpet na parkoviste nefunguje, na nejblizsi trener
+         * 
+         * nabidnout koupi po prodeji
+         * 
+         * po nahode provest nejen financi, ale i vysetreni apod, moznost nakupu kone...
+         * 
+         * po distanci se stackuje se 6 nebo jede rovnou bez 6
+         */
     }
 
 }

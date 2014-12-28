@@ -61,6 +61,7 @@ public class HerniPlochaController {
         view= HerniPlochaView.getInstance(this);
         nactiPole();
         nactiKostku();
+        view.pridejSlider(model.getSlider().getView());
     }
     
     
@@ -208,6 +209,9 @@ public class HerniPlochaController {
     protected ImageIcon getUkoncit() {
         return model.getUkoncit();
     }
+    protected ImageIcon getUkoncitAktiv() {
+        return model.getUkoncitAktiv();
+    }
     protected ImageIcon getProdat() {
         return model.getProdat();
     }
@@ -233,6 +237,10 @@ public class HerniPlochaController {
 
     public void odpalVzdatSe() {
         view.vzdatSe();
+    }
+    public void aktualizujSlider() {
+        model.getSlider().setSouradniceY(Hra.getInstance().getAktualniHrac().getJmenovka().getSouradniceY());
+        
     }
     
 

@@ -7,12 +7,7 @@ package gui.jmenovka;
 
 import gui.Puntik;
 import pomocne.Barva;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.PopupMenu;
 import java.io.Serializable;
-import javax.swing.JLabel;
 
 /**
  *
@@ -49,7 +44,7 @@ public class JmenovkaController implements Serializable {
         return model.getCastka();
     }
 
-    protected int getSouradniceY() {
+    public int getSouradniceY() {
         return model.getSouradniceY();
     }
 
