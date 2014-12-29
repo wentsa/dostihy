@@ -21,6 +21,6 @@ public class SliderView extends JLabel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setLocation(-2, controller.getSouradniceY());
+        setLocation(3, controller.getSouradniceY());
     }
 }

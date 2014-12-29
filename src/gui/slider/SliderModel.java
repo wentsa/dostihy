@@ -16,13 +16,13 @@ public class SliderModel {
     private final ImageIcon obrazek;
     protected SliderModel() {
         obrazek=new ImageIcon(SliderModel.class.getResource("/slider.png"));
-        souradniceY=45-20;
+        souradniceY=45-23;
     }
     protected ImageIcon getObrazek() {
         return obrazek;
     }
     protected void setSouradniceY(int y) {
-        this.souradniceY=y-20;
+        this.souradniceY=y-23;
     }
     protected int getSouradniceY() {
         return souradniceY;

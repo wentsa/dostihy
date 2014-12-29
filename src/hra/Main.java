@@ -57,7 +57,7 @@ public class Main {
          * 
          * po nahode provest nejen financi, ale i vysetreni apod, moznost nakupu kone...
          * 
-         * po distanci se stackuje se 6 nebo jede rovnou bez 6
+         * po distanci se stackuje se 6 nebo jede rovnou bez 6 //SOLVED
          */
     }
 

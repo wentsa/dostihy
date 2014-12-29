@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
+import audio.SoundHandler;
 
 /**
  *
@@ -213,6 +214,7 @@ public class HlavniOkno extends javax.swing.JFrame {
 
             @Override
             protected void done() {
+                SoundHandler.end();
                 new KonecInfoDialog();
                 HlavniOkno.this.nastavVysledky();
             }

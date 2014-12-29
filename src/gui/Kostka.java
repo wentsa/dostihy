@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
+import audio.SoundHandler;
 
 /**
  *
@@ -44,6 +45,7 @@ public final class Kostka extends JButton implements Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("hazi");
+                SoundHandler.rollDice();
                 kolik += (random.nextInt(6) + 1);
                 hozeno = true;
             }

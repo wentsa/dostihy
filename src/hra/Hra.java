@@ -25,6 +25,7 @@ import karty.nahoda.*;
 import kolekce.*;
 import pomocne.LoudCall;
 import pomocne.Staj;
+import audio.SoundHandler;
 
 /**
  *
@@ -214,7 +215,7 @@ public final class Hra implements Serializable {
     void inicializovatNahodu() {
         getNahodaNove().vloz(new NahodaPopojdi("Jdi o 3 pole zpět.", false, false, 3));
         getNahodaNove().vloz(new NahodaDistanc("Zrušen distanc."));
-        getNahodaNove().vloz(new NahodaPopojdi("Jedeš se zúčastnit trenérského kurzu. Postoupíš na nejbližší pole Trenér. Dostaneš 4.000, pokud jedeš dopředu přes Start.", true, true, "Trener"));
+        getNahodaNove().vloz(new NahodaPopojdi("Jedeš se zúčastnit trenérského kurzu. Postoupíš na nejbližší pole Trenér. Dostaneš 4.000, pokud jedeš dopředu přes Start.", true, true, "Trenér"));
         getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 2 kola.", 2));
         getNahodaNove().vloz(new NahodaPopojdi("Distanc (bez 4.000).", false, true, "Distanc"));
         getNahodaNove().vloz(new NahodaPopojdi("Zpět na nejbližší pole Finance.", false, false, "Finance"));
@@ -225,7 +226,7 @@ public final class Hra implements Serializable {
         getNahodaNove().vloz(new NahodaPopojdi("Zpět na start (bez 4.000).", false, false, "Start"));
         getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 2 kola.", 2));
         getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 1 kolo.", 1));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na pole Parkoviště. Dostaneš 4.000, pokud jsi cestou zpět prošel start.", true, false, "Parkoviste"));
+        getNahodaNove().vloz(new NahodaPopojdi("Zpět na pole Parkoviště. Dostaneš 4.000, pokud jsi cestou zpět prošel start.", true, false, "Parkoviště"));
     }
     // </editor-fold>
 
@@ -624,6 +625,17 @@ public final class Hra implements Serializable {
             Object[] volby = {"Ano", "Ne"};
             int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
             if (odpoved == JOptionPane.YES_OPTION) {
+                if(p.getKarta() instanceof Kun) {
+                    SoundHandler.horse();
+                }
+                else if (p.getKarta() instanceof PrepravaStaje) {
+                    if(p.getNazev().equals("Přeprava")) {
+                        SoundHandler.transport();
+                    }
+                    else {
+                        SoundHandler.stables();
+                    }
+                }
                 aktualniHrac.pricti(-p.getKarta().getPorizovaciCena());
                 aktualniHrac.pridejKartu(p.getKarta());
                 //p.getObsazFigurka().zmenBarvu(hrac.getFigurka().getBarva());
