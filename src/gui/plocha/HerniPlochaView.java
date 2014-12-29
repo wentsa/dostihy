@@ -152,7 +152,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 }
             });
 
-            setBackground(new java.awt.Color(255, 0, 0));
+            setBackground(new java.awt.Color(1, 1, 1));
+            setBorder(null);
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             setLayout(new java.awt.BorderLayout());
 
@@ -194,6 +195,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             add(menuBar, java.awt.BorderLayout.CENTER);
 
+            jPanel1.setBorder(null);
             jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
             cela_plocha.setBorder(null);
@@ -210,7 +212,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
             plocha.setBackground(new java.awt.Color(0, 255, 221));
-            plocha.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+            plocha.setBorder(null);
             plocha.setMaximumSize(new java.awt.Dimension(700, 700));
             plocha.setMinimumSize(new java.awt.Dimension(700, 700));
             plocha.setLayout(new javax.swing.OverlayLayout(plocha));
@@ -225,6 +227,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
             prava.setBackground(new java.awt.Color(0, 108, 255));
+            prava.setBorder(null);
             prava.setMaximumSize(new java.awt.Dimension(480, 700));
             prava.setMinimumSize(new java.awt.Dimension(480, 700));
             prava.setName(""); // NOI18N
@@ -249,6 +252,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             leva.setPreferredSize(new java.awt.Dimension(800, 50));
 
             statusB.setBackground(new java.awt.Color(0, 24, 255));
+            statusB.setBorder(null);
             statusB.setMaximumSize(new java.awt.Dimension(100, 50));
             statusB.setMinimumSize(new java.awt.Dimension(100, 50));
             statusB.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -277,6 +281,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             cely_spodek.setLeftComponent(leva);
 
             tlacitka.setBackground(new java.awt.Color(93, 93, 93));
+            tlacitka.setBorder(null);
             tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
             tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
             tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));

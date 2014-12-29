@@ -5,8 +5,6 @@
  */
 package gui.slider;
 
-import gui.figurka.FigurkaView;
-import hra.Hra;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,13 +16,13 @@ public class SliderModel {
     private final ImageIcon obrazek;
     protected SliderModel() {
         obrazek=new ImageIcon(SliderModel.class.getResource("/slider.png"));
-        souradniceY=45-21;
+        souradniceY=45-20;
     }
     protected ImageIcon getObrazek() {
         return obrazek;
     }
     protected void setSouradniceY(int y) {
-        this.souradniceY=y-21;
+        this.souradniceY=y-20;
     }
     protected int getSouradniceY() {
         return souradniceY;

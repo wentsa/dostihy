@@ -23,7 +23,7 @@ public class Puntik extends JLabel implements Serializable {
     public Puntik(Barva barva, int y) {
         this.souradniceY=y-2;
         
-        String file="/puntiky/" + barva.toString().toLowerCase() + "p.jpg";
+        String file="/puntiky/" + barva.toString().toLowerCase() + "p.png";
         obrazek=new ImageIcon(FigurkaView.class.getResource(file));
         setIcon(obrazek);
         setVisible(true);
