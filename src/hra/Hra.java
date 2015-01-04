@@ -636,10 +636,8 @@ public final class Hra implements Serializable {
                         SoundHandler.stables();
                     }
                 }
-                aktualniHrac.pricti(-p.getKarta().getPorizovaciCena());
                 aktualniHrac.pridejKartu(p.getKarta());
-                //p.getObsazFigurka().zmenBarvu(hrac.getFigurka().getBarva());
-                //p.getObsazFigurka().setObsazeno(true);
+                aktualniHrac.pricti(-p.getKarta().getPorizovaciCena());
                 System.out.println("nakupuji");
                 p.setMajitel(aktualniHrac);
                 System.out.println("majitel nastaven  posilam:\"p-" + p.getCislo() + "\"");

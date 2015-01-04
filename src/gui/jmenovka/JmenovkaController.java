@@ -6,6 +6,7 @@
 package gui.jmenovka;
 
 import gui.Puntik;
+import hra.Hrac;
 import pomocne.Barva;
 import java.io.Serializable;
 
@@ -18,17 +19,18 @@ public class JmenovkaController implements Serializable {
     private final JmenovkaModel model;
     private final JmenovkaView view;
 
-    public JmenovkaController(String jmeno, int castka, int pozice, Barva barva) {
-        model=new JmenovkaModel(castka, pozice, jmeno, barva);
+    public JmenovkaController(Hrac hrac, Barva barva) {
+        model=new JmenovkaModel(hrac, barva);
         view = new JmenovkaView(this);
+        view.setToolTipText(model.getToolTipText());
     }
     
     public Puntik getPuntik() {
         return model.getPuntik();
     }
     
-    public void aktualizujCastku(int castka) {
-        model.aktualizujCastku(castka);
+    public void aktualizujCastku() {
+        view.setToolTipText(model.getToolTipText());
         view.repaint();
     }
     public void setPoradi(int poradi) {

@@ -14,12 +14,10 @@ import java.util.Objects;
  */
 public class PrepravaStaje extends VlastnickaKarta implements Serializable {
     
-    private final String jmeno;
     private final String popis;
 
     public PrepravaStaje(int pozice, int porizovaciCena, String jmeno) {
-        super(pozice, porizovaciCena);
-        this.jmeno=jmeno;
+        super(pozice, porizovaciCena,jmeno);
         this.popis="Hráč, který se zastavil na poli Stáje nebo Přeprava, které patří některému ze soupeřů, zaplatí majiteli 80tinásobek hodu kostkou. Jestliže majitel vlastní obě karty, cena se zvyšuje na 200násobek.";
     }
 

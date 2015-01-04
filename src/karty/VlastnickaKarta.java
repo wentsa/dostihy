@@ -15,10 +15,12 @@ public abstract class VlastnickaKarta extends Karta implements Serializable {
 
     private final int porizovaciCena;
     private final int pozice;
+    protected final String jmeno;
 
-    public VlastnickaKarta(int pozice, int porizovaciCena) {
+    public VlastnickaKarta(int pozice, int porizovaciCena, String jmeno) {
         this.porizovaciCena = porizovaciCena;
         this.pozice=pozice-1;
+        this.jmeno=jmeno;
     }
 
     /**
@@ -33,6 +35,10 @@ public abstract class VlastnickaKarta extends Karta implements Serializable {
      */
     public int getPozice() {
         return pozice;
+    }
+
+    public String getJmeno() {
+        return jmeno;
     }
     
     

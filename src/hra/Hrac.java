@@ -49,24 +49,14 @@ public class Hrac implements Serializable {
         this.zdrzeni = 0;
         this.distanc = false;
         this.cislo = cislo;
-        this.jmenovka = new JmenovkaController(this.jmeno, this.getRozpocet(), this.cislo, barva);
+        this.jmenovka = new JmenovkaController(this, barva);
         this.pocetTreneru = 0;
         this.pocetPrepravaStaje = 0;
         this.aktivni=true;
         this.maxHotovost=30000;
         this.maxKaret=0;
         
-        if(jmeno.contains("1")) {
-            pridejKartu(Hra.getInstance().getPolicka().get(1).getKarta());
-        }
-        for (VlastnickaKarta k : karty) {
-            Kun kun=(Kun) k;
-            kun.pridejDostih();
-            kun.pridejDostih();
-            kun.pridejDostih();
-            kun.pridejDostih();
-            kun.pridejDostih();
-        }
+        
 
     }
 
@@ -96,7 +86,7 @@ public class Hrac implements Serializable {
     public void pricti(int castka) {
         rozpocet += castka;
         maxHotovost=max(maxHotovost,rozpocet);
-        this.jmenovka.aktualizujCastku(getRozpocet());
+        this.jmenovka.aktualizujCastku();
     }
 
     /**
@@ -235,6 +225,10 @@ public class Hrac implements Serializable {
 
     public void setAktivni(boolean aktivni) {
         this.aktivni = aktivni;
+    }
+
+    public int getCislo() {
+        return cislo;
     }
 
    

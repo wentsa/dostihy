@@ -20,7 +20,6 @@ import pomocne.Staj;
  */
 public class Kun extends VlastnickaKarta implements Serializable {
 
-    private final String jmeno;
     private final Staj staj;
     private final int prohlidkaStaje;
     private final int cenaDostih1;
@@ -35,8 +34,7 @@ public class Kun extends VlastnickaKarta implements Serializable {
     private final HlavniDostihController hlavniDostih;
 
     public Kun(int pozice, String jmeno, int porizovaciCena, Staj staj, int prohlidkaStaje, int dostih1, int dostih2, int dostih3, int dostih4, int hlDostih, int pripravaDostihu, int pripravaHlavnihoDostihu) {
-        super(pozice, porizovaciCena);
-        this.jmeno = jmeno;
+        super(pozice, porizovaciCena, jmeno);
         this.staj = staj;
         this.prohlidkaStaje = prohlidkaStaje;
         this.cenaDostih1 = dostih1;

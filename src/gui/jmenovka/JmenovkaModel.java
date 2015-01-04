@@ -6,6 +6,9 @@
 package gui.jmenovka;
 
 import gui.Puntik;
+import hra.Hrac;
+import karty.Kun;
+import karty.VlastnickaKarta;
 import pomocne.Barva;
 
 /**
@@ -13,28 +16,24 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class JmenovkaModel {
-    private final String jmeno;
-    private int castka;
-    private final int pozice;
+    private final Hrac hrac;
     private final int souradniceY;
     private final Puntik puntik;
     private boolean aktivni=true;
     private int poradi;
     
-    protected JmenovkaModel(int castka, int pozice, String jmeno, Barva barva) {
-        this.castka = castka;
-        this.pozice = pozice;
-        this.jmeno=jmeno;
+    protected JmenovkaModel(Hrac hrac, Barva barva) {
+        this.hrac=hrac;
         this.souradniceY=souradnice()-13;
         this.puntik=new Puntik(barva, this.souradniceY);
     }
 
     protected String getJmeno() {
-        return jmeno;
+        return hrac.getJmeno();
     }
 
     protected int getCastka() {
-        return castka;
+        return hrac.getRozpocet();
     }
 
     protected void setPoradi(int poradi) {
@@ -42,16 +41,12 @@ public class JmenovkaModel {
         this.aktivni=false;
     }
 
-    protected void aktualizujCastku(int castka) {
-        this.castka=castka;
-    }
-
     protected Puntik getPuntik() {
         return puntik;
     }
     
     private int souradnice() {
-        switch(pozice) {
+        switch(hrac.getCislo()) {
             case(1):{return 58;}
             case(2):{return 126;}
             case(3):{return 215;}
@@ -73,5 +68,32 @@ public class JmenovkaModel {
 
     protected int getPoradi() {
         return poradi;
+    }
+
+    protected String getToolTipText() {
+        String text="<html><b><i>Inventář</i></b><br><br><table>";
+        for (VlastnickaKarta k: hrac.getKarty()) {
+            text=text + "<tr><td>" + k.getJmeno() + "</td><td>";
+            if(k instanceof Kun) {
+                Kun kun=(Kun)k;
+                String tmp="";
+                switch(kun.getPocetDostihu()) {
+                    case 0: break;
+                    case 1: {tmp="1 dostih";} break;
+                    case 2: {tmp="2 dostihy";} break;
+                    case 3: {tmp="3 dostihy";} break;
+                    case 4: {tmp="4 dostihy";} break;
+                    case 5: {tmp="hlavní dostih";} break;
+                }
+                text=text + " - " + tmp;
+            }
+            text=text + "</td><td>" + k.getPorizovaciCena() + ",-</td></tr><br>";
+        }
+        if(hrac.getKarty().isEmpty()) {
+            text=text+"<i>--prázdné--</i><br>";
+        }
+        text=text+"</table></html>";
+        System.out.println(text);
+        return text;
     }
 }

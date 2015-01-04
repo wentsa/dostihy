@@ -20,49 +20,78 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SoundHandler {
 
+    private static Clip diceroll, horse, end, stables, transport;
+
+    private static Clip nactiClip(String jmeno) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+        Clip clip;
+        clip = AudioSystem.getClip();
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                SoundHandler.class.getResource("/sound/" + jmeno + ".wav"));
+        clip.open(inputStream);
+        return clip;
+    }
+
     public static void rollDice() {
-        playFile("diceroll");
+        try {
+            if(diceroll==null) diceroll = nactiClip("diceroll");
+            playFile(diceroll);
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void horse() {
-        playFile("horse");
+        try {
+            if(horse==null) horse = nactiClip("horse");
+            playFile(horse);
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     public static void end() {
-        playFile("end");
+        try {
+            if(end==null) end = nactiClip("end");
+            playFile(end);
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     public static void stables() {
-        playFile("stables");
+        if(stables==null) try {
+            stables = nactiClip("stables");
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //playFile("stables");
+        
+        //playFile("stables");
     }
-    
+
     public static void transport() {
-        playFile("transport");
+        if(transport==null) try {
+            transport = nactiClip("transport");
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        playFile(transport);
     }
-    
 
-    private static void playFile(final String file) {
+    private static void playFile(final Clip clip) {
+        clip.stop();
+        clip.setFramePosition(0);
         (new Thread(new Runnable() {
-
             @Override
             public void run() {
+                clip.start();
                 try {
-                    Clip clip = AudioSystem.getClip();
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            SoundHandler.class.getResourceAsStream("/sound/" + file + ".wav"));
-                    clip.open(inputStream);
-                    clip.loop(0);
-                    clip.start();
-                    Thread.sleep(clip.getMicrosecondLength()/1000);
-                    clip.stop();
-                    clip.close();
-                    inputStream.close();
-                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException ex) {
+                    Thread.sleep(clip.getMicrosecondLength() / 1000);
+                } catch (InterruptedException ex) {
                     Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                clip.stop();
             }
         })).start();
-
     }
-
 }
