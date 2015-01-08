@@ -7,6 +7,7 @@ package gui;
 
 import hra.Hra;
 import hra.Hrac;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.RowSorter;
@@ -18,7 +19,7 @@ import javax.swing.table.TableModel;
  *
  * @author wentsa
  */
-public class Vysledky extends javax.swing.JPanel {
+public class Vysledky extends javax.swing.JPanel implements Serializable {
 
     /**
      * Creates new form Vysledky

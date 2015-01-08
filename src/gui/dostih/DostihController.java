@@ -5,6 +5,7 @@
  */
 package gui.dostih;
 
+import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -12,7 +13,7 @@ import javax.swing.ImageIcon;
  *
  * @author wentsa
  */
-public class DostihController {
+public class DostihController implements Serializable {
 
     private final DostihyModel model;
     private final DostihyView view;

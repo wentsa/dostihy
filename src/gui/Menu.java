@@ -5,13 +5,14 @@
  */
 package gui;
 
+import java.io.Serializable;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author wentsa
  */
-public class Menu extends javax.swing.JPanel {
+public class Menu extends javax.swing.JPanel implements Serializable {
 
     
 

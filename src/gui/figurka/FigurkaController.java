@@ -5,14 +5,14 @@
  */
 package gui.figurka;
 
-import java.awt.PopupMenu;
+import java.io.Serializable;
 import pomocne.Barva;
 
 /**
  *
  * @author wentsa
  */
-public class FigurkaController {
+public class FigurkaController implements Serializable {
     private final FigurkaModel model;
     private final FigurkaView view;
     

@@ -5,13 +5,14 @@
  */
 package gui;
 
+import java.io.Serializable;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author wentsa
  */
-public class KonecInfo extends javax.swing.JPanel {
+public class KonecInfo extends javax.swing.JPanel implements Serializable {
 
     /**
      * Creates new form KonecInfo

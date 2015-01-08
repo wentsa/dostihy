@@ -6,13 +6,14 @@
 package gui;
 
 import java.awt.Container;
+import java.io.Serializable;
 import javax.swing.JDialog;
 
 /**
  *
  * @author wentsa
  */
-public class JasDialog extends JDialog {
+public class JasDialog extends JDialog implements Serializable {
     
     private static JasDialog instance=null;
     private final Jas jas=new Jas();

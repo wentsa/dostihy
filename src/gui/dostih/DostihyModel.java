@@ -5,13 +5,14 @@
  */
 package gui.dostih;
 
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author wentsa
  */
-public class DostihyModel {
+public class DostihyModel implements Serializable {
     protected final int pozice;
     protected final ImageIcon dostih;
     protected final int poradi;

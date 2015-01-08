@@ -31,7 +31,7 @@ import audio.SoundHandler;
  *
  * @author wentsa
  */
-public final class Hra implements Serializable {
+public class Hra implements Serializable {
 
     private Kostka kostka;
     private final List<Hrac> hraci;

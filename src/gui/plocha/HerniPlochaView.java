@@ -337,7 +337,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
         }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
-        controller.setNacitacOption(nacitacSouboru.showOpenDialog(nacist));
+        JOptionPane.showMessageDialog(null, "tohle jeste ne-eeee :*");
+        //controller.setNacitacOption(nacitacSouboru.showOpenDialog(nacist));
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed

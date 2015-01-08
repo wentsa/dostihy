@@ -51,7 +51,7 @@ public class Main {
         /**
          * BUGY
          * 
-         * nahoda zpet na parkoviste nefunguje, na nejblizsi trener
+         * nahoda zpet na parkoviste nefunguje, na nejblizsi trener //Solved
          * 
          * nabidnout koupi po prodeji
          * 

@@ -15,6 +15,9 @@ import javax.swing.JFileChooser;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
 import audio.SoundHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,13 +60,21 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nactiHru() {
-        NacitacSouboru nacitac = new NacitacSouboru();
+        /*NacitacSouboru nacitac = new NacitacSouboru();
         int zvoleno = nacitac.showOpenDialog(null);
+        
         if (zvoleno == JFileChooser.APPROVE_OPTION) {
-            nacitac.vyhodnot();
+            try {
+                HerniPlochaController.getInstance().nactiHru(nacitac.getSelectedFile());
+                nastavPlochu();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HlavniOkno.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             nastavMenu();
-        }
+        }*/
+        JOptionPane.showMessageDialog(rootPane, "tohle jeste nefunguje :*");
+        nastavMenu();
     }
     
     public void nastavMenu() {

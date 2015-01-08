@@ -6,13 +6,14 @@
 package gui;
 
 import gui.plocha.HerniPlochaController;
+import java.io.Serializable;
 import javax.swing.JSlider;
 
 /**
  *
  * @author wentsa
  */
-public class Jas extends javax.swing.JPanel {
+public class Jas extends javax.swing.JPanel implements Serializable {
 
     /**
      * Creates new form Jas

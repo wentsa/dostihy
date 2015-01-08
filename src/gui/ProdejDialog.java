@@ -5,13 +5,14 @@
  */
 package gui;
 
+import java.io.Serializable;
 import javax.swing.JDialog;
 
 /**
  *
  * @author wentsa
  */
-public class ProdejDialog extends JDialog {
+public class ProdejDialog extends JDialog implements Serializable {
 
     public ProdejDialog(ProdejGUI prodej) {
         setModal(true);

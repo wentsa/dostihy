@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.io.Serializable;
 import pomocne.DataHraci;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.swing.SwingUtilities;
  *
  * @author wentsa
  */
-public class VolbaHracu extends javax.swing.JPanel {
+public class VolbaHracu extends javax.swing.JPanel implements Serializable {
 
     DataHraci data=new DataHraci();
     /**
@@ -61,8 +62,6 @@ public class VolbaHracu extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
         jComboBox8 = new javax.swing.JComboBox();
-
-        setBackground(new java.awt.Color(1, 1, 1));
 
         jButton1.setBackground(new java.awt.Color(249, 249, 249));
         jButton1.setText("Hraj");

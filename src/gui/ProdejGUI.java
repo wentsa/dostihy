@@ -9,6 +9,7 @@ import gui.plocha.HerniPlochaController;
 import hra.Hra;
 import hra.Hrac;
 import hra.Policko;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -28,7 +29,7 @@ import karty.VlastnickaKarta;
  *
  * @author wentsa
  */
-public class ProdejGUI extends javax.swing.JPanel {
+public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     /**
      * Creates new form ProdejGUI

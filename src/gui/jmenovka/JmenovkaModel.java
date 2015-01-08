@@ -7,6 +7,7 @@ package gui.jmenovka;
 
 import gui.Puntik;
 import hra.Hrac;
+import java.io.Serializable;
 import karty.Kun;
 import karty.VlastnickaKarta;
 import pomocne.Barva;
@@ -15,7 +16,7 @@ import pomocne.Barva;
  *
  * @author wentsa
  */
-public class JmenovkaModel {
+public class JmenovkaModel implements Serializable {
     private final Hrac hrac;
     private final int souradniceY;
     private final Puntik puntik;

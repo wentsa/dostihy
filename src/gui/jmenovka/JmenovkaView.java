@@ -8,13 +8,14 @@ package gui.jmenovka;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.JLabel;
 
 /**
  *
  * @author wentsa
  */
-public class JmenovkaView extends JLabel {
+public class JmenovkaView extends JLabel implements Serializable {
     private final JmenovkaController controller;
 
     protected JmenovkaView(JmenovkaController controller) {

@@ -9,6 +9,7 @@ import gui.plocha.HerniPlochaController;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.io.Serializable;
 import javax.swing.*;
 import karty.*;
 import karty.finance.*;
@@ -18,7 +19,7 @@ import karty.nahoda.*;
  *
  * @author wentsa
  */
-public class KartaGUI extends JDialog implements ActionListener {
+public class KartaGUI extends JDialog implements ActionListener, Serializable {
     Karta karta;
     public KartaGUI(Karta karta) {
         this.karta=karta;

@@ -6,6 +6,7 @@
 package gui.figurka.obsazovaci;
 
 import gui.figurka.FigurkaModel;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 import pomocne.Barva;
 
@@ -13,7 +14,7 @@ import pomocne.Barva;
  *
  * @author wentsa
  */
-public class ObsazovaciFigurkaModel extends FigurkaModel {
+public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable {
 
     private boolean obsazeno;
     

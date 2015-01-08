@@ -5,6 +5,7 @@
  */
 package gui.figurka;
 
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import pomocne.Barva;
@@ -13,7 +14,7 @@ import pomocne.Barva;
  *
  * @author wentsa
  */
-public class FigurkaModel {
+public class FigurkaModel implements Serializable {
     private Barva barva; //bila cerna cervena fialova modra oranzova tyrkysova zelena zluta
     protected int pozice;
     private final int cislo;

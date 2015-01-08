@@ -8,13 +8,14 @@ package gui.figurka.obsazovaci;
 import gui.figurka.FigurkaController;
 import gui.figurka.FigurkaView;
 import java.awt.Graphics;
+import java.io.Serializable;
 import javax.swing.JLabel;
 
 /**
  *
  * @author wentsa
  */
-public class ObsazovaciFigurkaView extends JLabel {
+public class ObsazovaciFigurkaView extends JLabel implements Serializable {
 
     ObsazovaciFigurkaController controller;
     public ObsazovaciFigurkaView(ObsazovaciFigurkaController controller) {

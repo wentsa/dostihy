@@ -5,13 +5,14 @@
  */
 package gui;
 
+import java.io.Serializable;
 import javax.swing.JDialog;
 
 /**
  *
  * @author wentsa
  */
-public class KonecInfoDialog extends JDialog{
+public class KonecInfoDialog extends JDialog implements Serializable {
 
     public KonecInfoDialog() {
         setModal(true);
