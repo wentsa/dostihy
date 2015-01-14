@@ -5,6 +5,7 @@
  */
 package gui.jmenovka;
 
+import grafika.GraphicsHandler;
 import gui.Puntik;
 import hra.Hrac;
 import pomocne.Barva;
@@ -29,15 +30,16 @@ public class JmenovkaController implements Serializable {
         return model.getPuntik();
     }
     
-    public void aktualizujCastku() {
+    public void aktualizujToolTip() {
         view.setToolTipText(model.getToolTipText());
         view.repaint();
     }
     public void setPoradi(int poradi) {
         model.setPoradi(poradi);
-        
     }
-
+    public void aktualizujFont() {
+        view.setForeground(GraphicsHandler.barvaFontu);
+    }    
     protected String getJmeno() {
         return model.getJmeno();
     }

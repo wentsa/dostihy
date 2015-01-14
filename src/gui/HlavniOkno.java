@@ -11,13 +11,10 @@ import pomocne.DataHraci;
 import hra.Hra;
 import hra.Policko;
 import java.util.List;
-import javax.swing.JFileChooser;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
 import audio.SoundHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -33,10 +30,8 @@ public class HlavniOkno extends javax.swing.JFrame {
     HerniPlochaView plocha = HerniPlochaController.getInstance().getView();
     Vysledky vysledky = new Vysledky();
     MyCardLayout layout = new MyCardLayout();
-    private boolean konec = false;
     
     public HlavniOkno() {
-        System.out.println("test na " + Thread.currentThread().toString());
         initComponents();
         nactiKarty();
         
@@ -59,22 +54,12 @@ public class HlavniOkno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public void nactiHru() {
-        /*NacitacSouboru nacitac = new NacitacSouboru();
-        int zvoleno = nacitac.showOpenDialog(null);
-        
-        if (zvoleno == JFileChooser.APPROVE_OPTION) {
-            try {
-                HerniPlochaController.getInstance().nactiHru(nacitac.getSelectedFile());
-                nastavPlochu();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(HlavniOkno.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            nastavMenu();
-        }*/
-        JOptionPane.showMessageDialog(rootPane, "tohle jeste nefunguje :*");
-        nastavMenu();
+    public void nactiHru() throws InterruptedException {
+        JFileChooser nacitac=HerniPlochaController.getInstance().getNacitac();
+        HerniPlochaController.getInstance().nastavVolbuNacitace(nacitac.showOpenDialog(this));
+        if(HerniPlochaController.getInstance().getNacitacOption()==JFileChooser.APPROVE_OPTION) {
+            nastavPlochu();
+        }
     }
     
     public void nastavMenu() {
@@ -90,13 +75,6 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nastavPlochu() throws InterruptedException {
-        /*cardLayout.removeLayoutComponent(plocha);
-         jPanel2.remove(plocha);
-         plocha = null;
-         plocha = HerniPlochaController.getInstance().getView();
-         jPanel2.add(plocha, "plocha");
-         jPanel2.revalidate();
-         jPanel2.repaint();*/
         layout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
@@ -225,16 +203,12 @@ public class HlavniOkno extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-                SoundHandler.end();
+                SoundHandler.play("end");
                 new KonecInfoDialog();
                 HlavniOkno.this.nastavVysledky();
             }
             
         }).execute();
-    }
-    
-    public void setKonec(boolean konec) {
-        this.konec = konec;
     }
     
     private void nactiKarty() {

@@ -58,7 +58,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        nova_hra.setText("Nova hra");
+        nova_hra.setText("Nová hra");
         nova_hra.setPreferredSize(new java.awt.Dimension(200, 40));
         nova_hra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +66,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        nacist_hru.setText("Nacist hru");
+        nacist_hru.setText("Načíst hru");
         nacist_hru.setPreferredSize(new java.awt.Dimension(200, 40));
         nacist_hru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +82,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        konec.setText("Ukoncit");
+        konec.setText("Ukončit");
         konec.setMargin(new java.awt.Insets(10, 10, 10, 10));
         konec.setPreferredSize(new java.awt.Dimension(200, 40));
         konec.addActionListener(new java.awt.event.ActionListener() {

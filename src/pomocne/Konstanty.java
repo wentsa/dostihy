@@ -5,12 +5,13 @@
  */
 package pomocne;
 
-import java.io.Serializable;
-
 /**
  *
  * @author wentsa
  */
-public enum Barva implements Serializable {
-    BLACK,BLUE,CYAN,GREEN,MAGENTA,ORANGE,RED,WHITE,YELLOW
+public class Konstanty {
+    public static int sirkaPlochy;
+    public static int vyskaPlochy;
+    
+    public final static int shoutDelay=100;
 }

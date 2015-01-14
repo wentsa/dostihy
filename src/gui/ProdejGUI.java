@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import karty.Kun;
-import karty.VlastnickaKarta;
+import karty.vlastnicke.Kun;
+import karty.vlastnicke.VlastnickaKarta;
 
 /**
  *
@@ -61,24 +61,24 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                         if (((String) o).contains("-")) {
                             Kun k = null;
                             for (Map.Entry<String, Kun> entry : ProdejGUI.this.hracovyDostihy.entrySet()) {
+                                System.out.println(entry.getKey() + "<<>>" + (String)o);
                                 if (entry.getKey().equals((String) o)) {
                                     k = entry.getValue();
+                                    System.out.println(k);
                                     int porCena;
-                                    if (entry.getKey().contains("1")) {
-                                        porCena = k.getDostih1();
-                                    } else if (entry.getKey().contains("2")) {
-                                        porCena = k.getDostih2();
-                                    } else if (entry.getKey().contains("3")) {
-                                        porCena = k.getDostih3();
-                                    } else if (entry.getKey().contains("4")) {
-                                        porCena = k.getDostih4();
+                                    if (    entry.getKey().indexOf('1')!=-1 ||
+                                            entry.getKey().indexOf('2')!=-1 ||
+                                            entry.getKey().indexOf('3')!=-1 ||
+                                            entry.getKey().indexOf('4')!=-1) {
+                                        porCena = k.getPripravaDostihu();
                                     } else {
-                                        porCena = k.getHlDostih();
+                                        porCena = k.getPripravaHlavnihoDostihu();
                                     }
                                     suma += (porCena / 2);
                                     text = text.concat("<tr><td>" + entry.getKey() + "</td><td align=right>" + porCena / 2 + ",-</td></tr>");
+                                    break;
                                 }
-                                break;
+                                
                             }
 
                         } else {
@@ -97,6 +97,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
                     ProdejGUI.this.vypis.setText(text);
                     ProdejGUI.this.celkem.setText("<html><table width=" + sirka + "><tr><td>CELKEM</td><td align=right>" + suma + ",-</td></tr></table></html>");
+                    repaint();
                 }
             }
         };
@@ -238,6 +239,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
             jList1.clearSelection();
             nactiData();
             vypis.setText("");
+            hrac.getJmenovka().aktualizujToolTip();
             repaint();
         }
     }//GEN-LAST:event_buttonActionPerformed

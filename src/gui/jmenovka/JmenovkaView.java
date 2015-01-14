@@ -5,7 +5,7 @@
  */
 package gui.jmenovka;
 
-import java.awt.Color;
+import grafika.GraphicsHandler;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class JmenovkaView extends JLabel implements Serializable {
     protected JmenovkaView(JmenovkaController controller) {
         this.controller = controller;
         setText("<html><table width=345><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + controller.getCastka() + "</td></tr></table></html>");
-        setForeground(new Color(35, 35, 35));
+        setForeground(GraphicsHandler.barvaFontu);
         setFont(new Font("Ubuntu Mono Regular", Font.BOLD, 16));
     }
     
@@ -31,5 +31,6 @@ public class JmenovkaView extends JLabel implements Serializable {
         setText("<html><table width=345><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + (controller.isAktivni()? controller.getCastka() : (controller.getPoradi() + ". misto") ) + "</td></tr></table></html>");
         setLocation(70, controller.getSouradniceY());
     }
+    
     
 }

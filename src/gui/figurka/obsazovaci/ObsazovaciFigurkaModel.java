@@ -16,14 +16,11 @@ import pomocne.Barva;
  */
 public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable {
 
-    private boolean obsazeno;
     
     public ObsazovaciFigurkaModel(Barva barva, int pozice, int cislo) {
         super(barva, cislo);
-        System.out.println("obsazovaci je " + barva);
         super.pozice=pozice;
         super.nastavSouradnice();
-        this.obsazeno=false;
     }
     
     @Override
@@ -36,9 +33,6 @@ public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable
         super.souradniceY=(int)(280*Math.sin(Math.toRadians((pozice+5)*9+5))) + 342;
     }
 
-    void setObsazeno(boolean obsazeno) {
-        this.obsazeno=obsazeno;
-    }
     protected ImageIcon getObr() {
         return super.getObrazek();
     }

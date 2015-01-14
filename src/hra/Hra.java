@@ -5,6 +5,9 @@
  */
 package hra;
 
+import karty.vlastnicke.PrepravaStaje;
+import karty.vlastnicke.Kun;
+import karty.vlastnicke.Trener;
 import gui.Kostka;
 import pomocne.DataHraci;
 import pomocne.Barva;
@@ -26,6 +29,7 @@ import kolekce.*;
 import pomocne.LoudCall;
 import pomocne.Staj;
 import audio.SoundHandler;
+import pomocne.Konstanty;
 
 /**
  *
@@ -40,7 +44,7 @@ public class Hra implements Serializable {
     private KolekceKaret<Finance> financeNove, financeStare;
     private Hrac aktualniHrac; // 0...pocet-1
     private int pocetHracu;
-    private final JTextPane statusBox;
+    private transient JTextPane statusBox;
     private List<Hrac> vyherci;
     private long cas;
     private int pocetTahu = 0, aktivnichHracu;
@@ -74,14 +78,7 @@ public class Hra implements Serializable {
         this.kostka = new Kostka();
         this.aktualniHrac = null;
         this.vyherci = new ArrayList<>();
-        this.statusBox = new JTextPane() {
-            @Override
-            public void paintComponent(Graphics g) {
-                BufferedImage statusP = HerniPlochaController.getInstance().getBoxPozadi();
-                g.drawImage(statusP, 0, 0, statusP.getWidth(null), statusP.getHeight(null), null);
-                super.paintComponent(g);
-            }
-        };
+        nastavStatusBox();
         this.caller = new LoudCall<Void, String>() {
 
             @Override
@@ -98,29 +95,37 @@ public class Hra implements Serializable {
                         continue;
                     }
                     shoutOut("aktualizujSlider");
-                    Thread.sleep(100);
+                    Thread.sleep(Konstanty.shoutDelay);
                     System.out.println("C");
                     status("Hraje " + aktualniHrac.getJmeno());
                     System.out.println("D");
+                    if(aktualniHrac.isDistanc() && aktualniHrac.isNahodaDistanc()) {
+                        Object[] volby = {"Ano", "Ne"};
+                        int odpoved = JOptionPane.showOptionDialog(null, ("Chcete použít kartu náhoda a zrušit tak distanc?"), "Náhoda - distanc", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                        if (odpoved == JOptionPane.YES_OPTION) {
+                            aktualniHrac.setDistanc(false);
+                            aktualniHrac.setNahodaDistanc(false);
+                        }
+                    }
                     int kolik = kostka.hazej();
                     if (kolik == -1) {
                         vyradHrace();
                         continue;
                     }
+                    kolik=10;
                     System.out.println("E");
                     int x=vyhodnotHod(kolik);
                     if (x==1) {
                         shoutOut("zapni");
-                        Thread.sleep(200);
+                        Thread.sleep(Konstanty.shoutDelay);
                         while (!HerniPlochaController.getInstance().isUkoncenTah()) {
                             if (!aktualniHrac.isAktivni()) {
                                 break;
                             }
                             Thread.sleep(100);
-                            System.out.print("a-");
                         }
                         shoutOut("vypni");
-                        Thread.sleep(1000);
+                        Thread.sleep(Konstanty.shoutDelay);
                         if (!aktualniHrac.isAktivni()) {
                             vyradHrace();
                             continue;
@@ -139,16 +144,15 @@ public class Hra implements Serializable {
                     vyhodnotPolicko(p, kolik);
                     System.out.println("I");
                     shoutOut("zapni");
-                    Thread.sleep(200);
+                    Thread.sleep(Konstanty.shoutDelay);
                     while (!HerniPlochaController.getInstance().isUkoncenTah()) {
                         if (!aktualniHrac.isAktivni()) {
                             break;
                         }
                         Thread.sleep(100);
-                        System.out.print("a-");
                     }
                     shoutOut("vypni");
-                    Thread.sleep(1000);
+                    Thread.sleep(Konstanty.shoutDelay);
                     if (!aktualniHrac.isAktivni()) {
                         vyradHrace();
                         continue;
@@ -163,6 +167,17 @@ public class Hra implements Serializable {
         inicializovatPolicka();
         inicializovatNahodu();
         inicializovatFinance();
+    }
+
+    public void nastavStatusBox() {
+        this.statusBox = new JTextPane() {
+            @Override
+            public void paintComponent(Graphics g) {
+                BufferedImage statusP = HerniPlochaController.getInstance().getStatusP();
+                g.drawImage(statusP, 0, 0, statusP.getWidth(null), statusP.getHeight(null), null);
+                super.paintComponent(g);
+            }
+        };
     }
 
     // <editor-fold defaultstate="collapsed" desc="POLICKA">
@@ -249,17 +264,7 @@ public class Hra implements Serializable {
     }
     // </editor-fold>
 
-    @Override
-    public String toString() {
-        String tmp = new String();
-        Integer i = 1;
-        for (Policko pol : getPolicka()) {
-            tmp = tmp.concat("\n" + i.toString() + ": \n" + pol);
-            i++;
-        }
-        return tmp;
-    }
-
+    
     public void zalozHrace(DataHraci data) {
         int i = 0;
         for (String jmeno : data.jmena) {
@@ -269,27 +274,44 @@ public class Hra implements Serializable {
         aktivnichHracu = pocetHracu = hraci.size();
         System.out.println("AKTIVNICH HRACU " + aktivnichHracu);
         aktualniHrac = hraci.get(0);
+        for(Policko p : policka) {
+            aktualniHrac.setNahodaDistanc(true);
+            if(p.isVlastnicka() && p.getKarta() instanceof Kun && ((Kun)p.getKarta()).getJmeno().equals("Napoli")) {
+                p.setMajitel(aktualniHrac);
+                p.setObsazeno(true);
+                aktualniHrac.pridejKartu(p.getKarta());
+                if(p.getKarta() instanceof Kun) {
+                    Kun k=(Kun)p.getKarta();
+                    k.pridejDostih();
+                    k.pridejDostih();
+                    k.pridejDostih();
+                    k.pridejDostih();
+                    k.pridejDostih();
+                }
+            }
+        }
+        aktualniHrac.getJmenovka().aktualizujToolTip();
     }
 
     private Barva parseColor(String barva) {
         switch (barva) {
-            case "Cerna":
+            case "Černá":
                 return Barva.BLACK;
-            case "Modra":
+            case "Modrá":
                 return Barva.BLUE;
-            case "Tyrkysova":
+            case "Tyrkysová":
                 return Barva.CYAN;
-            case "Zelena":
+            case "Zelená":
                 return Barva.GREEN;
-            case "Fialova":
+            case "Fialová":
                 return Barva.MAGENTA;
-            case "Oranzova":
+            case "Oranžová":
                 return Barva.ORANGE;
-            case "Cervena":
+            case "Červená":
                 return Barva.RED;
-            case "Bila":
+            case "Bílá":
                 return Barva.WHITE;
-            case "Zluta":
+            case "Žlutá":
                 return Barva.YELLOW;
         }
         return null;
@@ -373,9 +395,9 @@ public class Hra implements Serializable {
     }
 
     public void status(String message) {
-        caller.shoutOut("msg" + message);
+        getCaller().shoutOut("msg" + message);
         try {
-            Thread.sleep(200);
+            Thread.sleep(Konstanty.shoutDelay);
         } catch (InterruptedException ex) {
             Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -519,7 +541,7 @@ public class Hra implements Serializable {
 
     private int vyhodnotHod(int kolik) {
         if (aktualniHrac.isDistanc()) {
-            if (kolik > 6) {
+            if (kolik == 6) {
                 aktualniHrac.setDistanc(false);
                 status("Muzes hrat, hazej znovu");
                 return 0;
@@ -612,11 +634,15 @@ public class Hra implements Serializable {
         Nahoda n = (Nahoda) nahodaNove.vratNahodny();
         status(n.getPopis());
         n.zobraz();
+        int pozice=aktualniHrac.getFigurka().getPozice();
         n.proved(aktualniHrac);
-        if (policka.get(aktualniHrac.getFigurka().getPozice()).getNazev().equals("Finance")) {
-            vyhodnotFinance();
-        }
         nahodaStare.vloz(n);
+        if(n instanceof NahodaPopojdi) {
+            vyhodnotPozici(aktualniHrac.getFigurka().getPozice(),0);
+            int aktualniPozice=aktualniHrac.getFigurka().getPozice();
+            Policko p = policka.get(aktualniPozice);
+            vyhodnotPolicko(p, (aktualniPozice-pozice)%40);
+        }
     }
 
     private void nabidkaNakupu(Policko p) {
@@ -626,14 +652,14 @@ public class Hra implements Serializable {
             int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
             if (odpoved == JOptionPane.YES_OPTION) {
                 if(p.getKarta() instanceof Kun) {
-                    SoundHandler.horse();
+                    SoundHandler.play("horse");
                 }
                 else if (p.getKarta() instanceof PrepravaStaje) {
                     if(p.getNazev().equals("Přeprava")) {
-                        SoundHandler.transport();
+                        SoundHandler.play("transport");
                     }
                     else {
-                        SoundHandler.stables();
+                        SoundHandler.play("stables");
                     }
                 }
                 aktualniHrac.pridejKartu(p.getKarta());
@@ -641,9 +667,9 @@ public class Hra implements Serializable {
                 System.out.println("nakupuji");
                 p.setMajitel(aktualniHrac);
                 System.out.println("majitel nastaven  posilam:\"p-" + p.getCislo() + "\"");
-                this.caller.shoutOut("p-"+p.getCislo());
+                this.getCaller().shoutOut("p-"+p.getCislo());
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(Konstanty.shoutDelay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -720,11 +746,21 @@ public class Hra implements Serializable {
     }
 
     public LoudCall<Void, String> getTah() {
-        return caller;
+        return getCaller();
     }
 
     public List<Hrac> getVyherci() {
         return vyherci;
+    }
+
+    public LoudCall<Void, String> getCaller() {
+        return caller;
+    }
+
+    public void pripravUlozeni() {
+        caller.shoutOut("vypni");
+        kostka.setEnabled(false);
+        dalsiHrac();
     }
 
 }

@@ -6,6 +6,8 @@
 package audio;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -20,62 +22,32 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SoundHandler {
 
-    private static Clip diceroll, horse, end, stables, transport;
+    private static Map<String, Clip> klipy;
 
-    private static Clip nactiClip(String jmeno) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+    public static void inicializovat() {
+        klipy=new HashMap<>();
+        try {
+            nactiClip("diceroll");
+            nactiClip("horse");
+            nactiClip("end");
+            nactiClip("stables");
+            nactiClip("transport");
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static void nactiClip(String jmeno) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         Clip clip;
         clip = AudioSystem.getClip();
         AudioInputStream inputStream = AudioSystem.getAudioInputStream(
                 SoundHandler.class.getResource("/sound/" + jmeno + ".wav"));
         clip.open(inputStream);
-        return clip;
+        klipy.put(jmeno, clip);
     }
 
-    public static void rollDice() {
-        try {
-            if(diceroll==null) diceroll = nactiClip("diceroll");
-            playFile(diceroll);
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void horse() {
-        try {
-            if(horse==null) horse = nactiClip("horse");
-            playFile(horse);
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void end() {
-        try {
-            if(end==null) end = nactiClip("end");
-            playFile(end);
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void stables() {
-        if(stables==null) try {
-            stables = nactiClip("stables");
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //playFile("stables");
-        
-        //playFile("stables");
-    }
-
-    public static void transport() {
-        if(transport==null) try {
-            transport = nactiClip("transport");
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        playFile(transport);
+    public static void play(String nazev) {
+        playFile(klipy.get(nazev));
     }
 
     private static void playFile(final Clip clip) {

@@ -7,18 +7,17 @@ package hra;
 
 import gui.jmenovka.JmenovkaController;
 import gui.figurka.FigurkaController;
-import gui.figurka.FigurkaView;
 import pomocne.Barva;
 import java.io.Serializable;
 import static java.lang.Math.max;
 import java.util.HashSet;
-import karty.VlastnickaKarta;
+import karty.vlastnicke.VlastnickaKarta;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import karty.Kun;
-import karty.PrepravaStaje;
-import karty.Trener;
+import karty.vlastnicke.Kun;
+import karty.vlastnicke.PrepravaStaje;
+import karty.vlastnicke.Trener;
 
 /**
  *
@@ -28,6 +27,7 @@ public class Hrac implements Serializable {
 
     private int zdrzeni; // 0 muze hrat, jinak pocet kol kolik stoji
     private boolean distanc;
+    private boolean nahodaDistanc;
     private final String jmeno;
     private int rozpocet;
     private Set<VlastnickaKarta> karty;
@@ -55,9 +55,7 @@ public class Hrac implements Serializable {
         this.aktivni=true;
         this.maxHotovost=30000;
         this.maxKaret=0;
-        
-        
-
+        this.nahodaDistanc=false;
     }
 
     public void popojdi(int kolik) {
@@ -86,7 +84,7 @@ public class Hrac implements Serializable {
     public void pricti(int castka) {
         rozpocet += castka;
         maxHotovost=max(maxHotovost,rozpocet);
-        this.jmenovka.aktualizujCastku();
+        this.jmenovka.aktualizujToolTip();
     }
 
     /**
@@ -164,6 +162,7 @@ public class Hrac implements Serializable {
             this.pocetPrepravaStaje++;
         }
         this.maxKaret=max(maxKaret,karty.size());
+        this.jmenovka.aktualizujToolTip();
     }
 
     /**
@@ -229,6 +228,14 @@ public class Hrac implements Serializable {
 
     public int getCislo() {
         return cislo;
+    }
+
+    public boolean isNahodaDistanc() {
+        return nahodaDistanc;
+    }
+
+    public void setNahodaDistanc(boolean nahodaDistanc) {
+        this.nahodaDistanc = nahodaDistanc;
     }
 
    

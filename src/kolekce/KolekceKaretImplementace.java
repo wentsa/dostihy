@@ -7,7 +7,6 @@ package kolekce;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ import java.util.Random;
  * @author wentsa
  * @param <T>
  */
-public class KolekceKaretImplementace<T> implements KolekceKaret<T> {
+public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializable {
     
     private ArrayList<T> karty;
     int pocet;

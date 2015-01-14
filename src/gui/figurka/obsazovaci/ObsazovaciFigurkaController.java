@@ -7,7 +7,6 @@ package gui.figurka.obsazovaci;
 
 import pomocne.Barva;
 import java.io.Serializable;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,16 +24,12 @@ public class ObsazovaciFigurkaController implements Serializable {
     }
     
     public void zmenBarvu(Barva barva) {
-        System.out.println("menim barvu na " + barva);
         model.zmenBarvu(barva);
         view.setIcon(model.getObr());
     }
     
     public void setObsazeno(boolean obsazeno) {
-        model.setObsazeno(obsazeno);
-        System.out.println("  do view");
         view.setVisible(obsazeno);
-        System.out.println("hotovo" + getSouradniceX() + ", " + getSouradniceY() + SwingUtilities.isEventDispatchThread());
     }
     protected int getSouradniceX() {
         return model.getSouradniceX();

@@ -5,8 +5,6 @@
  */
 package gui.figurka.obsazovaci;
 
-import gui.figurka.FigurkaController;
-import gui.figurka.FigurkaView;
 import java.awt.Graphics;
 import java.io.Serializable;
 import javax.swing.JLabel;

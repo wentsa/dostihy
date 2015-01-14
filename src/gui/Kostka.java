@@ -15,7 +15,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 import audio.SoundHandler;
 
 /**
@@ -26,7 +25,7 @@ public final class Kostka extends JButton implements Serializable {
 
     private int kolik;
     private boolean hozeno;
-    Random random;
+    private final Random random;
 
     public Kostka() {
         this.kolik = 0;
@@ -44,10 +43,10 @@ public final class Kostka extends JButton implements Serializable {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("hazi");
-                SoundHandler.rollDice();
+                SoundHandler.play("diceroll");
                 kolik += (random.nextInt(6) + 1);
                 hozeno = true;
+                System.out.println(hozeno);
             }
         });
     }
@@ -56,19 +55,19 @@ public final class Kostka extends JButton implements Serializable {
         kolik = 0;
         setEnabled(true);
         HerniPlochaController.getInstance().prepniKostky();
-        System.out.println("nehozeno " + SwingUtilities.isEventDispatchThread());
         
         while (!hozeno) {
             if (!Hra.getInstance().jeAktualniHracAktivni()) {
                 HerniPlochaController.getInstance().prepniKostky();
                 setEnabled(false);
-                System.out.println("          vyhodil");
                 return -1;
             }
-           
-            System.out.print("j-");
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        System.out.println("hozeno");
         hozeno = false;
         if (kolik == 6) {
             System.out.println(Thread.currentThread());

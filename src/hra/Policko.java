@@ -11,7 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 import javax.swing.JButton;
-import karty.VlastnickaKarta;
+import karty.vlastnicke.VlastnickaKarta;
 
 /**
  *
@@ -21,11 +21,11 @@ public class Policko extends JButton implements Serializable {
 
     private final int cislo;
     private final String nazev;
-    private boolean vlastnicka;
+    private final boolean vlastnicka;
     private boolean obsazeno;
     private Hrac majitel;
     private final VlastnickaKarta karta;
-    private ObsazovaciFigurkaController obsazFigurka;
+    private final ObsazovaciFigurkaController obsazFigurka;
 
     public Policko(int cislo, String nazev, VlastnickaKarta karta) {
         this.obsazeno = false;

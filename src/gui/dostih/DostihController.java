@@ -6,8 +6,8 @@
 package gui.dostih;
 
 import java.io.Serializable;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import pomocne.Konstanty;
 
 /**
  *
@@ -19,24 +19,26 @@ public class DostihController implements Serializable {
     private final DostihyView view;
 
     public DostihController(int pozice, int poradi) {
-        model = new DostihyModel(pozice, new ImageIcon(DostihController.class.getResource("/dostih.png")), poradi);
-
-        model.souradniceX = (int) (308 * Math.cos(Math.toRadians((pozice + 5) * 9 + (poradi * 2)))) + 340;
-
-        model.souradniceY = (int) (308 * Math.sin(Math.toRadians((pozice + 5) * 9 + (poradi * 2)))) + 345;
-
+        model = new DostihyModel(pozice, false, poradi);
         view = new DostihyView(this);
-
     }
 
     protected int getSouradniceX() {
+        if(model.getSouradniceX()==-1) {
+            int stredX=Konstanty.sirkaPlochy/2;
+            model.souradniceX = (int) ((Konstanty.sirkaPlochy/2-50+7) * Math.cos(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredX -6;
+        }
         return model.getSouradniceX();
     }
 
     protected int getSouradniceY() {
+        if(model.getSouradniceY()==-1) {
+            int stredY=Konstanty.vyskaPlochy/2;
+            model.souradniceY = (int) ((Konstanty.vyskaPlochy/2-50+7) * Math.sin(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredY -6;
+        }
         return model.getSouradniceY();
     }
-
+    
     protected ImageIcon getDostih() {
         return model.getDostih();
     }

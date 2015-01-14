@@ -7,6 +7,7 @@ package pomocne;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
 import java.util.List;
 import javax.swing.SwingWorker;
 
@@ -16,7 +17,7 @@ import javax.swing.SwingWorker;
  */
 
     public abstract class ListenerTask<T, S> extends SwingWorker<T, S> 
-        implements PropertyChangeListener {
+        implements PropertyChangeListener, Serializable {
 
     private LoudCall<T, S> aMethod;
 

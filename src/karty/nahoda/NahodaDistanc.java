@@ -20,7 +20,7 @@ public class NahodaDistanc extends Nahoda implements Serializable {
 
     @Override
     public void proved(Hrac h) {
-        h.setDistanc(false);
+        h.setNahodaDistanc(true);
     }
     
 }

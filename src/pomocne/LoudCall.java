@@ -7,18 +7,23 @@ package pomocne;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.concurrent.Callable;
 
 /**
  *
  * @author wentsa
  */
-public abstract class LoudCall<T, S> implements Callable<T> {
+public abstract class LoudCall<T, S> implements Callable<T>, Serializable {
 
-    private PropertyChangeSupport pcs;
+    private transient PropertyChangeSupport pcs;
     private S shout;
 
     public LoudCall() {
+        nastavPropertyChangeSupport();
+    }
+    
+    public void nastavPropertyChangeSupport() {
         pcs = new PropertyChangeSupport(this);
     }
 

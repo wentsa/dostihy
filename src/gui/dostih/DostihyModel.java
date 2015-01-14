@@ -5,8 +5,10 @@
  */
 package gui.dostih;
 
+import grafika.GraphicsHandler;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import pomocne.Barva;
 
 /**
  *
@@ -14,14 +16,15 @@ import javax.swing.ImageIcon;
  */
 public class DostihyModel implements Serializable {
     protected final int pozice;
-    protected final ImageIcon dostih;
     protected final int poradi;
-    protected int souradniceX;
-    protected int souradniceY;
-    protected DostihyModel(int pozice, ImageIcon dostih, int poradi) {
+    protected int souradniceX=-1;
+    protected int souradniceY=-1;
+    protected double uhel=-1;
+    
+    protected DostihyModel(int pozice, boolean hlavniDostih, int poradi) {
         this.pozice = pozice;
-        this.dostih = dostih;
         this.poradi=poradi+1;
+        GraphicsHandler.nactiDostih("" + this.hashCode(), hlavniDostih);
     }
 
     protected int getSouradniceX() {
@@ -29,10 +32,14 @@ public class DostihyModel implements Serializable {
     }
 
     protected ImageIcon getDostih() {
-        return dostih;
+        return GraphicsHandler.getIcon("" + this.hashCode());
     }
 
     protected int getSouradniceY() {
         return souradniceY;
+    }
+
+    double getUhel() {
+        return uhel;
     }
 }

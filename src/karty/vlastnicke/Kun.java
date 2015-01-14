@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package karty;
+package karty.vlastnicke;
 
 import hra.Hrac;
 import gui.dostih.DostihController;
@@ -152,27 +152,27 @@ public class Kun extends VlastnickaKarta implements Serializable {
     public void odeberDostih(Hrac hrac) {
         switch (pocetDostihu) {
             case 1: {
-                hrac.pricti(cenaDostih1 / 2);
+                hrac.pricti(pripravaDostihu / 2);
                 dostihy.get(0).setVisible(false);
             }
             break;
             case 2: {
-                hrac.pricti(cenaDostih2 / 2);
+                hrac.pricti(pripravaDostihu / 2);
                 dostihy.get(1).setVisible(false);
             }
             break;
             case 3: {
-                hrac.pricti(cenaDostih3 / 2);
+                hrac.pricti(pripravaDostihu / 2);
                 dostihy.get(2).setVisible(false);
             }
             break;
             case 4: {
-                hrac.pricti(cenaDostih4 / 2);
+                hrac.pricti(pripravaDostihu / 2);
                 dostihy.get(3).setVisible(false);
             }
             break;
             case 5: {
-                hrac.pricti(cenaHlavnihoDostihu / 2);
+                hrac.pricti(pripravaHlavnihoDostihu / 2);
                 for (int i = 0; i < 4; i++) {
                     dostihy.get(i).setVisible(true);
                 }

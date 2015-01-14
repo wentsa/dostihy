@@ -51,13 +51,13 @@ public class Main {
         /**
          * BUGY
          * 
-         * nahoda zpet na parkoviste nefunguje, na nejblizsi trener //Solved
+         * ////////////////////////nahoda zpet na parkoviste nefunguje, na nejblizsi trener //Solved
          * 
-         * nabidnout koupi po prodeji
+         * /////////////////////////////nabidnout koupi po prodeji - kein bug
          * 
-         * po nahode provest nejen financi, ale i vysetreni apod, moznost nakupu kone...
+         * //////////////////////////po nahode provest nejen financi, ale i vysetreni apod, moznost nakupu kone...
          * 
-         * po distanci se stackuje se 6 nebo jede rovnou bez 6 //SOLVED
+         * /////////////////////po distanci se stackuje se 6 nebo jede rovnou bez 6 //SOLVED
          */
     }
 

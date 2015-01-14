@@ -5,6 +5,7 @@
  */
 package gui.plocha;
 
+import grafika.GraphicsHandler;
 import hra.Hra;
 import hra.Hrac;
 import gui.Kostka;
@@ -16,8 +17,8 @@ import gui.ProdejGUI;
 import gui.slider.SliderView;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
@@ -48,6 +49,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private HerniPlochaView(HerniPlochaController controller) {
         this.controller = controller;
         initComponents();
+        
     }
 
     /**
@@ -138,7 +140,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
             nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
-            nacitacSouboru.setDialogTitle("");
+            nacitacSouboru.setDialogTitle("Načíst");
             nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +148,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 }
             });
 
+            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            ukladacSouboru.setDialogTitle("Uložit");
             ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ukladacSouboruActionPerformed(evt);
@@ -267,7 +271,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             statusBoxik.setBackground(new Color(0,0,0,0));
             statusBoxik.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 10, 20));
             statusBoxik.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-            statusBoxik.setForeground(new java.awt.Color(29, 29, 29));
+            statusBoxik.setForeground(GraphicsHandler.barvaFontu);
             statusBoxik.setOpaque(false);
             jScrollPane1.setViewportView(statusBoxik);
 
@@ -337,8 +341,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
         }// </editor-fold>//GEN-END:initComponents
 
     private void nacistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacistActionPerformed
-        JOptionPane.showMessageDialog(null, "tohle jeste ne-eeee :*");
-        //controller.setNacitacOption(nacitacSouboru.showOpenDialog(nacist));
+        controller.setNacitacOption(nacitacSouboru.showOpenDialog(nacist));
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
@@ -467,6 +470,14 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     protected void pridejSlider(SliderView sliderView) {
         prava.add(sliderView);
+    }
+
+    protected void aktualizujFont() {
+        statusBoxik.setForeground(GraphicsHandler.barvaFontu);
+    }
+
+    protected JFileChooser getNacitac() {
+        return nacitacSouboru;
     }
 
 }

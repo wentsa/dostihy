@@ -5,11 +5,10 @@
  */
 package gui;
 
-import gui.figurka.FigurkaView;
+import grafika.GraphicsHandler;
 import pomocne.Barva;
 import java.awt.Graphics;
 import java.io.Serializable;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -19,13 +18,11 @@ import javax.swing.JLabel;
 public class Puntik extends JLabel implements Serializable {
 
     private final int souradniceY;
-    private final ImageIcon obrazek;
+    
     public Puntik(Barva barva, int y) {
         this.souradniceY=y-2;
-        
-        String file="/puntiky/" + barva.toString().toLowerCase() + "p.png";
-        obrazek=new ImageIcon(FigurkaView.class.getResource(file));
-        setIcon(obrazek);
+        GraphicsHandler.nactiPuntik(this.hashCode() + "", barva);
+        setIcon(GraphicsHandler.getIcon(this.hashCode() + ""));
         setVisible(true);
     }
     

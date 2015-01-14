@@ -8,8 +8,8 @@ package karty.finance;
 import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
-import karty.Kun;
-import karty.VlastnickaKarta;
+import karty.vlastnicke.Kun;
+import karty.vlastnicke.VlastnickaKarta;
 
 /**
  *

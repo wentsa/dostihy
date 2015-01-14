@@ -19,7 +19,7 @@ public class HlavniDostihController implements Serializable {
     private final DostihyView view;
 
     public HlavniDostihController(int pozice) {
-        model = new DostihyModel(pozice, new ImageIcon(HlavniDostihController.class.getResource("/dostih2.png")), pozice);
+        model = new DostihyModel(pozice, true, pozice);
 
         model.souradniceX = (int) (310 * Math.cos(Math.toRadians((pozice + 5) * 9 + 5))) + 338;
 

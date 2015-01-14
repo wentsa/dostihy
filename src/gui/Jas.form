@@ -66,24 +66,24 @@
   <SubComponents>
     <Component class="javax.swing.JSlider" name="jas">
       <Properties>
-        <Property name="maximum" type="int" value="40"/>
         <Property name="paintTicks" type="boolean" value="true"/>
-        <Property name="value" type="int" value="20"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jasMouseReleased"/>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jasStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSlider" name="kontrast">
       <Properties>
-        <Property name="maximum" type="int" value="20"/>
-        <Property name="minimum" type="int" value="2"/>
-        <Property name="value" type="int" value="11"/>
+        <Property name="maximum" type="int" value="40"/>
+        <Property name="minimum" type="int" value="20"/>
+        <Property name="value" type="int" value="30"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kontrastMouseReleased"/>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="kontrastStateChanged"/>
       </Events>
     </Component>
