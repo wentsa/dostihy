@@ -169,7 +169,7 @@ public class HerniPlochaController {
 
     public void nactiHru(File selectedFile) {
         if (model.getNacitacOption() == JFileChooser.APPROVE_OPTION) {
-
+            if(selectedFile==null) return;
             ObjectInputStream ois = null;
             try {
                 if ("".equals(selectedFile.getName())) {
