@@ -6,6 +6,8 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /**
@@ -142,7 +144,11 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_nova_hraActionPerformed
 
     private void nacist_hruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacist_hruActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nactiHru();
+        try {
+            ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nactiHru();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nacist_hruActionPerformed
 
     private void konecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konecActionPerformed

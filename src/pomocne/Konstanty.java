@@ -13,5 +13,5 @@ public class Konstanty {
     public static int sirkaPlochy;
     public static int vyskaPlochy;
     
-    public final static int shoutDelay=100;
+    public final static int shoutDelay=200;
 }

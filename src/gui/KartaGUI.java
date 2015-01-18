@@ -53,7 +53,7 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
             nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
             popis=
                     "Pořizovací cena: " + tmp.getPorizovaciCena() + ",-<br>" +
-                    "Prohlídka stáje: " + tmp.getProhlidkaStaje() + ",-<br><br>" +
+                    "Prohlídka stáje: " + tmp.getProhlidkaStaje() + ",-<br>" +
                     "Zisk z<br>" +
                     "<table><tr><td align=left>1 dostihu:</td><td align=right>" + tmp.getDostih1() + ",-</td></tr>" +
                     "<tr><td align=left>2 dostihů:</td><td align=right>" + tmp.getDostih2() + ",-</td></tr>" +
@@ -62,8 +62,10 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
                     "<tr><td align=left>Hl. dostihu:</td><td align=right>" + tmp.getHlDostih() + ",-</td></tr></table><br>" +
                     "Náklady na přípravu<br>" +
                     "<table><tr><td>na nový dostih:</td><td align=right>" + tmp.getPripravaDostihu() + ",-</td></tr>" +
-                    "<tr><td>na hl. dostih:</td><td align=right>" + tmp.getPripravaHlavnihoDostihu() + ",-</td></tr></table>" +
-                    "</body></html>";
+                    "<tr><td>na hl. dostih:</td><td align=right>" + tmp.getPripravaHlavnihoDostihu() + ",-</td></tr>" +
+                    "<tr><td><br>Majitel: </td><td><br>" + (tmp.getMajitel().getJmeno()==null?"nikdo": tmp.getMajitel().getJmeno()) + "</td></tr>" +
+                    "<tr><td>Aktuální sázka: </td><td>" + tmp.getSazka() + ",-</td></tr>" +
+                    "</table></body></html>";
         }
         else if(this.karta instanceof Trener) {
             Trener tmp=(Trener) this.karta;
@@ -75,16 +77,22 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
                     "2. licence:      2.000,-<br>" +
                     "3. licence:      3.000,-<br>" +
                     "4. licence:      4.000,-<br>" +
+                    "<br><table><tr><td>Majitel: </td><td>" + (tmp.getMajitel()==null?"nikdo": tmp.getMajitel().getJmeno()) + "</td></tr></table>" +
                     "</body></html>";
         }
         else if(this.karta instanceof PrepravaStaje) {
             PrepravaStaje tmp=(PrepravaStaje) this.karta;
             nadpis="<html><body style='width: " + obrazek.getIconWidth()*1/2 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
-            popis="<br>Pořizovací cena: " + tmp.getPorizovaciCena() + ",-<br><br><p>" + tmp.getPopis() + "</p><br><br><br><br></body></html>";
+            popis="<br>Pořizovací cena: " + tmp.getPorizovaciCena() + ",-<br><br><p>" + tmp.getPopis() + "</p><br>"
+                    + "<br><table><tr><td>Majitel: </td><td>" + (tmp.getMajitel()==null? "nikdo" : tmp.getMajitel().getJmeno()) + "</td></tr></table><br><br>" +
+"                    </body></html>";
         }
         Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, 16);
+        if(karta instanceof Kun) {
+            font=new Font("Ubuntu Mono Regular", Font.PLAIN, 14);
+        }
                
-        final JButton but=new JButton(nadpis.concat("<br><br>" + popis),obrazek);
+        final JButton but=new JButton(nadpis.concat("<br>" + popis),obrazek);
         but.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

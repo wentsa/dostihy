@@ -154,8 +154,9 @@ public class Hrac implements Serializable {
         return jmenovka;
     }
 
-    void pridejKartu(VlastnickaKarta karta) {
+    public void pridejKartu(VlastnickaKarta karta) {
         this.karty.add(karta);
+        karta.setMajitel(this);
         if (karta instanceof Trener) {
             this.pocetTreneru++;
         } else if (karta instanceof PrepravaStaje) {
@@ -203,6 +204,7 @@ public class Hrac implements Serializable {
                     kun.odeberDostih(this);
                 }
             }
+            k.setMajitel(null);
         }
         this.karty.clear();
         this.rozpocet=0;

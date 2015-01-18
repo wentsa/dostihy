@@ -81,7 +81,6 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nastavVysledky() {
-        System.out.println("qweweq   " + Thread.currentThread());
         vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
         layout.show(jPanel2, "vysledky");
         pack();
@@ -185,7 +184,7 @@ public class HlavniOkno extends javax.swing.JFrame {
                             System.out.println(Integer.getInteger(chunk.substring(2)));
                             int cislo = Integer.parseInt(chunk.substring(2));
                             for (Policko p : Hra.getInstance().getPolicka()) {
-                                if (p.getCislo() == cislo) {
+                                if (p.getPozice() == cislo) {
                                     p.setObsazeno(true);
                                     break;
                                 }

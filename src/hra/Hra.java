@@ -29,6 +29,7 @@ import kolekce.*;
 import pomocne.LoudCall;
 import pomocne.Staj;
 import audio.SoundHandler;
+import karty.vlastnicke.VlastnickaKarta;
 import pomocne.Konstanty;
 
 /**
@@ -91,11 +92,11 @@ public class Hra implements Serializable {
                         break;
                     }
                     System.out.println("B");
+                    shoutOut("aktualizujSlider");
+                    Thread.sleep(Konstanty.shoutDelay);
                     if (!zvolHrace()) {
                         continue;
                     }
-                    shoutOut("aktualizujSlider");
-                    Thread.sleep(Konstanty.shoutDelay);
                     System.out.println("C");
                     status("Hraje " + aktualniHrac.getJmeno());
                     System.out.println("D");
@@ -107,15 +108,17 @@ public class Hra implements Serializable {
                             aktualniHrac.setNahodaDistanc(false);
                         }
                     }
+                    nastavMoznostSazeni();
                     int kolik = kostka.hazej();
+                    zrusSazeni();
                     if (kolik == -1) {
                         vyradHrace();
                         continue;
                     }
-                    kolik=10;
                     System.out.println("E");
                     int x=vyhodnotHod(kolik);
                     if (x==1) {
+                        vyhodnotSazky(aktualniHrac.getFigurka().getPozice());
                         shoutOut("zapni");
                         Thread.sleep(Konstanty.shoutDelay);
                         while (!HerniPlochaController.getInstance().isUkoncenTah()) {
@@ -162,6 +165,7 @@ public class Hra implements Serializable {
                 }
                 return null;
             }
+
 
         };
         inicializovatPolicka();
@@ -227,6 +231,7 @@ public class Hra implements Serializable {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="NAHODA">
+    @SuppressWarnings("unchecked")
     void inicializovatNahodu() {
         getNahodaNove().vloz(new NahodaPopojdi("Jdi o 3 pole zpět.", false, false, 3));
         getNahodaNove().vloz(new NahodaDistanc("Zrušen distanc."));
@@ -246,6 +251,7 @@ public class Hra implements Serializable {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="FINANCE">
+    @SuppressWarnings("unchecked")
     void inicializovatFinance() {
         getFinanceNove().vloz(new FinanceKlasika("Zaplať pojistku 1000.", 1000, true));
         getFinanceNove().vloz(new FinanceKlasika("Pokuta za nedodržení předpisů 400.", 400, true));
@@ -274,9 +280,11 @@ public class Hra implements Serializable {
         aktivnichHracu = pocetHracu = hraci.size();
         System.out.println("AKTIVNICH HRACU " + aktivnichHracu);
         aktualniHrac = hraci.get(0);
+        int j=0;
         for(Policko p : policka) {
+            if(j==9) aktualniHrac=hraci.get(1);
             aktualniHrac.setNahodaDistanc(true);
-            if(p.isVlastnicka() && p.getKarta() instanceof Kun && ((Kun)p.getKarta()).getJmeno().equals("Napoli")) {
+            if(p.isVlastnicka() && p.getKarta() instanceof Kun) {
                 p.setMajitel(aktualniHrac);
                 p.setObsazeno(true);
                 aktualniHrac.pridejKartu(p.getKarta());
@@ -289,7 +297,9 @@ public class Hra implements Serializable {
                     k.pridejDostih();
                 }
             }
+            j++;
         }
+        aktualniHrac=hraci.get(0);
         aktualniHrac.getJmenovka().aktualizujToolTip();
     }
 
@@ -341,7 +351,7 @@ public class Hra implements Serializable {
     /**
      * @param nahodaNove the nahodaNove to set
      */
-    public void setNahodaNove(KolekceKaret nahodaNove) {
+    public void setNahodaNove(KolekceKaret<Nahoda> nahodaNove) {
         this.nahodaNove = nahodaNove;
     }
 
@@ -355,7 +365,7 @@ public class Hra implements Serializable {
     /**
      * @param nahodaStare the nahodaStare to set
      */
-    public void setNahodaStare(KolekceKaret nahodaStare) {
+    public void setNahodaStare(KolekceKaret<Nahoda> nahodaStare) {
         this.nahodaStare = nahodaStare;
     }
 
@@ -369,7 +379,7 @@ public class Hra implements Serializable {
     /**
      * @param financeNove the financeNove to set
      */
-    public void setFinanceNove(KolekceKaret financeNove) {
+    public void setFinanceNove(KolekceKaret<Finance> financeNove) {
         this.financeNove = financeNove;
     }
 
@@ -383,7 +393,7 @@ public class Hra implements Serializable {
     /**
      * @param financeStare the financeStare to set
      */
-    public void setFinanceStare(KolekceKaret financeStare) {
+    public void setFinanceStare(KolekceKaret<Finance> financeStare) {
         this.financeStare = financeStare;
     }
 
@@ -577,6 +587,7 @@ public class Hra implements Serializable {
             status("Podezreni z dopingu, zdrsis se 1 kolo");
             aktualniHrac.setZdrzeni(1);
         }
+        vyhodnotSazky(aktualniPozice);
     }
 
     private void vyhodnotPolicko(Policko p, int kolik) throws InterruptedException {
@@ -613,7 +624,7 @@ public class Hra implements Serializable {
     private void vyhodnotFinance() throws InterruptedException, IllegalAccessException {
         System.out.println("FINANCE");
         if (financeNove.pocet() == 0) {
-            KolekceKaret tmp = financeNove;
+            KolekceKaret<Finance> tmp = financeNove;
             financeNove = financeStare;
             financeStare = tmp;
         }
@@ -627,7 +638,7 @@ public class Hra implements Serializable {
     private void vyhodnotNahodu() throws IllegalAccessException, InterruptedException {
         System.out.println("NAHODA");
         if (nahodaNove.pocet() == 0) {
-            KolekceKaret tmp = nahodaNove;
+            KolekceKaret<Nahoda> tmp = nahodaNove;
             nahodaNove = nahodaStare;
             nahodaStare = tmp;
         }
@@ -666,14 +677,13 @@ public class Hra implements Serializable {
                 aktualniHrac.pricti(-p.getKarta().getPorizovaciCena());
                 System.out.println("nakupuji");
                 p.setMajitel(aktualniHrac);
-                System.out.println("majitel nastaven  posilam:\"p-" + p.getCislo() + "\"");
-                this.getCaller().shoutOut("p-"+p.getCislo());
+                System.out.println("majitel nastaven  posilam:\"p-" + p.getPozice() + "\"");
+                this.getCaller().shoutOut("p-"+p.getPozice());
                 try {
                     Thread.sleep(Konstanty.shoutDelay);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Hra.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //p.setObsazeno(true);
                 System.out.println("obsazeno nastaveno");
                 System.out.println(Thread.currentThread());
                 Hra.getInstance().status("Zakoupil jsi \"" + p.getNazev() + "\"");
@@ -761,6 +771,58 @@ public class Hra implements Serializable {
         caller.shoutOut("vypni");
         kostka.setEnabled(false);
         dalsiHrac();
+    }
+    
+    public void nastavMoznostSazeni() {
+        boolean muzeSazet=false;
+        for(VlastnickaKarta k : aktualniHrac.getKarty()) {
+            if(k instanceof Kun) {
+                Kun kun=(Kun) k;
+                if(kun.getPocetDostihu()>=3) {
+                    muzeSazet=true;
+                    break;
+                }
+            }
+        }
+        System.out.println("MUZE SAZET " + muzeSazet + policka.size());
+        for(Policko p : policka) {
+            p.setMuzeVsadit(false);
+            System.out.print("x");
+            if( muzeSazet &&
+                p.isVlastnicka() &&
+                p.isObsazeno() &&
+                !p.getMajitel().equals(aktualniHrac) &&
+                p.getKarta() instanceof Kun) {
+                    System.out.print("y");
+                    Kun kun=(Kun)p.getKarta();
+                    if(kun.getPocetDostihu()>=3) {
+                        p.setMuzeVsadit(true);
+                    }
+            }
+            System.out.print("z");   
+        }
+    }
+    
+    public void zrusSazeni() {
+        for(Policko p : policka) {
+            p.setMuzeVsadit(false);
+        }
+    }
+
+    private void vyhodnotSazky(int aktualniPozice) {
+        for(Policko p : policka) {
+            if(p.getKarta() instanceof Kun) {
+                Kun kun=(Kun)p.getKarta();
+                if(kun.getSazka()>0) {
+                    if(aktualniPozice==p.getPozice()) {
+                        kun.vyplatSazku(aktualniHrac);
+                    }
+                    else {
+                        kun.stornujSazku();
+                    }
+                }
+            }
+        }
     }
 
 }

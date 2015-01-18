@@ -5,6 +5,7 @@
  */
 package karty.vlastnicke;
 
+import hra.Hrac;
 import java.io.Serializable;
 import karty.Karta;
 
@@ -17,11 +18,13 @@ public abstract class VlastnickaKarta extends Karta implements Serializable {
     private final int porizovaciCena;
     private final int pozice;
     protected final String jmeno;
+    private Hrac majitel;
 
     public VlastnickaKarta(int pozice, int porizovaciCena, String jmeno) {
         this.porizovaciCena = porizovaciCena;
         this.pozice=pozice-1;
         this.jmeno=jmeno;
+        this.majitel=null;
     }
 
     /**
@@ -40,6 +43,14 @@ public abstract class VlastnickaKarta extends Karta implements Serializable {
 
     public String getJmeno() {
         return jmeno;
+    }
+
+    public Hrac getMajitel() {
+        return majitel;
+    }
+
+    public void setMajitel(Hrac majitel) {
+        this.majitel = majitel;
     }
     
     

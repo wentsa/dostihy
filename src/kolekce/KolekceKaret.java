@@ -14,11 +14,9 @@ import java.io.Serializable;
  */
 public interface KolekceKaret<T> extends Serializable {
     int pocet();
-    @SuppressWarnings("unchecked")
     void vloz(T o);
     boolean vyjmi(T o);
     boolean obsahuje(T o);
-    void sesypat(KolekceKaret druha);
     Object[] naPole();
     T vratNahodny() throws IllegalAccessException;
 }

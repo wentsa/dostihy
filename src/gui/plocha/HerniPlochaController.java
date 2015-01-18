@@ -86,20 +86,6 @@ public class HerniPlochaController {
         for (final Policko p : Hra.getInstance().getPolicka()) {
             if (p.isVlastnicka()) {
 
-                p.setOpaque(false);
-                p.setContentAreaFilled(false);
-                p.setBorderPainted(false);
-                p.addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            p.getKarta().zobraz();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
                 view.pridejPolicko(p);
 
                 if (p.getKarta() instanceof Kun) {

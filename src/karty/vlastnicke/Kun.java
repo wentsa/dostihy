@@ -32,6 +32,7 @@ public class Kun extends VlastnickaKarta implements Serializable {
     private int pocetDostihu;
     private final List<DostihController> dostihy;
     private final HlavniDostihController hlavniDostih;
+    private int sazka=0;
 
     public Kun(int pozice, String jmeno, int porizovaciCena, Staj staj, int prohlidkaStaje, int dostih1, int dostih2, int dostih3, int dostih4, int hlDostih, int pripravaDostihu, int pripravaHlavnihoDostihu) {
         super(pozice, porizovaciCena, jmeno);
@@ -222,6 +223,25 @@ public class Kun extends VlastnickaKarta implements Serializable {
 
     public HlavniDostihController getHlavniDostih() {
         return hlavniDostih;
+    }
+    
+    public void vsad(int kolik) {
+        sazka=kolik;
+    }
+    
+    public void vyplatSazku(Hrac komu) {
+        getMajitel().pricti(-10*sazka);
+        komu.pricti(10*sazka);
+        sazka=0;
+    }
+    
+    public void stornujSazku() {
+        getMajitel().pricti(sazka);
+        sazka=0;
+    }
+    
+    public int getSazka() {
+        return sazka;
     }
 
 }

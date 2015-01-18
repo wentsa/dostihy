@@ -73,6 +73,9 @@ public class JmenovkaModel implements Serializable {
 
     protected String getToolTipText() {
         String text="<html><b><i>Inventář</i></b><br><br><table>";
+        if(hrac.getZdrzeni()>0) {
+            text+="<tr><td>Zdržení: </td><td>" + hrac.getZdrzeni() + "</td></tr>";
+        }
         for (VlastnickaKarta k: hrac.getKarty()) {
             text=text + "<tr><td>" + k.getJmeno() + "</td><td>";
             if(k instanceof Kun) {
@@ -94,6 +97,7 @@ public class JmenovkaModel implements Serializable {
         if(hrac.getKarty().isEmpty()) {
             text=text+"<i>--prázdné--</i><br>";
         }
+        
         text=text+"</table></html>";
         return text;
     }

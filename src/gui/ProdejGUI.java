@@ -11,6 +11,7 @@ import hra.Hrac;
 import hra.Policko;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.Staj;
 
 /**
  *
@@ -38,7 +40,29 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
     private final Set<VlastnickaKarta> karty;
     private String[] hracovyKarty;
     private Map<String, Kun> hracovyDostihy;
+    private boolean prodavaBance = true;
+    private Hrac kupec;
+    private int suma;
 
+    class ComboItem {
+
+        private final String value;
+
+        public ComboItem(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public ProdejGUI(Hrac hrac) {
         System.out.println("prodavac");
         this.hrac = hrac;
@@ -46,6 +70,13 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         initComponents();
         nactiData();
         vypis.setContentType("text/html");
+
+        kombo.addItem(new ComboItem("--banka--"));
+        for (Hrac h : Hra.getInstance().getHraci()) {
+            if (!h.equals(hrac) && h.isAktivni()) {
+                kombo.addItem(new ComboItem(h.getJmeno()));
+            }
+        }
 
         ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
@@ -56,29 +87,33 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                     List selectionValues = list.getSelectedValuesList();
                     int sirka = ProdejGUI.this.vypis.getWidth();
                     String text = "<html><table width=" + sirka + ">";
-                    int suma = 0;
+                    suma = 0;
                     for (Object o : selectionValues) {
                         if (((String) o).contains("-")) {
                             Kun k = null;
                             for (Map.Entry<String, Kun> entry : ProdejGUI.this.hracovyDostihy.entrySet()) {
-                                System.out.println(entry.getKey() + "<<>>" + (String)o);
                                 if (entry.getKey().equals((String) o)) {
                                     k = entry.getValue();
                                     System.out.println(k);
                                     int porCena;
-                                    if (    entry.getKey().indexOf('1')!=-1 ||
-                                            entry.getKey().indexOf('2')!=-1 ||
-                                            entry.getKey().indexOf('3')!=-1 ||
-                                            entry.getKey().indexOf('4')!=-1) {
+                                    if (entry.getKey().indexOf('1') != -1
+                                            || entry.getKey().indexOf('2') != -1
+                                            || entry.getKey().indexOf('3') != -1
+                                            || entry.getKey().indexOf('4') != -1) {
                                         porCena = k.getPripravaDostihu();
                                     } else {
                                         porCena = k.getPripravaHlavnihoDostihu();
                                     }
                                     suma += (porCena / 2);
-                                    text = text.concat("<tr><td>" + entry.getKey() + "</td><td align=right>" + porCena / 2 + ",-</td></tr>");
+                                    text = text.concat("<tr><td>" + entry.getKey() + "</td>");
+                                    if (prodavaBance) {
+                                        text = text + "<td align=right>" + (porCena / 2) + ",-</td></tr>";
+                                    } else {
+                                        text += "</tr>";
+                                    }
                                     break;
                                 }
-                                
+
                             }
 
                         } else {
@@ -90,13 +125,22 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                                 }
                             }
                             suma += (k.getPorizovaciCena() / 2);
-                            text = text.concat("<tr><td>" + k.toString() + "</td><td align=right>" + k.getPorizovaciCena() / 2 + ",-</td></tr>");
+                            text = text.concat("<tr><td>" + k.toString() + "</td>");
+                            if (prodavaBance) {
+                                text = text + "<td align=right>" + k.getPorizovaciCena() / 2 + ",-</td></tr>";
+                            } else {
+                                text += "</tr>";
+                            }
                         }
                     }
                     text = text.concat("</table></html>");
 
                     ProdejGUI.this.vypis.setText(text);
-                    ProdejGUI.this.celkem.setText("<html><table width=" + sirka + "><tr><td>CELKEM</td><td align=right>" + suma + ",-</td></tr></table></html>");
+                    if (prodavaBance) {
+                        ProdejGUI.this.celkem.setText("<html><table width=" + sirka + "><tr><td>CELKEM</td><td align=right>" + suma + ",-</td></tr></table></html>");
+                    } else {
+                        ProdejGUI.this.celkem.setText("");
+                    }
                     repaint();
                 }
             }
@@ -122,6 +166,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         vypis = new javax.swing.JTextPane();
         celkem = new javax.swing.JLabel();
         button = new javax.swing.JButton();
+        kombo = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -160,6 +205,22 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
             }
         });
 
+        kombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                komboItemStateChanged(evt);
+            }
+        });
+        kombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                komboActionPerformed(evt);
+            }
+        });
+        kombo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                komboPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,17 +236,21 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addComponent(celkem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
+                    .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addComponent(kombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(kombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(celkem))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(celkem)
+                        .addGap(0, 29, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button)
@@ -196,6 +261,49 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!jList1.isSelectionEmpty()) {
+            if (!prodavaBance) {
+                for (Object o : jList1.getSelectedValuesList()) {
+                    String value = o.toString();
+                    if (value.contains("-")) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Dostihy můžete prodávat pouze bance.");
+                        return;
+                    }
+                    for (VlastnickaKarta k : karty) {
+                        if (value.equals(k.toString())) {
+                            if (k instanceof Kun) {
+                                Kun kun = (Kun) k;
+                                if (!overStaj(kun.getStaj())) {
+                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej dostihy stáje (" + kun.getStaj() + ")");
+                                    return;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), "Chystáte se prodat hráči " + kupec.getJmeno() + " své karty. Nabídněte prosím požadovanou částku. Doporučená částka je " + suma + ",-");
+                if(castka==null) return;
+                try {
+                    int cena = Integer.parseInt(castka);
+                    if (cena < 0) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Záporné hodnoty by znamenaly, že vy budete platit za to, že si " + kupec.getJmeno() + " od Vás koupí karty. Zadejte prosím kladné hodnoty.");
+                        return;
+                    }
+                    if (cena > kupec.getRozpocet()) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Bohužel kupec nemá dostatek financí. Maximum je " + kupec.getRozpocet() + ",-");
+                        return;
+                    }
+
+                    Object[] volby = {"Ano", "Ne"};
+                    int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + " chcete od hráče " + hrac.getJmeno() + " koupit označené karty za " + cena + ",-?"), "Obchod", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    if (odpoved != JOptionPane.YES_OPTION) {
+                        return;
+                    }
+                    suma = cena;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Zadejte pouze číslo reprezentující částku.");
+                }
+            }
             List selectionValues = jList1.getSelectedValuesList();
             Set<VlastnickaKarta> vymazatKone = new HashSet<>();
             Set<Kun> vymazatDostihy = new HashSet<>();
@@ -219,22 +327,31 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 }
             }
             for (VlastnickaKarta k : vymazatKone) {
-                if(k instanceof Kun) {
-                    Kun kun= (Kun) k;
-                    if(kun.getPocetDostihu()>0) {
-                        JOptionPane.showMessageDialog((ProdejDialog)SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej jeho dostihy (" + kun.getJmeno() + ")");
-                        continue;
+                if (k instanceof Kun) {
+                    Kun kun = (Kun) k;
+                    if (!overStaj(kun.getStaj())) {
+                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej dostihy stáje (" + kun.getStaj() + ")");
+                        return;
                     }
                 }
-                hrac.pricti(k.getPorizovaciCena()/2);
                 Policko p = Hra.getInstance().getPolicka().get(k.getPozice());
-                p.setObsazeno(false);
-                p.setMajitel(null);
-                p.getObsazFigurka().setObsazeno(false);
+                if (prodavaBance) {
+                    p.setObsazeno(false);
+                    p.setMajitel(null);
+                    p.getObsazFigurka().setObsazeno(false);
+                    k.setMajitel(null);
+                } else {
+                    p.setMajitel(kupec);
+                    kupec.pridejKartu(k);
+                }
                 karty.remove(k);
             }
             for (Kun k : vymazatDostihy) {
                 k.odeberDostih(hrac);
+            }
+            hrac.pricti(suma);
+            if (!prodavaBance) {
+                kupec.pricti(-suma);
             }
             jList1.clearSelection();
             nactiData();
@@ -253,6 +370,32 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         jList1.clearSelection();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void komboPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_komboPropertyChange
+
+    }//GEN-LAST:event_komboPropertyChange
+
+    private void komboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_komboItemStateChanged
+
+    }//GEN-LAST:event_komboItemStateChanged
+
+    private void komboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_komboActionPerformed
+        String value = ((ComboItem) kombo.getSelectedItem()).getValue();
+        if (value.equals("--banka--")) {
+            prodavaBance = true;
+        } else {
+            prodavaBance = false;
+            for (Hrac h : Hra.getInstance().getHraci()) {
+                if (value.equals(h.getJmeno())) {
+                    kupec = h;
+                    break;
+                }
+            }
+        }
+        int[] idxs = jList1.getSelectedIndices();
+        jList1.clearSelection();
+        jList1.setSelectedIndices(idxs);
+    }//GEN-LAST:event_komboActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;
@@ -262,6 +405,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox kombo;
     private javax.swing.JTextPane vypis;
     // End of variables declaration//GEN-END:variables
 
@@ -289,7 +433,36 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         for (String s : tmp2) {
             hracovyKarty[i++] = s;
         }
+        Arrays.sort(hracovyKarty, 0, Math.max(0, hracovyKarty.length - 1), new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                if (a.contains("dostih")) {
+                    if (b.contains("dostih")) {
+                        return a.compareTo(b);
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    if (b.contains("dostih")) {
+                        return -1;
+                    } else {
+                        return a.compareTo(b);
+                    }
+                }
+            }
+        });
         celkem.setText("");
     }
 
+    private boolean overStaj(Staj staj) {
+        for (VlastnickaKarta k : karty) {
+            if (k instanceof Kun) {
+                Kun kun = (Kun) k;
+                if (kun.getStaj().equals(staj) && kun.getPocetDostihu() > 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

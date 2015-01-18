@@ -32,6 +32,7 @@ import javax.swing.SwingWorker;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void propertyChange(PropertyChangeEvent evt) {
         if ("shout".equals(evt.getPropertyName())) {
             publish((S)evt.getNewValue());

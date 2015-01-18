@@ -40,6 +40,7 @@ public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializabl
         return pocet;
     }
 
+    
     @Override
     public void vloz(T o) {
         karty.add(o);
@@ -72,11 +73,6 @@ public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializabl
         return true;
     }
 
-
-    @Override
-    public void sesypat(KolekceKaret druhy) {
-        karty.addAll((Collection<? extends T>) druhy);
-    }
 
     @Override
     public Object[] naPole() {
