@@ -43,14 +43,12 @@ public class HerniPlochaModel {
         this.slider=new SliderController();
     }
 
-    void prepniKostky() {
-        if (aktualniPrava.equals(GraphicsHandler.get("prava"))) {
-            aktualniPrava = GraphicsHandler.get("prava_aktiv");
-            System.out.println("---zapnul kostky");
-        } else {
-            aktualniPrava = GraphicsHandler.get("prava");
-            System.out.println("---vypnul kostky");
-        }
+    protected void vypniKostky() {
+        aktualniPrava = GraphicsHandler.get("prava");
+    }
+    
+    protected void zapniKostky() {
+        aktualniPrava = GraphicsHandler.get("prava_aktiv");
     }
 
     protected Image getPlochu() {

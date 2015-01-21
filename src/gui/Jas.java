@@ -41,7 +41,10 @@ public class Jas extends javax.swing.JPanel implements Serializable {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setMinimumSize(new java.awt.Dimension(279, 229));
 
+        jas.setMaximum(200);
+        jas.setMinimum(-200);
         jas.setPaintTicks(true);
+        jas.setValue(0);
         jas.setBorder(null);
         jas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -54,9 +57,10 @@ public class Jas extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        kontrast.setMaximum(40);
-        kontrast.setMinimum(20);
-        kontrast.setValue(30);
+        kontrast.setMaximum(130);
+        kontrast.setMinimum(-130);
+        kontrast.setToolTipText("");
+        kontrast.setValue(0);
         kontrast.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 kontrastMouseReleased(evt);
@@ -114,28 +118,32 @@ public class Jas extends javax.swing.JPanel implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kontrastStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_kontrastStateChanged
-        JSlider source = (JSlider) evt.getSource();
-        float value = source.getValue()/((source.getMaximum()-source.getMinimum())/2f + source.getMinimum());
-        HerniPlochaController.getInstance().nastavKontrast(value);
+        
     }//GEN-LAST:event_kontrastStateChanged
 
     private void jasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jasStateChanged
-        JSlider source = (JSlider) evt.getSource();
-        float value = source.getValue()-(source.getMaximum()-source.getMinimum())/2f;
-        HerniPlochaController.getInstance().nastavJas(value);
+        
     }//GEN-LAST:event_jasStateChanged
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         jas.setValue((jas.getMaximum()-jas.getMinimum())/2 + jas.getMinimum());
         kontrast.setValue((kontrast.getMaximum()-kontrast.getMinimum())/2 + kontrast.getMinimum());
+        HerniPlochaController.getInstance().nastavJas(0);
+        HerniPlochaController.getInstance().nastavKontrast(0);
         GraphicsHandler.zmenFont();
     }//GEN-LAST:event_resetActionPerformed
 
     private void jasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jasMouseReleased
+        JSlider source = (JSlider) evt.getSource();
+        int value = source.getValue();
+        HerniPlochaController.getInstance().nastavJas(value);
         GraphicsHandler.zmenFont();
     }//GEN-LAST:event_jasMouseReleased
 
     private void kontrastMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kontrastMouseReleased
+        JSlider source = (JSlider) evt.getSource();
+        int value = source.getValue();
+        HerniPlochaController.getInstance().nastavKontrast(value);
         GraphicsHandler.zmenFont();
     }//GEN-LAST:event_kontrastMouseReleased
 

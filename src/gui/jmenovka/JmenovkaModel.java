@@ -89,7 +89,6 @@ public class JmenovkaModel implements Serializable {
                     case 4: {tmp="4 dostihy";} break;
                     case 5: {tmp="hlavní dostih";} break;
                 }
-                System.out.println(kun.getPocetDostihu());
                 text=text + " - " + tmp;
             }
             text=text + "</td><td>" + k.getPorizovaciCena() + ",-</td></tr><br>";

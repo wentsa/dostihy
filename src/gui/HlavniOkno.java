@@ -14,6 +14,8 @@ import java.util.List;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
 import audio.SoundHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -25,20 +27,33 @@ public class HlavniOkno extends javax.swing.JFrame {
     /**
      * Creates new form HlavniOkno
      */
-    Menu menu = new Menu();
-    VolbaHracu volba = new VolbaHracu();
-    HerniPlochaView plocha = HerniPlochaController.getInstance().getView();
-    Vysledky vysledky = new Vysledky();
-    MyCardLayout layout = new MyCardLayout();
+    private final Menu menu = new Menu();
+    private VolbaHracu volba = new VolbaHracu();
+    private HerniPlochaView plocha;
+    private Vysledky vysledky;
+    private final MyCardLayout layout = new MyCardLayout();
+    private final Thread vlakno;
     
     public HlavniOkno() {
         initComponents();
+        vlakno=new Thread() {
+            @Override
+            public void run() {
+                plocha = HerniPlochaController.getInstance().getView();
+                vysledky = new Vysledky();
+                jPanel2.add(plocha, "plocha");
+                jPanel2.add(vysledky, "vysledky");
+            }
+        };
+        vlakno.start();
         nactiKarty();
-        
         setLocationRelativeTo(null);
     }
     
     public void zalozHrace(DataHraci d) throws InterruptedException {
+        System.out.println("cekam");
+        vlakno.join();
+        System.out.println("ff");
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
         nastavPlochu();
@@ -55,10 +70,13 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nactiHru() throws InterruptedException {
+        vlakno.join();
         JFileChooser nacitac=HerniPlochaController.getInstance().getNacitac();
         HerniPlochaController.getInstance().nastavVolbuNacitace(nacitac.showOpenDialog(this));
         if(HerniPlochaController.getInstance().getNacitacOption()==JFileChooser.APPROVE_OPTION) {
+            HerniPlochaController.getInstance().nactiHru(nacitac.getSelectedFile());
             nastavPlochu();
+            tahni();
         }
     }
     
@@ -75,16 +93,22 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nastavPlochu() throws InterruptedException {
+        vlakno.join();
         layout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
     }
     
     public void nastavVysledky() {
-        vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
-        layout.show(jPanel2, "vysledky");
-        pack();
-        setLocationRelativeTo(null);
+        try {
+            vlakno.join();
+            vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
+            layout.show(jPanel2, "vysledky");
+            pack();
+            setLocationRelativeTo(null);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(HlavniOkno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -166,7 +190,6 @@ public class HlavniOkno extends javax.swing.JFrame {
             
             @Override
             protected void process(List<String> chunks) {
-                System.out.println("dostal jsem chunk");
                 String chunk = chunks.get(chunks.size() - 1);
                 switch (chunk) {
                     case "zapni":
@@ -180,8 +203,6 @@ public class HlavniOkno extends javax.swing.JFrame {
                         break;
                     default: {
                         if (chunk.startsWith("p-")) {
-                            System.out.println(chunk);
-                            System.out.println(Integer.getInteger(chunk.substring(2)));
                             int cislo = Integer.parseInt(chunk.substring(2));
                             for (Policko p : Hra.getInstance().getPolicka()) {
                                 if (p.getPozice() == cislo) {
@@ -191,9 +212,8 @@ public class HlavniOkno extends javax.swing.JFrame {
                             }
                         } else {
                             chunk = chunk.substring(3);
-                            Hra.getInstance().getStatusBox().setText(chunk);
+                            Hra.getInstance().nastavTextStatusBoxu(chunk);
                             Hra.getInstance().getStatusBox().repaint();
-                            System.out.println("     " + chunk.toUpperCase());
                         }
                     }
                     break;
@@ -211,11 +231,10 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     private void nactiKarty() {
-        jPanel2.add(menu, "menu");
-        jPanel2.add(volba, "volba");
-        jPanel2.add(plocha, "plocha");
-        jPanel2.add(vysledky, "vysledky");
-        pack();
+        
+            jPanel2.add(menu, "menu");
+            jPanel2.add(volba, "volba");
+            pack();
     }
     
 }

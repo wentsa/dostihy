@@ -6,6 +6,7 @@
 package gui.plocha;
 
 import grafika.GraphicsHandler;
+import gui.HlavniOkno;
 import hra.Hra;
 import hra.Hrac;
 import gui.Kostka;
@@ -18,6 +19,8 @@ import gui.slider.SliderView;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -266,13 +269,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
             jScrollPane1.setBorder(null);
             jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-            statusBoxik.setEditable(false);
-            statusBoxik.setBackground(new Color(0,0,0,0));
-            statusBoxik.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 10, 20));
-            statusBoxik.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-            statusBoxik.setForeground(GraphicsHandler.barvaFontu);
-            statusBoxik.setOpaque(false);
             jScrollPane1.setViewportView(statusBoxik);
 
             statusB.add(jScrollPane1);
@@ -345,7 +341,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacistActionPerformed
 
     private void ukoncitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukoncitActionPerformed
-        System.out.println("UKONCENO");
         controller.setUkoncenTah(true);
     }//GEN-LAST:event_ukoncitActionPerformed
 
@@ -376,7 +371,13 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_ukladacSouboruActionPerformed
 
     private void nacitacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitacSouboruActionPerformed
-        controller.nactiHru(nacitacSouboru.getSelectedFile());
+        try {
+            controller.nactiHru(nacitacSouboru.getSelectedFile());
+            HlavniOkno okno=(HlavniOkno)SwingUtilities.getWindowAncestor(this);
+            okno.tahni();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
@@ -424,44 +425,41 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     
     protected void zapniTlacitko() {
-        System.out.println("zapni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(true);
         ukoncit.repaint();
     }
 
     protected void vypniTlacitko() {
-        System.out.println("vypni tlacitko " + SwingUtilities.isEventDispatchThread());
         ukoncit.setEnabled(false);
         ukoncit.repaint();
     }
 
     protected void pridejHrace(Hrac h) {
-        //System.out.println("pridej hrace " + SwingUtilities.isEventDispatchThread());
         plocha.add(h.getFigurka().getView());
         prava.add(h.getJmenovka().getView());
         prava.add(h.getJmenovka().getPuntik());
     }
 
     protected void pridejPolicko(Policko p) {
-        //System.out.println("pridej policko " + SwingUtilities.isEventDispatchThread());
         plocha.add(p.getObsazFigurka().getView());
         plocha.add(p);
     }
 
     protected void pridejDostih(DostihyView d) {
-        //System.out.println("pridej dostihy " + SwingUtilities.isEventDispatchThread());
         plocha.add(d);
     }
 
     protected void pridejKostku(Kostka k) {
-        //System.out.println("pridej kostku " + SwingUtilities.isEventDispatchThread());
         prava.add(k);
     }
 
     protected void vycistiPlochu() {
-        System.out.println("vycisti plochu " + SwingUtilities.isEventDispatchThread());
         plocha.removeAll();
+        prava.removeAll();
         plocha.updateUI();
+        prava.updateUI();
+        statusBoxik=Hra.getInstance().getStatusBox();
+        jScrollPane1.setViewportView(statusBoxik);
     }
 
     protected void vzdatSe() {

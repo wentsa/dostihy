@@ -9,6 +9,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,8 +30,13 @@ public abstract class LoudCall<T, S> implements Callable<T>, Serializable {
     }
 
     public void shoutOut(S s) {
-        pcs.firePropertyChange("shout", this.shout, 
-                this.shout = s);
+        try {
+            pcs.firePropertyChange("shout", this.shout,
+                    this.shout = s);
+            Thread.sleep(Konstanty.shoutDelay);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LoudCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void addListener(PropertyChangeListener listener) {

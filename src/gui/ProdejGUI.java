@@ -64,7 +64,6 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     @SuppressWarnings("unchecked")
     public ProdejGUI(Hrac hrac) {
-        System.out.println("prodavac");
         this.hrac = hrac;
         karty = this.hrac.getKarty();
         initComponents();
@@ -94,7 +93,6 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                             for (Map.Entry<String, Kun> entry : ProdejGUI.this.hracovyDostihy.entrySet()) {
                                 if (entry.getKey().equals((String) o)) {
                                     k = entry.getValue();
-                                    System.out.println(k);
                                     int porCena;
                                     if (entry.getKey().indexOf('1') != -1
                                             || entry.getKey().indexOf('2') != -1

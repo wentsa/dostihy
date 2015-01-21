@@ -14,8 +14,6 @@ import gui.Kostka;
 import hra.Policko;
 import gui.JasDialog;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,8 +103,12 @@ public class HerniPlochaController {
         view.pridejKostku(k);
     }
 
-    public void prepniKostky() {
-        model.prepniKostky();
+    public void zapniKostky() {
+        model.zapniKostky();
+    }
+    
+    public void vypniKostky() {
+        model.vypniKostky();
     }
 
     protected Image getPl() {
@@ -142,9 +144,10 @@ public class HerniPlochaController {
                 } else {
                     f = new File(selectedFile + ".das");
                 }
-                Hra.getInstance().pripravUlozeni();
                 try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+                    Hra.getInstance().pripravUlozeni();
                     oos.writeObject(Hra.getInstance());
+                    Hra.getInstance().vratPredUlozeni();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,17 +165,25 @@ public class HerniPlochaController {
                     return;
                 }
                 ois = new ObjectInputStream(new FileInputStream(selectedFile));
+                System.out.println("A");
                 Hra.changeInstance((Hra) ois.readObject());
                 ois.close();
+                System.out.println("B");
                 Hra.getInstance().getCaller().nastavPropertyChangeSupport();
+                System.out.println("C");
                 Hra.getInstance().nastavStatusBox();
+                System.out.println("D");
                 view.vycistiPlochu();
+                view.pridejSlider(model.getSlider().getView());
+                System.out.println("E");
                 nactiHrace();
+                System.out.println("F");
                 nactiPole();
+                System.out.println("G");
                 nactiKostku();
+                System.out.println("H");
                 view.repaint();
-                Hra.getInstance().getCaller().call();
-                System.out.println(Hra.getInstance().getHraci().get(0).getRozpocet());
+                System.out.println("I");
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
@@ -191,12 +202,12 @@ public class HerniPlochaController {
         model.setNacitacOption(showOpenDialog);
     }
 
-    public void nastavKontrast(float value) {
+    public void nastavKontrast(int value) {
         GraphicsHandler.nastavKontrast(value);
         view.repaint();
     }
 
-    public void nastavJas(float value) {
+    public void nastavJas(int value) {
         GraphicsHandler.nastavJas(value);
         view.repaint();
     }

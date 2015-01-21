@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import audio.SoundHandler;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -46,7 +47,6 @@ public final class Kostka extends JButton implements Serializable {
                 SoundHandler.play("diceroll");
                 kolik += (random.nextInt(6) + 1);
                 hozeno = true;
-                System.out.println(hozeno);
             }
         });
     }
@@ -54,11 +54,10 @@ public final class Kostka extends JButton implements Serializable {
     public int hazej() {
         kolik = 0;
         setEnabled(true);
-        HerniPlochaController.getInstance().prepniKostky();
-        
+        HerniPlochaController.getInstance().zapniKostky();
         while (!hozeno) {
             if (!Hra.getInstance().jeAktualniHracAktivni()) {
-                HerniPlochaController.getInstance().prepniKostky();
+                HerniPlochaController.getInstance().vypniKostky();
                 setEnabled(false);
                 return -1;
             }
@@ -70,11 +69,10 @@ public final class Kostka extends JButton implements Serializable {
         }
         hozeno = false;
         if (kolik == 6) {
-            System.out.println(Thread.currentThread());
             Hra.getInstance().status("Hodil jsi 6, hazej znovu");
             while (!hozeno) {
                 if (!Hra.getInstance().jeAktualniHracAktivni()) {
-                    HerniPlochaController.getInstance().prepniKostky();
+                    HerniPlochaController.getInstance().vypniKostky();
                     setEnabled(false);
                     return -1;
                 }
@@ -90,7 +88,7 @@ public final class Kostka extends JButton implements Serializable {
             Hra.getInstance().status("Hodil jsi " + kolik);
         }
 
-        HerniPlochaController.getInstance().prepniKostky();
+        HerniPlochaController.getInstance().vypniKostky();
         setEnabled(false);
         return kolik;
     }

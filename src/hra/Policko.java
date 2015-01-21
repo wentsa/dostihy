@@ -122,7 +122,6 @@ public class Policko extends JButton implements Serializable {
      */
     public void setObsazeno(boolean obsazeno) {
         this.obsazeno = obsazeno;
-        System.out.println(" do figurky");
         obsazFigurka.setObsazeno(obsazeno);
     }
 
@@ -181,7 +180,6 @@ public class Policko extends JButton implements Serializable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e) && e.getClickCount() == 1) {
-                    System.out.println("  " + Policko.this.muzeVsadit);
                     if (Policko.this.isEnabled() && popup != null && Policko.this.muzeVsadit) {
                         popup.show(e.getComponent(), e.getX(), e.getY());
                     }
