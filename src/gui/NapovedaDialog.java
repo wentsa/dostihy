@@ -5,23 +5,22 @@
  */
 package gui;
 
-import java.io.Serializable;
 import javax.swing.JDialog;
 
 /**
  *
- * @author wentsa
+ * @author chaluto2
  */
-public class JasDialog extends JDialog implements Serializable {
+public class NapovedaDialog extends JDialog {
     
-    private final Jas jas=new Jas();
+    private final Napoveda napoveda=new Napoveda();
     
-    public JasDialog() {
+    public NapovedaDialog() {
         setModal(true);
-        setContentPane(jas);
+        setContentPane(napoveda);
         pack();
         setLocationRelativeTo(null);
         setVisible(false);
     }
-        
+    
 }

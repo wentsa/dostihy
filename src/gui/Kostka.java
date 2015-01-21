@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import audio.SoundHandler;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -33,9 +32,9 @@ public final class Kostka extends JButton implements Serializable {
         this.hozeno = false;
         random = new Random();
 
-        setContentAreaFilled(false);
-        setOpaque(false);
-        setBorderPainted(false);
+        //setContentAreaFilled(false);
+        //setOpaque(false);
+        //setBorderPainted(false);
         setEnabled(false);
     }
 
@@ -54,10 +53,12 @@ public final class Kostka extends JButton implements Serializable {
     public int hazej() {
         kolik = 0;
         setEnabled(true);
+        System.out.println("zapnuto");
         HerniPlochaController.getInstance().zapniKostky();
         while (!hozeno) {
             if (!Hra.getInstance().jeAktualniHracAktivni()) {
                 HerniPlochaController.getInstance().vypniKostky();
+                System.out.println("vypnuto");
                 setEnabled(false);
                 return -1;
             }
@@ -69,10 +70,10 @@ public final class Kostka extends JButton implements Serializable {
         }
         hozeno = false;
         if (kolik == 6) {
-            Hra.getInstance().status("Hodil jsi 6, hazej znovu");
+            Hra.getInstance().status("Hodil jsi 6, házej znovu");
             while (!hozeno) {
                 if (!Hra.getInstance().jeAktualniHracAktivni()) {
-                    HerniPlochaController.getInstance().vypniKostky();
+                    HerniPlochaController.getInstance().vypniKostky();System.out.println("vypnuto");
                     setEnabled(false);
                     return -1;
                 }
@@ -82,13 +83,13 @@ public final class Kostka extends JButton implements Serializable {
                     Logger.getLogger(Kostka.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            Hra.getInstance().status("Hodil jsi " + (kolik - 6) + " posouvas se o " + kolik);
+            Hra.getInstance().status("Hodil jsi " + (kolik - 6) + " posouváš se o " + kolik);
             hozeno = false;
         } else {
             Hra.getInstance().status("Hodil jsi " + kolik);
         }
 
-        HerniPlochaController.getInstance().vypniKostky();
+        HerniPlochaController.getInstance().vypniKostky();System.out.println("vypnuto");
         setEnabled(false);
         return kolik;
     }

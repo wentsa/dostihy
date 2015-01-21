@@ -33,14 +33,16 @@ public class HlavniOkno extends javax.swing.JFrame {
     private Vysledky vysledky;
     private final MyCardLayout layout = new MyCardLayout();
     private final Thread vlakno;
-    private final Pravidla  pravidla= new Pravidla();
+    private final Pravidla  pravidla= new Pravidla(true);
     
     public HlavniOkno() {
         initComponents();
         vlakno=new Thread() {
             @Override
             public void run() {
+                System.out.println("načítám...\n");
                 plocha = HerniPlochaController.getInstance().getView();
+                System.out.println("Hra načtena");
                 vysledky = new Vysledky();
                 jPanel2.add(plocha, "plocha");
                 jPanel2.add(vysledky, "vysledky");
@@ -52,9 +54,7 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void zalozHrace(DataHraci d) throws InterruptedException {
-        System.out.println("cekam");
         vlakno.join();
-        System.out.println("ff");
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
         nastavPlochu();

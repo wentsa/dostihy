@@ -6,10 +6,14 @@
 package gui.plocha;
 
 import grafika.GraphicsHandler;
+import gui.JasDialog;
+import gui.NapovedaDialog;
+import gui.Pravidla;
 import gui.slider.SliderController;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 
 /**
  *
@@ -27,6 +31,9 @@ public class HerniPlochaModel {
     private int ukladacOption;
     private int nacitacOption;
     private boolean ukoncenTah;
+    private final NapovedaDialog napoveda=new NapovedaDialog();
+    private final JDialog pravidla=new JDialog();
+    private final JasDialog jas=new JasDialog();
     
     private static HerniPlochaModel instance=null;
     
@@ -41,6 +48,11 @@ public class HerniPlochaModel {
     private HerniPlochaModel() {
         ukoncenTah=false;
         this.slider=new SliderController();
+        pravidla.setModal(true);
+        pravidla.setContentPane(new Pravidla(false));
+        pravidla.pack();
+        pravidla.setLocationRelativeTo(null);
+        pravidla.setVisible(false);
     }
 
     protected void vypniKostky() {
@@ -110,6 +122,24 @@ public class HerniPlochaModel {
 
     protected ImageIcon getUkoncitAktiv() {
         return GraphicsHandler.getIcon("ukoncit_aktiv");
+    }
+
+    /**
+     * @return the napoveda
+     */
+    public NapovedaDialog getNapoveda() {
+        return napoveda;
+    }
+
+    /**
+     * @return the pravidla
+     */
+    public JDialog getPravidla() {
+        return pravidla;
+    }
+    
+    protected JasDialog getJas() {
+        return jas;
     }
     
     

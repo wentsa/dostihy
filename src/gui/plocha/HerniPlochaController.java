@@ -51,16 +51,19 @@ public class HerniPlochaController {
     public static void smazInstance() {
         HerniPlochaModel.smazInstance();
         HerniPlochaView.smazInstance();
-        JasDialog.smazInstance();
         Hra.smazInstance();
         instance=null;
     }
     
     private HerniPlochaController() {
+        System.out.println("Audio");
         SoundHandler.inicializovat();
+        System.out.println("Grafiku");
         GraphicsHandler.inicializovat();
         model = HerniPlochaModel.getInstance();
+        System.out.println("Herní prostředí");
         view= HerniPlochaView.getInstance(this);
+        System.out.println("Pole + dostihy");
         nactiPole();
         nactiKostku();
         view.pridejSlider(model.getSlider().getView());
@@ -203,7 +206,7 @@ public class HerniPlochaController {
     }
 
     public void nastavKontrast(int value) {
-        GraphicsHandler.nastavKontrast(value);
+        //GraphicsHandler.nastavKontrast(value);
         view.repaint();
     }
 
@@ -230,6 +233,7 @@ public class HerniPlochaController {
     }
 
     public void zapniTlacitko() {
+        System.out.println("zapni");
         view.zapniTlacitko();
     }
 
@@ -238,6 +242,7 @@ public class HerniPlochaController {
     }
 
     public void vypniTlacitko() {
+        System.out.println("vypni");
         view.vypniTlacitko();
     }
 
@@ -258,6 +263,18 @@ public class HerniPlochaController {
     
     public int getNacitacOption() {
         return model.getNacitacOption();
+    }
+
+    protected void zobrazNapovedu() {
+        model.getNapoveda().setVisible(true);
+    }
+
+    protected void zobrazPravidla() {
+        model.getPravidla().setVisible(true);
+    }
+    
+    protected void zobrazJas() {
+        model.getJas().setVisible(true);
     }
     
 

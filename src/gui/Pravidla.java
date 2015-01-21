@@ -17,8 +17,11 @@ public class Pravidla extends javax.swing.JPanel {
     /**
      * Creates new form Pravidla
      */
-    public Pravidla() {
+    public Pravidla(boolean sTlacitkem) {
         initComponents();
+        if(!sTlacitkem) {
+            remove(jButton1);
+        }
     }
     
     @Override
@@ -42,6 +45,7 @@ public class Pravidla extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(600, 300));
         setLayout(new java.awt.BorderLayout());
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
@@ -70,4 +74,5 @@ public class Pravidla extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
 }

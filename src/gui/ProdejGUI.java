@@ -259,6 +259,11 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!jList1.isSelectionEmpty()) {
+            Object[] volby = {"Ano", "Ne"};
+            int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", opravdu chcete prodat své karty?"), "Prodej", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+            if (odpoved != JOptionPane.YES_OPTION) {
+                return;
+            }
             if (!prodavaBance) {
                 for (Object o : jList1.getSelectedValuesList()) {
                     String value = o.toString();
@@ -280,7 +285,9 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                     }
                 }
                 String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), "Chystáte se prodat hráči " + kupec.getJmeno() + " své karty. Nabídněte prosím požadovanou částku. Doporučená částka je " + suma + ",-");
-                if(castka==null) return;
+                if (castka == null) {
+                    return;
+                }
                 try {
                     int cena = Integer.parseInt(castka);
                     if (cena < 0) {
@@ -292,9 +299,9 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                         return;
                     }
 
-                    Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + " chcete od hráče " + hrac.getJmeno() + " koupit označené karty za " + cena + ",-?"), "Obchod", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
-                    if (odpoved != JOptionPane.YES_OPTION) {
+                    Object[] volby2 = {"Ano", "Ne"};
+                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", chcete od hráče " + hrac.getJmeno() + " koupit označené karty za " + cena + ",-?"), "Obchod", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
+                    if (odpoved2 != JOptionPane.YES_OPTION) {
                         return;
                     }
                     suma = cena;

@@ -41,12 +41,14 @@ public class Policko extends JButton implements Serializable {
     private boolean muzeVsadit = false;
 
     public Policko(int cislo, String nazev, VlastnickaKarta karta) {
+        System.out.print("   " + (cislo));
         this.obsazeno = false;
         this.majitel = null;
         this.karta = karta;
         this.nazev = nazev;
         this.vlastnicka = true;
         this.cislo = cislo - 1;
+        System.out.print(" figurka");
         this.obsazFigurka = new ObsazovaciFigurkaController(Barva.RED, cislo - 1, 0);
         if (karta instanceof Kun) {
             popup = new JPopupMenu();
@@ -74,6 +76,7 @@ public class Policko extends JButton implements Serializable {
             }
         });
         addMouseListener(rightClick());
+        System.out.println("...done");
     }
 
     public Policko(int cislo, String nazev) {

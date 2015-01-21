@@ -63,7 +63,7 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
                     "Náklady na přípravu<br>" +
                     "<table><tr><td>na nový dostih:</td><td align=right>" + tmp.getPripravaDostihu() + ",-</td></tr>" +
                     "<tr><td>na hl. dostih:</td><td align=right>" + tmp.getPripravaHlavnihoDostihu() + ",-</td></tr>" +
-                    "<tr><td><br>Majitel: </td><td><br>" + (tmp.getMajitel().getJmeno()==null?"nikdo": tmp.getMajitel().getJmeno()) + "</td></tr>" +
+                    "<tr><td><br>Majitel: </td><td><br>" + (tmp.getMajitel()==null?"nikdo": tmp.getMajitel().getJmeno()) + "</td></tr>" +
                     "<tr><td>Aktuální sázka: </td><td>" + tmp.getSazka() + ",-</td></tr>" +
                     "</table></body></html>";
         }

@@ -95,6 +95,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
         ulozit = new javax.swing.JMenuItem();
         upravit = new javax.swing.JMenu();
         jas = new javax.swing.JMenuItem();
+        napoveda = new javax.swing.JMenu();
+        help = new javax.swing.JMenuItem();
+        pravidla = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         cela_plocha = new javax.swing.JSplitPane();
         hlavni_plocha = new javax.swing.JPanel();
@@ -142,7 +145,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             vzdat = new javax.swing.JButton();
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
-            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/classroom/user/chaluto2"));
             nacitacSouboru.setDialogTitle("Načíst");
             nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +154,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 }
             });
 
-            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/classroom/user/chaluto2"));
             ukladacSouboru.setDialogTitle("Uložit");
             ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +163,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
 
             setBackground(new java.awt.Color(1, 1, 1));
-            setBorder(null);
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             setLayout(new java.awt.BorderLayout());
 
@@ -170,7 +172,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             soubor.setText("Soubor");
 
-            nacist.setText("Nacist hru");
+            nacist.setText("Načíst hru");
             nacist.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     nacistActionPerformed(evt);
@@ -178,7 +180,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             soubor.add(nacist);
 
-            ulozit.setText("Ulozit hru");
+            ulozit.setText("Uložit hru");
             ulozit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ulozitActionPerformed(evt);
@@ -188,7 +190,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(soubor);
 
-            upravit.setText("Upravy");
+            upravit.setText("Úpravy");
 
             jas.setText("Jas a kontrast");
             jas.addActionListener(new java.awt.event.ActionListener() {
@@ -200,9 +202,28 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(upravit);
 
+            napoveda.setText("Nápověda");
+
+            help.setText("Nápověda");
+            help.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    helpActionPerformed(evt);
+                }
+            });
+            napoveda.add(help);
+
+            pravidla.setText("Pravidla");
+            pravidla.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    pravidlaActionPerformed(evt);
+                }
+            });
+            napoveda.add(pravidla);
+
+            menuBar.add(napoveda);
+
             add(menuBar, java.awt.BorderLayout.CENTER);
 
-            jPanel1.setBorder(null);
             jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
             cela_plocha.setBorder(null);
@@ -212,21 +233,18 @@ public class HerniPlochaView extends javax.swing.JPanel {
             cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
 
             hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
-            hlavni_plocha.setBorder(null);
             hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
             hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
             plocha.setBackground(new java.awt.Color(0, 255, 221));
-            plocha.setBorder(null);
             plocha.setMaximumSize(new java.awt.Dimension(700, 700));
             plocha.setMinimumSize(new java.awt.Dimension(700, 700));
             plocha.setLayout(new javax.swing.OverlayLayout(plocha));
             hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
 
             stred.setBackground(new java.awt.Color(0, 176, 255));
-            stred.setBorder(null);
             stred.setMaximumSize(new java.awt.Dimension(100, 700));
             stred.setMinimumSize(new java.awt.Dimension(100, 700));
             stred.setPreferredSize(new java.awt.Dimension(100, 700));
@@ -234,7 +252,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
             hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
             prava.setBackground(new java.awt.Color(0, 108, 255));
-            prava.setBorder(null);
             prava.setMaximumSize(new java.awt.Dimension(480, 700));
             prava.setMinimumSize(new java.awt.Dimension(480, 700));
             prava.setName(""); // NOI18N
@@ -259,7 +276,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
             leva.setPreferredSize(new java.awt.Dimension(800, 50));
 
             statusB.setBackground(new java.awt.Color(0, 24, 255));
-            statusB.setBorder(null);
             statusB.setMaximumSize(new java.awt.Dimension(100, 50));
             statusB.setMinimumSize(new java.awt.Dimension(100, 50));
             statusB.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -274,14 +290,11 @@ public class HerniPlochaView extends javax.swing.JPanel {
             statusB.add(jScrollPane1);
 
             leva.setLeftComponent(statusB);
-
-            stredD.setBorder(null);
             leva.setRightComponent(stredD);
 
             cely_spodek.setLeftComponent(leva);
 
             tlacitka.setBackground(new java.awt.Color(93, 93, 93));
-            tlacitka.setBorder(null);
             tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
             tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
             tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));
@@ -386,19 +399,28 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     private void vzdatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vzdatActionPerformed
         Object[] volby = {"Ano", "Ne"};
-        int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdat?", "Vzdat se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
+        int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdát?", "Vzdát se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
         if (odpoved == JOptionPane.YES_OPTION) {
             Hra.getInstance().getAktualniHrac().setAktivni(false);
         }
     }//GEN-LAST:event_vzdatActionPerformed
 
     private void jasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jasActionPerformed
-        JasDialog.getInstance(this).setVisible(true);
+        controller.zobrazJas();
     }//GEN-LAST:event_jasActionPerformed
+
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+        controller.zobrazNapovedu();
+    }//GEN-LAST:event_helpActionPerformed
+
+    private void pravidlaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pravidlaActionPerformed
+        controller.zobrazPravidla();
+    }//GEN-LAST:event_pravidlaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSplitPane cela_plocha;
     private javax.swing.JSplitPane cely_spodek;
+    private javax.swing.JMenuItem help;
     private javax.swing.JPanel hlavni_plocha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -407,8 +429,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nacist;
     private javax.swing.JFileChooser nacitacSouboru;
+    private javax.swing.JMenu napoveda;
     private javax.swing.JPanel plocha;
     private javax.swing.JPanel prava;
+    private javax.swing.JMenuItem pravidla;
     private javax.swing.JButton prodat;
     private javax.swing.JMenu soubor;
     private javax.swing.JPanel statusB;
@@ -435,6 +459,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }
 
     protected void pridejHrace(Hrac h) {
+        System.out.println("Přidávám hráče " + h.getJmeno());
         plocha.add(h.getFigurka().getView());
         prava.add(h.getJmenovka().getView());
         prava.add(h.getJmenovka().getPuntik());

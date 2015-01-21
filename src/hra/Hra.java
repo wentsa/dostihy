@@ -88,7 +88,9 @@ public class Hra implements Serializable {
         this.kostka = new Kostka();
         this.aktualniHrac = null;
         this.vyherci = new ArrayList<>();
+        System.out.println("Statusbox");
         nastavStatusBox();
+        System.out.println("Herní příběh");
         this.caller = new LoudCall<Void, String>() {
 
             @Override
@@ -96,19 +98,15 @@ public class Hra implements Serializable {
                 while (true) {
                     shoutOut("vypni");
                     HerniPlochaController.getInstance().setUkoncenTah(false);
-                    System.out.println("A");
                     if (zacatekTahu()) {
                         vyradHrace();
                         break;
                     }
-                    System.out.println("B");
                     shoutOut("aktualizujSlider");
                     if (!zvolHrace()) {
                         continue;
                     }
-                    System.out.println("C");
                     status("Hraje " + aktualniHrac.getJmeno());
-                    System.out.println("D");
                     if (aktualniHrac.isDistanc() && aktualniHrac.isNahodaDistanc()) {
                         Object[] volby = {"Ano", "Ne"};
                         int odpoved = JOptionPane.showOptionDialog(null, ("Chcete použít kartu náhoda a zrušit tak distanc?"), "Náhoda - distanc", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
@@ -126,7 +124,6 @@ public class Hra implements Serializable {
                         vyradHrace();
                         continue;
                     }
-                    System.out.println("E");
                     int x = vyhodnotHod(kolik);
                     if (x == 1) {
                         vyhodnotSazky(aktualniHrac.getFigurka().getPozice());
@@ -148,15 +145,11 @@ public class Hra implements Serializable {
                     if (x == 0) {
                         kolik -= 6;
                     }
-                    System.out.println("F");
                     aktualniHrac.popojdi(kolik);
-                    System.out.println("G");
                     int aktualniPozice = aktualniHrac.getFigurka().getPozice();
                     vyhodnotPozici(aktualniPozice, kolik);
-                    System.out.println("H");
                     Policko p = policka.get(aktualniPozice);
                     vyhodnotPolicko(p, kolik);
-                    System.out.println("I");
                     shoutOut("zapni");
                     while (!HerniPlochaController.getInstance().isUkoncenTah()) {
                         if (!aktualniHrac.isAktivni()) {
@@ -170,14 +163,14 @@ public class Hra implements Serializable {
                         continue;
                     }
                     dalsiHrac();
-                    System.out.println("\nJ");
                 }
                 return null;
             }
 
         };
-
+        System.out.println("Políčka");
         inicializovatPolicka();
+        System.out.println("Karty");
         inicializovatNahodu();
         inicializovatFinance();
 
@@ -472,7 +465,7 @@ public class Hra implements Serializable {
             }
         }
         aktivnichHracu--;
-        status("Hrac \"" + aktualniHrac.getJmeno() + "\" se jiz nezucastni dalsiho herniho kola");
+        status("Hráč \"" + aktualniHrac.getJmeno() + "\" se již nezúčastní dalšího herního kola");
         dalsiHrac();
     }
 
@@ -505,7 +498,7 @@ public class Hra implements Serializable {
             return false;
         }
         while (aktualniHrac.getRozpocet() < 0 && aktualniHrac.isAktivni()) {
-            status("Nejprve musis neco prodat");
+            status("Nejprve musíš něco prodat");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
@@ -541,15 +534,15 @@ public class Hra implements Serializable {
         if (aktualniHrac.isDistanc()) {
             if (kolik == 6) {
                 aktualniHrac.setDistanc(false);
-                status("Muzes hrat, hazej znovu");
+                status("Mužeš hrát, házej znovu");
                 return 0;
             } else {
-                status("Tak priste");
+                status("Tak snad příště");
                 return 1;
             }
         }
         if (kolik == 12) {
-            status("Hodil jsi 2x 6 - musis na distanc");
+            status("Hodil jsi 2x 6 - musíš na distanc");
             aktualniHrac.setDistanc(true);
             return 1;
         }
@@ -562,17 +555,17 @@ public class Hra implements Serializable {
             aktualniHrac.setDistanc(true);
         }
         if (aktualniPozice < kolik) {
-            status("Za pruchod startem jsi obdrzel 4000,-");
+            status("Za průchod startem jsi obdržel 4000,-");
             aktualniHrac.pricti(4000);
         }
         if (aktualniPozice == 4) {
-            status("Vysetreni, zaplat 500,-");
+            status("Vyšetření, zaplať 500,-");
             aktualniHrac.pricti(-500);
         } else if (aktualniPozice == 38) {
-            status("Vysetreni, zaplat 1000,-");
+            status("Vyšetření, zaplať 1000,-");
             aktualniHrac.pricti(-1000);
         } else if (aktualniPozice == 30) {
-            status("Podezreni z dopingu, zdrsis se 1 kolo");
+            status("Podezření z dopingu, zdržíš se 1 kolo");
             aktualniHrac.setZdrzeni(1);
         }
         vyhodnotSazky(aktualniPozice);
@@ -699,17 +692,17 @@ public class Hra implements Serializable {
             }
             aktualniHrac.pricti(-navsteva);
             p.getMajitel().pricti(navsteva);
-            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + navsteva + ",- za prohlidku staje");
+            status("Zaplatil jsi hráči \"" + p.getMajitel().getJmeno() + "\" " + navsteva + ",- za prohlídku stáje");
         } else if (k instanceof Trener) {
             int castka = p.getMajitel().getPocetTreneru() * 1000;
             aktualniHrac.pricti(-castka);
             p.getMajitel().pricti(castka);
-            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za vyuziti sluzeb trenera");
+            status("Zaplatil jsi hráči \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za využití služeb trenéra");
         } else if (k instanceof PrepravaStaje) {
             int castka = (p.getMajitel().getPocetPrepravaStaje() == 1 ? 80 * kolik : 200 * kolik);
             aktualniHrac.pricti(-castka);
             p.getMajitel().pricti(castka);
-            status("Zaplatil jsi hraci \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za " + p.getNazev().toLowerCase());
+            status("Zaplatil jsi hráči \"" + p.getMajitel().getJmeno() + "\" " + castka + ",- za " + p.getNazev().toLowerCase());
         }
     }
 
