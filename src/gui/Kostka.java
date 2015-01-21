@@ -32,9 +32,9 @@ public final class Kostka extends JButton implements Serializable {
         this.hozeno = false;
         random = new Random();
 
-        //setContentAreaFilled(false);
-        //setOpaque(false);
-        //setBorderPainted(false);
+        setContentAreaFilled(false);
+        setOpaque(false);
+        setBorderPainted(false);
         setEnabled(false);
     }
 

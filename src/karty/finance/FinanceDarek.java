@@ -8,7 +8,7 @@ package karty.finance;
 import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
-import pomocne.VyberciDani;
+import pomocne.VyberciPoplatku;
 
 /**
  *
@@ -22,7 +22,7 @@ public class FinanceDarek extends Finance implements Serializable { // od kazdeh
 
     @Override
     public void proved(Hrac h) {
-        VyberciDani vyberci=new VyberciDani();
+        VyberciPoplatku vyberci=new VyberciPoplatku();
         for (Hrac hrac : Hra.getInstance().getHraci()) {
             if(!hrac.equals(h) && hrac.isAktivni()) {
                 vyberci.navstiv(hrac);

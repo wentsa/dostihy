@@ -12,11 +12,11 @@ import java.io.Serializable;
  *
  * @author wentsa
  */
-public class VyberciDani extends Navstevnik implements Serializable {
+public class VyberciPoplatku extends Navstevnik implements Serializable {
     
     private int vybrano;
     
-    public VyberciDani() {
+    public VyberciPoplatku() {
         this.vybrano=0;
     }
 

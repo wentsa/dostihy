@@ -206,7 +206,7 @@ public class HerniPlochaController {
     }
 
     public void nastavKontrast(int value) {
-        //GraphicsHandler.nastavKontrast(value);
+        GraphicsHandler.nastavKontrast(value);
         view.repaint();
     }
 
@@ -233,7 +233,6 @@ public class HerniPlochaController {
     }
 
     public void zapniTlacitko() {
-        System.out.println("zapni");
         view.zapniTlacitko();
     }
 
@@ -242,7 +241,6 @@ public class HerniPlochaController {
     }
 
     public void vypniTlacitko() {
-        System.out.println("vypni");
         view.vypniTlacitko();
     }
 
@@ -274,7 +272,13 @@ public class HerniPlochaController {
     }
     
     protected void zobrazJas() {
-        model.getJas().setVisible(true);
+        (new Thread() {
+            @Override
+            public void run() {
+                model.getJas().setVisible(true);
+            }
+        }).start();
+        
     }
     
 

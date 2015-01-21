@@ -28,13 +28,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
      */
     public VolbaHracu() {
         initComponents();
-        jTextField1.setText("a");
-        jTextField2.setText("b");
-        jTextField3.setText("c");
-        jTextField4.setText("d");
-        jTextField5.setText("e");
-        jTextField6.setText("f");
-        jTextField7.setText("g");
+        jComboBox1.setSelectedIndex(0);
     }
 
     /**
