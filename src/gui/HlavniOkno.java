@@ -33,6 +33,7 @@ public class HlavniOkno extends javax.swing.JFrame {
     private Vysledky vysledky;
     private final MyCardLayout layout = new MyCardLayout();
     private final Thread vlakno;
+    private final Pravidla  pravidla= new Pravidla();
     
     public HlavniOkno() {
         initComponents();
@@ -99,6 +100,12 @@ public class HlavniOkno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    void nastavPravidla() {
+        layout.show(jPanel2, "pravidla");
+        pack();
+        setLocationRelativeTo(null);
+    }
+    
     public void nastavVysledky() {
         try {
             vlakno.join();
@@ -138,7 +145,7 @@ public class HlavniOkno extends javax.swing.JFrame {
 
         jPanel2.setLayout(layout);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -231,10 +238,12 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     private void nactiKarty() {
-        
             jPanel2.add(menu, "menu");
             jPanel2.add(volba, "volba");
+            jPanel2.add(pravidla, "pravidla");
             pack();
     }
+
+    
     
 }

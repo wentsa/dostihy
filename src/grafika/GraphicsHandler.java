@@ -29,20 +29,18 @@ public class GraphicsHandler {
     private static Map<String, BufferedImage> obrazky;
     private static Map<String, ImageIcon> ikony;
     private static int jas = 0;
-    private static float kontrast=1.0f;
+    private static float kontrast = 1.0f;
     public static Color barvaFontu;
     private static int stupenSedi;
-    private static Map<String, int[][]> /*pixely,*/ pixelyOrig;
-    private static Thread vlakno;
+    private static Map<String, int[][]> pixely;
 
     public static void inicializovat() {
         stupenSedi = 35;
         barvaFontu = new Color(35, 35, 35);
 
         obrazky = new TreeMap<>();
-        pixelyOrig = new TreeMap<>();
+        pixely = new TreeMap<>();
         ikony = new TreeMap<>();
-        //pixely = new TreeMap<>();
 
         nacti("plocha", "jpg", null);
         nacti("stred", "jpg", null);
@@ -57,13 +55,7 @@ public class GraphicsHandler {
         nactiIkonu("vzdat", "jpg", null);
         nactiIkonu("karta", "jpg", null);
 
-        for (Map.Entry<String, BufferedImage> entry : obrazky.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
-
-        
-                nactiARGB();
-        
+        nactiARGB();
 
         Konstanty.sirkaPlochy = obrazky.get("plocha").getWidth() - 3;
         Konstanty.vyskaPlochy = obrazky.get("plocha").getHeight();
@@ -75,23 +67,25 @@ public class GraphicsHandler {
 
     public static void nactiFigurku(String ID, Barva barva) {
         nactiIkonu("fig/" + parseColor(barva), "png", ID);
+        pixely.put(ID, getARGB(obrazky.get(ID)));
         rescale();
     }
 
     public static void nactiDostih(String ID, boolean hlavniDostih) {
         nactiIkonu("dostih" + (hlavniDostih ? "2" : ""), "png", ID);
+        pixely.put(ID, getARGB(obrazky.get(ID)));
         rescale();
     }
 
     public static void nactiPuntik(String ID, Barva barva) {
         nactiIkonu("puntiky/" + parseColor(barva) + "p", "png", ID);
+        pixely.put(ID, getARGB(obrazky.get(ID)));
     }
 
     private static void nacti(String soubor, String pripona, String ID) {
         if (ID == null) {
             ID = soubor;
         }
-
         Image tmp = new ImageIcon(GraphicsHandler.class.getResource("/" + soubor + "." + pripona)).getImage();
 
         obrazky.put(ID, new BufferedImage(tmp.getWidth(null), tmp.getHeight(null), BufferedImage.TYPE_INT_ARGB));
@@ -115,15 +109,10 @@ public class GraphicsHandler {
     private static void nactiARGB() {
         System.out.println("zacinam nacitat");
         Set<Map.Entry<String, BufferedImage>> set = obrazky.entrySet();
-            for (Map.Entry<String, BufferedImage> entry : set) {
-                System.out.println(entry.getKey());
-                pixelyOrig.put(entry.getKey(), getARGB(obrazky.get(entry.getKey())));
-                //pixely.put(entry.getKey(), Arrays.copyOf(pixelyOrig.get(entry.getKey()), pixelyOrig.get(entry.getKey()).length));
-            }
-        
-        for (Map.Entry<String, int[][]> entry : pixelyOrig.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
+        for (Map.Entry<String, BufferedImage> entry : set) {
+            pixely.put(entry.getKey(), getARGB(obrazky.get(entry.getKey())));
         }
+
         System.out.println("koncim");
     }
 
@@ -139,32 +128,28 @@ public class GraphicsHandler {
     }
 
     private static void rescale() {
-        
-                Set<Entry<String, int[][]>> set = pixelyOrig.entrySet();
-                    for (Map.Entry<String, int[][]> entry : set) {
-                        BufferedImage image = obrazky.get(entry.getKey());
-                        int[][] argb = pixelyOrig.get(entry.getKey());
-                        int count = 0;
-                        for (int y = 0; y < image.getHeight(); y++) {
-                            for (int x = 0; x < image.getWidth(); x++) {
-                                image.setRGB(x, y, parseRGB(newPix(argb[count][0]), newPix(argb[count][1]), newPix(argb[count][2]), argb[count][3]));
-                                count++;
-                            }
-                        }
-                    }
-                    /*Set<String> keys = ikony.keySet();
-                    synchronized (keys) {
-                        for (String nazev : keys) {
-                            ikony.put(nazev, new ImageIcon(obrazky.get(nazev)));
-                        }
-                    }*/
-                
 
-                    
+        Set<Entry<String, int[][]>> set = pixely.entrySet();
+        for (Map.Entry<String, int[][]> entry : set) {
+            BufferedImage image = obrazky.get(entry.getKey());
+            int[][] argb = pixely.get(entry.getKey());
+            int count = 0;
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
+                    image.setRGB(x, y, parseRGB(newPix(argb[count][0]), newPix(argb[count][1]), newPix(argb[count][2]), argb[count][3]));
+                    count++;
+                }
+            }
+        }
+        Set<String> keys = ikony.keySet();
+        for (String nazev : keys) {
+            ikony.put(nazev, new ImageIcon(obrazky.get(nazev)));
+        }
+
     }
 
     public static void zmenFont() {
-        stupenSedi = (int) ((jas + 200) * 200/400);
+        stupenSedi = (int) ((jas + 200) * 100 / 400);
         barvaFontu = new Color(stupenSedi, stupenSedi, stupenSedi);
         for (Hrac h : Hra.getInstance().getHraci()) {
             h.getJmenovka().aktualizujFont();
@@ -203,7 +188,7 @@ public class GraphicsHandler {
     }
 
     private static int newPix(int x) {
-        int tmp = (int)(kontrast * (x - 128) + 128 + jas);
+        int tmp = (int) (kontrast * (x - 128) + 128 + jas);
         if (tmp < 0) {
             return 0;
         }

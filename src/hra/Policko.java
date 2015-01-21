@@ -5,7 +5,6 @@
  */
 package hra;
 
-import grafika.GraphicsHandler;
 import gui.figurka.obsazovaci.ObsazovaciFigurkaController;
 import gui.plocha.HerniPlochaView;
 import pomocne.Barva;
@@ -18,12 +17,9 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingUtilities;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
@@ -64,7 +60,7 @@ public class Policko extends JButton implements Serializable {
             popup = null;
         }
         setOpaque(false);
-        //setContentAreaFilled(false);
+        setContentAreaFilled(false);
         setBorderPainted(false);
         addActionListener(new ActionListener() {
 

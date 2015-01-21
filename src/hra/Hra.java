@@ -122,7 +122,6 @@ public class Hra implements Serializable {
                     int kolik = kostka.hazej();
                     predHazenim = false;
                     zrusSazeni();
-                    kolik = 2;
                     if (kolik == -1) {
                         vyradHrace();
                         continue;
@@ -293,29 +292,6 @@ public class Hra implements Serializable {
         }
         aktivnichHracu = pocetHracu = hraci.size();
         aktualniHrac = hraci.get(0);
-        int j = 0;
-        for (Policko p : policka) {
-            if (j == 9) {
-                aktualniHrac = hraci.get(1);
-            }
-            aktualniHrac.setNahodaDistanc(true);
-            if (p.isVlastnicka() && p.getKarta() instanceof Kun) {
-                p.setMajitel(aktualniHrac);
-                p.setObsazeno(true);
-                aktualniHrac.pridejKartu(p.getKarta());
-                if (p.getKarta() instanceof Kun) {
-                    Kun k = (Kun) p.getKarta();
-                    k.pridejDostih();
-                    k.pridejDostih();
-                    k.pridejDostih();
-                    k.pridejDostih();
-                    k.pridejDostih();
-                }
-            }
-            j++;
-        }
-        aktualniHrac = hraci.get(0);
-        aktualniHrac.getJmenovka().aktualizujToolTip();
     }
 
     private Barva parseColor(String barva) {

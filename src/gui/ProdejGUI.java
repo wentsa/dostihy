@@ -122,10 +122,10 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                                     break;
                                 }
                             }
-                            suma += (k.getPorizovaciCena() / 2);
+                            suma += (k.getPorizovaciCena());
                             text = text.concat("<tr><td>" + k.toString() + "</td>");
                             if (prodavaBance) {
-                                text = text + "<td align=right>" + k.getPorizovaciCena() / 2 + ",-</td></tr>";
+                                text = text + "<td align=right>" + k.getPorizovaciCena() + ",-</td></tr>";
                             } else {
                                 text += "</tr>";
                             }
