@@ -529,7 +529,7 @@ public class Hra implements Serializable {
 
     private void predchoziHrac() {
         System.out.print("predchozi " + aktualniHrac.getJmeno());
-        aktualniHrac = hraci.get((hraci.indexOf(aktualniHrac) - 1) % pocetHracu);
+        aktualniHrac = hraci.get((hraci.indexOf(aktualniHrac) - 1 + pocetHracu) % pocetHracu);
         System.out.println(" " + aktualniHrac.getJmeno());
     }
 
