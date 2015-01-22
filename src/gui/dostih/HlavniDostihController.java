@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
  * @author wentsa
  */
 public class HlavniDostihController implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final DostihyModel model;
     private final DostihyView view;
@@ -21,9 +22,9 @@ public class HlavniDostihController implements Serializable {
     public HlavniDostihController(int pozice) {
         model = new DostihyModel(pozice, true, pozice);
 
-        model.souradniceX = (int) (310 * Math.cos(Math.toRadians((pozice + 5) * 9 + 5))) + 338;
+        model.setSouradniceX((int) (310 * Math.cos(Math.toRadians((pozice + 5) * 9 + 5))) + 338);
 
-        model.souradniceY = (int) (310 * Math.sin(Math.toRadians((pozice + 5) * 9 + 5))) + 343;
+        model.setSouradniceY((int) (310 * Math.sin(Math.toRadians((pozice + 5) * 9 + 5))) + 343);
 
         view = new DostihyView(this);
     }

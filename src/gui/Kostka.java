@@ -22,6 +22,7 @@ import audio.SoundHandler;
  * @author wentsa
  */
 public final class Kostka extends JButton implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int kolik;
     private boolean hozeno;

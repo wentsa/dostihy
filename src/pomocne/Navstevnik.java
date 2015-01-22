@@ -13,5 +13,6 @@ import java.io.Serializable;
  * @author wentsa
  */
 public abstract class Navstevnik implements Serializable {
+    private static final long serialVersionUID = 1L;
     public abstract void navstiv (Hrac h);
 }

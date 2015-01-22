@@ -16,12 +16,13 @@ import javax.swing.JLabel;
  * @author wentsa
  */
 public class JmenovkaView extends JLabel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final JmenovkaController controller;
 
     protected JmenovkaView(JmenovkaController controller) {
         this.controller = controller;
         setText("<html><table width=345><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + controller.getCastka() + "</td></tr></table></html>");
-        setForeground(GraphicsHandler.barvaFontu);
+        setForeground(GraphicsHandler.getBarvaFontu());
         setFont(new Font("Ubuntu Mono Regular", Font.BOLD, 16));
     }
     

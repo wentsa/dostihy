@@ -15,8 +15,11 @@ import java.util.logging.Logger;
 /**
  *
  * @author wentsa
+ * @param <T>
+ * @param <S>
  */
 public abstract class LoudCall<T, S> implements Callable<T>, Serializable {
+    private static final long serialVersionUID = 1L;
 
     private transient PropertyChangeSupport pcs;
     private S shout;
@@ -25,7 +28,7 @@ public abstract class LoudCall<T, S> implements Callable<T>, Serializable {
         nastavPropertyChangeSupport();
     }
     
-    public void nastavPropertyChangeSupport() {
+    public final void nastavPropertyChangeSupport() {
         pcs = new PropertyChangeSupport(this);
     }
 

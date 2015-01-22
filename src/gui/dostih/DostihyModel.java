@@ -15,11 +15,12 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class DostihyModel implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected final int pozice;
     protected final int poradi;
-    protected int souradniceX=-1;
-    protected int souradniceY=-1;
-    protected double uhel=-1;
+    private int souradniceX=-1;
+    private int souradniceY=-1;
+    private double uhel=-1;
     
     protected DostihyModel(int pozice, boolean hlavniDostih, int poradi) {
         this.pozice = pozice;
@@ -41,5 +42,26 @@ public class DostihyModel implements Serializable {
 
     double getUhel() {
         return uhel;
+    }
+
+    /**
+     * @param souradniceX the souradniceX to set
+     */
+    public void setSouradniceX(int souradniceX) {
+        this.souradniceX = souradniceX;
+    }
+
+    /**
+     * @param souradniceY the souradniceY to set
+     */
+    public void setSouradniceY(int souradniceY) {
+        this.souradniceY = souradniceY;
+    }
+
+    /**
+     * @param uhel the uhel to set
+     */
+    public void setUhel(double uhel) {
+        this.uhel = uhel;
     }
 }

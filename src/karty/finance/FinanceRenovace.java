@@ -5,7 +5,6 @@
  */
 package karty.finance;
 
-import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
 import karty.vlastnicke.Kun;
@@ -15,7 +14,9 @@ import karty.vlastnicke.VlastnickaKarta;
  *
  * @author wentsa
  */
-public class FinanceRenovace extends Finance implements Serializable { // Renovujes vsechny staje, za kazdy...
+public class FinanceRenovace extends Finance implements Serializable { 
+    private static final long serialVersionUID = 1L;
+// Renovujes vsechny staje, za kazdy...
 
     public FinanceRenovace(String popis, int castka) {
         super(popis, castka);

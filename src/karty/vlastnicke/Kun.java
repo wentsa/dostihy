@@ -8,6 +8,7 @@ package karty.vlastnicke;
 import hra.Hrac;
 import gui.dostih.DostihController;
 import gui.dostih.HlavniDostihController;
+import hra.Hra;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import pomocne.Staj;
  * @author wentsa
  */
 public class Kun extends VlastnickaKarta implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final Staj staj;
     private final int prohlidkaStaje;
@@ -62,6 +64,7 @@ public class Kun extends VlastnickaKarta implements Serializable {
     /**
      * @return the jmeno
      */
+    @Override
     public String getJmeno() {
         return jmeno;
     }
@@ -204,10 +207,7 @@ public class Kun extends VlastnickaKarta implements Serializable {
         if (!Objects.equals(this.jmeno, other.jmeno)) {
             return false;
         }
-        if (this.prohlidkaStaje != other.prohlidkaStaje) {
-            return false;
-        }
-        return true;
+        return this.prohlidkaStaje == other.getProhlidkaStaje();
     }
 
     /**
@@ -226,6 +226,9 @@ public class Kun extends VlastnickaKarta implements Serializable {
     }
     
     public void vsad(int kolik) {
+        if(sazka!=0) {
+            Hra.getInstance().getAktualniHrac().pricti(sazka);
+        }
         sazka=kolik;
     }
     

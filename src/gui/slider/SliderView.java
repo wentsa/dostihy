@@ -13,6 +13,7 @@ import javax.swing.JLabel;
  * @author wentsa
  */
 public class SliderView extends JLabel {
+    private static final long serialVersionUID = 1L;
     private final SliderController controller;
 
     public SliderView(SliderController controller) {

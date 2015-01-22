@@ -24,6 +24,7 @@ import karty.vlastnicke.Trener;
  * @author wentsa
  */
 public class Hrac implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int zdrzeni; // 0 muze hrat, jinak pocet kol kolik stoji
     private boolean distanc;

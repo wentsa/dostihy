@@ -32,6 +32,7 @@ import pomocne.Staj;
  * @author wentsa
  */
 public class ProdejGUI extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form ProdejGUI
@@ -44,7 +45,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
     private Hrac kupec;
     private int suma;
 
-    class ComboItem {
+    private class ComboItem {
 
         private final String value;
 

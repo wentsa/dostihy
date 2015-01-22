@@ -13,6 +13,7 @@ import javax.swing.JDialog;
  * @author wentsa
  */
 public class KonecInfoDialog extends JDialog implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     public KonecInfoDialog() {
         setModal(true);

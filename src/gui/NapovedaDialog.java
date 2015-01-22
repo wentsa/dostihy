@@ -12,6 +12,7 @@ import javax.swing.JDialog;
  * @author chaluto2
  */
 public class NapovedaDialog extends JDialog {
+    private static final long serialVersionUID = 1L;
     
     private final Napoveda napoveda=new Napoveda();
     

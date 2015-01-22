@@ -13,9 +13,11 @@ import javax.swing.SwingUtilities;
  * @author wentsa
  */
 public class Pravidla extends javax.swing.JPanel {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form Pravidla
+     * @param sTlacitkem
      */
     public Pravidla(boolean sTlacitkem) {
         initComponents();

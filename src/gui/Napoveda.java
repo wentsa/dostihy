@@ -10,6 +10,7 @@ package gui;
  * @author chaluto2
  */
 public class Napoveda extends javax.swing.JPanel {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form Napoveda

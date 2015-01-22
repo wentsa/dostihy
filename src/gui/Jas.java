@@ -15,6 +15,7 @@ import javax.swing.JSlider;
  * @author wentsa
  */
 public class Jas extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form Jas

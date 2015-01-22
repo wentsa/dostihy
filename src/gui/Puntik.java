@@ -16,6 +16,7 @@ import javax.swing.JLabel;
  * @author wentsa
  */
 public class Puntik extends JLabel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final int souradniceY;
     

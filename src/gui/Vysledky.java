@@ -20,6 +20,7 @@ import javax.swing.table.TableModel;
  * @author wentsa
  */
 public class Vysledky extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form Vysledky

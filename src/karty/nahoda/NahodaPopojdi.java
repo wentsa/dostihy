@@ -14,12 +14,13 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class NahodaPopojdi extends Nahoda implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    boolean dostatBonus;
-    boolean presnyPocet;
-    boolean dopredu;
-    int kolik;
-    String kam;
+    private final boolean dostatBonus;
+    private final boolean presnyPocet;
+    private final boolean dopredu;
+    private final int kolik;
+    private final String kam;
 
     public NahodaPopojdi(String popis, boolean dostatBonus, boolean dopredu, int kolik) {
         super(popis);
@@ -27,6 +28,7 @@ public class NahodaPopojdi extends Nahoda implements Serializable {
         this.dopredu = dopredu;
         this.kolik = kolik;
         this.presnyPocet = true;
+        this.kam=null;
     }
 
     public NahodaPopojdi(String popis, boolean dostatBonus, boolean dopredu, String kam) {
@@ -35,6 +37,7 @@ public class NahodaPopojdi extends Nahoda implements Serializable {
         this.dopredu = dopredu;
         this.kam = kam;
         this.presnyPocet = false;
+        kolik=0;
     }
 
     @Override

@@ -24,6 +24,7 @@ import karty.nahoda.*;
  * @author wentsa
  */
 public class KartaGUI extends JDialog implements ActionListener, Serializable {
+    private static final long serialVersionUID = 1L;
     Karta karta;
     public KartaGUI(Karta karta) {
         this.karta=karta;
@@ -114,7 +115,7 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
         setBackground(Color.yellow);
         //pack();
         
-        setLocationRelativeTo((HlavniOkno)SwingUtilities.getWindowAncestor(HerniPlochaController.getInstance().getView()));
+        setLocationRelativeTo(SwingUtilities.getWindowAncestor(HerniPlochaController.getInstance().getView()));
         
         setVisible(true);
     }

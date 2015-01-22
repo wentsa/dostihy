@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class VyberciPoplatku extends Navstevnik implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     private int vybrano;
     

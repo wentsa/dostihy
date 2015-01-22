@@ -5,17 +5,16 @@
  */
 package gui.dostih;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 import javax.swing.JLabel;
-import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class DostihyView extends JLabel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final DostihController controller1;
     private final HlavniDostihController controller2;
     

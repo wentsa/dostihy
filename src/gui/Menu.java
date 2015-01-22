@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
  * @author wentsa
  */
 public class Menu extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     
 
@@ -152,7 +153,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_nacist_hruActionPerformed
 
     private void konecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konecActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).dispose();
+        SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_konecActionPerformed
 
     

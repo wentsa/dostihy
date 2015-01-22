@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class Trener extends VlastnickaKarta implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     final private int cislo;
 
@@ -45,10 +46,7 @@ public class Trener extends VlastnickaKarta implements Serializable {
             return false;
         }
         final Trener other = (Trener) obj;
-        if (this.cislo != other.cislo) {
-            return false;
-        }
-        return true;
+        return this.cislo == other.getCislo();
     }
     
 

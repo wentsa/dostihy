@@ -14,6 +14,7 @@ import pomocne.Konstanty;
  * @author wentsa
  */
 public class DostihController implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final DostihyModel model;
     private final DostihyView view;
@@ -26,7 +27,7 @@ public class DostihController implements Serializable {
     protected int getSouradniceX() {
         if(model.getSouradniceX()==-1) {
             int stredX=Konstanty.sirkaPlochy/2;
-            model.souradniceX = (int) ((Konstanty.sirkaPlochy/2-50+7) * Math.cos(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredX -6;
+            model.setSouradniceX((int) ((Konstanty.sirkaPlochy/2-50+7) * Math.cos(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredX -6);
         }
         return model.getSouradniceX();
     }
@@ -34,7 +35,7 @@ public class DostihController implements Serializable {
     protected int getSouradniceY() {
         if(model.getSouradniceY()==-1) {
             int stredY=Konstanty.vyskaPlochy/2;
-            model.souradniceY = (int) ((Konstanty.vyskaPlochy/2-50+7) * Math.sin(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredY -6;
+            model.setSouradniceY((int) ((Konstanty.vyskaPlochy/2-50+7) * Math.sin(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredY -6);
         }
         return model.getSouradniceY();
     }

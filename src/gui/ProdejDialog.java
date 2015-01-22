@@ -13,6 +13,7 @@ import javax.swing.JDialog;
  * @author wentsa
  */
 public class ProdejDialog extends JDialog implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     public ProdejDialog(ProdejGUI prodej) {
         setModal(true);

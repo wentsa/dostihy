@@ -41,6 +41,7 @@ import karty.vlastnicke.VlastnickaKarta;
  * @author wentsa
  */
 public class Hra implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Kostka kostka;
     private final List<Hrac> hraci;
@@ -92,6 +93,7 @@ public class Hra implements Serializable {
         nastavStatusBox();
         System.out.println("Herní příběh");
         this.caller = new LoudCall<Void, String>() {
+            private static final long serialVersionUID = 1L;
 
             @Override
             public Void call() throws Exception {
@@ -176,8 +178,9 @@ public class Hra implements Serializable {
 
     }
 
-    public void nastavStatusBox() {
+    public final void nastavStatusBox() {
         this.statusBox = new JTextPane() {
+            private static final long serialVersionUID = 1L;
             @Override
             public void paintComponent(Graphics g) {
                 BufferedImage statusP = HerniPlochaController.getInstance().getStatusP();
@@ -187,7 +190,7 @@ public class Hra implements Serializable {
         };
         statusBox.setEditable(false);
         statusBox.setBackground(new Color(0, 0, 0, 0));
-        statusBox.setForeground(GraphicsHandler.barvaFontu);
+        statusBox.setForeground(GraphicsHandler.getBarvaFontu());
         statusBox.setOpaque(false);
     }
 
@@ -328,7 +331,7 @@ public class Hra implements Serializable {
     /**
      * @return the nahodaNove
      */
-    public KolekceKaret getNahodaNove() {
+    public KolekceKaret<Nahoda> getNahodaNove() {
         return nahodaNove;
     }
 
@@ -342,7 +345,7 @@ public class Hra implements Serializable {
     /**
      * @return the nahodaStare
      */
-    public KolekceKaret getNahodaStare() {
+    public KolekceKaret<Nahoda> getNahodaStare() {
         return nahodaStare;
     }
 
@@ -356,7 +359,7 @@ public class Hra implements Serializable {
     /**
      * @return the financeNove
      */
-    public KolekceKaret getFinanceNove() {
+    public KolekceKaret<Finance> getFinanceNove() {
         return financeNove;
     }
 
@@ -370,7 +373,7 @@ public class Hra implements Serializable {
     /**
      * @return the financeStare
      */
-    public KolekceKaret getFinanceStare() {
+    public KolekceKaret<Finance> getFinanceStare() {
         return financeStare;
     }
 
@@ -607,7 +610,7 @@ public class Hra implements Serializable {
             financeNove = financeStare;
             financeStare = tmp;
         }
-        Finance f = (Finance) financeNove.vratNahodny();
+        Finance f = financeNove.vratNahodny();
         status(f.getPopis());
         f.zobraz();
         f.proved(aktualniHrac);
@@ -620,7 +623,7 @@ public class Hra implements Serializable {
             nahodaNove = nahodaStare;
             nahodaStare = tmp;
         }
-        Nahoda n = (Nahoda) nahodaNove.vratNahodny();
+        Nahoda n = nahodaNove.vratNahodny();
         status(n.getPopis());
         n.zobraz();
         int pozice = aktualniHrac.getFigurka().getPozice();

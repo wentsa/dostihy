@@ -7,23 +7,17 @@ package karty;
 
 import gui.KartaGUI;
 import java.io.Serializable;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author wentsa
  */
 public abstract class Karta implements Serializable {
+    private static final long serialVersionUID = 1L;
     
             
     public void zobraz() throws InterruptedException {
         final KartaGUI gui=new KartaGUI(this);
         gui.setLocationRelativeTo(null);
-        /*SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                gui.setVisible(true);
-            }
-        });*/
     }
 }

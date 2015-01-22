@@ -5,7 +5,6 @@
  */
 package karty.nahoda;
 
-import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
 
@@ -14,14 +13,13 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class NahodaZdrzeni extends Nahoda implements Serializable {
-    int kolik;
+    private static final long serialVersionUID = 1L;
+    private final int kolik;
 
     public NahodaZdrzeni(String popis, int kolik) {
         super(popis);
         this.kolik = kolik;
     }
-    
-    
 
     @Override
     public void proved(Hrac h) {

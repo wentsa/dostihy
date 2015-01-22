@@ -14,6 +14,7 @@ import karty.Karta;
  * @author wentsa
  */
 public abstract class VlastnickaKarta extends Karta implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final int porizovaciCena;
     private final int pozice;

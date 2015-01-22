@@ -29,6 +29,7 @@ import karty.vlastnicke.VlastnickaKarta;
  * @author wentsa
  */
 public class Policko extends JButton implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final int cislo;
     private final String nazev;
@@ -53,6 +54,7 @@ public class Policko extends JButton implements Serializable {
         if (karta instanceof Kun) {
             popup = new JPopupMenu();
             popup.add(new AbstractAction(" Vsadit na koně ") {
+                private static final long serialVersionUID = 1L;
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Policko.this.vsadit();

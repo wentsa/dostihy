@@ -14,6 +14,7 @@ import karty.Karta;
  * @author wentsa
  */
 public abstract class Nahoda extends Karta implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final String popis;
 

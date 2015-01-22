@@ -16,6 +16,7 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class JmenovkaController implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     private final JmenovkaModel model;
     private final JmenovkaView view;
@@ -38,7 +39,7 @@ public class JmenovkaController implements Serializable {
         model.setPoradi(poradi);
     }
     public void aktualizujFont() {
-        view.setForeground(GraphicsHandler.barvaFontu);
+        view.setForeground(GraphicsHandler.getBarvaFontu());
     }    
     protected String getJmeno() {
         return model.getJmeno();

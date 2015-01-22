@@ -13,6 +13,7 @@ import java.util.Objects;
  * @author wentsa
  */
 public class PrepravaStaje extends VlastnickaKarta implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     private final String popis;
 
@@ -24,6 +25,7 @@ public class PrepravaStaje extends VlastnickaKarta implements Serializable {
     /**
      * @return the jmeno
      */
+    @Override
     public String getJmeno() {
         return jmeno;
     }

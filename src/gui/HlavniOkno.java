@@ -23,6 +23,7 @@ import javax.swing.JFileChooser;
  * @author wentsa
  */
 public class HlavniOkno extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form HlavniOkno
@@ -194,6 +195,7 @@ public class HlavniOkno extends javax.swing.JFrame {
 
     public void tahni() throws InterruptedException {
         (new ListenerTask<Void, String>(Hra.getInstance().getTah()) {
+            private static final long serialVersionUID = 1L;
             
             @Override
             protected void process(List<String> chunks) {

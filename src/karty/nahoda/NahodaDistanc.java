@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class NahodaDistanc extends Nahoda implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     public NahodaDistanc(String popis) {
         super(popis);

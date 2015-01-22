@@ -15,6 +15,7 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class FigurkaModel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Barva barva; //bila cerna cervena fialova modra oranzova tyrkysova zelena zluta
     protected int pozice;
     private final int cislo;
@@ -29,17 +30,17 @@ public class FigurkaModel implements Serializable {
         GraphicsHandler.nactiFigurku("" + this.hashCode(), barva);
     }
     
-    protected void nastavSouradnice() {
+    protected final void nastavSouradnice() {
         nastavX();
         nastavY();
     }
     
     protected void nastavX() {
-        souradniceX=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.cos(Math.toRadians((pozice+5)*9 + (cislo<=5 ? 2 : 7)))) + 340;
+        souradniceX=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.cos(Math.toRadians((getPozice()+5)*9 + (cislo<=5 ? 2 : 7)))) + 340;
     }
     
     protected void nastavY() {
-        souradniceY=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.sin(Math.toRadians((pozice+5)*9 + (cislo<=5 ? 2 : 7)))) + 345;
+        souradniceY=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.sin(Math.toRadians((getPozice()+5)*9 + (cislo<=5 ? 2 : 7)))) + 345;
     }
     
     public void zmenBarvu(Barva barva) {
@@ -59,7 +60,7 @@ public class FigurkaModel implements Serializable {
         return pozice;
     }
 
-    void setPozice(int i) {
+    protected void setPozice(int i) {
         this.pozice=i;
     }
 

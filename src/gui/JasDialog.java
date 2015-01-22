@@ -13,6 +13,7 @@ import javax.swing.JDialog;
  * @author wentsa
  */
 public class JasDialog extends JDialog implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     private final Jas jas=new Jas();
     

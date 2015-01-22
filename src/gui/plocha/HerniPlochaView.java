@@ -32,8 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author wentsa
  */
 public class HerniPlochaView extends javax.swing.JPanel {
-
-    
+    private static final long serialVersionUID = 1L;
 
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
@@ -496,7 +495,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }
 
     protected void aktualizujFont() {
-        statusBoxik.setForeground(GraphicsHandler.barvaFontu);
+        statusBoxik.setForeground(GraphicsHandler.getBarvaFontu());
     }
 
     protected JFileChooser getNacitac() {

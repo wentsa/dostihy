@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class ObsazovaciFigurkaController implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final ObsazovaciFigurkaModel model;
     private final ObsazovaciFigurkaView view;

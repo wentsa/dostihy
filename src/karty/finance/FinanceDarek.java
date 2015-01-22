@@ -14,7 +14,8 @@ import pomocne.VyberciPoplatku;
  *
  * @author wentsa
  */
-public class FinanceDarek extends Finance implements Serializable { // od kazdeho vyber 200
+public class FinanceDarek extends Finance implements Serializable { 
+    private static final long serialVersionUID = 1L;
 
     public FinanceDarek(String popis, int castka) {
         super(popis, castka);

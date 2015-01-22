@@ -17,6 +17,9 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.InterruptedException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
         /* Set the Nimbus look and feel */
@@ -48,17 +51,6 @@ public class Main {
             }
         });
         
-        /**
-         * BUGY
-         * 
-         * ////////////////////////nahoda zpet na parkoviste nefunguje, na nejblizsi trener //Solved
-         * 
-         * /////////////////////////////nabidnout koupi po prodeji - kein bug
-         * 
-         * //////////////////////////po nahode provest nejen financi, ale i vysetreni apod, moznost nakupu kone...
-         * 
-         * /////////////////////po distanci se stackuje se 6 nebo jede rovnou bez 6 //SOLVED
-         */
     }
 
 }

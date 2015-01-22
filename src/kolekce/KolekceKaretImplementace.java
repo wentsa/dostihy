@@ -7,7 +7,6 @@ package kolekce;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -16,10 +15,10 @@ import java.util.Random;
  * @param <T>
  */
 public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializable {
+    private static final long serialVersionUID = 1L;
     
     private ArrayList<T> karty;
-    int pocet;
-    int max;
+    private int pocet;
 
     public KolekceKaretImplementace(int pocet) {
         if(pocet<0) {
@@ -27,12 +26,10 @@ public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializabl
         }
         this.karty = new ArrayList<>(pocet);
         this.pocet = 0;
-        max=pocet;
     }
 
     public KolekceKaretImplementace() {
         this(100);
-        this.max=100;
     }
 
     @Override
@@ -69,8 +66,7 @@ public class KolekceKaretImplementace<T> implements KolekceKaret<T>, Serializabl
 
     @Override
     public boolean obsahuje(T o) {
-        if(najdi(o)==-1) return false;
-        return true;
+        return najdi(o) != -1;
     }
 
 

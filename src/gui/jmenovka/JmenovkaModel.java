@@ -17,6 +17,7 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class JmenovkaModel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final Hrac hrac;
     private final int souradniceY;
     private final Puntik puntik;
@@ -94,10 +95,10 @@ public class JmenovkaModel implements Serializable {
             text=text + "</td><td>" + k.getPorizovaciCena() + ",-</td></tr><br>";
         }
         if(hrac.getKarty().isEmpty()) {
-            text=text+"<i>--prázdné--</i><br>";
+            text += "<i>--prázdné--</i><br>";
         }
         
-        text=text+"</table></html>";
+        text += "</table></html>";
         return text;
     }
 }

@@ -20,8 +20,9 @@ import javax.swing.SwingUtilities;
  * @author wentsa
  */
 public class VolbaHracu extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    DataHraci data=new DataHraci();
+    private final DataHraci data=new DataHraci();
     /**
      * Creates new form VolbaHracu
      * @param d
@@ -289,7 +290,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         data.barvy=barvy;
         data.jmena=jmena;
         try {
-            ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).zalozHrace(data);
+            ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).zalozHrace(getData());
         } catch (InterruptedException ex) {
             Logger.getLogger(VolbaHracu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -342,7 +343,9 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
     private boolean duplicityJmen(List<String> jmena) {
         for (int i=0;i<jmena.size();i++) {
             for (int k=i+1;k<jmena.size();k++) {
-                if(jmena.get(i).equals(jmena.get(k))) return true;
+                if(jmena.get(i).equals(jmena.get(k))) {
+                    return true;
+                }
             }
         }
         return false;
@@ -367,7 +370,9 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
             jmena.add(jTextField7.getText());
         }
         for (String s : jmena) {
-            if(s.equals("")) return false;
+            if(s.equals("")) {
+                return false;
+            }
         }
         return true;
     }
@@ -383,5 +388,12 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         for(int i=6;i>=delka;i--) {
             barvy.remove(i);
         }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataHraci getData() {
+        return data;
     }
 }

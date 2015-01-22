@@ -161,7 +161,9 @@ public class HerniPlochaController {
 
     public void nactiHru(File selectedFile) {
         if (model.getNacitacOption() == JFileChooser.APPROVE_OPTION) {
-            if(selectedFile==null) return;
+            if(selectedFile==null) {
+                return;
+            }
             ObjectInputStream ois = null;
             try {
                 if ("".equals(selectedFile.getName())) {
@@ -189,8 +191,6 @@ public class HerniPlochaController {
                 System.out.println("I");
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(HerniPlochaController.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     ois.close();

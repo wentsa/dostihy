@@ -15,6 +15,7 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable {
+    private static final long serialVersionUID = 2L;
 
     
     public ObsazovaciFigurkaModel(Barva barva, int pozice, int cislo) {
@@ -25,12 +26,12 @@ public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable
     
     @Override
     protected void nastavX() {
-        super.souradniceX=(int)(280*Math.cos(Math.toRadians((pozice+5)*9+5))) + 339;
+        super.souradniceX=(int)(280*Math.cos(Math.toRadians((getPozice()+5)*9+5))) + 339;
     }
     
     @Override
     protected void nastavY() {
-        super.souradniceY=(int)(280*Math.sin(Math.toRadians((pozice+5)*9+5))) + 342;
+        super.souradniceY=(int)(280*Math.sin(Math.toRadians((getPozice()+5)*9+5))) + 342;
     }
 
     protected ImageIcon getObr() {

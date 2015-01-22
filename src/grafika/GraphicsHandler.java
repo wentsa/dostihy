@@ -34,7 +34,7 @@ public class GraphicsHandler {
     private static Map<String, int[][]> pixely;         //obrázky jako pole pixelů - délka je celkový počet pixelů a každá položka má 4 atributy (red, green, blue, alpha)
     private static int jas = 0;                         //úroveň jasu
     private static float kontrast = 1.0f;               //faktor násobnosti kontrastu
-    public static Color barvaFontu;                     //barva fontu používaná na jmenovkách a statusboxu
+    private static Color barvaFontu;                     //barva fontu používaná na jmenovkách a statusboxu
     private static int stupenSedi;                      //stupeň šedi pro tvorbu fontu
 
     /**
@@ -291,6 +291,13 @@ public class GraphicsHandler {
         color |= green << 8;
         color |= blue;
         return color;
+    }
+
+    /**
+     * @return the barvaFontu
+     */
+    public static Color getBarvaFontu() {
+        return barvaFontu;
     }
 
 }

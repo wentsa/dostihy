@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
  * @author wentsa
  */
 public class KonecInfo extends javax.swing.JPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form KonecInfo

@@ -16,6 +16,7 @@ import java.awt.Insets;
  * @author wentsa
  */
 public class MyCardLayout extends CardLayout {
+    private static final long serialVersionUID = 1L;
     @Override
     public Dimension preferredLayoutSize(Container parent) {
 

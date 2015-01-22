@@ -14,12 +14,15 @@ import javax.swing.SwingWorker;
 /**
  *
  * @author wentsa
+ * @param <T>
+ * @param <S>
  */
 
     public abstract class ListenerTask<T, S> extends SwingWorker<T, S> 
         implements PropertyChangeListener, Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private LoudCall<T, S> aMethod;
+    private final LoudCall<T, S> aMethod;
 
     public ListenerTask(LoudCall<T, S> aMethod) {
         this.aMethod = aMethod;

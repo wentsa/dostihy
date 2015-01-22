@@ -5,7 +5,6 @@
  */
 package karty.finance;
 
-import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
 
@@ -14,8 +13,9 @@ import java.io.Serializable;
  * @author wentsa
  */
 public class FinanceKlasika extends Finance implements Serializable {
+    private static final long serialVersionUID = 1L;
     
-    boolean platit;
+    private final boolean platit;
 
     public FinanceKlasika(String popis, int castka,boolean platit) {
         super(popis, castka);

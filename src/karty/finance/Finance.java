@@ -5,7 +5,6 @@
  */
 package karty.finance;
 
-import hra.Hra;
 import hra.Hrac;
 import java.io.Serializable;
 import karty.Karta;
@@ -15,6 +14,7 @@ import karty.Karta;
  * @author wentsa
  */
 public abstract class Finance extends Karta implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     private final String popis;
     private final int castka;
