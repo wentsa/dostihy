@@ -6,6 +6,7 @@
 package gui.jmenovka;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serializable;
@@ -21,16 +22,16 @@ public class JmenovkaView extends JLabel implements Serializable {
 
     protected JmenovkaView(JmenovkaController controller) {
         this.controller = controller;
-        setText("<html><table width=345><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + controller.getCastka() + "</td></tr></table></html>");
+        setText("<html><table width=" + (int)(345*RozmeryPlochy.getScalingFactor()) + "><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + controller.getCastka() + "</td></tr></table></html>");
         setForeground(GraphicsHandler.getBarvaFontu());
-        setFont(new Font("Ubuntu Mono Regular", Font.BOLD, 16));
+        setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int)(16*RozmeryPlochy.getScalingFactor())));
     }
     
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setText("<html><table width=345><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + (controller.isAktivni()? controller.getCastka() : (controller.getPoradi() + ". misto") ) + "</td></tr></table></html>");
-        setLocation(70, controller.getSouradniceY());
+        setText("<html><table width=" + (int)(345*RozmeryPlochy.getScalingFactor()) + "><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + (controller.isAktivni()? controller.getCastka() : (controller.getPoradi() + ". misto") ) + "</td></tr></table></html>");
+        setLocation((int)(70*RozmeryPlochy.getScalingFactor()), controller.getSouradniceY());
     }
     
     

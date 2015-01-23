@@ -6,6 +6,7 @@
 package gui.slider;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,13 +16,13 @@ import javax.swing.ImageIcon;
 public class SliderModel {
     private int souradniceY;
     protected SliderModel() {
-        souradniceY=45-23;
+        souradniceY=(int)((45-23)*RozmeryPlochy.getScalingFactor());
     }
     protected ImageIcon getObrazek() {
         return GraphicsHandler.getIcon("slider");
     }
     protected void setSouradniceY(int y) {
-        this.souradniceY=y-23;
+        this.souradniceY=y-(int)(23*RozmeryPlochy.getScalingFactor());
     }
     protected int getSouradniceY() {
         return souradniceY;

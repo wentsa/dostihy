@@ -18,6 +18,10 @@ public class SliderController {
     private final SliderView view = new SliderView(this);
 
     public SliderController() {
+        nactiIkonu();
+    }
+    
+    public void nactiIkonu() {
         view.setIcon(model.getObrazek());
     }
 

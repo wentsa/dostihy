@@ -13,6 +13,7 @@ import pomocne.Barva;
  * @author wentsa
  */
 public class FigurkaController implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final FigurkaModel model;
     private final FigurkaView view;
     

@@ -6,19 +6,24 @@
 package gui.plocha;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import gui.HlavniOkno;
 import hra.Hra;
 import hra.Hrac;
 import gui.Kostka;
 import hra.Policko;
 import gui.dostih.DostihyView;
-import gui.JasDialog;
 import gui.ProdejDialog;
 import gui.ProdejGUI;
 import gui.slider.SliderView;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -32,6 +37,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author wentsa
  */
 public class HerniPlochaView extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
 
     private final HerniPlochaController controller;
@@ -45,13 +51,12 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }
 
     protected static void smazInstance() {
-        instance=null;
+        instance = null;
     }
-    
+
     private HerniPlochaView(HerniPlochaController controller) {
         this.controller = controller;
         initComponents();
-        
     }
 
     /**
@@ -94,6 +99,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
         ulozit = new javax.swing.JMenuItem();
         upravit = new javax.swing.JMenu();
         jas = new javax.swing.JMenuItem();
+        rozliseni = new javax.swing.JMenuItem();
         napoveda = new javax.swing.JMenu();
         help = new javax.swing.JMenuItem();
         pravidla = new javax.swing.JMenuItem();
@@ -144,7 +150,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             vzdat = new javax.swing.JButton();
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
-            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/classroom/user/chaluto2"));
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
             nacitacSouboru.setDialogTitle("Načíst");
             nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +159,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 }
             });
 
-            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/classroom/user/chaluto2"));
+            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
             ukladacSouboru.setDialogTitle("Uložit");
             ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,11 +169,16 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             setBackground(new java.awt.Color(1, 1, 1));
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()+19));
+            setMinimumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()+19)
+            );
+            setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()+19));
             setLayout(new java.awt.BorderLayout());
 
             menuBar.setBackground(new java.awt.Color(19, 19, 19));
             menuBar.setBorder(null);
             menuBar.setForeground(new java.awt.Color(232, 232, 232));
+            menuBar.setMaximumSize(new java.awt.Dimension(175, 19));
 
             soubor.setText("Soubor");
 
@@ -199,6 +210,14 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             upravit.add(jas);
 
+            rozliseni.setText("Rozlišení");
+            rozliseni.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    rozliseniActionPerformed(evt);
+                }
+            });
+            upravit.add(rozliseni);
+
             menuBar.add(upravit);
 
             napoveda.setText("Nápověda");
@@ -223,80 +242,98 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             add(menuBar, java.awt.BorderLayout.CENTER);
 
+            jPanel1.setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
+            jPanel1.setMinimumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
+            jPanel1.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
             jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+            cela_plocha.setBackground(new java.awt.Color(255, 0, 0));
             cela_plocha.setBorder(null);
             cela_plocha.setDividerSize(0);
             cela_plocha.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-            cela_plocha.setMinimumSize(new java.awt.Dimension(1280, 750));
-            cela_plocha.setPreferredSize(new java.awt.Dimension(1280, 750));
+            cela_plocha.setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
+            cela_plocha.setMinimumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
+            cela_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()+RozmeryPlochy.getStatusVyska()));
 
-            hlavni_plocha.setBackground(new java.awt.Color(1, 1, 1));
-            hlavni_plocha.setMaximumSize(new java.awt.Dimension(1280, 700));
-            hlavni_plocha.setMinimumSize(new java.awt.Dimension(1280, 700));
-            hlavni_plocha.setPreferredSize(new java.awt.Dimension(1280, 700));
+            hlavni_plocha.setBackground(new java.awt.Color(204, 0, 204));
+            hlavni_plocha.setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()));
+            hlavni_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()));
             hlavni_plocha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
             plocha.setBackground(new java.awt.Color(0, 255, 221));
-            plocha.setMaximumSize(new java.awt.Dimension(700, 700));
-            plocha.setMinimumSize(new java.awt.Dimension(700, 700));
+            plocha.setMaximumSize(RozmeryPlochy.plocha()
+            );
+            plocha.setMinimumSize(new Dimension(0, 0));
+            plocha.setPreferredSize(RozmeryPlochy.plocha());
             plocha.setLayout(new javax.swing.OverlayLayout(plocha));
-            hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 701));
+            hlavni_plocha.add(plocha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
             stred.setBackground(new java.awt.Color(0, 176, 255));
-            stred.setMaximumSize(new java.awt.Dimension(100, 700));
-            stred.setMinimumSize(new java.awt.Dimension(100, 700));
-            stred.setPreferredSize(new java.awt.Dimension(100, 700));
+            stred.setMaximumSize(RozmeryPlochy.stred());
+            stred.setMinimumSize(RozmeryPlochy.stred());
+            stred.setPreferredSize(RozmeryPlochy.stred());
             stred.setLayout(new javax.swing.OverlayLayout(stred));
             hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
             prava.setBackground(new java.awt.Color(0, 108, 255));
-            prava.setMaximumSize(new java.awt.Dimension(480, 700));
-            prava.setMinimumSize(new java.awt.Dimension(480, 700));
+            prava.setMaximumSize(RozmeryPlochy.prava());
+            prava.setMinimumSize(RozmeryPlochy.prava());
             prava.setName(""); // NOI18N
+            prava.setPreferredSize(RozmeryPlochy.prava());
             prava.setLayout(new javax.swing.OverlayLayout(prava));
-            hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 480, 700));
+            hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
             cela_plocha.setLeftComponent(hlavni_plocha);
 
             cely_spodek.setBorder(null);
-            cely_spodek.setDividerLocation(800);
+            cely_spodek.setDividerLocation(RozmeryPlochy.getStatusSirka()+RozmeryPlochy.getStredDolniSirka());
             cely_spodek.setDividerSize(0);
-            cely_spodek.setMaximumSize(new java.awt.Dimension(1280, 2147483647));
-            cely_spodek.setMinimumSize(new java.awt.Dimension(1280, 50));
-            cely_spodek.setPreferredSize(new java.awt.Dimension(1280, 50));
+            cely_spodek.setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getStatusVyska()));
+            cely_spodek.setMinimumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getStatusVyska()));
+            cely_spodek.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka()+RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getStatusVyska()));
 
             leva.setBorder(null);
-            leva.setDividerLocation(700);
+            leva.setDividerLocation(RozmeryPlochy.getStatusSirka());
             leva.setDividerSize(0);
             leva.setLastDividerLocation(700);
-            leva.setMaximumSize(new java.awt.Dimension(800, 50));
-            leva.setMinimumSize(new java.awt.Dimension(800, 50));
-            leva.setPreferredSize(new java.awt.Dimension(800, 50));
+            leva.setMaximumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka(), RozmeryPlochy.getStatusVyska()));
+            leva.setMinimumSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka(), RozmeryPlochy.getStatusVyska()));
+            leva.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka()+RozmeryPlochy.getStredSirka(), RozmeryPlochy.getStatusVyska()));
 
             statusB.setBackground(new java.awt.Color(0, 24, 255));
-            statusB.setMaximumSize(new java.awt.Dimension(100, 50));
-            statusB.setMinimumSize(new java.awt.Dimension(100, 50));
-            statusB.setPreferredSize(new java.awt.Dimension(100, 50));
+            statusB.setMaximumSize(RozmeryPlochy.status());
+            statusB.setMinimumSize(RozmeryPlochy.status());
+            statusB.setPreferredSize(RozmeryPlochy.status());
             statusB.setLayout(new javax.swing.OverlayLayout(statusB));
 
             jScrollPane1.setBackground(new Color(0,0,0,0));
             jScrollPane1.setBorder(null);
             jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            jScrollPane1.setMaximumSize(RozmeryPlochy.status());
+            jScrollPane1.setMinimumSize(RozmeryPlochy.status());
+            jScrollPane1.setPreferredSize(RozmeryPlochy.status());
+
+            statusBoxik.setMaximumSize(RozmeryPlochy.status());
+            statusBoxik.setMinimumSize(RozmeryPlochy.status());
+            statusBoxik.setPreferredSize(RozmeryPlochy.status());
             jScrollPane1.setViewportView(statusBoxik);
 
             statusB.add(jScrollPane1);
 
             leva.setLeftComponent(statusB);
+
+            stredD.setMaximumSize(RozmeryPlochy.stredDolni());
+            stredD.setMinimumSize(RozmeryPlochy.stredDolni());
+            stredD.setPreferredSize(RozmeryPlochy.stredDolni());
             leva.setRightComponent(stredD);
 
             cely_spodek.setLeftComponent(leva);
 
             tlacitka.setBackground(new java.awt.Color(93, 93, 93));
-            tlacitka.setMaximumSize(new java.awt.Dimension(480, 50));
-            tlacitka.setMinimumSize(new java.awt.Dimension(480, 50));
-            tlacitka.setPreferredSize(new java.awt.Dimension(480, 50));
+            tlacitka.setMaximumSize(RozmeryPlochy.tlacitka());
+            tlacitka.setMinimumSize(RozmeryPlochy.tlacitka());
+            tlacitka.setPreferredSize(RozmeryPlochy.tlacitka());
             tlacitka.setLayout(new javax.swing.BoxLayout(tlacitka, javax.swing.BoxLayout.LINE_AXIS));
 
             ukoncit.setBackground(new java.awt.Color(93, 93, 93));
@@ -306,6 +343,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
             ukoncit.setBorderPainted(false);
             ukoncit.setDisabledIcon(controller.getUkoncit());
             ukoncit.setEnabled(false);
+            ukoncit.setMaximumSize(RozmeryPlochy.ukoncit());
+            ukoncit.setMinimumSize(RozmeryPlochy.ukoncit());
+            ukoncit.setPreferredSize(RozmeryPlochy.ukoncit());
             ukoncit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ukoncitActionPerformed(evt);
@@ -319,6 +359,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
             prodat.setBorder(null);
             prodat.setBorderPainted(false);
             prodat.setDisabledIcon(prodat.getIcon());
+            prodat.setMaximumSize(RozmeryPlochy.prodat());
+            prodat.setMinimumSize(RozmeryPlochy.prodat());
+            prodat.setPreferredSize(RozmeryPlochy.prodat());
             prodat.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     prodatActionPerformed(evt);
@@ -332,6 +375,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
             vzdat.setBorder(null);
             vzdat.setBorderPainted(false);
             vzdat.setDisabledIcon(vzdat.getIcon());
+            vzdat.setMaximumSize(RozmeryPlochy.vzdat());
+            vzdat.setMinimumSize(RozmeryPlochy.vzdat());
+            vzdat.setPreferredSize(RozmeryPlochy.vzdat());
             vzdat.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     vzdatActionPerformed(evt);
@@ -385,7 +431,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private void nacitacSouboruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitacSouboruActionPerformed
         try {
             controller.nactiHru(nacitacSouboru.getSelectedFile());
-            HlavniOkno okno=(HlavniOkno)SwingUtilities.getWindowAncestor(this);
+            HlavniOkno okno = (HlavniOkno) SwingUtilities.getWindowAncestor(this);
             okno.tahni();
         } catch (InterruptedException ex) {
             Logger.getLogger(HerniPlochaView.class.getName()).log(Level.SEVERE, null, ex);
@@ -393,7 +439,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_nacitacSouboruActionPerformed
 
     private void prodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodatActionPerformed
-        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));        
+        ProdejDialog dialog = new ProdejDialog(new ProdejGUI(Hra.getInstance().getAktualniHrac()));
     }//GEN-LAST:event_prodatActionPerformed
 
     private void vzdatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vzdatActionPerformed
@@ -416,6 +462,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
         controller.zobrazPravidla();
     }//GEN-LAST:event_pravidlaActionPerformed
 
+    private void rozliseniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rozliseniActionPerformed
+        controller.zobrazRozliseni();
+    }//GEN-LAST:event_rozliseniActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSplitPane cela_plocha;
     private javax.swing.JSplitPane cely_spodek;
@@ -433,6 +483,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private javax.swing.JPanel prava;
     private javax.swing.JMenuItem pravidla;
     private javax.swing.JButton prodat;
+    private javax.swing.JMenuItem rozliseni;
     private javax.swing.JMenu soubor;
     private javax.swing.JPanel statusB;
     private javax.swing.JTextPane statusBoxik;
@@ -446,7 +497,6 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private javax.swing.JButton vzdat;
     // End of variables declaration//GEN-END:variables
 
-    
     protected void zapniTlacitko() {
         ukoncit.setEnabled(true);
         ukoncit.repaint();
@@ -482,7 +532,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
         prava.removeAll();
         plocha.updateUI();
         prava.updateUI();
-        statusBoxik=Hra.getInstance().getStatusBox();
+        statusBoxik = Hra.getInstance().getStatusBox();
         jScrollPane1.setViewportView(statusBoxik);
     }
 
@@ -500,6 +550,75 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     protected JFileChooser getNacitac() {
         return nacitacSouboru;
+    }
+
+    protected void zmenRozliseni() {
+        controller.nactiPravou();
+        for (Hrac h : Hra.getInstance().getHraci()) {
+            h.getJmenovka().nactiSouradnice();
+        }
+        
+        prava.setPreferredSize(RozmeryPlochy.prava());
+        plocha.setPreferredSize(RozmeryPlochy.plocha());
+        stred.setPreferredSize(RozmeryPlochy.stred());
+        hlavni_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()));
+        cela_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska()));
+        
+        jPanel1.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska()));
+        cely_spodek.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getStatusVyska()));
+        
+        leva.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka(), RozmeryPlochy.getStatusVyska()));
+        statusB.setPreferredSize(RozmeryPlochy.status());
+        jScrollPane1.setPreferredSize(RozmeryPlochy.status());
+        statusBoxik.setPreferredSize(RozmeryPlochy.status());
+        stredD.setPreferredSize(RozmeryPlochy.stredDolni());
+        tlacitka.setPreferredSize(RozmeryPlochy.tlacitka());
+        prodat.setPreferredSize(RozmeryPlochy.prodat());
+        ukoncit.setPreferredSize(RozmeryPlochy.ukoncit());
+        vzdat.setPreferredSize(RozmeryPlochy.vzdat());
+        
+        prodat.setIcon(GraphicsHandler.getIcon("prodat"));
+        ukoncit.setDisabledIcon(GraphicsHandler.getIcon("ukoncit"));
+        ukoncit.setIcon(GraphicsHandler.getIcon("ukoncit_aktiv"));
+        vzdat.setIcon(GraphicsHandler.getIcon("vzdat"));
+        
+        leva.setRightComponent(stredD);
+        
+        setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska() + 19));
+
+        cela_plocha.setDividerLocation(RozmeryPlochy.getPlochaVyska());
+        cely_spodek.setDividerLocation(RozmeryPlochy.getStatusSirka()+RozmeryPlochy.getStredDolniSirka());
+        leva.setDividerLocation(RozmeryPlochy.getStatusSirka());
+        hlavni_plocha.remove(stred);
+        hlavni_plocha.remove(prava);
+        hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(RozmeryPlochy.getPlochaSirka(), 0, -1, -1));
+        hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka(), 0, -1, -1));
+        
+        List<Component> list = getAllComponents(this);
+        for (Component c : list) {
+            c.revalidate();
+            c.repaint();
+        }
+        
+        GraphicsHandler.rescale();
+
+        SwingUtilities.getWindowAncestor(this).pack();
+        SwingUtilities.getWindowAncestor(this).repaint();
+        SwingUtilities.getWindowAncestor(this).setLocationRelativeTo(null);
+        repaint();
+
+    }
+
+    private List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<>();
+        for (Component comp : comps) {
+            compList.add(comp);
+            if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+            }
+        }
+        return compList;
     }
 
 }

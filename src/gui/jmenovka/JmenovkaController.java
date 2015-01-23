@@ -31,6 +31,11 @@ public class JmenovkaController implements Serializable {
         return model.getPuntik();
     }
     
+    public void nactiSouradnice() {
+        model.nactiSouradnice();
+        view.repaint();
+    }
+    
     public void aktualizujToolTip() {
         view.setToolTipText(model.getToolTipText());
         view.repaint();

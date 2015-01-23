@@ -12,7 +12,6 @@ import hra.Hra;
 import hra.Hrac;
 import gui.Kostka;
 import hra.Policko;
-import gui.JasDialog;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -279,6 +278,19 @@ public class HerniPlochaController {
             }
         }).start();
         
+    }
+
+    public void zmenRozliseni() {
+        view.zmenRozliseni();
+        aktualizujSlider();
+    }
+
+    protected void zobrazRozliseni() {
+        model.getRozliseni().setVisible(true);
+    }
+    
+    protected void nactiPravou() {
+        model.nactiPravou();
     }
     
 

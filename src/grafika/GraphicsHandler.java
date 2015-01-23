@@ -11,6 +11,7 @@ import hra.Hrac;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,24 +22,25 @@ import pomocne.Barva;
 import pomocne.Konstanty;
 
 /**
- * 
+ *
  * @author wentsa
- * 
- * Třída sloužící pro načítání obrazových podkladů a jejich zpracovávání a delegování ostatním třídám (včetně fontu)
+ *
+ * Třída sloužící pro načítání obrazových podkladů a jejich zpracovávání a
+ * delegování ostatním třídám (včetně fontu)
  */
-
 public class GraphicsHandler {
 
-    private static Map<String, BufferedImage> obrazky;  //soubor všech obrazových podkladů
-    private static Map<String, ImageIcon> ikony;        //některé obrázky překonvertované do ImageIcon
-    private static Map<String, int[][]> pixely;         //obrázky jako pole pixelů - délka je celkový počet pixelů a každá položka má 4 atributy (red, green, blue, alpha)
-    private static int jas = 0;                         //úroveň jasu
-    private static float kontrast = 1.0f;               //faktor násobnosti kontrastu
-    private static Color barvaFontu;                     //barva fontu používaná na jmenovkách a statusboxu
-    private static int stupenSedi;                      //stupeň šedi pro tvorbu fontu
+    private static Map<String, BufferedImage> obrazky, obrazkyMensi; //soubor všech obrazových podkladů
+    private static Map<String, ImageIcon> ikony, ikonyMensi;         //některé obrázky překonvertované do ImageIcon
+    private static Map<String, int[][]> pixely, pixelyMensi;        //obrázky jako pole pixelů - délka je celkový počet pixelů a každá položka má 4 atributy (red, green, blue, alpha)
+    private static int jas = 0;                                     //úroveň jasu
+    private static float kontrast = 1.0f;                           //faktor násobnosti kontrastu
+    private static Color barvaFontu;                                //barva fontu používaná na jmenovkách a statusboxu
+    private static int stupenSedi;                                  //stupeň šedi pro tvorbu fontu
 
     /**
-     * Inicializuje všechny obrázky, které patří k herní ploše a nejsou závislé na počtu hráčů atd.
+     * Inicializuje všechny obrázky, které patří k herní ploše a nejsou závislé
+     * na počtu hráčů atd.
      */
     public static void inicializovat() {
         stupenSedi = 35;
@@ -47,6 +49,9 @@ public class GraphicsHandler {
         obrazky = new TreeMap<>();
         pixely = new TreeMap<>();
         ikony = new TreeMap<>();
+        obrazkyMensi = new TreeMap<>();
+        pixelyMensi = new TreeMap<>();
+        ikonyMensi = new TreeMap<>();
 
         nacti("plocha", "jpg", null);
         nacti("stred", "jpg", null);
@@ -68,9 +73,11 @@ public class GraphicsHandler {
     }
 
     /**
-     * Převede barvu na její textovou reprezentaci, která se používá k načítání souboru
+     * Převede barvu na její textovou reprezentaci, která se používá k načítání
+     * souboru
+     *
      * @param barva barva
-     * @return      textová reprezentace barvy
+     * @return textová reprezentace barvy
      */
     private static String parseColor(Barva barva) {
         return barva.toString().toLowerCase();
@@ -78,41 +85,53 @@ public class GraphicsHandler {
 
     /**
      * Načte obrázek pro reprezentaci figurky a uloží do kolekce
-     * @param ID    unikátní ID podle kterého se konkrétní figurka následně vyhledává (HashCode objektu Figurka)
+     *
+     * @param ID unikátní ID podle kterého se konkrétní figurka následně
+     * vyhledává (HashCode objektu Figurka)
      * @param barva barva figurky
      */
     public static void nactiFigurku(String ID, Barva barva) {
         nactiIkonu("fig/" + parseColor(barva), "png", ID);
         pixely.put(ID, getARGB(obrazky.get(ID)));
+        pixelyMensi.put(ID, getARGB(obrazkyMensi.get(ID)));
         rescale();
     }
 
     /**
      * Načte obrázek pro reprezentaci dostihu a uloží do kolekce
-     * @param ID            unikátní ID podle kterého se konkrétní dostih následně vyhledává (HashCode objektu Dostih)
-     * @param hlavniDostih  true - jedná se o hlavní dostih, false - jedná se o normální dostih
+     *
+     * @param ID unikátní ID podle kterého se konkrétní dostih následně
+     * vyhledává (HashCode objektu Dostih)
+     * @param hlavniDostih true - jedná se o hlavní dostih, false - jedná se o
+     * normální dostih
      */
     public static void nactiDostih(String ID, boolean hlavniDostih) {
         nactiIkonu("dostih" + (hlavniDostih ? "2" : ""), "png", ID);
         pixely.put(ID, getARGB(obrazky.get(ID)));
+        pixelyMensi.put(ID, getARGB(obrazkyMensi.get(ID)));
         rescale();
     }
 
     /**
      * Načte obrázek pro reprezentaci puntíku jmenovky a uloží do kolekce
-     * @param ID    unikátní ID podle kterého se konkrétní puntík následně vyhledává (HashCode objektu Puntik)
+     *
+     * @param ID unikátní ID podle kterého se konkrétní puntík následně
+     * vyhledává (HashCode objektu Puntik)
      * @param barva barva puntíku
      */
     public static void nactiPuntik(String ID, Barva barva) {
         nactiIkonu("puntiky/" + parseColor(barva) + "p", "png", ID);
         pixely.put(ID, getARGB(obrazky.get(ID)));
+        pixelyMensi.put(ID, getARGB(obrazkyMensi.get(ID)));
     }
 
     /**
      * Načte soubor a uloží jej do obrázků
-     * @param soubor    cesta k souboru, který se má načíst
-     * @param pripona   přípona souboru
-     * @param ID        null pokud se jako ID obrázku použije /p soubor, jinak jednoznačné ID
+     *
+     * @param soubor cesta k souboru, který se má načíst
+     * @param pripona přípona souboru
+     * @param ID null pokud se jako ID obrázku použije /p soubor, jinak
+     * jednoznačné ID
      */
     private static void nacti(String soubor, String pripona, String ID) {
         if (ID == null) {
@@ -126,15 +145,28 @@ public class GraphicsHandler {
 
         gr = obrazky.get(ID).createGraphics();
         gr.drawImage(tmp, 0, 0, null);
+        
+        
+        int sirka=(int)(tmp.getWidth(null) * 0.8);
+        int vyska=(int)(tmp.getHeight(null) * 0.8);
+        
+        obrazkyMensi.put(ID, new BufferedImage(sirka, vyska, BufferedImage.TYPE_INT_ARGB));
+
+        gr = obrazkyMensi.get(ID).createGraphics();
+        gr.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+        gr.drawImage(tmp, 0, 0, sirka, vyska, null);
 
         gr.dispose();
+
     }
 
     /**
      * Načte obrázek a jeho verzi ve formátu ImageIcon uloží do ikon
-     * @param soubor    cesta k souboru, který se má načíst
-     * @param pripona   přípona souboru
-     * @param ID        null pokud se jako ID obrázku použije /p soubor, jinak jednoznačné ID
+     *
+     * @param soubor cesta k souboru, který se má načíst
+     * @param pripona přípona souboru
+     * @param ID null pokud se jako ID obrázku použije /p soubor, jinak
+     * jednoznačné ID
      */
     private static void nactiIkonu(String soubor, String pripona, String ID) {
         nacti(soubor, pripona, ID);
@@ -142,6 +174,7 @@ public class GraphicsHandler {
             ID = soubor;
         }
         ikony.put(ID, new ImageIcon(obrazky.get(ID)));
+        ikonyMensi.put(ID, new ImageIcon(obrazkyMensi.get(ID)));
     }
 
     /**
@@ -151,11 +184,13 @@ public class GraphicsHandler {
         Set<Map.Entry<String, BufferedImage>> set = obrazky.entrySet();
         for (Map.Entry<String, BufferedImage> entry : set) {
             pixely.put(entry.getKey(), getARGB(obrazky.get(entry.getKey())));
+            pixelyMensi.put(entry.getKey(), getARGB(obrazkyMensi.get(entry.getKey())));
         }
     }
 
     /**
      * Nastaví kontrast na požadovanou hodnotu
+     *
      * @param value hodnota kontrastu (-255 až 255)
      */
     public static void nastavKontrast(int value) {
@@ -165,6 +200,7 @@ public class GraphicsHandler {
 
     /**
      * Nastaví jas na požadovanou hodnotu
+     *
      * @param value hodnota jasu (-255 až 255)
      */
     public static void nastavJas(final int value) {
@@ -174,25 +210,46 @@ public class GraphicsHandler {
     }
 
     /**
-     * Provede úpravu obrázků na základě změny jasu nebo kontrastu.
-     * Přizpůsobí jednotlivé pixely všech obrázků podle nastavených hodnot a uloží je do obrázků a do ikon (v pixelech zůstanou vždy původní hodnoty originálního obrázku)
+     * Provede úpravu obrázků na základě změny jasu nebo kontrastu. Přizpůsobí
+     * jednotlivé pixely všech obrázků podle nastavených hodnot a uloží je do
+     * obrázků a do ikon (v pixelech zůstanou vždy původní hodnoty originálního
+     * obrázku)
      */
-    private static void rescale() {
-        Set<Entry<String, int[][]>> set = pixely.entrySet();
-        for (Map.Entry<String, int[][]> entry : set) {
-            BufferedImage image = obrazky.get(entry.getKey());
-            int[][] argb = pixely.get(entry.getKey());
-            int count = 0;
-            for (int y = 0; y < image.getHeight(); y++) {
-                for (int x = 0; x < image.getWidth(); x++) {
-                    image.setRGB(x, y, parseRGB(newPix(argb[count][0]), newPix(argb[count][1]), newPix(argb[count][2]), argb[count][3]));
-                    count++;
+    public static void rescale() {
+        if (RozmeryPlochy.isOriginalniHodnoty()) {
+            Set<Entry<String, int[][]>> set = pixely.entrySet();
+            for (Map.Entry<String, int[][]> entry : set) {
+                BufferedImage image = obrazky.get(entry.getKey());
+                int[][] argb = pixely.get(entry.getKey());
+                int count = 0;
+                for (int y = 0; y < image.getHeight(); y++) {
+                    for (int x = 0; x < image.getWidth(); x++) {
+                        image.setRGB(x, y, parseRGB(newPix(argb[count][0]), newPix(argb[count][1]), newPix(argb[count][2]), argb[count][3]));
+                        count++;
+                    }
                 }
             }
-        }
-        Set<String> keys = ikony.keySet();
-        for (String nazev : keys) {
-            ikony.put(nazev, new ImageIcon(obrazky.get(nazev)));
+            Set<String> keys = ikony.keySet();
+            for (String nazev : keys) {
+                ikony.put(nazev, new ImageIcon(obrazky.get(nazev)));
+            }
+        } else {
+            Set<Entry<String, int[][]>> set = pixelyMensi.entrySet();
+            for (Map.Entry<String, int[][]> entry : set) {
+                BufferedImage image = obrazkyMensi.get(entry.getKey());
+                int[][] argb = pixelyMensi.get(entry.getKey());
+                int count = 0;
+                for (int y = 0; y < image.getHeight(); y++) {
+                    for (int x = 0; x < image.getWidth(); x++) {
+                        image.setRGB(x, y, parseRGB(newPix(argb[count][0]), newPix(argb[count][1]), newPix(argb[count][2]), argb[count][3]));
+                        count++;
+                    }
+                }
+            }
+            Set<String> keys = ikonyMensi.keySet();
+            for (String nazev : keys) {
+                ikonyMensi.put(nazev, new ImageIcon(obrazkyMensi.get(nazev)));
+            }
         }
     }
 
@@ -210,26 +267,41 @@ public class GraphicsHandler {
 
     /**
      * Vrátí obrázek na základě jeho ID
-     * @param ID    ID obrázku
-     * @return      obrázek s /p ID
+     *
+     * @param ID ID obrázku
+     * @return obrázek s /p ID
      */
     public static BufferedImage get(String ID) {
-        return obrazky.get(ID);
-    }
-    
-    /**
-     * Vrátí ikonu na základě její ID
-     * @param ID    ID ikony
-     * @return      ikona s /p ID
-     */
-    public static ImageIcon getIcon(String ID) {
-        return ikony.get(ID);
+        System.out.print(">>> " + ID + " ");
+        if (RozmeryPlochy.isOriginalniHodnoty()) {
+            System.out.println("orig " + obrazky.get(ID).getWidth());
+            return obrazky.get(ID);
+        } else {
+            System.out.println("     " + obrazkyMensi.get(ID).getWidth());
+            return obrazkyMensi.get(ID);   
+        }
     }
 
     /**
-     * Načte hodnoty obrázku ve formátu TYPE_INT_ARGB jako pixelovou reprezentaci
+     * Vrátí ikonu na základě její ID
+     *
+     * @param ID ID ikony
+     * @return ikona s /p ID
+     */
+    public static ImageIcon getIcon(String ID) {
+        if (RozmeryPlochy.isOriginalniHodnoty()) {
+            return ikony.get(ID);
+        } else {
+            return ikonyMensi.get(ID);   
+        }
+    }
+
+    /**
+     * Načte hodnoty obrázku ve formátu TYPE_INT_ARGB jako pixelovou
+     * reprezentaci
+     *
      * @param image obrázek
-     * @return      pixelová reprezentace obrázku
+     * @return pixelová reprezentace obrázku
      */
     private static int[][] getARGB(BufferedImage image) {
         int sirka = image.getWidth();
@@ -247,10 +319,11 @@ public class GraphicsHandler {
 
     /**
      * Dekóduje hodnotu ARGB pixelu na souřadnicích x,y daného obrázku
+     *
      * @param image obrázek
-     * @param x     x-ová souřadnice pixelu
-     * @param y     y-ová souřadnice pixelu
-     * @return      reprezentace pixelu - red, green, blue, alpha
+     * @param x x-ová souřadnice pixelu
+     * @param y y-ová souřadnice pixelu
+     * @return reprezentace pixelu - red, green, blue, alpha
      */
     private static int[] getPixelARGB(BufferedImage image, int x, int y) {
         int argb = image.getRGB(x, y);
@@ -262,8 +335,9 @@ public class GraphicsHandler {
 
     /**
      * Vrátí přetransformovaný vstupní pixel na základě úrovně jasu a kontrastu
+     *
      * @param pixel originální pixel reprezentovaný jako 32 bitový int
-     * @return      transformovaný pixel
+     * @return transformovaný pixel
      */
     private static int newPix(int pixel) {
         int tmp = (int) (kontrast * (pixel - 128) + 128 + jas);
@@ -277,12 +351,14 @@ public class GraphicsHandler {
     }
 
     /**
-     * Převede hodnoty jednotlivých kanálů na reprezentaci pomocí TYPE_INT_ARGB (32 bitový int)
-     * @param red   červený kanál
+     * Převede hodnoty jednotlivých kanálů na reprezentaci pomocí TYPE_INT_ARGB
+     * (32 bitový int)
+     *
+     * @param red červený kanál
      * @param green zelený kanál
-     * @param blue  modrý kanál
+     * @param blue modrý kanál
      * @param alpha alfa kanál
-     * @return      pixel složený z jednotlivých kanálů
+     * @return pixel složený z jednotlivých kanálů
      */
     private static int parseRGB(int red, int green, int blue, int alpha) {
         int color = 0;

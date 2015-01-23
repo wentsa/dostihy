@@ -29,7 +29,6 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
      */
     public VolbaHracu() {
         initComponents();
-        jComboBox1.setSelectedIndex(0);
     }
 
     /**

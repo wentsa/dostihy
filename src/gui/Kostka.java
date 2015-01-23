@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import audio.SoundHandler;
+import grafika.RozmeryPlochy;
 
 /**
  *
@@ -98,7 +99,15 @@ public final class Kostka extends JButton implements Serializable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBounds(80, 550, 150, 100);
+        if(RozmeryPlochy.isOriginalniHodnoty()) {
+            setBounds(80, 550, 150, 100);
+        }
+        else {
+            setBounds((int)(80*RozmeryPlochy.getScalingFactor()),
+                    (int)(550*RozmeryPlochy.getScalingFactor()),
+                    (int)(150*RozmeryPlochy.getScalingFactor()),
+                    (int)(100*RozmeryPlochy.getScalingFactor()));
+        }
     }
 
 }

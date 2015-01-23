@@ -6,6 +6,7 @@
 package gui;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import pomocne.Barva;
 import java.awt.Graphics;
 import java.io.Serializable;
@@ -18,19 +19,23 @@ import javax.swing.JLabel;
 public class Puntik extends JLabel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final int souradniceY;
+    private int souradniceY;
     
-    public Puntik(Barva barva, int y) {
-        this.souradniceY=y-2;
+    public Puntik(Barva barva) {
         GraphicsHandler.nactiPuntik(this.hashCode() + "", barva);
         setIcon(GraphicsHandler.getIcon(this.hashCode() + ""));
         setVisible(true);
     }
     
+    public void nacti(int y) {
+        this.souradniceY=y-2;
+        setIcon(GraphicsHandler.getIcon(this.hashCode() + ""));
+    }
+    
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        setLocation(38, souradniceY);
+        setLocation((int)(38*RozmeryPlochy.getScalingFactor()), souradniceY);
     }
     
     

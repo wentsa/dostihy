@@ -9,6 +9,7 @@ import grafika.GraphicsHandler;
 import gui.JasDialog;
 import gui.NapovedaDialog;
 import gui.Pravidla;
+import gui.Rozliseni;
 import gui.slider.SliderController;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -27,6 +28,7 @@ public class HerniPlochaModel {
     
     private BufferedImage aktualniPrava=GraphicsHandler.get("prava");
     
+    private boolean zapnutyKostky;
     private final SliderController slider;
     private int ukladacOption;
     private int nacitacOption;
@@ -34,6 +36,7 @@ public class HerniPlochaModel {
     private final NapovedaDialog napoveda=new NapovedaDialog();
     private final JDialog pravidla=new JDialog();
     private final JasDialog jas=new JasDialog();
+    private final JDialog rozliseni=new JDialog();
     
     private static HerniPlochaModel instance=null;
     
@@ -48,19 +51,39 @@ public class HerniPlochaModel {
     private HerniPlochaModel() {
         ukoncenTah=false;
         this.slider=new SliderController();
+        
         pravidla.setModal(true);
         pravidla.setContentPane(new Pravidla(false));
         pravidla.pack();
         pravidla.setLocationRelativeTo(null);
         pravidla.setVisible(false);
+        
+        rozliseni.setModal(true);
+        rozliseni.setContentPane(new Rozliseni());
+        rozliseni.pack();
+        rozliseni.setLocationRelativeTo(null);
+        rozliseni.setVisible(false);
     }
 
     protected void vypniKostky() {
+        zapnutyKostky=false;
         aktualniPrava = GraphicsHandler.get("prava");
     }
     
     protected void zapniKostky() {
+        zapnutyKostky=true;
         aktualniPrava = GraphicsHandler.get("prava_aktiv");
+    }
+    
+    protected void nactiPravou() {
+        if(zapnutyKostky) {
+            aktualniPrava = GraphicsHandler.get("prava_aktiv");
+        }
+        else {
+            aktualniPrava = GraphicsHandler.get("prava");
+        }
+        slider.nactiIkonu();
+       
     }
 
     protected Image getPlochu() {
@@ -140,6 +163,10 @@ public class HerniPlochaModel {
     
     protected JasDialog getJas() {
         return jas;
+    }
+    
+    protected JDialog getRozliseni() {
+        return rozliseni;
     }
     
     

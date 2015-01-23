@@ -5,6 +5,8 @@
  */
 package gui.slider;
 
+import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 
@@ -22,6 +24,6 @@ public class SliderView extends JLabel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setLocation(3, controller.getSouradniceY());
+        setLocation((int)(3*RozmeryPlochy.getScalingFactor()), controller.getSouradniceY());
     }
 }

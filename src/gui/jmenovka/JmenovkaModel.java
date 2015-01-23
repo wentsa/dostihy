@@ -5,6 +5,7 @@
  */
 package gui.jmenovka;
 
+import grafika.RozmeryPlochy;
 import gui.Puntik;
 import hra.Hrac;
 import java.io.Serializable;
@@ -19,15 +20,20 @@ import pomocne.Barva;
 public class JmenovkaModel implements Serializable {
     private static final long serialVersionUID = 1L;
     private final Hrac hrac;
-    private final int souradniceY;
+    private int souradniceY;
     private final Puntik puntik;
     private boolean aktivni=true;
     private int poradi;
     
     protected JmenovkaModel(Hrac hrac, Barva barva) {
         this.hrac=hrac;
-        this.souradniceY=souradnice()-13;
-        this.puntik=new Puntik(barva, this.souradniceY);
+        this.puntik=new Puntik(barva);
+        nactiSouradnice();
+    }
+
+    protected void nactiSouradnice() {
+        this.souradniceY=souradnice()-(int)(13*RozmeryPlochy.getScalingFactor());
+        this.puntik.nacti(souradniceY);
     }
 
     protected String getJmeno() {
@@ -49,13 +55,13 @@ public class JmenovkaModel implements Serializable {
     
     private int souradnice() {
         switch(hrac.getCislo()) {
-            case(1):{return 58;}
-            case(2):{return 126;}
-            case(3):{return 215;}
-            case(4):{return 270;}
-            case(5):{return 326;}
-            case(6):{return 410;}
-            case(7):{return 468;}
+            case(1):{return (int)(58*RozmeryPlochy.getScalingFactor());}
+            case(2):{return (int)(126*RozmeryPlochy.getScalingFactor());}
+            case(3):{return (int)(215*RozmeryPlochy.getScalingFactor());}
+            case(4):{return (int)(270*RozmeryPlochy.getScalingFactor());}
+            case(5):{return (int)(326*RozmeryPlochy.getScalingFactor());}
+            case(6):{return (int)(410*RozmeryPlochy.getScalingFactor());}
+            case(7):{return (int)(468*RozmeryPlochy.getScalingFactor());}
         }
     return 0;
     }
