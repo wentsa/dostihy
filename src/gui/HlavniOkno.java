@@ -17,6 +17,8 @@ import audio.SoundHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import networking.NetCommunication;
 
 /**
  *
@@ -101,7 +103,26 @@ public class HlavniOkno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    void nastavPravidla() {
+    public void nastavMultiplayer() {
+        String[] volby={"Založit hru","Připojit se"};
+        int odpoved=JOptionPane.showOptionDialog(null,
+                "Chcete hru založit nebo se připojit k již existující?",
+                "Hra více hráčů",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                volby,
+                null);
+        if(odpoved==0) {
+            NetCommunication.zalozHru();
+            //nastavLobby1();
+        } else {
+            NetCommunication.pripojSeDoHry();
+            //nastavLobby2();
+        }
+    }
+    
+    public void nastavPravidla() {
         layout.show(jPanel2, "pravidla");
         pack();
         setLocationRelativeTo(null);
@@ -245,6 +266,8 @@ public class HlavniOkno extends javax.swing.JFrame {
             jPanel2.add(pravidla, "pravidla");
             pack();
     }
+
+    
 
     
     

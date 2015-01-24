@@ -8,6 +8,10 @@ package hra;
 import gui.HlavniOkno;
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.net.BindException;
+import networking.Client;
+import networking.NetCommunication;
+import networking.Server;
 
 /**
  *
@@ -50,7 +54,6 @@ public class Main {
                 new HlavniOkno().setVisible(true);
             }
         });
-        
     }
 
 }
