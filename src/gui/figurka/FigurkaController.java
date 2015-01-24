@@ -5,6 +5,7 @@
  */
 package gui.figurka;
 
+import grafika.GraphicsHandler;
 import java.io.Serializable;
 import pomocne.Barva;
 
@@ -35,6 +36,11 @@ public class FigurkaController implements Serializable {
             model.setPozice(model.getPozice() + 40);
         }
         model.nastavSouradnice();
+        view.repaint();
+    }
+    public void aktualizuj() {
+        model.nastavSouradnice();
+        view.setIcon(model.getObrazek());
         view.repaint();
     }
     public int getPozice() {

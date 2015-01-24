@@ -6,6 +6,7 @@
 package gui;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import karty.vlastnicke.PrepravaStaje;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.Trener;
@@ -36,22 +37,22 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
         
         ImageIcon obrazek=GraphicsHandler.getIcon("karta");
                 
-        setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), 40, 40));
+        setShape(new RoundRectangle2D.Double(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight(), (int)(40*RozmeryPlochy.getScalingFactor()), (int)(40*RozmeryPlochy.getScalingFactor())));
 
         
         String nadpis=null;
         String popis=null;
         if(this.karta instanceof Finance) {
-            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>FINANCE</center></p>";
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*4/5 + "px,text-align: center'><p><center>FINANCE</center></p>";
             popis="<p><center>" + this.karta.toString() + "</center></p></body></html>";
         }
         else if(this.karta instanceof Nahoda) {
-            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>NÁHODA</center></p>";
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*4/5 + "px,text-align: center'><p><center>NÁHODA</center></p>";
             popis="<p><center>" + this.karta.toString() + "</center></p></body></html>";
         }
         else if(this.karta instanceof Kun) {
             Kun tmp=(Kun) this.karta;
-            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*4/5 + "px,text-align: center'><p><center>" + tmp.getJmeno().toUpperCase() + "</center></p>";
             popis=
                     "Pořizovací cena: " + tmp.getPorizovaciCena() + ",-<br>" +
                     "Prohlídka stáje: " + tmp.getProhlidkaStaje() + ",-<br>" +
@@ -70,7 +71,7 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
         }
         else if(this.karta instanceof Trener) {
             Trener tmp=(Trener) this.karta;
-            nadpis="<html><body style='width: " + obrazek.getIconWidth()*3/4 + "px,text-align: center'><p><center>TRENÉR " + tmp.getCislo() + "</center></p>";
+            nadpis="<html><body style='width: " + obrazek.getIconWidth()*4/5 + "px,text-align: center'><p><center>TRENÉR " + tmp.getCislo() + "</center></p>";
             popis= 
                     "Cena licence:    " + tmp.getPorizovaciCena() + ",-<br><br>" +
                     "Majitel licenci vybírá tyto poplatky:<br>" +
@@ -88,9 +89,9 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
                     + "<br><table><tr><td>Majitel: </td><td>" + (tmp.getMajitel()==null? "nikdo" : tmp.getMajitel().getJmeno()) + "</td></tr></table><br><br>" +
 "                    </body></html>";
         }
-        Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, 16);
+        Font font=new Font("Ubuntu Mono Regular", Font.PLAIN, (int)(16*RozmeryPlochy.getScalingFactor()));
         if(karta instanceof Kun) {
-            font=new Font("Ubuntu Mono Regular", Font.PLAIN, 14);
+            font=new Font("Ubuntu Mono Regular", Font.PLAIN, (int)(14*RozmeryPlochy.getScalingFactor()));
         }
                
         final JButton but=new JButton(nadpis.concat("<br>" + popis),obrazek);
@@ -102,7 +103,7 @@ public class KartaGUI extends JDialog implements ActionListener, Serializable {
         });
         but.setFont(font);
         but.setHorizontalTextPosition(SwingConstants.CENTER);
-        but.setMargin(new Insets(15, 50, 15, 50));
+        but.setMargin(new Insets((int)(15*RozmeryPlochy.getScalingFactor()), (int)(40*RozmeryPlochy.getScalingFactor()), (int) (15 * RozmeryPlochy.getScalingFactor()), (int)(40*RozmeryPlochy.getScalingFactor())));
         but.setSize(obrazek.getIconWidth(),obrazek.getIconHeight());
         but.setBounds(0, 0, obrazek.getIconWidth(), obrazek.getIconHeight());
         but.setContentAreaFilled(false);

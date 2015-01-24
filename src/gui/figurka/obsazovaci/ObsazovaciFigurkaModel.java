@@ -5,6 +5,7 @@
  */
 package gui.figurka.obsazovaci;
 
+import grafika.RozmeryPlochy;
 import gui.figurka.FigurkaModel;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
@@ -26,12 +27,16 @@ public class ObsazovaciFigurkaModel extends FigurkaModel implements Serializable
     
     @Override
     protected void nastavX() {
-        super.souradniceX=(int)(280*Math.cos(Math.toRadians((getPozice()+5)*9+5))) + 339;
+        super.souradniceX=(int)((int)(280*RozmeryPlochy.getScalingFactor())
+                * Math.cos(Math.toRadians((getPozice()+5)*9+5))) 
+                + (int)(339*RozmeryPlochy.getScalingFactor());
     }
     
     @Override
     protected void nastavY() {
-        super.souradniceY=(int)(280*Math.sin(Math.toRadians((getPozice()+5)*9+5))) + 342;
+        super.souradniceY=(int)((int)(280*RozmeryPlochy.getScalingFactor())
+                * Math.sin(Math.toRadians((getPozice()+5)*9+5))) 
+                + (int)(342*RozmeryPlochy.getScalingFactor());
     }
 
     protected ImageIcon getObr() {

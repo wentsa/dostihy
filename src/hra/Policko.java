@@ -5,6 +5,7 @@
  */
 package hra;
 
+import grafika.RozmeryPlochy;
 import gui.figurka.obsazovaci.ObsazovaciFigurkaController;
 import gui.plocha.HerniPlochaView;
 import pomocne.Barva;
@@ -29,6 +30,7 @@ import karty.vlastnicke.VlastnickaKarta;
  * @author wentsa
  */
 public class Policko extends JButton implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private final int cislo;
@@ -55,6 +57,7 @@ public class Policko extends JButton implements Serializable {
             popup = new JPopupMenu();
             popup.add(new AbstractAction(" Vsadit na koně ") {
                 private static final long serialVersionUID = 1L;
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Policko.this.vsadit();
@@ -151,17 +154,21 @@ public class Policko extends JButton implements Serializable {
     }
 
     public int souradniceX() {
-        return (int) (255 * Math.cos(Math.toRadians((getPozice() + 5) * 9 + 4.5))) + 330;
+        return (int) ((int)(255 * RozmeryPlochy.getScalingFactor())
+                * Math.cos(Math.toRadians((getPozice() + 5) * 9 + 4.5))) 
+                +(int)(330* RozmeryPlochy.getScalingFactor());
     }
 
     public int souradniceY() {
-        return (int) (255 * Math.sin(Math.toRadians((getPozice() + 5) * 9 + 4.5))) + 330;
+        return (int) ((int)(255 * RozmeryPlochy.getScalingFactor())
+                * Math.sin(Math.toRadians((getPozice() + 5) * 9 + 4.5))) 
+                +(int)(330* RozmeryPlochy.getScalingFactor());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paintComponent(g);
-        setBounds(souradniceX(), souradniceY(), 40, 40);
+        setBounds(souradniceX(), souradniceY(), (int)(40* RozmeryPlochy.getScalingFactor()), (int)(40* RozmeryPlochy.getScalingFactor()));
     }
 
     /**
@@ -234,5 +241,12 @@ public class Policko extends JButton implements Serializable {
         this.muzeVsadit = muzeVsadit;
     }
 
+    public void aktualizuj() {
+        getObsazFigurka().aktualizuj();
+        if (getKarta() instanceof Kun) {
+            Kun kun = (Kun) getKarta();
+            kun.aktualizujDostihy();
+        }
+    }
 
 }

@@ -48,12 +48,14 @@ public class Kun extends VlastnickaKarta implements Serializable {
         this.pripravaDostihu = pripravaDostihu;
         this.pripravaHlavnihoDostihu = pripravaHlavnihoDostihu;
         this.pocetDostihu = 0;
-        this.dostihy = new ArrayList<>(5);
+        this.dostihy = new ArrayList<>(4);
         dostihy.add(new DostihController(pozice - 1, 0));
         dostihy.add(new DostihController(pozice - 1, 1));
         dostihy.add(new DostihController(pozice - 1, 2));
         dostihy.add(new DostihController(pozice - 1, 3));
         hlavniDostih=new HlavniDostihController(pozice - 1);
+        
+        pridejDostih();pridejDostih();pridejDostih();pridejDostih();pridejDostih();
     }
 
     @Override
@@ -245,6 +247,13 @@ public class Kun extends VlastnickaKarta implements Serializable {
     
     public int getSazka() {
         return sazka;
+    }
+
+    public void aktualizujDostihy() {
+        for (DostihController d : dostihy) {
+            d.aktualizuj();
+        }
+        hlavniDostih.aktualizuj();
     }
 
 }

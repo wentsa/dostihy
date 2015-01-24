@@ -30,6 +30,7 @@ import pomocne.LoudCall;
 import pomocne.Staj;
 import audio.SoundHandler;
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
@@ -57,10 +58,6 @@ public class Hra implements Serializable {
     private final LoudCall<Void, String> caller;
     private boolean predHazenim;
     private boolean ulozilPoHazeni;
-    private Font font1 = new Font("Ubuntu", 1, 18),
-            font2 = new Font("Ubuntu", 1, 15);
-    private Border border1 = BorderFactory.createEmptyBorder(15, 20, 10, 20),
-            border2 = BorderFactory.createEmptyBorder(7, 20, 10, 20);
 
     private static Hra instance = null;
 
@@ -805,11 +802,17 @@ public class Hra implements Serializable {
 
     public void nastavTextStatusBoxu(String chunk) {
         if (chunk.length() > 67) {
-            statusBox.setFont(font2);
-            statusBox.setBorder(border2);
+            statusBox.setFont(new Font("Ubuntu", 1, (int)(15*RozmeryPlochy.getScalingFactor())));
+            statusBox.setBorder(BorderFactory.createEmptyBorder((int)(7*RozmeryPlochy.getScalingFactor()),
+                    (int)(20*RozmeryPlochy.getScalingFactor()),
+                    (int)(10*RozmeryPlochy.getScalingFactor()),
+                    (int)(20*RozmeryPlochy.getScalingFactor())));
         } else {
-            statusBox.setFont(font1);
-            statusBox.setBorder(border1);
+            statusBox.setFont(new Font("Ubuntu", 1, (int)(18*RozmeryPlochy.getScalingFactor())));
+            statusBox.setBorder(BorderFactory.createEmptyBorder((int)(15*RozmeryPlochy.getScalingFactor()),
+                    (int)(20*RozmeryPlochy.getScalingFactor()),
+                    (int)(10*RozmeryPlochy.getScalingFactor()),
+                    (int)(20*RozmeryPlochy.getScalingFactor())));
         }
         statusBox.setText(chunk);
     }

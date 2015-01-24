@@ -6,8 +6,10 @@
 package gui.jmenovka;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import gui.Puntik;
 import hra.Hrac;
+import java.awt.Font;
 import pomocne.Barva;
 import java.io.Serializable;
 
@@ -33,6 +35,7 @@ public class JmenovkaController implements Serializable {
     
     public void nactiSouradnice() {
         model.nactiSouradnice();
+        view.setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int)(16*RozmeryPlochy.getScalingFactor())));
         view.repaint();
     }
     

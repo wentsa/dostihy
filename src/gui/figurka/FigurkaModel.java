@@ -6,6 +6,7 @@
 package gui.figurka;
 
 import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 import pomocne.Barva;
@@ -36,11 +37,18 @@ public class FigurkaModel implements Serializable {
     }
     
     protected void nastavX() {
-        souradniceX=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.cos(Math.toRadians((getPozice()+5)*9 + (cislo<=5 ? 2 : 7)))) + 340;
+        souradniceX=(int)(((int)(150*RozmeryPlochy.getScalingFactor())+(cislo<=5?cislo:cislo-5)*(int)(10*RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.cos(Math.toRadians((getPozice()+5)*9 //uhel
+                + (cislo<=5 ? (int)(2*RozmeryPlochy.getScalingFactor()) : (int)(7*RozmeryPlochy.getScalingFactor()))))) //dorovnani uhlu podle pozice
+                + (int)(340*RozmeryPlochy.getScalingFactor()); //x stredu
     }
     
     protected void nastavY() {
-        souradniceY=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.sin(Math.toRadians((getPozice()+5)*9 + (cislo<=5 ? 2 : 7)))) + 345;
+        //souradniceY=(int)((150+(cislo<=5?cislo:cislo-5)*10)*Math.sin(Math.toRadians((getPozice()+5)*9 + (cislo<=5 ? 2 : 7)))) + 345;
+        souradniceY=(int)(((int)(150*RozmeryPlochy.getScalingFactor())+(cislo<=5?cislo:cislo-5)*(int)(10*RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.sin(Math.toRadians((getPozice()+5)*9 //uhel
+                + (cislo<=5 ? (int)(2*RozmeryPlochy.getScalingFactor()) : (int)(7*RozmeryPlochy.getScalingFactor()))))) //dorovnani uhlu podle pozice
+                + (int)(345*RozmeryPlochy.getScalingFactor()); //x stredu
     }
     
     public void zmenBarvu(Barva barva) {

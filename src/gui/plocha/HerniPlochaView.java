@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import karty.vlastnicke.Kun;
 
 /**
  *
@@ -556,6 +557,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
         controller.nactiPravou();
         for (Hrac h : Hra.getInstance().getHraci()) {
             h.getJmenovka().nactiSouradnice();
+            h.getFigurka().aktualizuj();
+        }
+        for (Policko p : Hra.getInstance().getPolicka()) {
+            p.aktualizuj();
         }
         
         prava.setPreferredSize(RozmeryPlochy.prava());

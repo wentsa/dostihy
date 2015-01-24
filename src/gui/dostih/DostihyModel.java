@@ -8,7 +8,6 @@ package gui.dostih;
 import grafika.GraphicsHandler;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
-import pomocne.Barva;
 
 /**
  *

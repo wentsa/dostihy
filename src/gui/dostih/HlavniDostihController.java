@@ -5,8 +5,8 @@
  */
 package gui.dostih;
 
+import grafika.RozmeryPlochy;
 import java.io.Serializable;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -22,13 +22,31 @@ public class HlavniDostihController implements Serializable {
     public HlavniDostihController(int pozice) {
         model = new DostihyModel(pozice, true, pozice);
 
-        model.setSouradniceX((int) (310 * Math.cos(Math.toRadians((pozice + 5) * 9 + 5))) + 338);
+        nactiX();
 
-        model.setSouradniceY((int) (310 * Math.sin(Math.toRadians((pozice + 5) * 9 + 5))) + 343);
+        nactiY();
 
         view = new DostihyView(this);
     }
 
+    private void nactiY() {
+        model.setSouradniceY((int) ((int)(310*RozmeryPlochy.getScalingFactor())
+                * Math.sin(Math.toRadians((model.pozice + 5) * 9 + 5))) 
+                + (int)(343*RozmeryPlochy.getScalingFactor()));
+    }
+
+    private void nactiX() {
+        model.setSouradniceX((int) ((int)(310*RozmeryPlochy.getScalingFactor())
+                * Math.cos(Math.toRadians((model.pozice + 5) * 9 + 5))) 
+                + (int)(338*RozmeryPlochy.getScalingFactor()));
+    }
+    
+    public void aktualizuj() {
+        nactiX();
+        nactiY();
+        view.setIcon(model.getDostih());
+    }
+    
     protected int getSouradniceX() {
         return model.getSouradniceX();
     }

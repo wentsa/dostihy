@@ -24,6 +24,13 @@ public class ObsazovaciFigurkaController implements Serializable {
         view.setIcon(model.getObr());
     }
     
+    public void aktualizuj() {
+        model.nastavX();
+        model.nastavY();
+        view.setIcon(model.getObr());
+        view.repaint();
+    }
+    
     public void zmenBarvu(Barva barva) {
         model.zmenBarvu(barva);
         view.setIcon(model.getObr());

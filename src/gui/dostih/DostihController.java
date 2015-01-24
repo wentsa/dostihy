@@ -5,9 +5,9 @@
  */
 package gui.dostih;
 
+import grafika.RozmeryPlochy;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
-import pomocne.Konstanty;
 
 /**
  *
@@ -26,19 +26,30 @@ public class DostihController implements Serializable {
 
     protected int getSouradniceX() {
         if(model.getSouradniceX()==-1) {
-            int stredX=Konstanty.sirkaPlochy/2;
-            model.setSouradniceX((int) ((Konstanty.sirkaPlochy/2-50+7) * Math.cos(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredX -6);
+            nactiX();
         }
         return model.getSouradniceX();
     }
 
     protected int getSouradniceY() {
         if(model.getSouradniceY()==-1) {
-            int stredY=Konstanty.vyskaPlochy/2;
-            model.setSouradniceY((int) ((Konstanty.vyskaPlochy/2-50+7) * Math.sin(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) + stredY -6);
+            nactiY();
         }
         return model.getSouradniceY();
     }
+    
+    private void nactiY() {
+        model.setSouradniceY((int) ((RozmeryPlochy.getPlochaVyska()/2-(int)(43*RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.sin(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) //uhel
+                + RozmeryPlochy.getPlochaVyska()/2 -(int)(6*RozmeryPlochy.getScalingFactor())); //y stredu
+    }
+    
+    private void nactiX() {
+        model.setSouradniceX((int) ((RozmeryPlochy.getPlochaSirka()/2-(int)(43*RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.cos(Math.toRadians((model.pozice + 5) * 9 + (model.poradi * 2)))) //uhel
+                + RozmeryPlochy.getPlochaSirka()/2 -(int)(8*RozmeryPlochy.getScalingFactor())); //x stredu
+    }
+    
     
     protected ImageIcon getDostih() {
         return model.getDostih();
@@ -51,6 +62,12 @@ public class DostihController implements Serializable {
     public void setVisible(boolean b) {
         view.setVisible(b);
         view.repaint();
+    }
+
+    public void aktualizuj() {
+        nactiX();
+        nactiY();
+        view.setIcon(model.getDostih());
     }
 
 }
