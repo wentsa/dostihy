@@ -16,7 +16,9 @@ public class SliderController {
 
     private final SliderModel model = new SliderModel();
     private final SliderView view = new SliderView(this);
+    private Thread posunVlakno=null;
 
+        
     public SliderController() {
         nactiIkonu();
     }
@@ -27,13 +29,21 @@ public class SliderController {
 
     public void setSouradniceY(final int y) {
         final int init = model.getSouradniceY();
-        (new Thread(new Runnable() {
+        if(posunVlakno!=null) {
+            try {
+                posunVlakno.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SliderController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        posunVlakno=new Thread(new Runnable() {
 
             @Override
             public void run() {
                 posunSlider(init, y);
             }
-        })).start();
+        });
+        posunVlakno.start();
 
     }
 
@@ -61,7 +71,7 @@ public class SliderController {
                 model.setSouradniceY(i);
                 view.repaint();
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(5);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(SliderController.class.getName()).log(Level.SEVERE, null, ex);
                 }
