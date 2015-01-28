@@ -54,7 +54,6 @@ public class Kun extends VlastnickaKarta implements Serializable {
         dostihy.add(new DostihController(pozice - 1, 2));
         dostihy.add(new DostihController(pozice - 1, 3));
         hlavniDostih=new HlavniDostihController(pozice - 1);
-        
     }
 
     @Override
