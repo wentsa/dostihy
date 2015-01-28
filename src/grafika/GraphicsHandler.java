@@ -272,12 +272,9 @@ public class GraphicsHandler {
      * @return obrázek s /p ID
      */
     public static BufferedImage get(String ID) {
-        System.out.print(">>> " + ID + " ");
         if (RozmeryPlochy.isOriginalniHodnoty()) {
-            System.out.println("orig " + obrazky.get(ID).getWidth());
             return obrazky.get(ID);
         } else {
-            System.out.println("     " + obrazkyMensi.get(ID).getWidth());
             return obrazkyMensi.get(ID);   
         }
     }
