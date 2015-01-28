@@ -106,4 +106,16 @@
         <delete file="${store.dir}/temp_final.jar"/>
 
     </target>
+    
+    <!-- YGUARD OBFUSCATION-->
+    
+     <target name="yguard">
+      <taskdef name="yguard"
+      classname="com.yworks.yguard.YGuardTask"
+      classpath="yguard.jar"/>
+      <yguard>
+        <!-- insert your yguard elements here -->
+        <inoutpair in="./fat_jar/DOSTIHY.jar" out="./obfDostihy.jar"/>
+      </yguard>
+    </target>
 </project>
