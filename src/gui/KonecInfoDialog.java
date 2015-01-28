@@ -17,6 +17,7 @@ public class KonecInfoDialog extends JDialog implements Serializable {
 
     public KonecInfoDialog() {
         setModal(true);
+        setTitle("Konec hry");
         setContentPane(new KonecInfo());
         pack();
         setLocationRelativeTo(null);

@@ -17,10 +17,10 @@ public class ProdejDialog extends JDialog implements Serializable {
 
     public ProdejDialog(ProdejGUI prodej) {
         setModal(true);
+        setTitle("Prodej");
         setContentPane(prodej);
         pack();
         setLocationRelativeTo(null);
-        //setSize(prodej.getWidth(), prodej.getHeight());
         setVisible(true);
     }
     

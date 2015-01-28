@@ -18,6 +18,7 @@ public class NapovedaDialog extends JDialog {
     
     public NapovedaDialog() {
         setModal(true);
+        setTitle("Nápověda");
         setContentPane(napoveda);
         pack();
         setLocationRelativeTo(null);

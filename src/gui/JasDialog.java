@@ -19,6 +19,7 @@ public class JasDialog extends JDialog implements Serializable {
     
     public JasDialog() {
         setModal(true);
+        setTitle("Jas a kontrast");
         setContentPane(jas);
         pack();
         setLocationRelativeTo(null);

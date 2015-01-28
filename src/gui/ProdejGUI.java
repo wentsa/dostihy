@@ -277,7 +277,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                             if (k instanceof Kun) {
                                 Kun kun = (Kun) k;
                                 if (!overStaj(kun.getStaj())) {
-                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej dostihy stáje (" + kun.getStaj() + ")");
+                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžete prodat svého koně. Nejprve prodejte dostihy stáje (" + kun.getStaj() + ")");
                                     return;
                                 }
                             }
