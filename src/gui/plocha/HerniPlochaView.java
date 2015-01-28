@@ -77,7 +77,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 File f2=new File(getSelectedFile()+".das");
                 if((f.exists() || f.exists()) && getDialogType() == SAVE_DIALOG){
                     Object[] volby={"Ano","Ne"};
-                    int result = JOptionPane.showOptionDialog(this,"Tento soubor jiz existuje. Prejete si jej prepsat?","Soubor existuje",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    int result = JOptionPane.showOptionDialog(this,"Tento soubor již existuje. Přejete si jej přepsat?","Soubor existuje",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
                     switch(result){
                         case JOptionPane.YES_OPTION:
                         super.approveSelection();
