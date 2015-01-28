@@ -532,7 +532,7 @@ public class Hra implements Serializable {
 
     private int vyhodnotHod(int kolik) {
         if (aktualniHrac.isDistanc()) {
-            if (kolik == 6) {
+            if (kolik > 6) {
                 aktualniHrac.setDistanc(false);
                 status("Mužeš hrát, házej znovu");
                 return 0;
