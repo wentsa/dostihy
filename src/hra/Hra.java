@@ -638,7 +638,7 @@ public class Hra implements Serializable {
         if (aktualniHrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] volby = {"Ano", "Ne"};
-            int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nakup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+            int odpoved = JOptionPane.showOptionDialog(null, ("Chcete koupit \"" + p.getNazev() + "\" za " + p.getKarta().getPorizovaciCena() + ",-?"), "Nákup", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
             if (odpoved == JOptionPane.YES_OPTION) {
                 if (p.getKarta() instanceof Kun) {
                     SoundHandler.play("horse");
@@ -712,7 +712,7 @@ public class Hra implements Serializable {
             if (kun.getPocetDostihu() < 5) {
                 if (aktualniHrac.getRozpocet() >= (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu())) {
                     Object[] volby = {"Ano", "Ne"};
-                    int odpoved = JOptionPane.showOptionDialog(null, ("Chces koupit dalsi dostih za " + (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?"), "Nakup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+                    int odpoved = JOptionPane.showOptionDialog(null, ("Chcete koupit další dostih za " + (kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()) + ",- ?"), "Nákup dostihu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
                     if (odpoved == JOptionPane.YES_OPTION) {
                         aktualniHrac.pricti(-(kun.getPocetDostihu() < 4 ? kun.getPripravaDostihu() : kun.getPripravaHlavnihoDostihu()));
                         kun.pridejDostih();
