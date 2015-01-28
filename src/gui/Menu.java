@@ -25,6 +25,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     
     public Menu() {
         initComponents();
+        sit.setEnabled(false); //ve fazi rozpracovani
     }
 
     /**
