@@ -34,7 +34,6 @@ import grafika.RozmeryPlochy;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
 import karty.vlastnicke.VlastnickaKarta;
 
 /**

@@ -131,7 +131,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_nacist_hruActionPerformed
 
     private void konecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konecActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
+        System.exit(0);
     }//GEN-LAST:event_konecActionPerformed
 
     private void sitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sitActionPerformed
