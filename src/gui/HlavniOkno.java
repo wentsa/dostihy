@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import networking.NetCommunication;
+import pomocne.Barva;
 
 /**
  *
@@ -117,8 +118,21 @@ public class HlavniOkno extends javax.swing.JFrame {
             NetCommunication.zalozHru();
             //nastavLobby1();
         } else {
-            NetCommunication.pripojSeDoHry();
-            //nastavLobby2();
+            String sPort=JOptionPane.showInputDialog("port");
+            int port=Integer.parseInt(sPort);
+            NetCommunication.pripojSeDoHry(port);
+            DataHraci dataHraci = new DataHraci();
+            dataHraci.jmena.add("pepa");
+            dataHraci.barvy.add("Oranžová");
+            dataHraci.jmena.add("franta");
+            dataHraci.barvy.add("Tyrkysová");
+            try {
+                zalozHrace(dataHraci);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HlavniOkno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+                //nastavLobby2();
         }
     }
     
