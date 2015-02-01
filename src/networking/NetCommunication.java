@@ -71,10 +71,8 @@ public class NetCommunication {
         return IP;
     }
 
-    public static void pripojSeDoHry() {
-        // WEWEHWHEW    IP + PORT   
+    public static void pripojSeDoHry(int port) {
         IP="localhost";
-        port=10785;
         client=new Client(port, IP);
     }
     
