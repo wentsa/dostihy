@@ -41,6 +41,7 @@ import karty.vlastnicke.VlastnickaKarta;
  * @author wentsa
  */
 public class Hra implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private Kostka kostka;
@@ -177,6 +178,7 @@ public class Hra implements Serializable {
     public final void nastavStatusBox() {
         this.statusBox = new JTextPane() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public void paintComponent(Graphics g) {
                 BufferedImage statusP = HerniPlochaController.getInstance().getStatusP();
@@ -801,17 +803,25 @@ public class Hra implements Serializable {
 
     public void nastavTextStatusBoxu(String chunk) {
         if (chunk.length() > 67) {
-            statusBox.setFont(new Font("Ubuntu", 1, (int)(15*RozmeryPlochy.getScalingFactor())));
-            statusBox.setBorder(BorderFactory.createEmptyBorder((int)(7*RozmeryPlochy.getScalingFactor()),
-                    (int)(20*RozmeryPlochy.getScalingFactor()),
-                    (int)(10*RozmeryPlochy.getScalingFactor()),
-                    (int)(20*RozmeryPlochy.getScalingFactor())));
+            statusBox.setFont(new Font("Ubuntu", 1, (int) (15 * RozmeryPlochy.getScalingFactor())));
+            if (chunk.length() > 80) {
+                statusBox.setBorder(BorderFactory.createEmptyBorder((int) (7 * RozmeryPlochy.getScalingFactor()),
+                        (int) (20 * RozmeryPlochy.getScalingFactor()),
+                        (int) (10 * RozmeryPlochy.getScalingFactor()),
+                        (int) (20 * RozmeryPlochy.getScalingFactor())));
+            }
+            else {
+                statusBox.setBorder(BorderFactory.createEmptyBorder((int) (17 * RozmeryPlochy.getScalingFactor()),
+                    (int) (20 * RozmeryPlochy.getScalingFactor()),
+                    (int) (10 * RozmeryPlochy.getScalingFactor()),
+                    (int) (20 * RozmeryPlochy.getScalingFactor())));
+            }
         } else {
-            statusBox.setFont(new Font("Ubuntu", 1, (int)(18*RozmeryPlochy.getScalingFactor())));
-            statusBox.setBorder(BorderFactory.createEmptyBorder((int)(15*RozmeryPlochy.getScalingFactor()),
-                    (int)(20*RozmeryPlochy.getScalingFactor()),
-                    (int)(10*RozmeryPlochy.getScalingFactor()),
-                    (int)(20*RozmeryPlochy.getScalingFactor())));
+            statusBox.setFont(new Font("Ubuntu", 1, (int) (18 * RozmeryPlochy.getScalingFactor())));
+            statusBox.setBorder(BorderFactory.createEmptyBorder((int) (15 * RozmeryPlochy.getScalingFactor()),
+                    (int) (20 * RozmeryPlochy.getScalingFactor()),
+                    (int) (10 * RozmeryPlochy.getScalingFactor()),
+                    (int) (20 * RozmeryPlochy.getScalingFactor())));
         }
         statusBox.setText(chunk);
     }
