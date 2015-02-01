@@ -5,7 +5,7 @@
  */
 package karty;
 
-import gui.KartaGUI;
+import gui.KartaGUIDialog;
 import java.io.Serializable;
 
 /**
@@ -17,7 +17,6 @@ public abstract class Karta implements Serializable {
     
             
     public void zobraz() throws InterruptedException {
-        final KartaGUI gui=new KartaGUI(this);
-        gui.setLocationRelativeTo(null);
+        new KartaGUIDialog(this);
     }
 }
