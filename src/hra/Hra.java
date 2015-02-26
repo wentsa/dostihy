@@ -193,6 +193,7 @@ public class Hra implements Serializable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="POLICKA">
+    
     private void inicializovatPolicka() {
         getPolicka().add(new Policko(1, "Start"));
         getPolicka().add(new Policko(2, "Fantome", new Kun(2, "Fantome", 1200, Staj.ORANZOVA, 40, 200, 600, 1800, 3200, 5000, 1000, 1000)));
