@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import pomocne.RBHandler;
 
 /**
  *
@@ -43,7 +44,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
         konec = new javax.swing.JButton();
         sit = new javax.swing.JButton();
 
-        nova_hra.setText("Nová hra");
+        nova_hra.setText(RBHandler.getInstance().getRBString("new_game"));
         nova_hra.setPreferredSize(new java.awt.Dimension(200, 40));
         nova_hra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +52,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        nacist_hru.setText("Načíst hru");
+        nacist_hru.setText(RBHandler.getInstance().getRBString("load_game"));
         nacist_hru.setPreferredSize(new java.awt.Dimension(200, 40));
         nacist_hru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +60,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        pravidla.setText("Pravidla");
+        pravidla.setText(RBHandler.getInstance().getRBString("rules"));
         pravidla.setPreferredSize(new java.awt.Dimension(200, 40));
         pravidla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +68,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        konec.setText("Ukončit");
+        konec.setText(RBHandler.getInstance().getRBString("exit"));
         konec.setMargin(new java.awt.Insets(10, 10, 10, 10));
         konec.setPreferredSize(new java.awt.Dimension(200, 40));
         konec.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        sit.setText("Hrát po síti");
+        sit.setText(RBHandler.getInstance().getRBString("net_game"));
         sit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sitActionPerformed(evt);

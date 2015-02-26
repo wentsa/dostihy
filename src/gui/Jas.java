@@ -9,6 +9,7 @@ import grafika.GraphicsHandler;
 import gui.plocha.HerniPlochaController;
 import java.io.Serializable;
 import javax.swing.JSlider;
+import pomocne.RBHandler;
 
 /**
  *
@@ -46,7 +47,6 @@ public class Jas extends javax.swing.JPanel implements Serializable {
         jas.setMinimum(-200);
         jas.setPaintTicks(true);
         jas.setValue(0);
-        jas.setBorder(null);
         jas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jasMouseReleased(evt);
@@ -73,11 +73,11 @@ public class Jas extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        jasLabel.setText("Jas");
+        jasLabel.setText(RBHandler.getInstance().getRBString("brightness"));
 
-        kontrastLabel.setText("Kontrast");
+        kontrastLabel.setText(RBHandler.getInstance().getRBString("contrast"));
 
-        reset.setText("Nastavit původní hodnoty");
+        reset.setText(RBHandler.getInstance().getRBString("set_default"));
         reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
@@ -95,11 +95,11 @@ public class Jas extends javax.swing.JPanel implements Serializable {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 30, Short.MAX_VALUE)
+                                .addGap(0, 75, Short.MAX_VALUE)
                                 .addComponent(reset))
                             .addComponent(jasLabel, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(kontrastLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 30, Short.MAX_VALUE))
+                        .addGap(0, 75, Short.MAX_VALUE))
                     .addComponent(jas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(

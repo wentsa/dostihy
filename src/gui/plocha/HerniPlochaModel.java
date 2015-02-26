@@ -41,7 +41,7 @@ public class HerniPlochaModel {
     private static HerniPlochaModel instance=null;
     
     
-    protected static HerniPlochaModel getInstance() {
+    protected synchronized static HerniPlochaModel getInstance() {
         if(instance==null) {
             instance= new HerniPlochaModel();
         }

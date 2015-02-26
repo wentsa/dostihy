@@ -24,6 +24,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.RBHandler;
 
 /**
  *
@@ -55,7 +56,7 @@ public class Policko extends JButton implements Serializable {
         this.obsazFigurka = new ObsazovaciFigurkaController(Barva.RED, cislo - 1, 0);
         if (karta instanceof Kun) {
             popup = new JPopupMenu();
-            popup.add(new AbstractAction(" Vsadit na koně ") {
+            popup.add(new AbstractAction(" " + RBHandler.getInstance().getRBString("bet_on_horse") + " ") {
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -214,18 +215,18 @@ public class Policko extends JButton implements Serializable {
     }
 
     private void vsadit() {
-        String castka = JOptionPane.showInputDialog(this, "Sázka na " + karta.getJmeno() + ":");
+        String castka = JOptionPane.showInputDialog(this, RBHandler.getInstance().getRBString("pol_bet_on")+ " " + karta.getJmeno() + ":");
         if (castka == null) {
             return;
         }
         try {
             int kolik = Integer.parseInt(castka);
             if (kolik > Hra.getInstance().getAktualniHrac().getRozpocet()) {
-                JOptionPane.showMessageDialog(this, "Nemáte dostatek financí.");
+                JOptionPane.showMessageDialog(this, RBHandler.getInstance().getRBString("pol_nef"));
                 return;
             }
             if (kolik <= 0) {
-                JOptionPane.showMessageDialog(this, "Minimální možná sázka je 1,-.");
+                JOptionPane.showMessageDialog(this, RBHandler.getInstance().getRBString("pol_min") + " 1,-.");
                 return;
             }
             if (karta instanceof Kun) {
@@ -233,7 +234,7 @@ public class Policko extends JButton implements Serializable {
                 Hra.getInstance().getAktualniHrac().pricti(-kolik);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Zadejte pouze číslo reprezentující částku.");
+            JOptionPane.showMessageDialog(this, RBHandler.getInstance().getRBString("pol_num"));
         }
     }
 

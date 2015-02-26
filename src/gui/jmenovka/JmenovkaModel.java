@@ -12,6 +12,7 @@ import java.io.Serializable;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
 import pomocne.Barva;
+import pomocne.RBHandler;
 
 /**
  *
@@ -79,9 +80,9 @@ public class JmenovkaModel implements Serializable {
     }
 
     protected String getToolTipText() {
-        String text="<html><b><i>Inventář</i></b><br><br><table>";
+        String text="<html><b><i>" + RBHandler.getInstance().getRBString("inventory") + "</i></b><br><br><table>";
         if(hrac.getZdrzeni()>0) {
-            text+="<tr><td>Zdržení: </td><td>" + hrac.getZdrzeni() + "</td></tr>";
+            text+="<tr><td>" + RBHandler.getInstance().getRBString("delay") +": </td><td>" + hrac.getZdrzeni() + "</td></tr>";
         }
         for (VlastnickaKarta k: hrac.getKarty()) {
             text=text + "<tr><td>" + k.getJmeno() + "</td><td>";
@@ -90,18 +91,18 @@ public class JmenovkaModel implements Serializable {
                 String tmp="";
                 switch(kun.getPocetDostihu()) {
                     case 0: break;
-                    case 1: {tmp="1 dostih";} break;
-                    case 2: {tmp="2 dostihy";} break;
-                    case 3: {tmp="3 dostihy";} break;
-                    case 4: {tmp="4 dostihy";} break;
-                    case 5: {tmp="hlavní dostih";} break;
+                    case 1: {tmp="1 " + RBHandler.getInstance().getRBString("race");} break;
+                    case 2: {tmp="2 " + RBHandler.getInstance().getRBString("races");} break;
+                    case 3: {tmp="3 " + RBHandler.getInstance().getRBString("races");} break;
+                    case 4: {tmp="4 " + RBHandler.getInstance().getRBString("races");} break;
+                    case 5: {tmp=RBHandler.getInstance().getRBString("main_race");} break;
                 }
                 text=text + " - " + tmp;
             }
             text=text + "</td><td>" + k.getPorizovaciCena() + ",-</td></tr><br>";
         }
         if(hrac.getKarty().isEmpty()) {
-            text += "<i>--prázdné--</i><br>";
+            text += "<i>" + RBHandler.getInstance().getRBString("jm_empty") + "</i><br>";
         }
         
         text += "</table></html>";

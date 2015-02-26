@@ -5,6 +5,8 @@
  */
 package gui;
 
+import pomocne.RBHandler;
+
 /**
  *
  * @author chaluto2
@@ -17,6 +19,12 @@ public class Napoveda extends javax.swing.JPanel {
      */
     public Napoveda() {
         initComponents();
+        jTabbedPane1.removeAll();
+        jTabbedPane1.addTab(RBHandler.getInstance().getRBString("h_cards"), help);
+        jTabbedPane1.addTab(RBHandler.getInstance().getRBString("h_inv"),   help1);
+        jTabbedPane1.addTab(RBHandler.getInstance().getRBString("h_br"),    help2);
+        jTabbedPane1.addTab(RBHandler.getInstance().getRBString("h_bet"),   help3);
+        jTabbedPane1.addTab(RBHandler.getInstance().getRBString("h_res"),   help4);
     }
 
     /**
@@ -51,7 +59,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Po kliknutí na pole se zobrazí karta s podrobnostmi o koni/trenérovi atd...");
+        jTextArea1.setText(RBHandler.getInstance().getRBString("h_cards_desc"));
         jTextArea1.setWrapStyleWord(true);
         text.setViewportView(jTextArea1);
 
@@ -68,7 +76,7 @@ public class Napoveda extends javax.swing.JPanel {
             helpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(helpLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -78,7 +86,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Po najetí myši na hráčovo jméno se zobrazí všechny karty, které hráč vlastní a v případě koní i počet dostihů, ve kterých je kůň zařazen");
+        jTextArea2.setText(RBHandler.getInstance().getRBString("h_inv_desc"));
         jTextArea2.setWrapStyleWord(true);
         text1.setViewportView(jTextArea2);
 
@@ -95,7 +103,7 @@ public class Napoveda extends javax.swing.JPanel {
             help1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(help1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(text1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(text1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -105,7 +113,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea3.setColumns(20);
         jTextArea3.setLineWrap(true);
         jTextArea3.setRows(5);
-        jTextArea3.setText("V případě potřeby lze v nastavení změnit hodnotu jasu popř. kontrastu");
+        jTextArea3.setText(RBHandler.getInstance().getRBString("h_br_desc"));
         jTextArea3.setWrapStyleWord(true);
         text2.setViewportView(jTextArea3);
 
@@ -122,7 +130,7 @@ public class Napoveda extends javax.swing.JPanel {
             help2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(help2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(text2, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(text2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -132,7 +140,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea4.setColumns(20);
         jTextArea4.setLineWrap(true);
         jTextArea4.setRows(5);
-        jTextArea4.setText("Pokud splňujete požadavky nutné pro sázení na koně (viz pravidla), tak po kliknutí pravým tlačítkem na pole koně obsazené soupeřem můžete vsadit libovolnou částku");
+        jTextArea4.setText(RBHandler.getInstance().getRBString("h_bet_desc"));
         jTextArea4.setWrapStyleWord(true);
         text3.setViewportView(jTextArea4);
 
@@ -149,7 +157,7 @@ public class Napoveda extends javax.swing.JPanel {
             help3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(help3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(text3, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(text3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -159,7 +167,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea5.setColumns(20);
         jTextArea5.setLineWrap(true);
         jTextArea5.setRows(5);
-        jTextArea5.setText("Po ukončení hry se zobrazí výsledková listina včetně maxima držených karet během hry apod.");
+        jTextArea5.setText(RBHandler.getInstance().getRBString("h_res_desc"));
         jTextArea5.setWrapStyleWord(true);
         text4.setViewportView(jTextArea5);
 
@@ -176,7 +184,7 @@ public class Napoveda extends javax.swing.JPanel {
             help4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(help4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(text4, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(text4, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

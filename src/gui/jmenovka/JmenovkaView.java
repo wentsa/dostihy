@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serializable;
 import javax.swing.JLabel;
+import pomocne.RBHandler;
 
 /**
  *
@@ -22,7 +23,13 @@ public class JmenovkaView extends JLabel implements Serializable {
 
     protected JmenovkaView(JmenovkaController controller) {
         this.controller = controller;
-        setText("<html><table width=" + (int)(345*RozmeryPlochy.getScalingFactor()) + "><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + controller.getCastka() + "</td></tr></table></html>");
+        setText("<html><table width=" + 
+                (int)(345*RozmeryPlochy.getScalingFactor()) + 
+                "><tr><td>" + 
+                controller.getJmeno().toUpperCase() + 
+                "</td><td align=right>" + 
+                controller.getCastka() + 
+                "</td></tr></table></html>");
         setForeground(GraphicsHandler.getBarvaFontu());
         setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int)(16*RozmeryPlochy.getScalingFactor())));
     }
@@ -30,7 +37,13 @@ public class JmenovkaView extends JLabel implements Serializable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setText("<html><table width=" + (int)(345*RozmeryPlochy.getScalingFactor()) + "><tr><td>" + controller.getJmeno().toUpperCase() + "</td><td align=right>" + (controller.isAktivni()? controller.getCastka() : (controller.getPoradi() + ". misto") ) + "</td></tr></table></html>");
+        setText("<html><table width=" + 
+                (int)(345*RozmeryPlochy.getScalingFactor()) + 
+                "><tr><td>" + 
+                controller.getJmeno().toUpperCase() + 
+                "</td><td align=right>" + 
+                (controller.isAktivni()? controller.getCastka() : (controller.getPoradi() + ". " + RBHandler.getInstance().getRBString("position")) ) + 
+                "</td></tr></table></html>");
         setLocation((int)(70*RozmeryPlochy.getScalingFactor()), controller.getSouradniceY());
     }
     

@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import networking.NetCommunication;
 import pomocne.Barva;
+import pomocne.RBHandler;
 
 /**
  *
@@ -105,10 +106,10 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
     
     public void nastavMultiplayer() {
-        String[] volby={"Založit hru","Připojit se"};
+        String[] volby={RBHandler.getInstance().getRBString("hl_ok_create"),RBHandler.getInstance().getRBString("hl_ok_join")};
         int odpoved=JOptionPane.showOptionDialog(null,
-                "Chcete hru založit nebo se připojit k již existující?",
-                "Hra více hráčů",
+                RBHandler.getInstance().getRBString("hl_ok_text"),
+                RBHandler.getInstance().getRBString("hl_ok_title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,

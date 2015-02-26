@@ -66,7 +66,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="15" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Rozli&#x161;en&#xed;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;resolution&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton1">
@@ -88,7 +90,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="apply">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pou&#x17e;&#xed;t"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;apply&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyActionPerformed"/>
@@ -96,7 +100,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="ok">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;OK&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okActionPerformed"/>

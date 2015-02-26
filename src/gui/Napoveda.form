@@ -11,7 +11,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,0,-92,0,0,1,-112"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,0,-73,0,0,1,-112"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -48,7 +48,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="text" pref="113" max="32767" attributes="0"/>
+                      <Component id="text" pref="123" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -68,7 +68,9 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Po kliknut&#xed; na pole se zobraz&#xed; karta s podrobnostmi o koni/tren&#xe9;rovi atd..."/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="RBHandler.getInstance().getRBString(&quot;h_cards_desc&quot;)" type="code"/>
+                    </Property>
                     <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
@@ -99,7 +101,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="text1" pref="113" max="32767" attributes="0"/>
+                      <Component id="text1" pref="123" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -119,7 +121,9 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Po najet&#xed; my&#x161;i na hr&#xe1;&#x10d;ovo jm&#xe9;no se zobraz&#xed; v&#x161;echny karty, kter&#xe9; hr&#xe1;&#x10d; vlastn&#xed; a v p&#x159;&#xed;pad&#x11b; kon&#xed; i po&#x10d;et dostih&#x16f;, ve kter&#xfd;ch je k&#x16f;&#x148; za&#x159;azen"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="RBHandler.getInstance().getRBString(&quot;h_inv_desc&quot;)" type="code"/>
+                    </Property>
                     <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
@@ -150,7 +154,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="text2" pref="113" max="32767" attributes="0"/>
+                      <Component id="text2" pref="123" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -170,7 +174,9 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="V p&#x159;&#xed;pad&#x11b; pot&#x159;eby lze v nastaven&#xed; zm&#x11b;nit hodnotu jasu pop&#x159;. kontrastu"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="RBHandler.getInstance().getRBString(&quot;h_br_desc&quot;)" type="code"/>
+                    </Property>
                     <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
@@ -201,7 +207,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="text3" pref="113" max="32767" attributes="0"/>
+                      <Component id="text3" pref="123" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -221,7 +227,9 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Pokud spl&#x148;ujete po&#x17e;adavky nutn&#xe9; pro s&#xe1;zen&#xed; na kon&#x11b; (viz pravidla), tak po kliknut&#xed; prav&#xfd;m tla&#x10d;&#xed;tkem na pole kon&#x11b; obsazen&#xe9; soupe&#x159;em m&#x16f;&#x17e;ete vsadit libovolnou &#x10d;&#xe1;stku"/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="RBHandler.getInstance().getRBString(&quot;h_bet_desc&quot;)" type="code"/>
+                    </Property>
                     <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>
@@ -252,7 +260,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="text4" pref="113" max="32767" attributes="0"/>
+                      <Component id="text4" pref="123" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -272,7 +280,9 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Po ukon&#x10d;en&#xed; hry se zobraz&#xed; v&#xfd;sledkov&#xe1; listina v&#x10d;etn&#x11b; maxima dr&#x17e;en&#xfd;ch karet b&#x11b;hem hry apod."/>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="RBHandler.getInstance().getRBString(&quot;h_res_desc&quot;)" type="code"/>
+                    </Property>
                     <Property name="wrapStyleWord" type="boolean" value="true"/>
                   </Properties>
                 </Component>

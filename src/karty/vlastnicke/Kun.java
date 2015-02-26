@@ -140,7 +140,6 @@ public class Kun extends VlastnickaKarta implements Serializable {
     }
 
     /**
-     * @param pocetDostihu the pocetDostihu to set
      */
     public void pridejDostih() {
         this.pocetDostihu++;

@@ -36,7 +36,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane2" max="32767" attributes="0"/>
                   <Component id="celkem" max="32767" attributes="0"/>
-                  <Component id="button" pref="221" max="32767" attributes="0"/>
+                  <Component id="button" pref="204" max="32767" attributes="0"/>
                   <Component id="kombo" alignment="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -90,7 +90,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vzd&#xe1;t se"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;give_up&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -98,7 +100,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Odstranit v&#xfd;b&#x11b;r"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;clear_sel&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -128,7 +132,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Prodej"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;sell&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionPerformed"/>

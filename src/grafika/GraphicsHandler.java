@@ -68,8 +68,6 @@ public class GraphicsHandler {
 
         nactiARGB();
 
-        Konstanty.sirkaPlochy = obrazky.get("plocha").getWidth() - 3;
-        Konstanty.vyskaPlochy = obrazky.get("plocha").getHeight();
     }
 
     /**
@@ -95,6 +93,7 @@ public class GraphicsHandler {
         pixely.put(ID, getARGB(obrazky.get(ID)));
         pixelyMensi.put(ID, getARGB(obrazkyMensi.get(ID)));
         rescale();
+        
     }
 
     /**

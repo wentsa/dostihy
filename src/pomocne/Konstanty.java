@@ -10,8 +10,6 @@ package pomocne;
  * @author wentsa
  */
 public class Konstanty {
-    public static int sirkaPlochy;
-    public static int vyskaPlochy;
     
     public final static int shoutDelay=200;
 }

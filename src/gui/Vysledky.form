@@ -21,9 +21,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="288" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="261" max="32767" attributes="0"/>
                       <Component id="vysledky" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="288" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="261" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="celkCas" min="-2" max="-2" attributes="0"/>
@@ -67,14 +67,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tabulka">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="7">
-                <Column editable="true" title="Po&#x159;ad&#xed;" type="java.lang.Integer"/>
-                <Column editable="false" title="Jm&#xe9;no" type="java.lang.String"/>
-                <Column editable="false" title="Cas ve h&#x159;e" type="java.lang.String"/>
-                <Column editable="true" title="Max hotovost" type="java.lang.Integer"/>
-                <Column editable="true" title="Max karet" type="java.lang.Integer"/>
-              </Table>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        RBHandler.getInstance().getRBString(&quot;position&quot;),&#xa;        RBHandler.getInstance().getRBString(&quot;name&quot;),&#xa;        RBHandler.getInstance().getRBString(&quot;gametime&quot;),&#xa;        RBHandler.getInstance().getRBString(&quot;max_cash&quot;),&#xa;        RBHandler.getInstance().getRBString(&quot;max_cards&quot;)&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        true, false, false, true, true&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;}" type="code"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
@@ -118,19 +112,25 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="V&#xfd;sledky"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;results&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="celkCas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Celkov&#xfd; &#x10d;as hry:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;game_time&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="cas">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nov&#xe1; hra"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;new_game&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>

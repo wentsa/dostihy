@@ -33,13 +33,13 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                               <Component id="reset" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="kontrastLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jas" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -90,17 +90,23 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jasLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Jas"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;brightness&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="kontrastLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Kontrast"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;contrast&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="reset">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nastavit p&#x16f;vodn&#xed; hodnoty"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;set_default&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>

@@ -7,6 +7,7 @@ package gui;
 
 import java.io.Serializable;
 import javax.swing.SwingUtilities;
+import pomocne.RBHandler;
 
 /**
  *
@@ -41,11 +42,11 @@ public class KonecInfo extends javax.swing.JPanel implements Serializable {
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GRATULUJEME");
+        jLabel1.setText(RBHandler.getInstance().getRBString("congrats"));
 
-        jLabel2.setText("Hra již skončila, následuje výsledková tabulka");
+        jLabel2.setText(RBHandler.getInstance().getRBString("end_info"));
 
-        jButton1.setText("OK");
+        jButton1.setText(RBHandler.getInstance().getRBString("OK"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -33,8 +33,12 @@ import grafika.GraphicsHandler;
 import grafika.RozmeryPlochy;
 import java.awt.Color;
 import java.awt.Font;
+import java.security.InvalidParameterException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.RBHandler;
 
 /**
  *
@@ -61,7 +65,7 @@ public class Hra implements Serializable {
 
     private static Hra instance = null;
 
-    public static Hra getInstance() {
+    public synchronized static Hra getInstance() {
         if (instance == null) {
             instance = new Hra();
         }
@@ -196,85 +200,85 @@ public class Hra implements Serializable {
     private void inicializovatPolicka() {
         getPolicka().add(new Policko(1, "Start"));
         getPolicka().add(new Policko(2, "Fantome", new Kun(2, "Fantome", 1200, Staj.ORANZOVA, 40, 200, 600, 1800, 3200, 5000, 1000, 1000)));
-        getPolicka().add(new Policko(3, "Finance"));
+        getPolicka().add(new Policko(3, RBHandler.getInstance().getRBString("fin")));
         getPolicka().add(new Policko(4, "Gavora", new Kun(4, "Gavora", 1200, Staj.ORANZOVA, 40, 200, 600, 1800, 3200, 5000, 1000, 1000)));
-        getPolicka().add(new Policko(5, "Veterinární vyšetření"));
-        getPolicka().add(new Policko(6, "Trenér", new Trener(6, 1)));
+        getPolicka().add(new Policko(5, RBHandler.getInstance().getRBString("vet")));
+        getPolicka().add(new Policko(6, RBHandler.getInstance().getRBString("trainer"), new Trener(6, 1)));
         getPolicka().add(new Policko(7, "Lady Anne", new Kun(7, "Lady Anne", 2000, Staj.HNEDA, 120, 600, 1800, 5400, 8000, 11000, 1000, 1000)));
-        getPolicka().add(new Policko(8, "Náhoda"));
+        getPolicka().add(new Policko(8, RBHandler.getInstance().getRBString("rand")));
         getPolicka().add(new Policko(9, "Pasek", new Kun(9, "Pasek", 2000, Staj.HNEDA, 120, 600, 1800, 5400, 8000, 11000, 1000, 1000)));
         getPolicka().add(new Policko(10, "Koran", new Kun(10, "Koran", 2400, Staj.HNEDA, 160, 800, 2000, 6000, 9000, 12000, 1000, 1000)));
         getPolicka().add(new Policko(11, "Distanc"));
         getPolicka().add(new Policko(12, "Neklan", new Kun(12, "Neklan", 2800, Staj.SV_MODRA, 200, 1000, 3000, 9000, 12500, 15000, 2000, 2000)));
-        getPolicka().add(new Policko(13, "Přeprava", new PrepravaStaje(13, 3000, "Přeprava")));
+        getPolicka().add(new Policko(13, RBHandler.getInstance().getRBString("transport"), new PrepravaStaje(13, 3000, "Přeprava")));
         getPolicka().add(new Policko(14, "Portlancl", new Kun(14, "Portlancl", 2800, Staj.SV_MODRA, 200, 1000, 3000, 9000, 12500, 15000, 2000, 2000)));
         getPolicka().add(new Policko(15, "Japan", new Kun(15, "Japan", 2800, Staj.SV_MODRA, 240, 1200, 3600, 10000, 14000, 18000, 2000, 2000)));
-        getPolicka().add(new Policko(16, "Trenér", new Trener(16, 2)));
+        getPolicka().add(new Policko(16, RBHandler.getInstance().getRBString("trainer"), new Trener(16, 2)));
         getPolicka().add(new Policko(17, "Kostrava", new Kun(17, "Kostrava", 3600, Staj.SV_ZELENA, 280, 1400, 4000, 11000, 15000, 19000, 2000, 2000)));
-        getPolicka().add(new Policko(18, "Finance"));
+        getPolicka().add(new Policko(18, RBHandler.getInstance().getRBString("fin")));
         getPolicka().add(new Policko(19, "Lukava", new Kun(19, "Lukava", 3600, Staj.SV_ZELENA, 280, 1400, 4000, 11000, 15000, 19000, 2000, 2000)));
         getPolicka().add(new Policko(20, "Melák", new Kun(20, "Melák", 4000, Staj.SV_ZELENA, 320, 1600, 4400, 12000, 16000, 20000, 2000, 2000)));
-        getPolicka().add(new Policko(21, "Parkoviště"));
+        getPolicka().add(new Policko(21, RBHandler.getInstance().getRBString("park")));
         getPolicka().add(new Policko(22, "Grifel", new Kun(22, "Grifel", 4400, Staj.CERVENA, 360, 1800, 5000, 14000, 17000, 21000, 3000, 3000)));
-        getPolicka().add(new Policko(23, "Náhoda"));
+        getPolicka().add(new Policko(23, RBHandler.getInstance().getRBString("rand")));
         getPolicka().add(new Policko(24, "Mohyla", new Kun(24, "Mohyla", 4400, Staj.CERVENA, 360, 1800, 5000, 14000, 17000, 21000, 3000, 3000)));
         getPolicka().add(new Policko(25, "Metál", new Kun(25, "Metál", 4800, Staj.CERVENA, 400, 2000, 6000, 15000, 18000, 22000, 3000, 3000)));
-        getPolicka().add(new Policko(26, "Trenér", new Trener(26, 3)));
+        getPolicka().add(new Policko(26, RBHandler.getInstance().getRBString("trainer"), new Trener(26, 3)));
         getPolicka().add(new Policko(27, "Tara", new Kun(27, "Tara", 5200, Staj.ZLUTA, 440, 2200, 6600, 16000, 19500, 23000, 3000, 3000)));
         getPolicka().add(new Policko(28, "Furioso", new Kun(28, "Furioso", 5200, Staj.ZLUTA, 440, 2200, 6600, 16000, 19500, 23000, 3000, 3000)));
-        getPolicka().add(new Policko(29, "Stáje", new PrepravaStaje(29, 3000, "Stáje")));
+        getPolicka().add(new Policko(29, RBHandler.getInstance().getRBString("stables"), new PrepravaStaje(29, 3000, "Stáje")));
         getPolicka().add(new Policko(30, "Genius", new Kun(30, "Genius", 5600, Staj.ZLUTA, 580, 2400, 7200, 17000, 20500, 24000, 3000, 3000)));
-        getPolicka().add(new Policko(31, "Podezření z dopingu"));
+        getPolicka().add(new Policko(31, RBHandler.getInstance().getRBString("susp")));
         getPolicka().add(new Policko(32, "Shagga", new Kun(32, "Shagga", 6000, Staj.ZELENA, 500, 2600, 7800, 18000, 22000, 25500, 4000, 4000)));
         getPolicka().add(new Policko(33, "Dahoman", new Kun(33, "Dahoman", 6000, Staj.ZELENA, 500, 2600, 7800, 18000, 22000, 25500, 4000, 4000)));
-        getPolicka().add(new Policko(34, "Finance"));
+        getPolicka().add(new Policko(34, RBHandler.getInstance().getRBString("fin")));
         getPolicka().add(new Policko(35, "Gira", new Kun(35, "Gira", 6400, Staj.ZELENA, 560, 3000, 9000, 20000, 24000, 28000, 4000, 4000)));
-        getPolicka().add(new Policko(36, "Trenér", new Trener(36, 4)));
-        getPolicka().add(new Policko(37, "Náhoda"));
+        getPolicka().add(new Policko(36, RBHandler.getInstance().getRBString("trainer"), new Trener(36, 4)));
+        getPolicka().add(new Policko(37, RBHandler.getInstance().getRBString("rand")));
         getPolicka().add(new Policko(38, "Narcius", new Kun(38, "Narcius", 7000, Staj.MODRA, 700, 3500, 10000, 22000, 26000, 30000, 4000, 4000)));
-        getPolicka().add(new Policko(39, "Veterinární vyšetření"));
+        getPolicka().add(new Policko(39, RBHandler.getInstance().getRBString("vet")));
         getPolicka().add(new Policko(40, "Napoli", new Kun(40, "Napoli", 8000, Staj.MODRA, 1000, 4000, 12000, 28000, 34000, 40000, 4000, 4000)));
-
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="NAHODA">
     @SuppressWarnings("unchecked")
     private void inicializovatNahodu() {
-        getNahodaNove().vloz(new NahodaPopojdi("Jdi o 3 pole zpět.", false, false, 3));
-        getNahodaNove().vloz(new NahodaDistanc("Zrušen distanc."));
-        getNahodaNove().vloz(new NahodaPopojdi("Jedeš se zúčastnit trenérského kurzu. Postoupíš na nejbližší pole Trenér. Dostaneš 4.000, pokud jedeš dopředu přes Start.", true, true, "Trenér"));
-        getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 2 kola.", 2));
-        getNahodaNove().vloz(new NahodaPopojdi("Distanc (bez 4.000).", false, true, "Distanc"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na nejbližší pole Finance.", false, false, "Finance"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na poslední pole ve hře (kůň Napoli), hráč obdrží 4.000.", true, false, "Napoli"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na pole Distanc. Obdržíš 4.000, pokud jsi cestou zpět prošel Start.", true, false, "Distanc"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na nejbližší pole Finance.", false, false, "Finance"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na start (hráč obdrží 4.000).", true, false, "Start"));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na start (bez 4.000).", false, false, "Start"));
-        getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 2 kola.", 2));
-        getNahodaNove().vloz(new NahodaZdrzeni("Zdržíš se na 1 kolo.", 1));
-        getNahodaNove().vloz(new NahodaPopojdi("Zpět na pole Parkoviště. Dostaneš 4.000, pokud jsi cestou zpět prošel start.", true, false, "Parkoviště"));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_1"), false, false, 3));
+        getNahodaNove().vloz(new NahodaDistanc(RBHandler.getInstance().getRBString("ran_dist")));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_2"), true, true, RBHandler.getInstance().getRBString("trainer")));
+        getNahodaNove().vloz(new NahodaZdrzeni(RBHandler.getInstance().getRBString("ran_hold_2"), 2));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_3"), false, true, "Distanc"));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_4"), false, false, RBHandler.getInstance().getRBString("fin")));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_5"), true, false, "Napoli"));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_6"), true, false, "Distanc"));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_7"), false, false, RBHandler.getInstance().getRBString("fin")));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_8"), true, false, "Start"));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_9"), false, false, "Start"));
+        getNahodaNove().vloz(new NahodaZdrzeni(RBHandler.getInstance().getRBString("ran_hold_2"), 2));
+        getNahodaNove().vloz(new NahodaZdrzeni(RBHandler.getInstance().getRBString("ran_hold_1"), 1));
+        getNahodaNove().vloz(new NahodaPopojdi(RBHandler.getInstance().getRBString("ran_mv_10"), true, false, RBHandler.getInstance().getRBString("park")));
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="FINANCE">
     @SuppressWarnings("unchecked")
     private void inicializovatFinance() {
-        getFinanceNove().vloz(new FinanceKlasika("Zaplať pojistku 1000.", 1000, true));
-        getFinanceNove().vloz(new FinanceKlasika("Pokuta za nedodržení předpisů 400.", 400, true));
-        getFinanceNove().vloz(new FinanceRenovace("Renovuješ všechny stáje. Za každý svůj obsazený dostih zaplať 500.", 500));
-        getFinanceNove().vloz(new FinanceKlasika("Mimořádný zisk z dostihů obdržíš 2.000.", 2000, false));
-        getFinanceNove().vloz(new FinanceDarek("Jako dárek k narozeninám obdržíš od každého 200.", 200));
-        getFinanceNove().vloz(new FinanceKlasika("Mimořádná prémie 500.", 500, false));
-        getFinanceNove().vloz(new FinanceKlasika("Obdržíš dotaci 4.000.", 4000, false));
-        getFinanceNove().vloz(new FinanceKlasika("Zaplať dluh 3.000.", 3000, true));
-        getFinanceNove().vloz(new FinanceRenovace("Za každý svůj obsazený dostih zaplať 800, za každý svůj obsazený hlavní dostih sezóny zaplať 2.300.", 800));
-        getFinanceNove().vloz(new FinanceKlasika("Zaplať příspěvek 2.000.", 2000, true));
-        getFinanceNove().vloz(new FinanceKlasika("Nákup materiálu na opravu 100.", 100, true));
-        getFinanceNove().vloz(new FinanceKlasika("Výhra v loterii 1.000.", 1000, false));
-        getFinanceNove().vloz(new FinanceKlasika("Obdržíš dotaci 2.000.", 2000, false));
-        getFinanceNove().vloz(new FinanceKlasika("Z banky obdržíš přeplatek 3.000.", 3000, false));
+        
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_1"), 1000, true));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_2"), 400, true));
+        getFinanceNove().vloz(new FinanceRenovace(RBHandler.getInstance().getRBString("fin_ren_1"), 500));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_3"), 2000, false));
+        getFinanceNove().vloz(new FinanceDarek(RBHandler.getInstance().getRBString("fin_gift"), 200));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_4"), 500, false));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_5"), 4000, false));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_6"), 3000, true));
+        getFinanceNove().vloz(new FinanceRenovace(RBHandler.getInstance().getRBString("fin_ren_2"), 800));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_7"), 2000, true));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_8"), 100, true));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_9"), 1000, false));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_10"), 2000, false));
+        getFinanceNove().vloz(new FinanceKlasika(RBHandler.getInstance().getRBString("fin_kl_11"), 3000, false));
     }
     // </editor-fold>
 
@@ -289,27 +293,26 @@ public class Hra implements Serializable {
     }
 
     private Barva parseColor(String barva) {
-        switch (barva) {
-            case "Černá":
-                return Barva.BLACK;
-            case "Modrá":
-                return Barva.BLUE;
-            case "Tyrkysová":
-                return Barva.CYAN;
-            case "Zelená":
-                return Barva.GREEN;
-            case "Fialová":
-                return Barva.MAGENTA;
-            case "Oranžová":
-                return Barva.ORANGE;
-            case "Červená":
-                return Barva.RED;
-            case "Bílá":
-                return Barva.WHITE;
-            case "Žlutá":
-                return Barva.YELLOW;
-        }
-        return null;
+        ResourceBundle rb = ResourceBundle.getBundle("rb/Resources");
+        if (barva.equals(RBHandler.getInstance().getRBString("black"))) {
+            return Barva.BLACK;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("blue"))) {
+            return Barva.BLUE;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("cyan"))) {
+            return Barva.CYAN;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("green"))) {
+            return Barva.GREEN;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("magenta"))) {
+            return Barva.MAGENTA;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("orange"))) {
+            return Barva.ORANGE;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("red"))) {
+            return Barva.RED;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("white"))) {
+            return Barva.WHITE;
+        } else if (barva.equals(RBHandler.getInstance().getRBString("yellow"))) {
+            return Barva.YELLOW;
+        } else throw new InvalidParameterException("Color not supported");
     }
 
     /**

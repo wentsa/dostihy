@@ -63,7 +63,7 @@ public class KartaGUI extends javax.swing.JPanel {
     private void nactiText() {
         int sirkaTabulky=this.getPreferredSize().width-2*this.getBorder().getBorderInsets(this).left;
         if(this.karta instanceof Finance) {
-            nadpisText="FINANCE>";
+            nadpisText="FINANCE";
             popisText="<html><body><p><center>" + this.karta.toString() + "</center></p></body></html>";
         }
         else if(this.karta instanceof Nahoda) {

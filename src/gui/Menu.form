@@ -50,7 +50,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="nova_hra">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nov&#xe1; hra"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;new_game&quot;)" type="code"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 40]"/>
         </Property>
@@ -61,7 +63,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="nacist_hru">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Na&#x10d;&#xed;st hru"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;load_game&quot;)" type="code"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 40]"/>
         </Property>
@@ -72,7 +76,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="pravidla">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pravidla"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;rules&quot;)" type="code"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 40]"/>
         </Property>
@@ -83,7 +89,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="konec">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ukon&#x10d;it"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;exit&quot;)" type="code"/>
+        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[10, 10, 10, 10]"/>
         </Property>
@@ -97,7 +105,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="sit">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Hr&#xe1;t po s&#xed;ti"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;net_game&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sitActionPerformed"/>

@@ -16,6 +16,7 @@ public class ProdejDialog extends JDialog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public ProdejDialog(ProdejGUI prodej) {
+        setUndecorated(false);
         setModal(true);
         setTitle("Prodej");
         setContentPane(prodej);

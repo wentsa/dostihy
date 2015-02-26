@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import karty.vlastnicke.Kun;
+import pomocne.RBHandler;
 
 /**
  *
@@ -44,7 +44,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
 
-    protected static HerniPlochaView getInstance(HerniPlochaController controller) {
+    protected synchronized static HerniPlochaView getInstance(HerniPlochaController controller) {
         if (instance == null) {
             instance = new HerniPlochaView(controller);
         }
@@ -151,7 +151,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             vzdat = new javax.swing.JButton();
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
-            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
             nacitacSouboru.setDialogTitle("Načíst");
             nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +160,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
                 }
             });
 
-            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
+            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
             ukladacSouboru.setDialogTitle("Uložit");
             ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,9 +181,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
             menuBar.setForeground(new java.awt.Color(232, 232, 232));
             menuBar.setMaximumSize(new java.awt.Dimension(175, 19));
 
-            soubor.setText("Soubor");
+            soubor.setText(RBHandler.getInstance().getRBString("file"));
 
-            nacist.setText("Načíst hru");
+            nacist.setText(RBHandler.getInstance().getRBString("load"));
             nacist.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     nacistActionPerformed(evt);
@@ -191,7 +191,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             soubor.add(nacist);
 
-            ulozit.setText("Uložit hru");
+            ulozit.setText(RBHandler.getInstance().getRBString("save"));
             ulozit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ulozitActionPerformed(evt);
@@ -201,9 +201,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(soubor);
 
-            upravit.setText("Úpravy");
+            upravit.setText(RBHandler.getInstance().getRBString("edit"));
 
-            jas.setText("Jas a kontrast");
+            jas.setText(RBHandler.getInstance().getRBString("brightness") + " & " + RBHandler.getInstance().getRBString("contrast"));
             jas.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jasActionPerformed(evt);
@@ -211,7 +211,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             upravit.add(jas);
 
-            rozliseni.setText("Rozlišení");
+            rozliseni.setText(RBHandler.getInstance().getRBString("resolution"));
             rozliseni.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     rozliseniActionPerformed(evt);
@@ -221,9 +221,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(upravit);
 
-            napoveda.setText("Nápověda");
+            napoveda.setText(RBHandler.getInstance().getRBString("help"));
 
-            help.setText("Nápověda");
+            help.setText(RBHandler.getInstance().getRBString("help"));
             help.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     helpActionPerformed(evt);
@@ -231,7 +231,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             napoveda.add(help);
 
-            pravidla.setText("Pravidla");
+            pravidla.setText(RBHandler.getInstance().getRBString("rules"));
             pravidla.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     pravidlaActionPerformed(evt);

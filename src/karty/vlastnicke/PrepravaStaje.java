@@ -7,6 +7,7 @@ package karty.vlastnicke;
 
 import java.io.Serializable;
 import java.util.Objects;
+import pomocne.RBHandler;
 
 /**
  *
@@ -19,7 +20,7 @@ public class PrepravaStaje extends VlastnickaKarta implements Serializable {
 
     public PrepravaStaje(int pozice, int porizovaciCena, String jmeno) {
         super(pozice, porizovaciCena,jmeno);
-        this.popis="Hráč, který se zastavil na poli Stáje nebo Přeprava, které patří některému ze soupeřů, zaplatí majiteli 80tinásobek hodu kostkou. Jestliže majitel vlastní obě karty, cena se zvyšuje na 200násobek.";
+        this.popis=RBHandler.getInstance().getRBString("ps_desc");
     }
 
     /**

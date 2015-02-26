@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import pomocne.RBHandler;
 
 /**
  *
@@ -23,11 +26,36 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final DataHraci data=new DataHraci();
+    private final DefaultComboBoxModel komboModel1;
+    private final DefaultComboBoxModel komboModel2;
+    private final DefaultComboBoxModel komboModel3;
+    private final DefaultComboBoxModel komboModel4;
+    private final DefaultComboBoxModel komboModel5;
+    private final DefaultComboBoxModel komboModel6;
+    private final DefaultComboBoxModel komboModel7;
     /**
      * Creates new form VolbaHracu
      * @param d
      */
     public VolbaHracu() {
+        Object[] items = {
+            RBHandler.getInstance().getRBString("white"),
+            RBHandler.getInstance().getRBString("black"),
+            RBHandler.getInstance().getRBString("blue"),
+            RBHandler.getInstance().getRBString("cyan"),
+            RBHandler.getInstance().getRBString("green"),
+            RBHandler.getInstance().getRBString("magenta"),
+            RBHandler.getInstance().getRBString("orange"),
+            RBHandler.getInstance().getRBString("red"),
+            RBHandler.getInstance().getRBString("yellow")
+        };
+        komboModel1 = new DefaultComboBoxModel(items);
+        komboModel2 = new DefaultComboBoxModel(items);
+        komboModel3 = new DefaultComboBoxModel(items);
+        komboModel4 = new DefaultComboBoxModel(items);
+        komboModel5 = new DefaultComboBoxModel(items);
+        komboModel6 = new DefaultComboBoxModel(items);
+        komboModel7 = new DefaultComboBoxModel(items);
         initComponents();
     }
 
@@ -69,7 +97,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jButton2 = new javax.swing.JButton();
 
         jButton1.setBackground(new java.awt.Color(249, 249, 249));
-        jButton1.setText("Hraj");
+        jButton1.setText(RBHandler.getInstance().getRBString("play"));
         jButton1.setToolTipText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +105,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        jLabel1.setText("Počet hráčů:");
+        jLabel1.setText(RBHandler.getInstance().getRBString("num_players"));
 
         jComboBox1.setMaximumRowCount(6);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "3", "4", "5", "6", "7" }));
@@ -93,7 +121,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel1.add(jTextField1);
 
         jComboBox2.setMaximumRowCount(9);
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox2.setModel(komboModel1);
         jComboBox2.setSelectedIndex(0);
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +140,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel2.add(jTextField2);
 
         jComboBox3.setMaximumRowCount(9);
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox3.setModel(komboModel2);
         jComboBox3.setSelectedIndex(1);
         jPanel2.add(jComboBox3);
 
@@ -120,7 +148,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel3.add(jTextField3);
 
         jComboBox4.setMaximumRowCount(9);
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox4.setModel(komboModel3);
         jComboBox4.setSelectedIndex(2);
         jPanel3.add(jComboBox4);
 
@@ -128,7 +156,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel4.add(jTextField4);
 
         jComboBox5.setMaximumRowCount(9);
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox5.setModel(komboModel4);
         jComboBox5.setSelectedIndex(3);
         jPanel4.add(jComboBox5);
 
@@ -136,7 +164,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel5.add(jTextField5);
 
         jComboBox6.setMaximumRowCount(9);
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox6.setModel(komboModel5);
         jComboBox6.setSelectedIndex(4);
         jPanel5.add(jComboBox6);
 
@@ -144,7 +172,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel6.add(jTextField6);
 
         jComboBox7.setMaximumRowCount(9);
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox7.setModel(komboModel6);
         jComboBox7.setSelectedIndex(5);
         jPanel6.add(jComboBox7);
 
@@ -152,15 +180,15 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel7.add(jTextField7);
 
         jComboBox8.setMaximumRowCount(9);
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bílá", "Černá", "Červená", "Fialová", "Modrá", "Oranžová", "Tyrkysová", "Zelená", "Žlutá" }));
+        jComboBox8.setModel(komboModel7);
         jComboBox8.setSelectedIndex(6);
         jPanel7.add(jComboBox8);
 
-        jLabel2.setText("Jméno");
+        jLabel2.setText(RBHandler.getInstance().getRBString("name"));
 
-        jLabel3.setText("Barva");
+        jLabel3.setText(RBHandler.getInstance().getRBString("color"));
 
-        jButton2.setText("Zpět");
+        jButton2.setText(RBHandler.getInstance().getRBString("back"));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

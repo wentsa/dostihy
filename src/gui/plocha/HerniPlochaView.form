@@ -91,12 +91,16 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="soubor">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Soubor"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="RBHandler.getInstance().getRBString(&quot;file&quot;)" type="code"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="nacist">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Na&#x10d;&#xed;st hru"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;load&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nacistActionPerformed"/>
@@ -104,7 +108,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ulozit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ulo&#x17e;it hru"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;save&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ulozitActionPerformed"/>
@@ -114,12 +120,16 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="upravit">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xda;pravy"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="RBHandler.getInstance().getRBString(&quot;edit&quot;)" type="code"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Jas a kontrast"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;brightness&quot;) + &quot; &amp; &quot; + RBHandler.getInstance().getRBString(&quot;contrast&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jasActionPerformed"/>
@@ -127,7 +137,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="rozliseni">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Rozli&#x161;en&#xed;"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;resolution&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rozliseniActionPerformed"/>
@@ -137,12 +149,16 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="napoveda">
           <Properties>
-            <Property name="text" type="java.lang.String" value="N&#xe1;pov&#x11b;da"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="RBHandler.getInstance().getRBString(&quot;help&quot;)" type="code"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="help">
               <Properties>
-                <Property name="text" type="java.lang.String" value="N&#xe1;pov&#x11b;da"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;help&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="helpActionPerformed"/>
@@ -150,7 +166,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="pravidla">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pravidla"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="RBHandler.getInstance().getRBString(&quot;rules&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pravidlaActionPerformed"/>

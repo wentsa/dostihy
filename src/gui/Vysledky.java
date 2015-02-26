@@ -10,10 +10,9 @@ import hra.Hrac;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.RowSorter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import pomocne.RBHandler;
 
 /**
  *
@@ -57,7 +56,11 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Pořadí", "Jméno", "Cas ve hře", "Max hotovost", "Max karet"
+                RBHandler.getInstance().getRBString("position"),
+                RBHandler.getInstance().getRBString("name"),
+                RBHandler.getInstance().getRBString("gametime"),
+                RBHandler.getInstance().getRBString("max_cash"),
+                RBHandler.getInstance().getRBString("max_cards")
             }
         ) {
             Class[] types = new Class [] {
@@ -86,11 +89,11 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
         }
 
         vysledky.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        vysledky.setText("Výsledky");
+        vysledky.setText(RBHandler.getInstance().getRBString("results"));
 
-        celkCas.setText("Celkový čas hry:");
+        celkCas.setText(RBHandler.getInstance().getRBString("game_time"));
 
-        jButton1.setText("Nová hra");
+        jButton1.setText(RBHandler.getInstance().getRBString("new_game"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -106,9 +109,9 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 288, Short.MAX_VALUE)
+                        .addGap(0, 261, Short.MAX_VALUE)
                         .addComponent(vysledky)
-                        .addGap(0, 288, Short.MAX_VALUE))
+                        .addGap(0, 261, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(celkCas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

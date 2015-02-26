@@ -6,6 +6,7 @@
 package karty.vlastnicke;
 
 import java.io.Serializable;
+import pomocne.RBHandler;
 
 /**
  *
@@ -17,18 +18,13 @@ public class Trener extends VlastnickaKarta implements Serializable {
     final private int cislo;
 
     public Trener(int pozice, int cislo) {
-        super(pozice, 4000, "Trenér " + cislo);
+        super(pozice, 4000, RBHandler.getInstance().getRBString("trainer") + " " + cislo);
         this.cislo = cislo;
     }
     
     
 
     
-
-    @Override
-    public String toString() {
-        return "Trener " + getCislo();
-    }
 
     @Override
     public int hashCode() {

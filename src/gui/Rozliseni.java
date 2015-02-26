@@ -7,8 +7,8 @@ package gui;
 
 import grafika.RozmeryPlochy;
 import gui.plocha.HerniPlochaController;
-import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
+import pomocne.RBHandler;
 
 /**
  *
@@ -40,7 +40,7 @@ public class Rozliseni extends javax.swing.JPanel {
         ok = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 15)); // NOI18N
-        jLabel1.setText("Rozlišení");
+        jLabel1.setText(RBHandler.getInstance().getRBString("resolution"));
 
         group.add(jRadioButton1);
         jRadioButton1.setSelected(true);
@@ -49,14 +49,14 @@ public class Rozliseni extends javax.swing.JPanel {
         group.add(jRadioButton2);
         jRadioButton2.setText("1024 x 600");
 
-        apply.setText("Použít");
+        apply.setText(RBHandler.getInstance().getRBString("apply"));
         apply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyActionPerformed(evt);
             }
         });
 
-        ok.setText("OK");
+        ok.setText(RBHandler.getInstance().getRBString("OK"));
         ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okActionPerformed(evt);

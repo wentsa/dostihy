@@ -91,7 +91,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f9" green="f9" red="f9" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Hraj"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;play&quot;)" type="code"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
@@ -100,7 +102,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Po&#x10d;et hr&#xe1;&#x10d;&#x16f;:"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;num_players&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -133,18 +137,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox2">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel1" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="0" type="code"/>
@@ -168,18 +162,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox3">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel2" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="1" type="code"/>
@@ -197,18 +181,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox4">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel3" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="2" type="code"/>
@@ -226,18 +200,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox5">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel4" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="3" type="code"/>
@@ -255,18 +219,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox6">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel5" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="4" type="code"/>
@@ -284,18 +238,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox7">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel6" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="5" type="code"/>
@@ -313,18 +257,8 @@
         <Component class="javax.swing.JComboBox" name="jComboBox8">
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
-                <StringItem index="0" value="B&#xed;l&#xe1;"/>
-                <StringItem index="1" value="&#x10c;ern&#xe1;"/>
-                <StringItem index="2" value="&#x10c;erven&#xe1;"/>
-                <StringItem index="3" value="Fialov&#xe1;"/>
-                <StringItem index="4" value="Modr&#xe1;"/>
-                <StringItem index="5" value="Oran&#x17e;ov&#xe1;"/>
-                <StringItem index="6" value="Tyrkysov&#xe1;"/>
-                <StringItem index="7" value="Zelen&#xe1;"/>
-                <StringItem index="8" value="&#x17d;lut&#xe1;"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="komboModel7" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="6" type="code"/>
@@ -335,17 +269,23 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Jm&#xe9;no"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;name&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Barva"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;color&quot;)" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Zp&#x11b;t"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="RBHandler.getInstance().getRBString(&quot;back&quot;)" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>

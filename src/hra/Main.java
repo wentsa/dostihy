@@ -8,6 +8,8 @@ package hra;
 import gui.HlavniOkno;
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.util.Locale;
+import pomocne.RBHandler;
 
 /**
  *
@@ -44,6 +46,10 @@ public class Main {
             java.util.logging.Logger.getLogger(HlavniOkno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        RBHandler.getInstance().setLocale(new Locale("cs")); //TODO
+        
+        
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

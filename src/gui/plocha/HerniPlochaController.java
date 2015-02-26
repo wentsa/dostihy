@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -40,7 +41,7 @@ public class HerniPlochaController {
     private static HerniPlochaController instance=null;
     
     
-    public static HerniPlochaController getInstance() {
+    public synchronized static HerniPlochaController getInstance() {
         if(instance==null) {
             instance= new HerniPlochaController();
         }

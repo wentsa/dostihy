@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.RBHandler;
 import pomocne.Staj;
 
 /**
@@ -71,7 +72,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         nactiData();
         vypis.setContentType("text/html");
 
-        kombo.addItem(new ComboItem("--banka--"));
+        kombo.addItem(new ComboItem(RBHandler.getInstance().getRBString("pr_bank")));
         for (Hrac h : Hra.getInstance().getHraci()) {
             if (!h.equals(hrac) && h.isAktivni()) {
                 kombo.addItem(new ComboItem(h.getJmeno()));
@@ -177,14 +178,14 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Vzdát se");
+        jButton1.setText(RBHandler.getInstance().getRBString("give_up"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Odstranit výběr");
+        jButton2.setText(RBHandler.getInstance().getRBString("clear_sel"));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -197,7 +198,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
         celkem.setText("jLabel1");
 
-        button.setText("Prodej");
+        button.setText(RBHandler.getInstance().getRBString("sell"));
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionPerformed(evt);
@@ -235,7 +236,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addComponent(celkem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(kombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -260,8 +261,8 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!jList1.isSelectionEmpty()) {
-            Object[] volby = {"Ano", "Ne"};
-            int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", opravdu chcete prodat své karty?"), "Prodej", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+            Object[] volby = {RBHandler.getInstance().getRBString("yes"), RBHandler.getInstance().getRBString("no")};
+            int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + RBHandler.getInstance().getRBString("pr_1_text")), RBHandler.getInstance().getRBString("pr_1_title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
             if (odpoved != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -269,7 +270,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 for (Object o : jList1.getSelectedValuesList()) {
                     String value = o.toString();
                     if (value.contains("-")) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Dostihy můžete prodávat pouze bance.");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), RBHandler.getInstance().getRBString("pr_2_text"));
                         return;
                     }
                     for (VlastnickaKarta k : karty) {
@@ -277,7 +278,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                             if (k instanceof Kun) {
                                 Kun kun = (Kun) k;
                                 if (!overStaj(kun.getStaj())) {
-                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžete prodat svého koně. Nejprve prodejte dostihy stáje (" + kun.getStaj() + ")");
+                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), RBHandler.getInstance().getRBString("pr_3_text") + " (" + kun.getStaj() + ")");
                                     return;
                                 }
                             }
@@ -285,29 +286,40 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                         }
                     }
                 }
-                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), "Chystáte se prodat hráči " + kupec.getJmeno() + " své karty. Nabídněte prosím požadovanou částku. Doporučená částka je " + suma + ",-");
+                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this),
+                        RBHandler.getInstance().getRBString("pr_4_text_1") + " " +
+                        kupec.getJmeno() + " " +
+                        RBHandler.getInstance().getRBString("pr_4_text_2")+ " " +
+                        suma + ",-");
                 if (castka == null) {
                     return;
                 }
                 try {
                     int cena = Integer.parseInt(castka);
                     if (cena < 0) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Záporné hodnoty by znamenaly, že vy budete platit za to, že si " + kupec.getJmeno() + " od Vás koupí karty. Zadejte prosím kladné hodnoty.");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), 
+                                RBHandler.getInstance().getRBString("pr_5_text_1") + " " + 
+                                kupec.getJmeno() + " " + 
+                                RBHandler.getInstance().getRBString("pr_5_text_2"));
                         return;
                     }
                     if (cena > kupec.getRozpocet()) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Bohužel kupec nemá dostatek financí. Maximum je " + kupec.getRozpocet() + ",-");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), RBHandler.getInstance().getRBString("pr_6_text") + " " + kupec.getRozpocet() + ",-");
                         return;
                     }
 
-                    Object[] volby2 = {"Ano", "Ne"};
-                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", chcete od hráče " + hrac.getJmeno() + " koupit označené karty za " + cena + ",-?"), "Obchod", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
+                    Object[] volby2 = {RBHandler.getInstance().getRBString("yes"), RBHandler.getInstance().getRBString("no")};
+                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + 
+                            RBHandler.getInstance().getRBString("pr_7_text_1") + " " + 
+                            hrac.getJmeno() + " " + 
+                            RBHandler.getInstance().getRBString("pr_7_text_2") + " " + cena + ",-?"), 
+                            RBHandler.getInstance().getRBString("pr_7_title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
                     if (odpoved2 != JOptionPane.YES_OPTION) {
                         return;
                     }
                     suma = cena;
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Zadejte pouze číslo reprezentující částku.");
+                    JOptionPane.showMessageDialog(this, RBHandler.getInstance().getRBString("pr_8_title"));
                 }
             }
             List selectionValues = jList1.getSelectedValuesList();
@@ -336,7 +348,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 if (k instanceof Kun) {
                     Kun kun = (Kun) k;
                     if (!overStaj(kun.getStaj())) {
-                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej dostihy stáje (" + kun.getStaj() + ")");
+                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), RBHandler.getInstance().getRBString("pr_9_text") + " (" + kun.getStaj() + ")");
                         return;
                     }
                 }
@@ -386,7 +398,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void komboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_komboActionPerformed
         String value = ((ComboItem) kombo.getSelectedItem()).getValue();
-        if (value.equals("--banka--")) {
+        if (value.equals(RBHandler.getInstance().getRBString("pr_bank"))) {
             prodavaBance = true;
         } else {
             prodavaBance = false;
@@ -425,11 +437,11 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
             if (k instanceof Kun) {
                 Kun kun = (Kun) k;
                 if (kun.getPocetDostihu() == 5) {
-                    String key = kun.getJmeno() + " - hlavní dostih";
+                    String key = kun.getJmeno() + " - " + RBHandler.getInstance().getRBString("main_race");
                     tmp2.add(key);
                     hracovyDostihy.put(key, kun);
                 } else if (kun.getPocetDostihu() > 0) {
-                    String key = kun.getJmeno() + " - dostih " + kun.getPocetDostihu();
+                    String key = kun.getJmeno() + " - " + RBHandler.getInstance().getRBString("race") + " " + kun.getPocetDostihu();
                     tmp2.add(key);
                     hracovyDostihy.put(key, kun);
                 }
@@ -442,14 +454,14 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         Arrays.sort(hracovyKarty, 0, Math.max(0, hracovyKarty.length - 1), new Comparator<String>() {
             @Override
             public int compare(String a, String b) {
-                if (a.contains("dostih")) {
-                    if (b.contains("dostih")) {
+                if (a.contains(RBHandler.getInstance().getRBString("race"))) {
+                    if (b.contains(RBHandler.getInstance().getRBString("race"))) {
                         return a.compareTo(b);
                     } else {
                         return 1;
                     }
                 } else {
-                    if (b.contains("dostih")) {
+                    if (b.contains(RBHandler.getInstance().getRBString("race"))) {
                         return -1;
                     } else {
                         return a.compareTo(b);
