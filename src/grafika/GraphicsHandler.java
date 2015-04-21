@@ -145,15 +145,14 @@ public class GraphicsHandler {
 
         gr = obrazky.get(ID).createGraphics();
         gr.drawImage(tmp, 0, 0, null);
-        
-        
-        int sirka=(int)(tmp.getWidth(null) * 0.8);
-        int vyska=(int)(tmp.getHeight(null) * 0.8);
-        
+
+        int sirka = (int) (tmp.getWidth(null) * 0.8);
+        int vyska = (int) (tmp.getHeight(null) * 0.8);
+
         obrazkyMensi.put(ID, new BufferedImage(sirka, vyska, BufferedImage.TYPE_INT_ARGB));
 
         gr = obrazkyMensi.get(ID).createGraphics();
-        gr.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+        gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         gr.drawImage(tmp, 0, 0, sirka, vyska, null);
 
         gr.dispose();
@@ -275,7 +274,7 @@ public class GraphicsHandler {
         if (RozmeryPlochy.isOriginalniHodnoty()) {
             return obrazky.get(ID);
         } else {
-            return obrazkyMensi.get(ID);   
+            return obrazkyMensi.get(ID);
         }
     }
 
@@ -289,7 +288,7 @@ public class GraphicsHandler {
         if (RozmeryPlochy.isOriginalniHodnoty()) {
             return ikony.get(ID);
         } else {
-            return ikonyMensi.get(ID);   
+            return ikonyMensi.get(ID);
         }
     }
 

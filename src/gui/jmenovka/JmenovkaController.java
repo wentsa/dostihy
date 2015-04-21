@@ -10,45 +10,49 @@ import grafika.RozmeryPlochy;
 import gui.Puntik;
 import hra.Hrac;
 import java.awt.Font;
-import pomocne.Barva;
 import java.io.Serializable;
+import pomocne.Barva;
 
 /**
  *
  * @author wentsa
  */
 public class JmenovkaController implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private final JmenovkaModel model;
     private final JmenovkaView view;
 
     public JmenovkaController(Hrac hrac, Barva barva) {
-        model=new JmenovkaModel(hrac, barva);
+        model = new JmenovkaModel(hrac, barva);
         view = new JmenovkaView(this);
         view.setToolTipText(model.getToolTipText());
     }
-    
+
     public Puntik getPuntik() {
         return model.getPuntik();
     }
-    
+
     public void nactiSouradnice() {
         model.nactiSouradnice();
-        view.setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int)(16*RozmeryPlochy.getScalingFactor())));
+        view.setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
         view.repaint();
     }
-    
+
     public void aktualizujToolTip() {
         view.setToolTipText(model.getToolTipText());
         view.repaint();
     }
+
     public void setPoradi(int poradi) {
         model.setPoradi(poradi);
     }
+
     public void aktualizujFont() {
         view.setForeground(GraphicsHandler.getBarvaFontu());
-    }    
+    }
+
     protected String getJmeno() {
         return model.getJmeno();
     }
@@ -72,9 +76,5 @@ public class JmenovkaController implements Serializable {
     public JmenovkaView getView() {
         return view;
     }
-    
 
-    
-    
-    
 }

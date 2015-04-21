@@ -23,7 +23,7 @@ public class Server extends Thread {
 
     private ServerSocket server = null;
 
-    private ArrayList<ClientThread> clients;
+    private final ArrayList<ClientThread> clients;
 
     private final int port;
 

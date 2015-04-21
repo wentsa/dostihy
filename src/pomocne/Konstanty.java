@@ -5,13 +5,17 @@
  */
 package pomocne;
 
+import java.util.Locale;
+
 /**
  *
  * @author wentsa
  */
 public class Konstanty {
+
     public static int sirkaPlochy;
     public static int vyskaPlochy;
-    
-    public final static int shoutDelay=200;
+
+    public final static int shoutDelay = 200;
+    public static Locale defaultLocale;
 }

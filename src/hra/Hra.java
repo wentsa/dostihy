@@ -5,36 +5,45 @@
  */
 package hra;
 
-import karty.vlastnicke.PrepravaStaje;
-import karty.vlastnicke.Kun;
-import karty.vlastnicke.Trener;
+import audio.SoundHandler;
+import grafika.GraphicsHandler;
+import grafika.RozmeryPlochy;
 import gui.Kostka;
-import pomocne.DataHraci;
-import pomocne.Barva;
 import gui.plocha.HerniPlochaController;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
-import karty.*;
-import karty.finance.*;
-import karty.nahoda.*;
-import kolekce.*;
+import karty.Karta;
+import karty.finance.Finance;
+import karty.finance.FinanceDarek;
+import karty.finance.FinanceKlasika;
+import karty.finance.FinanceRenovace;
+import karty.nahoda.Nahoda;
+import karty.nahoda.NahodaDistanc;
+import karty.nahoda.NahodaPopojdi;
+import karty.nahoda.NahodaZdrzeni;
+import karty.vlastnicke.Kun;
+import karty.vlastnicke.PrepravaStaje;
+import karty.vlastnicke.Trener;
+import karty.vlastnicke.VlastnickaKarta;
+import kolekce.KolekceKaret;
+import kolekce.KolekceKaretImplementace;
+import pomocne.Barva;
+import pomocne.DataHraci;
+import pomocne.Konstanty;
 import pomocne.LoudCall;
 import pomocne.Staj;
-import audio.SoundHandler;
-import grafika.GraphicsHandler;
-import grafika.RozmeryPlochy;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.BorderFactory;
-import karty.vlastnicke.VlastnickaKarta;
 
 /**
  *
@@ -77,6 +86,7 @@ public class Hra implements Serializable {
     }
 
     private Hra() {
+        Konstanty.defaultLocale = new Locale("cs", "CZ");
         this.policka = new ArrayList<>(40);
         this.financeNove = new KolekceKaretImplementace<>(14);
         this.financeStare = new KolekceKaretImplementace<>(14);
@@ -809,12 +819,11 @@ public class Hra implements Serializable {
                         (int) (20 * RozmeryPlochy.getScalingFactor()),
                         (int) (10 * RozmeryPlochy.getScalingFactor()),
                         (int) (20 * RozmeryPlochy.getScalingFactor())));
-            }
-            else {
+            } else {
                 statusBox.setBorder(BorderFactory.createEmptyBorder((int) (17 * RozmeryPlochy.getScalingFactor()),
-                    (int) (20 * RozmeryPlochy.getScalingFactor()),
-                    (int) (10 * RozmeryPlochy.getScalingFactor()),
-                    (int) (20 * RozmeryPlochy.getScalingFactor())));
+                        (int) (20 * RozmeryPlochy.getScalingFactor()),
+                        (int) (10 * RozmeryPlochy.getScalingFactor()),
+                        (int) (20 * RozmeryPlochy.getScalingFactor())));
             }
         } else {
             statusBox.setFont(new Font("Ubuntu", 1, (int) (18 * RozmeryPlochy.getScalingFactor())));
