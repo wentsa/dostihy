@@ -46,11 +46,11 @@ public class KartaGUI extends javax.swing.JPanel {
     public KartaGUI(Karta karta) {
         this.karta = karta;
         if (karta instanceof Kun) {
-            fontPopis = new Font("Ubuntu Mono Regular", Font.PLAIN, (int) (13 * RozmeryPlochy.getScalingFactor()));
-            fontNadpis = new Font("Ubuntu Mono Regular", Font.BOLD, (int) (15 * RozmeryPlochy.getScalingFactor()));
+            fontPopis = new Font(Konstanty.fontName, Font.PLAIN, (int) (13 * RozmeryPlochy.getScalingFactor()));
+            fontNadpis = new Font(Konstanty.fontName, Font.BOLD, (int) (15 * RozmeryPlochy.getScalingFactor()));
         } else {
-            fontPopis = new Font("Ubuntu Mono Regular", Font.PLAIN, (int) (16 * RozmeryPlochy.getScalingFactor()));
-            fontNadpis = new Font("Ubuntu Mono Regular", Font.BOLD, (int) (18 * RozmeryPlochy.getScalingFactor()));
+            fontPopis = new Font(Konstanty.fontName, Font.PLAIN, (int) (16 * RozmeryPlochy.getScalingFactor()));
+            fontNadpis = new Font(Konstanty.fontName, Font.BOLD, (int) (18 * RozmeryPlochy.getScalingFactor()));
         }
         initComponents();
         nactiText();

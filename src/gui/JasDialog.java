@@ -6,24 +6,28 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.swing.JDialog;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class JasDialog extends JDialog implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
     
-    private final Jas jas=new Jas();
+    private final Jas jas = new Jas();
     
     public JasDialog() {
         setModal(true);
-        setTitle("Jas a kontrast");
+        setTitle(bundle.getString("BRIGHTNESS_AND_CONTRAST"));
         setContentPane(jas);
         pack();
         setLocationRelativeTo(null);
         setVisible(false);
     }
-        
+    
 }

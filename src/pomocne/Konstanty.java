@@ -18,4 +18,5 @@ public class Konstanty {
 
     public final static int shoutDelay = 200;
     public static Locale defaultLocale;
+    public static String fontName = "Ubuntu Mono Regular";
 }

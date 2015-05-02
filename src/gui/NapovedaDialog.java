@@ -5,20 +5,24 @@
  */
 package gui;
 
+import java.util.ResourceBundle;
 import javax.swing.JDialog;
+import pomocne.Konstanty;
 
 /**
  *
  * @author chaluto2
  */
 public class NapovedaDialog extends JDialog {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
     
-    private final Napoveda napoveda=new Napoveda();
+    private final Napoveda napoveda = new Napoveda();
     
     public NapovedaDialog() {
         setModal(true);
-        setTitle("Nápověda");
+        setTitle(bundle.getString("HELP"));
         setContentPane(napoveda);
         pack();
         setLocationRelativeTo(null);

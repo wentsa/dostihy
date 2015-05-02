@@ -12,6 +12,7 @@ import hra.Hrac;
 import java.awt.Font;
 import java.io.Serializable;
 import pomocne.Barva;
+import pomocne.Konstanty;
 
 /**
  *
@@ -36,7 +37,7 @@ public class JmenovkaController implements Serializable {
 
     public void nactiSouradnice() {
         model.nactiSouradnice();
-        view.setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
+        view.setFont(new Font(Konstanty.fontName, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
         view.repaint();
     }
 

@@ -32,7 +32,7 @@ public class JmenovkaView extends JLabel implements Serializable {
                 + "</td><td align=right>" + controller.getCastka()
                 + "</td></tr></table></html>");
         setForeground(GraphicsHandler.getBarvaFontu());
-        setFont(new Font("Ubuntu Mono Regular", Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
+        setFont(new Font(Konstanty.fontName, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
     }
 
     @Override

@@ -6,23 +6,25 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.swing.JDialog;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class KonecInfoDialog extends JDialog implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    
     public KonecInfoDialog() {
         setModal(true);
-        setTitle("Konec hry");
+        setTitle(bundle.getString("END_OF_GAME"));
         setContentPane(new KonecInfo());
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
     
 }

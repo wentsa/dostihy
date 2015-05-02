@@ -6,14 +6,18 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class KonecInfo extends javax.swing.JPanel implements Serializable {
-    private static final long serialVersionUID = 1L;
+
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final long serialVersionUID = -561356780201320749L;
 
     /**
      * Creates new form KonecInfo
@@ -41,11 +45,11 @@ public class KonecInfo extends javax.swing.JPanel implements Serializable {
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GRATULUJEME");
+        jLabel1.setText(bundle.getString("CONGRATULATIONS")); // NOI18N
 
-        jLabel2.setText("Hra již skončila, následuje výsledková tabulka");
+        jLabel2.setText(bundle.getString("GAME_IS_OVER")); // NOI18N
 
-        jButton1.setText("OK");
+        jButton1.setText(bundle.getString("OK")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -78,7 +82,6 @@ public class KonecInfo extends javax.swing.JPanel implements Serializable {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

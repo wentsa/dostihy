@@ -18,15 +18,18 @@ import karty.Karta;
  * @author wentsa
  */
 public class KartaGUIDialog extends JDialog {
+
+    private static final long serialVersionUID = 7775305374264322276L;
+
     public KartaGUIDialog(Karta karta) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         setModal(true);
-        KartaGUI gui=new KartaGUI(karta);
+        KartaGUI gui = new KartaGUI(karta);
         setContentPane(gui);
         pack();
-        setShape(new RoundRectangle2D.Double(0, 0, gui.getSirkaObrazku(), gui.getVyskaObrazku(), (int)(30*RozmeryPlochy.getScalingFactor()), (int)(30*RozmeryPlochy.getScalingFactor())));
+        setShape(new RoundRectangle2D.Double(0, 0, gui.getSirkaObrazku(), gui.getVyskaObrazku(), (int) (30 * RozmeryPlochy.getScalingFactor()), (int) (30 * RozmeryPlochy.getScalingFactor())));
         setLocationRelativeTo(null);
         addMouseListener(new MouseListener() {
 
@@ -36,16 +39,20 @@ public class KartaGUIDialog extends JDialog {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {}
+            public void mousePressed(MouseEvent e) {
+            }
 
             @Override
-            public void mouseReleased(MouseEvent e) {}
+            public void mouseReleased(MouseEvent e) {
+            }
 
             @Override
-            public void mouseEntered(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {
+            }
 
             @Override
-            public void mouseExited(MouseEvent e) {}
+            public void mouseExited(MouseEvent e) {
+            }
         });
         setVisible(true);
     }

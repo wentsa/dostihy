@@ -8,6 +8,8 @@ package hra;
 import gui.HlavniOkno;
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.util.Locale;
+import pomocne.Konstanty;
 
 /**
  *
@@ -41,6 +43,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Konstanty.defaultLocale = new Locale("cs", "CZ");
                 new HlavniOkno().setVisible(true);
             }
         });

@@ -15,7 +15,7 @@ import pomocne.Konstanty;
 public class Napoveda extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.defaultLocale);
 
     /**
      * Creates new form Napoveda
@@ -77,7 +77,7 @@ public class Napoveda extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Karty", help);
+        jTabbedPane1.addTab(bundle.getString("CARDS"), help); // NOI18N
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
@@ -104,7 +104,7 @@ public class Napoveda extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Inventář", help1);
+        jTabbedPane1.addTab(bundle.getString("INVENTORY"), help1); // NOI18N
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -131,7 +131,7 @@ public class Napoveda extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Jas", help2);
+        jTabbedPane1.addTab(bundle.getString("BRIGHTNESS"), help2); // NOI18N
 
         jTextArea4.setEditable(false);
         jTextArea4.setColumns(20);
@@ -158,7 +158,7 @@ public class Napoveda extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Sázení", help3);
+        jTabbedPane1.addTab(bundle.getString("BETTING"), help3); // NOI18N
 
         jTextArea5.setEditable(false);
         jTextArea5.setColumns(20);
@@ -185,7 +185,7 @@ public class Napoveda extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Výsledky", help4);
+        jTabbedPane1.addTab(bundle.getString("RESULTS"), help4); // NOI18N
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
