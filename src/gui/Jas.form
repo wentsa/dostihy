@@ -90,17 +90,23 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jasLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Jas"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="languages/gui/GUI_cs_CZ.properties" key="BRIGHTNESS" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="kontrastLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Kontrast"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="languages/gui/GUI_cs_CZ.properties" key="CONTRAST" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="reset">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nastavit p&#x16f;vodn&#xed; hodnoty"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="languages/gui/GUI_cs_CZ.properties" key="RESET" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>

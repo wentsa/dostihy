@@ -5,12 +5,17 @@
  */
 package gui;
 
+import java.util.ResourceBundle;
+import pomocne.Konstanty;
+
 /**
  *
  * @author chaluto2
  */
 public class Napoveda extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form Napoveda
@@ -51,7 +56,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Po kliknutí na pole se zobrazí karta s podrobnostmi o koni/trenérovi atd...");
+        jTextArea1.setText(bundle.getString("HELP_1")); // NOI18N
         jTextArea1.setWrapStyleWord(true);
         text.setViewportView(jTextArea1);
 
@@ -78,7 +83,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Po najetí myši na hráčovo jméno se zobrazí všechny karty, které hráč vlastní a v případě koní i počet dostihů, ve kterých je kůň zařazen");
+        jTextArea2.setText(bundle.getString("HELP_2")); // NOI18N
         jTextArea2.setWrapStyleWord(true);
         text1.setViewportView(jTextArea2);
 
@@ -105,7 +110,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea3.setColumns(20);
         jTextArea3.setLineWrap(true);
         jTextArea3.setRows(5);
-        jTextArea3.setText("V případě potřeby lze v nastavení změnit hodnotu jasu popř. kontrastu");
+        jTextArea3.setText(bundle.getString("HELP_3")); // NOI18N
         jTextArea3.setWrapStyleWord(true);
         text2.setViewportView(jTextArea3);
 
@@ -132,7 +137,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea4.setColumns(20);
         jTextArea4.setLineWrap(true);
         jTextArea4.setRows(5);
-        jTextArea4.setText("Pokud splňujete požadavky nutné pro sázení na koně (viz pravidla), tak po kliknutí pravým tlačítkem na pole koně obsazené soupeřem můžete vsadit libovolnou částku");
+        jTextArea4.setText(bundle.getString("HELP_4")); // NOI18N
         jTextArea4.setWrapStyleWord(true);
         text3.setViewportView(jTextArea4);
 
@@ -159,7 +164,7 @@ public class Napoveda extends javax.swing.JPanel {
         jTextArea5.setColumns(20);
         jTextArea5.setLineWrap(true);
         jTextArea5.setRows(5);
-        jTextArea5.setText("Po ukončení hry se zobrazí výsledková listina včetně maxima držených karet během hry apod.");
+        jTextArea5.setText(bundle.getString("HELP_5")); // NOI18N
         jTextArea5.setWrapStyleWord(true);
         text4.setViewportView(jTextArea5);
 
@@ -184,7 +189,6 @@ public class Napoveda extends javax.swing.JPanel {
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel help;

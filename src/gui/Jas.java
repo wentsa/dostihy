@@ -8,14 +8,18 @@ package gui;
 import grafika.GraphicsHandler;
 import gui.plocha.HerniPlochaController;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.swing.JSlider;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class Jas extends javax.swing.JPanel implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form Jas
@@ -46,7 +50,6 @@ public class Jas extends javax.swing.JPanel implements Serializable {
         jas.setMinimum(-200);
         jas.setPaintTicks(true);
         jas.setValue(0);
-        jas.setBorder(null);
         jas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jasMouseReleased(evt);
@@ -73,11 +76,11 @@ public class Jas extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        jasLabel.setText("Jas");
+        jasLabel.setText(bundle.getString("BRIGHTNESS")); // NOI18N
 
-        kontrastLabel.setText("Kontrast");
+        kontrastLabel.setText(bundle.getString("CONTRAST")); // NOI18N
 
-        reset.setText("Nastavit původní hodnoty");
+        reset.setText(bundle.getString("RESET")); // NOI18N
         reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
@@ -119,16 +122,16 @@ public class Jas extends javax.swing.JPanel implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kontrastStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_kontrastStateChanged
-        
+
     }//GEN-LAST:event_kontrastStateChanged
 
     private void jasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jasStateChanged
-        
+
     }//GEN-LAST:event_jasStateChanged
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        jas.setValue((jas.getMaximum()-jas.getMinimum())/2 + jas.getMinimum());
-        kontrast.setValue((kontrast.getMaximum()-kontrast.getMinimum())/2 + kontrast.getMinimum());
+        jas.setValue((jas.getMaximum() - jas.getMinimum()) / 2 + jas.getMinimum());
+        kontrast.setValue((kontrast.getMaximum() - kontrast.getMinimum()) / 2 + kontrast.getMinimum());
         HerniPlochaController.getInstance().nastavJas(0);
         HerniPlochaController.getInstance().nastavKontrast(0);
         GraphicsHandler.zmenFont();
@@ -147,7 +150,6 @@ public class Jas extends javax.swing.JPanel implements Serializable {
         HerniPlochaController.getInstance().nastavKontrast(value);
         GraphicsHandler.zmenFont();
     }//GEN-LAST:event_kontrastMouseReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider jas;

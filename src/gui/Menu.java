@@ -6,23 +6,24 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class Menu extends javax.swing.JPanel implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    
+    private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form Menu
      */
-    
     public Menu() {
         initComponents();
         sit.setEnabled(false); //ve fazi rozpracovani
@@ -43,7 +44,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
         konec = new javax.swing.JButton();
         sit = new javax.swing.JButton();
 
-        nova_hra.setText("Nová hra");
+        nova_hra.setText(bundle.getString("NEW_GAME")); // NOI18N
         nova_hra.setPreferredSize(new java.awt.Dimension(200, 40));
         nova_hra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +52,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        nacist_hru.setText("Načíst hru");
+        nacist_hru.setText(bundle.getString("LOAD_GAME")); // NOI18N
         nacist_hru.setPreferredSize(new java.awt.Dimension(200, 40));
         nacist_hru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +60,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        pravidla.setText("Pravidla");
+        pravidla.setText(bundle.getString("RULES")); // NOI18N
         pravidla.setPreferredSize(new java.awt.Dimension(200, 40));
         pravidla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +68,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        konec.setText("Ukončit");
+        konec.setText(bundle.getString("EXIT")); // NOI18N
         konec.setMargin(new java.awt.Insets(10, 10, 10, 10));
         konec.setPreferredSize(new java.awt.Dimension(200, 40));
         konec.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,7 @@ public class Menu extends javax.swing.JPanel implements Serializable {
             }
         });
 
-        sit.setText("Hrát po síti");
+        sit.setText(bundle.getString("NETWORK_GAME")); // NOI18N
         sit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sitActionPerformed(evt);
@@ -115,16 +116,16 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pravidlaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pravidlaActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavPravidla();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nastavPravidla();
     }//GEN-LAST:event_pravidlaActionPerformed
 
     private void nova_hraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nova_hraActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavVolbu();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nastavVolbu();
     }//GEN-LAST:event_nova_hraActionPerformed
 
     private void nacist_hruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacist_hruActionPerformed
         try {
-            ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nactiHru();
+            ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nactiHru();
         } catch (InterruptedException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,10 +136,9 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     }//GEN-LAST:event_konecActionPerformed
 
     private void sitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sitActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavMultiplayer();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nastavMultiplayer();
     }//GEN-LAST:event_sitActionPerformed
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton konec;
     private javax.swing.JButton nacist_hru;
@@ -146,5 +146,5 @@ public class Menu extends javax.swing.JPanel implements Serializable {
     private javax.swing.JButton pravidla;
     private javax.swing.JButton sit;
     // End of variables declaration//GEN-END:variables
-    
+
 }

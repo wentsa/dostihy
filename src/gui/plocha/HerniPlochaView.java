@@ -8,14 +8,14 @@ package gui.plocha;
 import grafika.GraphicsHandler;
 import grafika.RozmeryPlochy;
 import gui.HlavniOkno;
-import hra.Hra;
-import hra.Hrac;
 import gui.Kostka;
-import hra.Policko;
-import gui.dostih.DostihyView;
 import gui.ProdejDialog;
 import gui.ProdejGUI;
+import gui.dostih.DostihyView;
 import gui.slider.SliderView;
+import hra.Hra;
+import hra.Hrac;
+import hra.Policko;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -31,7 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import karty.vlastnicke.Kun;
+import pomocne.Konstanty;
 
 /**
  *
@@ -43,6 +44,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     protected static HerniPlochaView getInstance(HerniPlochaController controller) {
         if (instance == null) {
@@ -151,17 +153,17 @@ public class HerniPlochaView extends javax.swing.JPanel {
             vzdat = new javax.swing.JButton();
 
             nacitacSouboru.setAcceptAllFileFilterUsed(false);
-            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
-            nacitacSouboru.setDialogTitle("Načíst");
-            nacitacSouboru.setFileFilter(new FileNameExtensionFilter("Ulozene hry (.das)", "DAS"));
+            nacitacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            nacitacSouboru.setDialogTitle(bundle.getString("LOAD")); // NOI18N
+            nacitacSouboru.setFileFilter(new FileNameExtensionFilter(bundle.getString("SAVED_GAMES"), "DAS"));
             nacitacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     nacitacSouboruActionPerformed(evt);
                 }
             });
 
-            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa/netbeans/bin"));
-            ukladacSouboru.setDialogTitle("Uložit");
+            ukladacSouboru.setCurrentDirectory(new java.io.File("/home/wentsa"));
+            ukladacSouboru.setDialogTitle(bundle.getString("SAVE")); // NOI18N
             ukladacSouboru.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ukladacSouboruActionPerformed(evt);
@@ -181,9 +183,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
             menuBar.setForeground(new java.awt.Color(232, 232, 232));
             menuBar.setMaximumSize(new java.awt.Dimension(175, 19));
 
-            soubor.setText("Soubor");
+            soubor.setText(bundle.getString("FILE")); // NOI18N
 
-            nacist.setText("Načíst hru");
+            nacist.setText(bundle.getString("LOAD_GAME")); // NOI18N
             nacist.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     nacistActionPerformed(evt);
@@ -191,7 +193,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             soubor.add(nacist);
 
-            ulozit.setText("Uložit hru");
+            ulozit.setText(bundle.getString("SAVE_GAME")); // NOI18N
             ulozit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ulozitActionPerformed(evt);
@@ -201,9 +203,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(soubor);
 
-            upravit.setText("Úpravy");
+            upravit.setText(bundle.getString("EDIT")); // NOI18N
 
-            jas.setText("Jas a kontrast");
+            jas.setText(bundle.getString("BRIGHTNESS_AND_CONTRAST")); // NOI18N
             jas.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jasActionPerformed(evt);
@@ -211,7 +213,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             upravit.add(jas);
 
-            rozliseni.setText("Rozlišení");
+            rozliseni.setText(bundle.getString("RESOLUTION")); // NOI18N
             rozliseni.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     rozliseniActionPerformed(evt);
@@ -221,9 +223,9 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
             menuBar.add(upravit);
 
-            napoveda.setText("Nápověda");
+            napoveda.setText(bundle.getString("HELP")); // NOI18N
 
-            help.setText("Nápověda");
+            help.setText(bundle.getString("HELP")); // NOI18N
             help.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     helpActionPerformed(evt);
@@ -231,7 +233,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
             });
             napoveda.add(help);
 
-            pravidla.setText("Pravidla");
+            pravidla.setText(bundle.getString("RULES")); // NOI18N
             pravidla.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     pravidlaActionPerformed(evt);
@@ -444,8 +446,8 @@ public class HerniPlochaView extends javax.swing.JPanel {
     }//GEN-LAST:event_prodatActionPerformed
 
     private void vzdatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vzdatActionPerformed
-        Object[] volby = {"Ano", "Ne"};
-        int odpoved = JOptionPane.showOptionDialog(this, "Opravdu se chcete vzdát?", "Vzdát se", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
+        Object[] volby = {bundle.getString("YES"), bundle.getString("NO")};
+        int odpoved = JOptionPane.showOptionDialog(this, bundle.getString("GIVE_UP_CHECK"), bundle.getString("GIVE_UP"), JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, null, volby, volby[0]);
         if (odpoved == JOptionPane.YES_OPTION) {
             Hra.getInstance().getAktualniHrac().setAktivni(false);
         }
@@ -562,16 +564,16 @@ public class HerniPlochaView extends javax.swing.JPanel {
         for (Policko p : Hra.getInstance().getPolicka()) {
             p.aktualizuj();
         }
-        
+
         prava.setPreferredSize(RozmeryPlochy.prava());
         plocha.setPreferredSize(RozmeryPlochy.plocha());
         stred.setPreferredSize(RozmeryPlochy.stred());
         hlavni_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska()));
         cela_plocha.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska()));
-        
+
         jPanel1.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska()));
         cely_spodek.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getStatusVyska()));
-        
+
         leva.setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka(), RozmeryPlochy.getStatusVyska()));
         statusB.setPreferredSize(RozmeryPlochy.status());
         jScrollPane1.setPreferredSize(RozmeryPlochy.status());
@@ -581,30 +583,30 @@ public class HerniPlochaView extends javax.swing.JPanel {
         prodat.setPreferredSize(RozmeryPlochy.prodat());
         ukoncit.setPreferredSize(RozmeryPlochy.ukoncit());
         vzdat.setPreferredSize(RozmeryPlochy.vzdat());
-        
+
         prodat.setIcon(GraphicsHandler.getIcon("prodat"));
         ukoncit.setDisabledIcon(GraphicsHandler.getIcon("ukoncit"));
         ukoncit.setIcon(GraphicsHandler.getIcon("ukoncit_aktiv"));
         vzdat.setIcon(GraphicsHandler.getIcon("vzdat"));
-        
+
         leva.setRightComponent(stredD);
-        
+
         setPreferredSize(new Dimension(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka() + RozmeryPlochy.getPravaSirka(), RozmeryPlochy.getPlochaVyska() + RozmeryPlochy.getStatusVyska() + 19));
 
         cela_plocha.setDividerLocation(RozmeryPlochy.getPlochaVyska());
-        cely_spodek.setDividerLocation(RozmeryPlochy.getStatusSirka()+RozmeryPlochy.getStredDolniSirka());
+        cely_spodek.setDividerLocation(RozmeryPlochy.getStatusSirka() + RozmeryPlochy.getStredDolniSirka());
         leva.setDividerLocation(RozmeryPlochy.getStatusSirka());
         hlavni_plocha.remove(stred);
         hlavni_plocha.remove(prava);
         hlavni_plocha.add(stred, new org.netbeans.lib.awtextra.AbsoluteConstraints(RozmeryPlochy.getPlochaSirka(), 0, -1, -1));
         hlavni_plocha.add(prava, new org.netbeans.lib.awtextra.AbsoluteConstraints(RozmeryPlochy.getPlochaSirka() + RozmeryPlochy.getStredSirka(), 0, -1, -1));
-        
+
         List<Component> list = getAllComponents(this);
         for (Component c : list) {
             c.revalidate();
             c.repaint();
         }
-        
+
         GraphicsHandler.rescale();
 
         SwingUtilities.getWindowAncestor(this).pack();

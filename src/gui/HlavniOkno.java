@@ -11,12 +11,14 @@ import gui.plocha.HerniPlochaView;
 import hra.Hra;
 import hra.Policko;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import networking.NetCommunication;
 import pomocne.DataHraci;
+import pomocne.Konstanty;
 import pomocne.ListenerTask;
 import pomocne.MyCardLayout;
 
@@ -27,6 +29,7 @@ import pomocne.MyCardLayout;
 public class HlavniOkno extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form HlavniOkno
@@ -105,10 +108,10 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
 
     public void nastavMultiplayer() {
-        String[] volby = {"Založit hru", "Připojit se"};
+        String[] volby = {bundle.getString("CREATE_GAME"), bundle.getString("JOIN_GAME")};
         int odpoved = JOptionPane.showOptionDialog(null,
-                "Chcete hru založit nebo se připojit k již existující?",
-                "Hra více hráčů",
+                bundle.getString("CREATE_JOIN_OPTION"),
+                bundle.getString("MULTIPLAYER_GAME"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
@@ -167,7 +170,7 @@ public class HlavniOkno extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dostihy & Sázky");
+        setTitle(bundle.getString("TITLE")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

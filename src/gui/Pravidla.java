@@ -6,30 +6,36 @@
 package gui;
 
 import java.awt.Dimension;
+import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class Pravidla extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.defaultLocale);
 
     /**
      * Creates new form Pravidla
+     *
      * @param sTlacitkem
      */
     public Pravidla(boolean sTlacitkem) {
         initComponents();
-        if(!sTlacitkem) {
+        if (!sTlacitkem) {
             remove(jButton1);
         }
     }
-    
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(800, 600);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +63,7 @@ public class Pravidla extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Zpět");
+        jButton1.setText(bundle.getString("BACK")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -67,9 +73,8 @@ public class Pravidla extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavMenu();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nastavMenu();
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

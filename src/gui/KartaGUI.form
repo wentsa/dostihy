@@ -37,7 +37,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="popis" max="32767" attributes="0"/>
-                  <Component id="nadpis" pref="290" max="32767" attributes="0"/>
+                  <Component id="nadpis" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -49,7 +49,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="nadpis" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="popis" pref="308" max="32767" attributes="0"/>
+              <Component id="popis" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
