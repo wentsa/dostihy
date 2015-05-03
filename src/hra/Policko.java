@@ -59,7 +59,7 @@ public class Policko extends JButton implements Serializable {
         this.obsazFigurka = new ObsazovaciFigurkaController(Barva.RED, cislo - 1, 0);
         if (karta instanceof Kun) {
             popup = new JPopupMenu();
-            popup.add(new AbstractAction(bundle.getString("BET_ON_HORSE ")) {
+            popup.add(new AbstractAction(bundle.getString("BET_ON_HORSE")) {
                 private static final long serialVersionUID = 1L;
 
                 @Override

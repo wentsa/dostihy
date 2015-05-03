@@ -17,6 +17,7 @@ public class Konstanty {
     public static int vyskaPlochy;
 
     public final static int SHOUT_DELAY = 200;
+
     public static Locale DEFAULT_LOCALE;
     public static String FONT_NAME = "Ubuntu Mono Regular";
 
