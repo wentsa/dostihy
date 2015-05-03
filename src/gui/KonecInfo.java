@@ -16,7 +16,7 @@ import pomocne.Konstanty;
  */
 public class KonecInfo extends javax.swing.JPanel implements Serializable {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     private static final long serialVersionUID = -561356780201320749L;
 
     /**

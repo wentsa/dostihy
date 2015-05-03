@@ -15,7 +15,7 @@ import pomocne.Konstanty;
 public class Napoveda extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.DEFAULT_LOCALE);
 
     /**
      * Creates new form Napoveda

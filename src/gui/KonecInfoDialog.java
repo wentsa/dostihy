@@ -16,7 +16,7 @@ import pomocne.Konstanty;
  */
 public class KonecInfoDialog extends JDialog implements Serializable {
     
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     
     public KonecInfoDialog() {
         setModal(true);

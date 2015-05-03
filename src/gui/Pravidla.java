@@ -17,7 +17,7 @@ import pomocne.Konstanty;
 public class Pravidla extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.DEFAULT_LOCALE);
 
     /**
      * Creates new form Pravidla

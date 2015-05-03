@@ -41,7 +41,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
      * Creates new form ProdejGUI
      */
     private final Hrac hrac;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     private final Set<VlastnickaKarta> karty;
     private String[] hracovyKarty;
     private Map<String, Kun> hracovyDostihy;

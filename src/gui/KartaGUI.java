@@ -29,9 +29,9 @@ import pomocne.Konstanty;
 public class KartaGUI extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 8705997785882573312L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Cards", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Cards", Konstanty.DEFAULT_LOCALE);
 
-    private final Image pozadi = GraphicsHandler.get("karta");
+    private final Image pozadi = GraphicsHandler.get(Konstanty.Graphics.Icons.CARD);
     private final Font fontPopis;
     private final Font fontNadpis;
     private final Karta karta;
@@ -46,11 +46,11 @@ public class KartaGUI extends javax.swing.JPanel {
     public KartaGUI(Karta karta) {
         this.karta = karta;
         if (karta instanceof Kun) {
-            fontPopis = new Font(Konstanty.fontName, Font.PLAIN, (int) (13 * RozmeryPlochy.getScalingFactor()));
-            fontNadpis = new Font(Konstanty.fontName, Font.BOLD, (int) (15 * RozmeryPlochy.getScalingFactor()));
+            fontPopis = new Font(Konstanty.FONT_NAME, Font.PLAIN, (int) (13 * RozmeryPlochy.getScalingFactor()));
+            fontNadpis = new Font(Konstanty.FONT_NAME, Font.BOLD, (int) (15 * RozmeryPlochy.getScalingFactor()));
         } else {
-            fontPopis = new Font(Konstanty.fontName, Font.PLAIN, (int) (16 * RozmeryPlochy.getScalingFactor()));
-            fontNadpis = new Font(Konstanty.fontName, Font.BOLD, (int) (18 * RozmeryPlochy.getScalingFactor()));
+            fontPopis = new Font(Konstanty.FONT_NAME, Font.PLAIN, (int) (16 * RozmeryPlochy.getScalingFactor()));
+            fontNadpis = new Font(Konstanty.FONT_NAME, Font.BOLD, (int) (18 * RozmeryPlochy.getScalingFactor()));
         }
         initComponents();
         nactiText();

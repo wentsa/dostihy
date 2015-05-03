@@ -53,23 +53,24 @@ public class GraphicsHandler {
         pixelyMensi = new TreeMap<>();
         ikonyMensi = new TreeMap<>();
 
-        nacti("plocha", "jpg", null);
-        nacti("stred", "jpg", null);
-        nacti("prava", "jpg", null);
-        nacti("prava_aktiv", "jpg", null);
-        nacti("spodek_lista", "jpg", null);
-        nacti("status", "jpg", null);
-        nactiIkonu("slider", "png", null);
-        nactiIkonu("ukoncit", "jpg", null);
-        nactiIkonu("ukoncit_aktiv", "jpg", null);
-        nactiIkonu("prodat", "jpg", null);
-        nactiIkonu("vzdat", "jpg", null);
-        nactiIkonu("karta", "jpg", null);
+        nacti(Konstanty.Graphics.MAIN_BOARD, "jpg", null);
+        nacti(Konstanty.Graphics.MIDDLE_BOARD, "jpg", null);
+        nacti(Konstanty.Graphics.RIGHT_BOARD_INACTIVE, "jpg", null);
+        nacti(Konstanty.Graphics.RIGHT_BOARD_ACTIVE, "jpg", null);
+        nacti(Konstanty.Graphics.BOTTOM_BAR, "jpg", null);
+        nacti(Konstanty.Graphics.STATUS_BAR, "jpg", null);
+
+        nactiIkonu(Konstanty.Graphics.Icons.SLIDER, "png", null);
+        nactiIkonu(Konstanty.Graphics.Icons.END_ROUND_BUTTON_INACTIVE, "jpg", null);
+        nactiIkonu(Konstanty.Graphics.Icons.END_ROUND_BUTTON_ACTIVE, "jpg", null);
+        nactiIkonu(Konstanty.Graphics.Icons.SELL_BUTTON, "jpg", null);
+        nactiIkonu(Konstanty.Graphics.Icons.GIVE_UP_BUTTON, "jpg", null);
+        nactiIkonu(Konstanty.Graphics.Icons.CARD, "jpg", null);
 
         nactiARGB();
 
-        Konstanty.sirkaPlochy = obrazky.get("plocha").getWidth() - 3;
-        Konstanty.vyskaPlochy = obrazky.get("plocha").getHeight();
+        Konstanty.sirkaPlochy = obrazky.get(Konstanty.Graphics.MAIN_BOARD).getWidth() - 3;
+        Konstanty.vyskaPlochy = obrazky.get(Konstanty.Graphics.MAIN_BOARD).getHeight();
     }
 
     /**

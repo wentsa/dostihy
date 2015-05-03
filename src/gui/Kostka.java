@@ -27,7 +27,7 @@ import pomocne.Konstanty;
 public final class Kostka extends JButton implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.DEFAULT_LOCALE);
 
     private int kolik;
     private boolean hozeno;
@@ -49,7 +49,7 @@ public final class Kostka extends JButton implements Serializable {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundHandler.play("diceroll");
+                SoundHandler.play(Konstanty.Sound.DICEROLL);
                 kolik += (random.nextInt(6) + 1);
                 hozeno = true;
             }

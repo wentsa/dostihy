@@ -24,7 +24,8 @@ import pomocne.Konstanty;
 public class VolbaHracu extends javax.swing.JPanel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
+    private static final ResourceBundle bundleColors = ResourceBundle.getBundle("languages/complementary/Complementary", Konstanty.DEFAULT_LOCALE);
 
     private final DataHraci data = new DataHraci();
 
@@ -97,7 +98,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel1.add(jTextField1);
 
         jComboBox2.setMaximumRowCount(9);
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox2.setSelectedIndex(0);
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +117,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel2.add(jTextField2);
 
         jComboBox3.setMaximumRowCount(9);
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox3.setSelectedIndex(1);
         jPanel2.add(jComboBox3);
 
@@ -124,7 +125,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel3.add(jTextField3);
 
         jComboBox4.setMaximumRowCount(9);
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox4.setSelectedIndex(2);
         jPanel3.add(jComboBox4);
 
@@ -132,7 +133,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel4.add(jTextField4);
 
         jComboBox5.setMaximumRowCount(9);
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox5.setSelectedIndex(3);
         jPanel4.add(jComboBox5);
 
@@ -140,7 +141,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel5.add(jTextField5);
 
         jComboBox6.setMaximumRowCount(9);
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox6.setSelectedIndex(4);
         jPanel5.add(jComboBox6);
 
@@ -148,7 +149,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel6.add(jTextField6);
 
         jComboBox7.setMaximumRowCount(9);
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox7.setSelectedIndex(5);
         jPanel6.add(jComboBox7);
 
@@ -156,7 +157,7 @@ public class VolbaHracu extends javax.swing.JPanel implements Serializable {
         jPanel7.add(jTextField7);
 
         jComboBox8.setMaximumRowCount(9);
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString("WHITE"),bundle.getString("BLACK"),bundle.getString("RED"),bundle.getString("PURPLE"),bundle.getString("BLUE"),bundle.getString("ORANGE"),bundle.getString("CYAN"),bundle.getString("GREEN"),bundle.getString("YELLOW") }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString("WHITE"),bundleColors.getString("BLACK"),bundleColors.getString("RED"),bundleColors.getString("PURPLE"),bundleColors.getString("BLUE"),bundleColors.getString("ORANGE"),bundleColors.getString("CYAN"),bundleColors.getString("GREEN"),bundleColors.getString("YELLOW") }));
         jComboBox8.setSelectedIndex(6);
         jPanel7.add(jComboBox8);
 

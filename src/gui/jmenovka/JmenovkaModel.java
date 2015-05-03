@@ -22,7 +22,7 @@ import pomocne.Konstanty;
 public class JmenovkaModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     private final Hrac hrac;
     private int souradniceY;
     private final Puntik puntik;

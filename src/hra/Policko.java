@@ -8,13 +8,14 @@ package hra;
 import grafika.RozmeryPlochy;
 import gui.figurka.obsazovaci.ObsazovaciFigurkaController;
 import gui.plocha.HerniPlochaView;
-import pomocne.Barva;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -24,6 +25,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.Barva;
+import pomocne.Konstanty;
 
 /**
  *
@@ -32,6 +35,7 @@ import karty.vlastnicke.VlastnickaKarta;
 public class Policko extends JButton implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Game", Konstanty.DEFAULT_LOCALE);
 
     private final int cislo;
     private final String nazev;
@@ -55,7 +59,7 @@ public class Policko extends JButton implements Serializable {
         this.obsazFigurka = new ObsazovaciFigurkaController(Barva.RED, cislo - 1, 0);
         if (karta instanceof Kun) {
             popup = new JPopupMenu();
-            popup.add(new AbstractAction(" Vsadit na koně ") {
+            popup.add(new AbstractAction(bundle.getString("BET_ON_HORSE ")) {
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -154,21 +158,21 @@ public class Policko extends JButton implements Serializable {
     }
 
     public int souradniceX() {
-        return (int) ((int)(255 * RozmeryPlochy.getScalingFactor())
-                * Math.cos(Math.toRadians((getPozice() + 5) * 9 + 4.5))) 
-                +(int)(330* RozmeryPlochy.getScalingFactor());
+        return (int) ((int) (255 * RozmeryPlochy.getScalingFactor())
+                * Math.cos(Math.toRadians((getPozice() + 5) * 9 + 4.5)))
+                + (int) (330 * RozmeryPlochy.getScalingFactor());
     }
 
     public int souradniceY() {
-        return (int) ((int)(255 * RozmeryPlochy.getScalingFactor())
-                * Math.sin(Math.toRadians((getPozice() + 5) * 9 + 4.5))) 
-                +(int)(330* RozmeryPlochy.getScalingFactor());
+        return (int) ((int) (255 * RozmeryPlochy.getScalingFactor())
+                * Math.sin(Math.toRadians((getPozice() + 5) * 9 + 4.5)))
+                + (int) (330 * RozmeryPlochy.getScalingFactor());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paintComponent(g);
-        setBounds(souradniceX(), souradniceY(), (int)(40* RozmeryPlochy.getScalingFactor()), (int)(40* RozmeryPlochy.getScalingFactor()));
+        setBounds(souradniceX(), souradniceY(), (int) (40 * RozmeryPlochy.getScalingFactor()), (int) (40 * RozmeryPlochy.getScalingFactor()));
     }
 
     /**
@@ -214,18 +218,18 @@ public class Policko extends JButton implements Serializable {
     }
 
     private void vsadit() {
-        String castka = JOptionPane.showInputDialog(this, "Sázka na " + karta.getJmeno() + ":");
+        String castka = JOptionPane.showInputDialog(this, MessageFormat.format(bundle.getString("BET_ON"), new Object[]{karta.getJmeno()}));
         if (castka == null) {
             return;
         }
         try {
             int kolik = Integer.parseInt(castka);
             if (kolik > Hra.getInstance().getAktualniHrac().getRozpocet()) {
-                JOptionPane.showMessageDialog(this, "Nemáte dostatek financí.");
+                JOptionPane.showMessageDialog(this, bundle.getString("NOT_ENOUGH_MONEY"));
                 return;
             }
             if (kolik <= 0) {
-                JOptionPane.showMessageDialog(this, "Minimální možná sázka je 1,-.");
+                JOptionPane.showMessageDialog(this, MessageFormat.format(bundle.getString("MINIMUM_BET_IS"), new Object[]{1}));
                 return;
             }
             if (karta instanceof Kun) {
@@ -233,7 +237,7 @@ public class Policko extends JButton implements Serializable {
                 Hra.getInstance().getAktualniHrac().pricti(-kolik);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Zadejte pouze číslo reprezentující částku.");
+            JOptionPane.showMessageDialog(this, bundle.getString("BAD_BET_NUMBER_FORMAT"));
         }
     }
 

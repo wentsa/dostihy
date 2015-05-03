@@ -36,7 +36,7 @@ public abstract class LoudCall<T, S> implements Callable<T>, Serializable {
         try {
             pcs.firePropertyChange("shout", this.shout,
                     this.shout = s);
-            Thread.sleep(Konstanty.shoutDelay);
+            Thread.sleep(Konstanty.SHOUT_DELAY);
         } catch (InterruptedException ex) {
             Logger.getLogger(LoudCall.class.getName()).log(Level.SEVERE, null, ex);
         }

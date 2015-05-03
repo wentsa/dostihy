@@ -8,22 +8,28 @@ package gui.slider;
 import grafika.GraphicsHandler;
 import grafika.RozmeryPlochy;
 import javax.swing.ImageIcon;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class SliderModel {
+
     private int souradniceY;
+
     protected SliderModel() {
-        souradniceY=(int)((45-23)*RozmeryPlochy.getScalingFactor());
+        souradniceY = (int) ((45 - 23) * RozmeryPlochy.getScalingFactor());
     }
+
     protected ImageIcon getObrazek() {
-        return GraphicsHandler.getIcon("slider");
+        return GraphicsHandler.getIcon(Konstanty.Graphics.Icons.SLIDER);
     }
+
     protected void setSouradniceY(int y) {
-        this.souradniceY=y-(int)(23*RozmeryPlochy.getScalingFactor());
+        this.souradniceY = y - (int) (23 * RozmeryPlochy.getScalingFactor());
     }
+
     protected int getSouradniceY() {
         return souradniceY;
     }

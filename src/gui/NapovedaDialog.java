@@ -16,7 +16,7 @@ import pomocne.Konstanty;
 public class NapovedaDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     
     private final Napoveda napoveda = new Napoveda();
     

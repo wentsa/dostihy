@@ -44,7 +44,7 @@ public class HerniPlochaView extends javax.swing.JPanel {
 
     private final HerniPlochaController controller;
     private static HerniPlochaView instance = null;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
 
     protected static HerniPlochaView getInstance(HerniPlochaController controller) {
         if (instance == null) {
@@ -584,10 +584,10 @@ public class HerniPlochaView extends javax.swing.JPanel {
         ukoncit.setPreferredSize(RozmeryPlochy.ukoncit());
         vzdat.setPreferredSize(RozmeryPlochy.vzdat());
 
-        prodat.setIcon(GraphicsHandler.getIcon("prodat"));
-        ukoncit.setDisabledIcon(GraphicsHandler.getIcon("ukoncit"));
-        ukoncit.setIcon(GraphicsHandler.getIcon("ukoncit_aktiv"));
-        vzdat.setIcon(GraphicsHandler.getIcon("vzdat"));
+        prodat.setIcon(GraphicsHandler.getIcon(Konstanty.Graphics.Icons.SELL_BUTTON));
+        ukoncit.setDisabledIcon(GraphicsHandler.getIcon(Konstanty.Graphics.Icons.END_ROUND_BUTTON_INACTIVE));
+        ukoncit.setIcon(GraphicsHandler.getIcon(Konstanty.Graphics.Icons.END_ROUND_BUTTON_ACTIVE));
+        vzdat.setIcon(GraphicsHandler.getIcon(Konstanty.Graphics.Icons.GIVE_UP_BUTTON));
 
         leva.setRightComponent(stredD);
 

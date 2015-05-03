@@ -29,7 +29,7 @@ import pomocne.MyCardLayout;
 public class HlavniOkno extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
 
     /**
      * Creates new form HlavniOkno
@@ -245,38 +245,33 @@ public class HlavniOkno extends javax.swing.JFrame {
             @Override
             protected void process(List<String> chunks) {
                 String chunk = chunks.get(chunks.size() - 1);
-                switch (chunk) {
-                    case "zapni":
-                        HerniPlochaController.getInstance().zapniTlacitko();
-                        break;
-                    case "vypni":
-                        HerniPlochaController.getInstance().vypniTlacitko();
-                        break;
-                    case "aktualizujSlider":
-                        HerniPlochaController.getInstance().aktualizujSlider();
-                        break;
-                    default: {
-                        if (chunk.startsWith("p-")) {
-                            int cislo = Integer.parseInt(chunk.substring(2));
-                            for (Policko p : Hra.getInstance().getPolicka()) {
-                                if (p.getPozice() == cislo) {
-                                    p.setObsazeno(true);
-                                    break;
-                                }
+
+                if (Konstanty.Shout.ENABLE_BUTTON.equals(chunk)) {
+                    HerniPlochaController.getInstance().zapniTlacitko();
+                } else if (Konstanty.Shout.DISABLE_BUTTON.equals(chunk)) {
+                    HerniPlochaController.getInstance().vypniTlacitko();
+                } else if (Konstanty.Shout.SLIDER_ACTUALIZATION.equals(chunk)) {
+                    HerniPlochaController.getInstance().aktualizujSlider();
+                } else {
+                    if (chunk.startsWith(Konstanty.Shout.MARK_FIELD_PREFIX)) {
+                        int cislo = Integer.parseInt(chunk.substring(Konstanty.Shout.MARK_FIELD_PREFIX.length()));
+                        for (Policko p : Hra.getInstance().getPolicka()) {
+                            if (p.getPozice() == cislo) {
+                                p.setObsazeno(true);
+                                break;
                             }
-                        } else {
-                            chunk = chunk.substring(3);
-                            Hra.getInstance().nastavTextStatusBoxu(chunk);
-                            Hra.getInstance().getStatusBox().repaint();
                         }
+                    } else if (chunk.startsWith(Konstanty.Shout.MESSAGE_PREFIX)) {
+                        chunk = chunk.substring(Konstanty.Shout.MESSAGE_PREFIX.length());
+                        Hra.getInstance().nastavTextStatusBoxu(chunk);
+                        Hra.getInstance().getStatusBox().repaint();
                     }
-                    break;
                 }
             }
 
             @Override
             protected void done() {
-                SoundHandler.play("end");
+                SoundHandler.play(Konstanty.Sound.END);
                 new KonecInfoDialog();
                 HlavniOkno.this.nastavVysledky();
             }

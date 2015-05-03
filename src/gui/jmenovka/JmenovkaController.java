@@ -37,7 +37,7 @@ public class JmenovkaController implements Serializable {
 
     public void nactiSouradnice() {
         model.nactiSouradnice();
-        view.setFont(new Font(Konstanty.fontName, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
+        view.setFont(new Font(Konstanty.FONT_NAME, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
         view.repaint();
     }
 

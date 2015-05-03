@@ -21,7 +21,7 @@ import pomocne.Konstanty;
 public class JmenovkaView extends JLabel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     private final JmenovkaController controller;
 
     protected JmenovkaView(JmenovkaController controller) {
@@ -32,7 +32,7 @@ public class JmenovkaView extends JLabel implements Serializable {
                 + "</td><td align=right>" + controller.getCastka()
                 + "</td></tr></table></html>");
         setForeground(GraphicsHandler.getBarvaFontu());
-        setFont(new Font(Konstanty.fontName, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
+        setFont(new Font(Konstanty.FONT_NAME, Font.BOLD, (int) (16 * RozmeryPlochy.getScalingFactor())));
     }
 
     @Override

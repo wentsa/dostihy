@@ -17,7 +17,7 @@ import pomocne.Konstanty;
  */
 public class Rozliseni extends javax.swing.JPanel {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
 
     /**
      * Creates new form Rozliseni

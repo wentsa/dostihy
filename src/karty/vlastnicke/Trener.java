@@ -6,28 +6,28 @@
 package karty.vlastnicke;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class Trener extends VlastnickaKarta implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Game", Konstanty.DEFAULT_LOCALE);
+
     final private int cislo;
 
     public Trener(int pozice, int cislo) {
-        super(pozice, 4000, "Trenér " + cislo);
+        super(pozice, 4000, bundle.getString("TRAINER") + " " + cislo);
         this.cislo = cislo;
     }
-    
-    
-
-    
 
     @Override
     public String toString() {
-        return "Trener " + getCislo();
+        return bundle.getString("TRAINER") + " " + getCislo();
     }
 
     @Override
@@ -48,7 +48,6 @@ public class Trener extends VlastnickaKarta implements Serializable {
         final Trener other = (Trener) obj;
         return this.cislo == other.getCislo();
     }
-    
 
     /**
      * @return the cislo
@@ -56,8 +55,5 @@ public class Trener extends VlastnickaKarta implements Serializable {
     public int getCislo() {
         return cislo;
     }
-    
-    
-    
-}
 
+}

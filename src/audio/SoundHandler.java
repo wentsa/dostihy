@@ -15,6 +15,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import pomocne.Konstanty;
 
 /**
  *
@@ -25,18 +26,18 @@ public class SoundHandler {
     private static Map<String, Clip> klipy;
 
     public static void inicializovat() {
-        klipy=new HashMap<>();
+        klipy = new HashMap<>();
         try {
-            nactiClip("diceroll");
-            nactiClip("horse");
-            nactiClip("end");
-            nactiClip("stables");
-            nactiClip("transport");
+            nactiClip(Konstanty.Sound.DICEROLL);
+            nactiClip(Konstanty.Sound.HORSE);
+            nactiClip(Konstanty.Sound.END);
+            nactiClip(Konstanty.Sound.STABLES);
+            nactiClip(Konstanty.Sound.TRANSPORT);
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
             Logger.getLogger(SoundHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private static void nactiClip(String jmeno) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         Clip clip;
         clip = AudioSystem.getClip();

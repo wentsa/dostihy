@@ -17,7 +17,7 @@ import pomocne.Konstanty;
 public class JasDialog extends JDialog implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.DEFAULT_LOCALE);
     
     private final Jas jas = new Jas();
     

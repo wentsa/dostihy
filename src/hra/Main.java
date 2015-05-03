@@ -43,7 +43,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Konstanty.defaultLocale = new Locale("cs", "CZ");
+                Konstanty.DEFAULT_LOCALE = new Locale("cs", "CZ");
                 new HlavniOkno().setVisible(true);
             }
         });

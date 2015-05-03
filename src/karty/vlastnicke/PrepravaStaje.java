@@ -7,19 +7,23 @@ package karty.vlastnicke;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class PrepravaStaje extends VlastnickaKarta implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Cards", Konstanty.DEFAULT_LOCALE);
+
     private final String popis;
 
     public PrepravaStaje(int pozice, int porizovaciCena, String jmeno) {
-        super(pozice, porizovaciCena,jmeno);
-        this.popis="Hráč, který se zastavil na poli Stáje nebo Přeprava, které patří některému ze soupeřů, zaplatí majiteli 80tinásobek hodu kostkou. Jestliže majitel vlastní obě karty, cena se zvyšuje na 200násobek.";
+        super(pozice, porizovaciCena, jmeno);
+        this.popis = bundle.getString("TRANSPORT_STABLE_INFO");
     }
 
     /**
@@ -67,7 +71,5 @@ public class PrepravaStaje extends VlastnickaKarta implements Serializable {
         }
         return true;
     }
-    
-    
-    
+
 }

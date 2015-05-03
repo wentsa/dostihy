@@ -140,7 +140,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="0" type="code"/>
@@ -165,7 +165,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="1" type="code"/>
@@ -184,7 +184,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="2" type="code"/>
@@ -203,7 +203,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="3" type="code"/>
@@ -222,7 +222,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="4" type="code"/>
@@ -241,7 +241,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="5" type="code"/>
@@ -260,7 +260,7 @@
           <Properties>
             <Property name="maximumRowCount" type="int" value="9"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundle.getString(&quot;WHITE&quot;),bundle.getString(&quot;BLACK&quot;),bundle.getString(&quot;RED&quot;),bundle.getString(&quot;PURPLE&quot;),bundle.getString(&quot;BLUE&quot;),bundle.getString(&quot;ORANGE&quot;),bundle.getString(&quot;CYAN&quot;),bundle.getString(&quot;GREEN&quot;),bundle.getString(&quot;YELLOW&quot;) })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { bundleColors.getString(&quot;WHITE&quot;),bundleColors.getString(&quot;BLACK&quot;),bundleColors.getString(&quot;RED&quot;),bundleColors.getString(&quot;PURPLE&quot;),bundleColors.getString(&quot;BLUE&quot;),bundleColors.getString(&quot;ORANGE&quot;),bundleColors.getString(&quot;CYAN&quot;),bundleColors.getString(&quot;GREEN&quot;),bundleColors.getString(&quot;YELLOW&quot;) })" type="code"/>
             </Property>
             <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="6" type="code"/>
