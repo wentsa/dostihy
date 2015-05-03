@@ -10,17 +10,19 @@ import hra.Hrac;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.RowSorter;
+import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class Vysledky extends javax.swing.JPanel implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form Vysledky
@@ -57,7 +59,7 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Pořadí", "Jméno", "Cas ve hře", "Max hotovost", "Max karet"
+                bundle.getString("POSITION"), bundle.getString("NAME"), bundle.getString("TIME_SPENT_PLAYING"),bundle.getString("MAX_CASH") , bundle.getString("MAX_CARDS")
             }
         ) {
             Class[] types = new Class [] {
@@ -86,11 +88,11 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
         }
 
         vysledky.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        vysledky.setText("Výsledky");
+        vysledky.setText(bundle.getString("RESULTS")); // NOI18N
 
-        celkCas.setText("Celkový čas hry:");
+        celkCas.setText(bundle.getString("GAME_TIME")); // NOI18N
 
-        jButton1.setText("Nová hra");
+        jButton1.setText(bundle.getString("NEW_GAME")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -135,10 +137,9 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).reset();
-        ((HlavniOkno)SwingUtilities.getWindowAncestor(this)).nastavMenu();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).reset();
+        ((HlavniOkno) SwingUtilities.getWindowAncestor(this)).nastavMenu();
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cas;
@@ -150,18 +151,18 @@ public class Vysledky extends javax.swing.JPanel implements Serializable {
     // End of variables declaration//GEN-END:variables
 
     public void vyplnTabulku(List<Hrac> vysledky) {
-        ((DefaultTableModel)tabulka.getModel()).setRowCount(vysledky.size());
+        ((DefaultTableModel) tabulka.getModel()).setRowCount(vysledky.size());
         cas.setText(Hra.getInstance().getCelkovyCas());
-        int i=0;
+        int i = 0;
         Collections.reverse(vysledky);
         for (Hrac h : vysledky) {
-            tabulka.setValueAt(i+1, i, 0);
+            tabulka.setValueAt(i + 1, i, 0);
             tabulka.setValueAt(h.getJmeno(), i, 1);
             tabulka.setValueAt(h.getCas(), i, 2);
             tabulka.setValueAt(h.getMaxHotovost(), i, 3);
             tabulka.setValueAt(h.getMaxKaret(), i, 4);
             i++;
         }
-        
+
     }
 }

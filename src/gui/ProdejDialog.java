@@ -6,22 +6,26 @@
 package gui;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.swing.JDialog;
+import pomocne.Konstanty;
 
 /**
  *
  * @author wentsa
  */
 public class ProdejDialog extends JDialog implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     public ProdejDialog(ProdejGUI prodej) {
         setModal(true);
-        setTitle("Prodej");
+        setTitle(bundle.getString("SELLING"));
         setContentPane(prodej);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
+
 }

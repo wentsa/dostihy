@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import javax.swing.JList;
@@ -25,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import karty.vlastnicke.Kun;
 import karty.vlastnicke.VlastnickaKarta;
+import pomocne.Konstanty;
 import pomocne.Staj;
 
 /**
@@ -32,12 +34,14 @@ import pomocne.Staj;
  * @author wentsa
  */
 public class ProdejGUI extends javax.swing.JPanel implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form ProdejGUI
      */
     private final Hrac hrac;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
     private final Set<VlastnickaKarta> karty;
     private String[] hracovyKarty;
     private Map<String, Kun> hracovyDostihy;
@@ -71,7 +75,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         nactiData();
         vypis.setContentType("text/html");
 
-        kombo.addItem(new ComboItem("--banka--"));
+        kombo.addItem(new ComboItem(bundle.getString("BANK_OPTION")));
         for (Hrac h : Hra.getInstance().getHraci()) {
             if (!h.equals(hrac) && h.isAktivni()) {
                 kombo.addItem(new ComboItem(h.getJmeno()));
@@ -136,7 +140,9 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
                     ProdejGUI.this.vypis.setText(text);
                     if (prodavaBance) {
-                        ProdejGUI.this.celkem.setText("<html><table width=" + sirka + "><tr><td>CELKEM</td><td align=right>" + suma + ",-</td></tr></table></html>");
+                        ProdejGUI.this.celkem.setText("<html><table width=" + sirka + "><tr><td>"
+                                + bundle.getString("TOTAL")
+                                + "</td><td align=right>" + suma + ",-</td></tr></table></html>");
                     } else {
                         ProdejGUI.this.celkem.setText("");
                     }
@@ -177,14 +183,14 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Vzdát se");
+        jButton1.setText(bundle.getString("GIVE_UP")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Odstranit výběr");
+        jButton2.setText(bundle.getString("RESET_CHOICE")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -197,7 +203,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
         celkem.setText("jLabel1");
 
-        button.setText("Prodej");
+        button.setText(bundle.getString("SELLING")); // NOI18N
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionPerformed(evt);
@@ -260,8 +266,8 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         if (!jList1.isSelectionEmpty()) {
-            Object[] volby = {"Ano", "Ne"};
-            int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", opravdu chcete prodat své karty?"), "Prodej", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+            Object[] volby = {bundle.getString("YES"), bundle.getString("NO")};
+            int odpoved = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + bundle.getString("SELL_CARDS_CHECK")), bundle.getString("SELLING"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
             if (odpoved != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -269,7 +275,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 for (Object o : jList1.getSelectedValuesList()) {
                     String value = o.toString();
                     if (value.contains("-")) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Dostihy můžete prodávat pouze bance.");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), bundle.getString("RACES_SELL_ONLY_TO_BANK"));
                         return;
                     }
                     for (VlastnickaKarta k : karty) {
@@ -277,7 +283,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                             if (k instanceof Kun) {
                                 Kun kun = (Kun) k;
                                 if (!overStaj(kun.getStaj())) {
-                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžete prodat svého koně. Nejprve prodejte dostihy stáje (" + kun.getStaj() + ")");
+                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
                                     return;
                                 }
                             }
@@ -285,29 +291,31 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                         }
                     }
                 }
-                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), "Chystáte se prodat hráči " + kupec.getJmeno() + " své karty. Nabídněte prosím požadovanou částku. Doporučená částka je " + suma + ",-");
+                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("PROPOSE_PRIZE_WHEN_SELLING"), new Object[]{kupec.getJmeno(), suma}));
                 if (castka == null) {
                     return;
                 }
                 try {
                     int cena = Integer.parseInt(castka);
                     if (cena < 0) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Záporné hodnoty by znamenaly, že vy budete platit za to, že si " + kupec.getJmeno() + " od Vás koupí karty. Zadejte prosím kladné hodnoty.");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("PLEASE_ENTER_VALID_PRIZE"), new Object[]{kupec.getJmeno()}));
                         return;
                     }
                     if (cena > kupec.getRozpocet()) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Bohužel kupec nemá dostatek financí. Maximum je " + kupec.getRozpocet() + ",-");
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("BUYER_NOT_ENOUGH_MONEY"), new Object[]{kupec.getRozpocet()}));
                         return;
                     }
 
-                    Object[] volby2 = {"Ano", "Ne"};
-                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + ", chcete od hráče " + hrac.getJmeno() + " koupit označené karty za " + cena + ",-?"), "Obchod", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
+                    Object[] volby2 = {bundle.getString("YES"), bundle.getString("NO")};
+                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("DO_YOU_WANT_TO_BUY_CARDS"), new Object[]{hrac.getJmeno(), cena})),
+                            bundle.getString("MARKET"),
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
                     if (odpoved2 != JOptionPane.YES_OPTION) {
                         return;
                     }
                     suma = cena;
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Zadejte pouze číslo reprezentující částku.");
+                    JOptionPane.showMessageDialog(this, bundle.getString("BAD_PRIZE_FORMAT"));
                 }
             }
             List selectionValues = jList1.getSelectedValuesList();
@@ -336,7 +344,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 if (k instanceof Kun) {
                     Kun kun = (Kun) k;
                     if (!overStaj(kun.getStaj())) {
-                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), "Nemůžeš prodat svého koně. Nejprve prodej dostihy stáje (" + kun.getStaj() + ")");
+                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
                         return;
                     }
                 }
@@ -386,7 +394,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
 
     private void komboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_komboActionPerformed
         String value = ((ComboItem) kombo.getSelectedItem()).getValue();
-        if (value.equals("--banka--")) {
+        if (value.equals(bundle.getString("BANK_OPTION"))) {
             prodavaBance = true;
         } else {
             prodavaBance = false;
@@ -401,7 +409,6 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
         jList1.clearSelection();
         jList1.setSelectedIndices(idxs);
     }//GEN-LAST:event_komboActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button;

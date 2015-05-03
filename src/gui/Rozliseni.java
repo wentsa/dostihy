@@ -7,14 +7,17 @@ package gui;
 
 import grafika.RozmeryPlochy;
 import gui.plocha.HerniPlochaController;
-import javax.swing.JDialog;
+import java.util.ResourceBundle;
 import javax.swing.SwingUtilities;
+import pomocne.Konstanty;
 
 /**
  *
  * @author root
  */
 public class Rozliseni extends javax.swing.JPanel {
+
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/gui/GUI", Konstanty.defaultLocale);
 
     /**
      * Creates new form Rozliseni
@@ -40,7 +43,7 @@ public class Rozliseni extends javax.swing.JPanel {
         ok = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 15)); // NOI18N
-        jLabel1.setText("Rozlišení");
+        jLabel1.setText(bundle.getString("RESOLUTION")); // NOI18N
 
         group.add(jRadioButton1);
         jRadioButton1.setSelected(true);
@@ -49,14 +52,14 @@ public class Rozliseni extends javax.swing.JPanel {
         group.add(jRadioButton2);
         jRadioButton2.setText("1024 x 600");
 
-        apply.setText("Použít");
+        apply.setText(bundle.getString("USE")); // NOI18N
         apply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyActionPerformed(evt);
             }
         });
 
-        ok.setText("OK");
+        ok.setText(bundle.getString("OK")); // NOI18N
         ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okActionPerformed(evt);
@@ -100,11 +103,10 @@ public class Rozliseni extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void applyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyActionPerformed
-        if(jRadioButton1.isSelected()) {
+        if (jRadioButton1.isSelected()) {
             RozmeryPlochy.setOriginalniHodnoty(true);
             RozmeryPlochy.setScalingFactor(1.0f);
-        }
-        else if(jRadioButton2.isSelected()) {
+        } else if (jRadioButton2.isSelected()) {
             RozmeryPlochy.setOriginalniHodnoty(false);
             RozmeryPlochy.setScalingFactor(0.8f);
         }
@@ -116,7 +118,6 @@ public class Rozliseni extends javax.swing.JPanel {
         apply.doClick();
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_okActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apply;
