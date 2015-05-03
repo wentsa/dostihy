@@ -27,10 +27,10 @@ import pomocne.Konstanty;
  * @author wentsa
  */
 public class KartaGUI extends javax.swing.JPanel {
-
+    
     private static final long serialVersionUID = 8705997785882573312L;
     private static final ResourceBundle bundle = ResourceBundle.getBundle("languages/game/Cards", Konstanty.DEFAULT_LOCALE);
-
+    
     private final Image pozadi = GraphicsHandler.get(Konstanty.Graphics.Icons.CARD);
     private final Font fontPopis;
     private final Font fontNadpis;
@@ -58,13 +58,13 @@ public class KartaGUI extends javax.swing.JPanel {
         popis.setText(popisText);
         System.out.println(this.getBorder().getBorderInsets(this).toString());
     }
-
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(pozadi, 0, 0, this);
     }
-
+    
     private void nactiText() {
         int sirkaTabulky = this.getPreferredSize().width - 2 * this.getBorder().getBorderInsets(this).left;
         if (this.karta instanceof Finance) {
@@ -110,14 +110,14 @@ public class KartaGUI extends javax.swing.JPanel {
                     + "</td><td align=right>" + tmp.getPripravaHlavnihoDostihu() + ",-</td></tr>"
                     + "<tr><td align=left>"
                     + bundle.getString("OWNER")
-                    + " </td><td align=right>" + (tmp.getMajitel() == null ? "nikdo" : tmp.getMajitel().getJmeno()) + "</td></tr>"
+                    + " </td><td align=right>" + (tmp.getMajitel() == null ? bundle.getString("NOONE") : tmp.getMajitel().getJmeno()) + "</td></tr>"
                     + "<tr><td align=left>"
                     + bundle.getString("CURRENT_BET")
                     + " </td><td align=right>" + tmp.getSazka() + ",-</td></tr>"
                     + "</table></body></html>";
         } else if (this.karta instanceof Trener) {
             Trener tmp = (Trener) this.karta;
-            nadpisText = "TRENÉR" + " " + tmp.getCislo();
+            nadpisText = bundle.getString("TRAINER_TITLE") + " " + tmp.getCislo();
             popisText
                     = "<html><body><br><table width=" + sirkaTabulky + "><tr><td align=left>"
                     + bundle.getString("LICENSE_COST")
@@ -139,7 +139,9 @@ public class KartaGUI extends javax.swing.JPanel {
                     + "</td><td align=right>4.000,-</td></tr></table>"
                     + "<br><br><table width=" + sirkaTabulky + "><tr><td align=left>"
                     + bundle.getString("OWNER")
-                    + " </td><td align=right>" + (tmp.getMajitel() == null ? "nikdo" : tmp.getMajitel().getJmeno()) + "</td></tr></table>"
+                    + " </td><td align=right>" + (tmp.getMajitel() == null
+                            ? bundle.getString("NOONE")
+                            : tmp.getMajitel().getJmeno()) + "</td></tr></table>"
                     + "</body></html>";
         } else if (this.karta instanceof PrepravaStaje) {
             PrepravaStaje tmp = (PrepravaStaje) this.karta;
@@ -149,15 +151,17 @@ public class KartaGUI extends javax.swing.JPanel {
                     + "</td><td align=right>" + tmp.getPorizovaciCena() + ",-</td></tr></table><br><br><p>" + tmp.getPopis() + "</p><br>"
                     + "<br><br><br><br><table width=" + sirkaTabulky + "><tr><td align=left>"
                     + bundle.getString("OWNER")
-                    + " </td><td align=right>" + (tmp.getMajitel() == null ? "nikdo" : tmp.getMajitel().getJmeno()) + "</td></tr></table><br><br>"
+                    + " </td><td align=right>" + (tmp.getMajitel() == null
+                            ? bundle.getString("NOONE")
+                            : tmp.getMajitel().getJmeno()) + "</td></tr></table><br><br>"
                     + "                    </body></html>";
         }
     }
-
+    
     public int getSirkaObrazku() {
         return pozadi.getWidth(this);
     }
-
+    
     public int getVyskaObrazku() {
         return pozadi.getHeight(this);
     }
