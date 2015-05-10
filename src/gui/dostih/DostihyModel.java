@@ -14,16 +14,24 @@ import javax.swing.ImageIcon;
  * @author wentsa
  */
 public class DostihyModel implements Serializable {
+
     private static final long serialVersionUID = 1L;
     protected final int pozice;
     protected final int poradi;
-    private int souradniceX=-1;
-    private int souradniceY=-1;
-    private double uhel=-1;
-    
+    private int souradniceX = -1;
+    private int souradniceY = -1;
+    private double uhel = -1;
+
+    /**
+     * Konstruktor
+     *
+     * @param pozice cislo policka (0-39)
+     * @param hlavniDostih priznak, zda-li se jedna o hlavni dostih
+     * @param poradi poradi dostihu na konkretnim policku (0-3)
+     */
     protected DostihyModel(int pozice, boolean hlavniDostih, int poradi) {
         this.pozice = pozice;
-        this.poradi=poradi+1;
+        this.poradi = poradi + 1;
         GraphicsHandler.nactiDostih("" + this.hashCode(), hlavniDostih);
     }
 
@@ -31,6 +39,11 @@ public class DostihyModel implements Serializable {
         return souradniceX;
     }
 
+    /**
+     * Vrati ikonu dostihu
+     *
+     * @return ikona
+     */
     protected ImageIcon getDostih() {
         return GraphicsHandler.getIcon("" + this.hashCode());
     }

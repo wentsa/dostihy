@@ -7,64 +7,32 @@ package gui.dostih;
 
 import grafika.RozmeryPlochy;
 import java.io.Serializable;
-import javax.swing.ImageIcon;
 
 /**
  *
  * @author wentsa
  */
-public class HlavniDostihController implements Serializable {
+public final class HlavniDostihController extends DostihyController implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    private final DostihyModel model;
-    private final DostihyView view;
-
     public HlavniDostihController(int pozice) {
-        model = new DostihyModel(pozice, true, pozice);
-
-        nactiX();
-
-        nactiY();
-
-        view = new DostihyView(this);
-    }
-
-    private void nactiY() {
-        model.setSouradniceY((int) ((int)(310*RozmeryPlochy.getScalingFactor())
-                * Math.sin(Math.toRadians((model.pozice + 5) * 9 + 5))) 
-                + (int)(343*RozmeryPlochy.getScalingFactor()));
-    }
-
-    private void nactiX() {
-        model.setSouradniceX((int) ((int)(310*RozmeryPlochy.getScalingFactor())
-                * Math.cos(Math.toRadians((model.pozice + 5) * 9 + 5))) 
-                + (int)(338*RozmeryPlochy.getScalingFactor()));
-    }
-    
-    public void aktualizuj() {
+        super(pozice, pozice, true);
         nactiX();
         nactiY();
-        view.setIcon(model.getDostih());
-    }
-    
-    protected int getSouradniceX() {
-        return model.getSouradniceX();
     }
 
-    protected int getSouradniceY() {
-        return model.getSouradniceY();
+    @Override
+    protected void nactiY() {
+        model.setSouradniceY((int) ((int) (310 * RozmeryPlochy.getScalingFactor())
+                * Math.sin(Math.toRadians((model.pozice + 5) * 9 + 5)))
+                + (int) (343 * RozmeryPlochy.getScalingFactor()));
     }
 
-    protected ImageIcon getDostih() {
-        return model.getDostih();
+    @Override
+    protected void nactiX() {
+        model.setSouradniceX((int) ((int) (310 * RozmeryPlochy.getScalingFactor())
+                * Math.cos(Math.toRadians((model.pozice + 5) * 9 + 5)))
+                + (int) (338 * RozmeryPlochy.getScalingFactor()));
     }
-
-    public DostihyView getView() {
-        return view;
-    }
-
-    public void setVisible(boolean b) {
-        view.setVisible(b);
-    }
-
 }

@@ -14,35 +14,21 @@ import javax.swing.JLabel;
  * @author wentsa
  */
 public class DostihyView extends JLabel implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    private final DostihController controller1;
-    private final HlavniDostihController controller2;
-    
-    protected  DostihyView(DostihController controller) {
-        this.controller1=controller;
-        this.controller2=null;
+    private final DostihyController controller;
+
+    protected DostihyView(DostihyController controller) {
+        this.controller = controller;
         setBorder(null);
-        setIcon(controller1.getDostih());
+        setIcon(controller.getDostih());
         setVisible(false);
     }
-    protected  DostihyView(HlavniDostihController controller) {
-        this.controller2=controller;
-        this.controller1=null;
-        setBorder(null);
-        setIcon(controller2.getDostih());
-        setVisible(false);
-    }
-    
+
     @Override
-    public void paintComponent (Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(controller1==null) {
-            setLocation(controller2.getSouradniceX(), controller2.getSouradniceY());
-        }
-        else {
-            setLocation(controller1.getSouradniceX(), controller1.getSouradniceY());
-        }
-        
+        setLocation(controller.getSouradniceX(), controller.getSouradniceY());
     }
-    
+
 }
