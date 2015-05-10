@@ -25,8 +25,11 @@ public class SoundHandler {
 
     private static Map<String, Clip> klipy;
 
+    /**
+     * Inicializuje audio prvky hry
+     */
     public static void inicializovat() {
-        klipy = new HashMap<>();
+        klipy = new HashMap<>(5);
         try {
             nactiClip(Konstanty.Sound.DICEROLL);
             nactiClip(Konstanty.Sound.HORSE);
@@ -38,6 +41,14 @@ public class SoundHandler {
         }
     }
 
+    /**
+     * Nacte klip
+     *
+     * @param jmeno nazev souboru ve slozce /sound/ bez pripony
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     */
     private static void nactiClip(String jmeno) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         Clip clip;
         clip = AudioSystem.getClip();
@@ -47,10 +58,20 @@ public class SoundHandler {
         klipy.put(jmeno, clip);
     }
 
+    /**
+     * Prehraje audio stopu
+     *
+     * @param nazev Nazev klipu/souboru
+     */
     public static void play(String nazev) {
         playFile(klipy.get(nazev));
     }
 
+    /**
+     * Prehraje klip
+     *
+     * @param clip klip
+     */
     private static void playFile(final Clip clip) {
         clip.stop();
         clip.setFramePosition(0);

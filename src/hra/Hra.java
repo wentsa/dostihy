@@ -96,10 +96,10 @@ public class Hra implements Serializable {
         this.financeStare = new KolekceKaretImplementace<>(14);
         this.nahodaNove = new KolekceKaretImplementace<>(14);
         this.nahodaStare = new KolekceKaretImplementace<>(14);
-        this.hraci = new ArrayList<>();
+        this.hraci = new ArrayList<>(7);
         this.kostka = new Kostka();
         this.aktualniHrac = null;
-        this.vyherci = new ArrayList<>();
+        this.vyherci = new ArrayList<>(7);
         System.out.println("Statusbox");
         nastavStatusBox();
         System.out.println("Herní příběh");
