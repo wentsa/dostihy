@@ -6,7 +6,7 @@
 package hra;
 
 import grafika.RozmeryPlochy;
-import gui.figurka.obsazovaci.ObsazovaciFigurkaController;
+import gui.figurka.ObsazovaciFigurkaController;
 import gui.plocha.HerniPlochaView;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -130,7 +130,7 @@ public class Policko extends JButton implements Serializable {
      */
     public void setObsazeno(boolean obsazeno) {
         this.obsazeno = obsazeno;
-        obsazFigurka.setObsazeno(obsazeno);
+        obsazFigurka.setVisible(obsazeno);
     }
 
     /**

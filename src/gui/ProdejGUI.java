@@ -352,7 +352,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 if (prodavaBance) {
                     p.setObsazeno(false);
                     p.setMajitel(null);
-                    p.getObsazFigurka().setObsazeno(false);
+                    p.getObsazFigurka().setVisible(false);
                     k.setMajitel(null);
                 } else {
                     p.setMajitel(kupec);

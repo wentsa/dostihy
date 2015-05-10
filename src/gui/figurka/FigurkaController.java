@@ -5,59 +5,53 @@
  */
 package gui.figurka;
 
-import grafika.GraphicsHandler;
-import java.io.Serializable;
+import grafika.RozmeryPlochy;
 import pomocne.Barva;
 
 /**
  *
  * @author wentsa
  */
-public class FigurkaController implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private final FigurkaModel model;
-    private final FigurkaView view;
-    
+public class FigurkaController extends FigurkyController {
+
+    private static final long serialVersionUID = 6495948149988063846L;
+
     public FigurkaController(Barva barva, int cislo) {
-        model=new FigurkaModel(barva, cislo);
-        view=new FigurkaView(this);
-        view.setIcon(model.getObrazek());
+        super(barva, 0, cislo, true);
     }
-    public void zmenBarvu(Barva barva) {
-        model.zmenBarvu(barva);
-        
-    }
+
     public Barva getBarva() {
         return model.getBarva();
     }
+
     public void popojdi(int kolik) {
-        model.setPozice((model.getPozice()+kolik)%40);
-        if(model.getPozice()<0) {
+        model.setPozice((model.getPozice() + kolik) % 40);
+        if (model.getPozice() < 0) {
             model.setPozice(model.getPozice() + 40);
         }
-        model.nastavSouradnice();
+        nastavSouradnice();
         view.repaint();
     }
-    public void aktualizuj() {
-        model.nastavSouradnice();
-        view.setIcon(model.getObrazek());
-        view.repaint();
-    }
+
     public int getPozice() {
         return model.getPozice();
     }
-    protected int getSouradniceX() {
-        return model.getSouradniceX();
-    }
-    protected int getSouradniceY() {
-        return model.getSouradniceY();
+
+    @Override
+    protected void nastavX() {
+        int cislo = model.getCislo();
+        model.setSouradniceX((int) (((int) (150 * RozmeryPlochy.getScalingFactor()) + (cislo <= 5 ? cislo : cislo - 5) * (int) (10 * RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.cos(Math.toRadians((getPozice() + 5) * 9 //uhel
+                                + (cislo <= 5 ? (int) (2 * RozmeryPlochy.getScalingFactor()) : (int) (7 * RozmeryPlochy.getScalingFactor()))))) //dorovnani uhlu podle pozice
+                + (int) (340 * RozmeryPlochy.getScalingFactor())); //x stredu
     }
 
-    public void setVisible(boolean b) {
-        view.setVisible(b);
-    }
-
-    public FigurkaView getView() {
-        return view;
+    @Override
+    protected void nastavY() {
+        int cislo = model.getCislo();
+        model.setSouradniceY((int) (((int) (150 * RozmeryPlochy.getScalingFactor()) + (cislo <= 5 ? cislo : cislo - 5) * (int) (10 * RozmeryPlochy.getScalingFactor())) //polomer
+                * Math.sin(Math.toRadians((getPozice() + 5) * 9 //uhel
+                                + (cislo <= 5 ? (int) (2 * RozmeryPlochy.getScalingFactor()) : (int) (7 * RozmeryPlochy.getScalingFactor()))))) //dorovnani uhlu podle pozice
+                + (int) (345 * RozmeryPlochy.getScalingFactor())); //x stredu
     }
 }
