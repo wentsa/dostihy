@@ -664,8 +664,10 @@ public class Hra implements Serializable {
         if (aktualniHrac.getRozpocet() >= p.getKarta().getPorizovaciCena()) {
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] volby = {bundle.getString("YES"), bundle.getString("NO")};
-            int odpoved = JOptionPane.showOptionDialog(null, (java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/game/Game_cs_CZ").getString("WANT_TO_BUY_CARD"), new Object[]{p.getNazev(), p.getKarta().getPorizovaciCena()})),
-                    bundleColors.getString("BUYING"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+
+            String otazka = MessageFormat.format(bundle.getString("WANT_TO_BUY_CARD"), new Object[]{p.getNazev(), p.getKarta().getPorizovaciCena()});
+            int odpoved = JOptionPane.showOptionDialog(null, otazka, bundle.getString("BUYING"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby, volby[0]);
+
             if (odpoved == JOptionPane.YES_OPTION) {
                 if (p.getKarta() instanceof Kun) {
                     SoundHandler.play(Konstanty.Sound.HORSE);

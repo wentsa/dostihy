@@ -10,6 +10,7 @@ import hra.Hra;
 import hra.Hrac;
 import hra.Policko;
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -283,7 +284,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                             if (k instanceof Kun) {
                                 Kun kun = (Kun) k;
                                 if (!overStaj(kun.getStaj())) {
-                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
+                                    JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), MessageFormat.format(bundle.getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
                                     return;
                                 }
                             }
@@ -291,23 +292,23 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                         }
                     }
                 }
-                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("PROPOSE_PRIZE_WHEN_SELLING"), new Object[]{kupec.getJmeno(), suma}));
+                String castka = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), MessageFormat.format(bundle.getString("PROPOSE_PRIZE_WHEN_SELLING"), new Object[]{kupec.getJmeno(), suma}));
                 if (castka == null) {
                     return;
                 }
                 try {
                     int cena = Integer.parseInt(castka);
                     if (cena < 0) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("PLEASE_ENTER_VALID_PRIZE"), new Object[]{kupec.getJmeno()}));
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), MessageFormat.format(bundle.getString("PLEASE_ENTER_VALID_PRIZE"), new Object[]{kupec.getJmeno()}));
                         return;
                     }
                     if (cena > kupec.getRozpocet()) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("BUYER_NOT_ENOUGH_MONEY"), new Object[]{kupec.getRozpocet()}));
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), MessageFormat.format(bundle.getString("BUYER_NOT_ENOUGH_MONEY"), new Object[]{kupec.getRozpocet()}));
                         return;
                     }
 
                     Object[] volby2 = {bundle.getString("YES"), bundle.getString("NO")};
-                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("DO_YOU_WANT_TO_BUY_CARDS"), new Object[]{hrac.getJmeno(), cena})),
+                    int odpoved2 = JOptionPane.showOptionDialog(null, (kupec.getJmeno() + MessageFormat.format(bundle.getString("DO_YOU_WANT_TO_BUY_CARDS"), new Object[]{hrac.getJmeno(), cena})),
                             bundle.getString("MARKET"),
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, volby2, volby2[0]);
                     if (odpoved2 != JOptionPane.YES_OPTION) {
@@ -344,7 +345,7 @@ public class ProdejGUI extends javax.swing.JPanel implements Serializable {
                 if (k instanceof Kun) {
                     Kun kun = (Kun) k;
                     if (!overStaj(kun.getStaj())) {
-                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("languages/gui/GUI_cs_CZ").getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
+                        JOptionPane.showMessageDialog((ProdejDialog) SwingUtilities.getWindowAncestor(this), MessageFormat.format(bundle.getString("CANNOT_SELL_HORSE_WITH_ACTIVE_RACES"), new Object[]{kun.getStaj()}));
                         return;
                     }
                 }
