@@ -39,29 +39,20 @@ public class HlavniOkno extends javax.swing.JFrame {
     private HerniPlochaView plocha;
     private Vysledky vysledky;
     private final MyCardLayout layout = new MyCardLayout();
-    private final Thread vlakno;
     private final Pravidla pravidla = new Pravidla(true);
+    private final ProgressBar progressBar = new ProgressBar();
 
     public HlavniOkno() {
         initComponents();
-        vlakno = new Thread() {
-            @Override
-            public void run() {
-                System.out.println("načítám...\n");
-                plocha = HerniPlochaController.getInstance().getView();
-                System.out.println("Hra načtena");
-                vysledky = new Vysledky();
-                jPanel2.add(plocha, "plocha");
-                jPanel2.add(vysledky, "vysledky");
-            }
-        };
-        vlakno.start();
+        progressBar.setAttributes(this, jPanel2);
         nactiKarty();
         setLocationRelativeTo(null);
     }
 
     public void zalozHrace(DataHraci d) throws InterruptedException {
-        vlakno.join();
+        nastavProgressBar();
+        Thread.sleep(5000);
+        progressBar.nacti();
         Hra.getInstance().zalozHrace(d);
         HerniPlochaController.getInstance().nactiHrace();
         nastavPlochu();
@@ -72,13 +63,12 @@ public class HlavniOkno extends javax.swing.JFrame {
         jPanel2.removeAll();
         volba = new VolbaHracu();
         HerniPlochaController.smazInstance();
-        plocha = HerniPlochaController.getInstance().getView();
+        setPlocha(HerniPlochaController.getInstance().getView());
         nactiKarty();
         setLocationRelativeTo(null);
     }
 
     public void nactiHru() throws InterruptedException {
-        vlakno.join();
         JFileChooser nacitac = HerniPlochaController.getInstance().getNacitac();
         HerniPlochaController.getInstance().nastavVolbuNacitace(nacitac.showOpenDialog(this));
         if (HerniPlochaController.getInstance().getNacitacOption() == JFileChooser.APPROVE_OPTION) {
@@ -100,8 +90,14 @@ public class HlavniOkno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    private void nastavProgressBar() {
+        progressBar.getBar().setValue(progressBar.getBar().getMinimum());
+        layout.show(jPanel2, "progress_bar");
+        pack();
+        setLocationRelativeTo(null);
+    }
+
     public void nastavPlochu() throws InterruptedException {
-        vlakno.join();
         layout.show(jPanel2, "plocha");
         pack();
         setLocationRelativeTo(null);
@@ -146,15 +142,12 @@ public class HlavniOkno extends javax.swing.JFrame {
     }
 
     public void nastavVysledky() {
-        try {
-            vlakno.join();
-            vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
-            layout.show(jPanel2, "vysledky");
-            pack();
-            setLocationRelativeTo(null);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(HlavniOkno.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        vysledky.vyplnTabulku(Hra.getInstance().getVyherci());
+        layout.show(jPanel2, "vysledky");
+        pack();
+        setLocationRelativeTo(null);
+
     }
 
     /**
@@ -283,7 +276,17 @@ public class HlavniOkno extends javax.swing.JFrame {
         jPanel2.add(menu, "menu");
         jPanel2.add(volba, "volba");
         jPanel2.add(pravidla, "pravidla");
+        layout.addLayoutComponent(progressBar, "progress_bar");
+        // jPanel2.add(progressBar, "progress_bar");
         pack();
+    }
+
+    public void setPlocha(HerniPlochaView plocha) {
+        this.plocha = plocha;
+    }
+
+    public void setVysledky(Vysledky vysledky) {
+        this.vysledky = vysledky;
     }
 
 }
